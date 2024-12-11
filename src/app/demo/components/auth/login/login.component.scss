@@ -1,0 +1,71 @@
+:host ::ng-deep eyeicon,
+:host ::ng-deep eyeslashicon {
+  transform: scale(1.6);
+  margin-right: 1rem;
+  right: 0.5rem;
+  color: var(--primary-color) !important;
+}
+
+.container-loading {
+  position: fixed;
+  width: 100%;
+  height: 850px; /* Altura de tu elección */
+  background-color: transparent; /* Color de fondo de tu elección */
+  z-index: 1000;
+}
+
+.transparent-div-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5; /* Cambia este valor para ajustar la transparencia (0 es completamente transparente, 1 es opaco) */
+  background-color: #fff; /* Color de fondo de tu elección */
+}
+
+.centered-div-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: transparent; /* Color de fondo de tu elección para el div centrado */
+}
+
+.texto {
+  font-size: 14px !important;
+  font-weight: 900;
+}
+
+// .rotated {
+//   transform: rotate(-90deg);
+// }
+
+// .rounded-container {
+//   background-clip: padding-box; /* Redondea el fondo del contenedor */
+//   border-radius: 10vw; /* Ajusta el valor según el nivel de redondeo deseado */
+// }
+
+// .d-flex {
+//   display: flex;
+// }
+
+// @media screen and (max-width: 768px) {
+//   .custom-div {
+//       width: 85vw;
+//       margin-right: 10vw;
+//   }
+// }
+
+// @media screen and (min-width: 769px) {
+//   .custom-div {
+//       margin-right: 40vw;
+//   }
+// }
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.5;
+}
