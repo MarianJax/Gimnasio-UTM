@@ -1,1 +1,30 @@
-<p>rutinas works!</p>
+<div class="container-loading" *ngIf="cargar">
+  <div class="transparent-div-loading"></div>
+  <div class="centered-div-loading">
+    <img
+      src="../../../assets/images/loading.gif"
+      alt=""
+      style="width: 550px; height: 300px"
+    />
+  </div>
+</div>
+
+<div class="flex BCD6E1 text-black-alpha-90 flex-column gap-3">
+  <div class="bg-white">
+    <p>Disponibilidad del Gimnasio: {{ availability }}%</p>
+  </div>
+  <section style="padding: 88px 62px" class="bg-white flex flex-wrap gap-6">
+    <app-workout-card
+      *ngFor="let workout of workouts; let i = index"
+      #workout=""
+      [workouts.name]="workout.name"
+      [workouts.duracion]="workout.duration"
+    >
+      <app-workout-info class="workout-items" *ngIf="workouts[i]">
+        <h1 class="text-2xl text-black-alpha-90">{{ workouts[i].name }}</h1>
+        <span>{{ workouts[i].duration }}</span>
+        <button>+ Agendar</button>
+      </app-workout-info>
+    </app-workout-card>
+  </section>
+</div>

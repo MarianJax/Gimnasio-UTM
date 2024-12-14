@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 export class AppTopBarComponent {
 
     items!: MenuItem[];
-    cerrar_sesion!: MenuItem[];
 
     nombre_usuario: any;
     cedula: any;
@@ -58,24 +57,7 @@ export class AppTopBarComponent {
             this.nombre_usuario = this.eventos.usuario.p_funcionario;
             this.cedula = this.eventos.usuario.p_cedula;
         }
-        this.cerrar_sesion = [
-            {
-                label: 'Perfil',
-                items: [
-                    {
-                        label: 'Ver Perfil',
-                        icon: 'pi pi-user'
-                    },
-                    {
-                        label: 'Cerrar Sesión',
-                        icon: 'pi pi-sign-out',
-                        command: () => {
-                            this.cerrarSesion();
-                        }
-                    }
-                ]
-            }
-        ]
+        
     }
 
     cambiar_modo_oscuro() {
@@ -118,13 +100,5 @@ export class AppTopBarComponent {
             onComplete();
         });
     }
-    cerrarSesion() {
-        this.api.logout();
-        //this.router.navigate(['/auth/login']);
-    }
-
-
-
-
 
 }
