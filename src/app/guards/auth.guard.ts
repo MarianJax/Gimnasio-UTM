@@ -17,8 +17,8 @@ export class AuthGuard implements CanActivate {
   canActivate(): boolean {
     console.log('AuthGuard#canActivate called');
 
-    //if (this.api.isLoggedIn()) { return true };
-    return true;
+    if (this.api.isLoggedIn()) { return true };
+    console.log(this.api.isLoggedIn())
 
     console.log('AuthGuard#canActivate not authorized to access page');
     // Can store current route and redirect back to it

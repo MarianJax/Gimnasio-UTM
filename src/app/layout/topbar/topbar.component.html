@@ -1,0 +1,30 @@
+<div class="layout-topbar">
+<a class="layout-topbar-logo" routerLink="nivelacion/terminos_condiciones">
+    <img src="../../assets/images/{{layoutService.config.colorScheme === 'light' ? 'logo_horizontal' : 'logo_horizontal_oscuro'}}.png"
+        alt="logo">
+</a>
+
+<button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button"
+(click)="layoutService.showProfileSidebar()">
+<i class="pi pi-ellipsis-v"></i>
+</button>
+
+<a class="layout-topbar-logo-utm-unidos" routerLink="nivelacion/terminos_condiciones">
+<img src="../../assets/images/utm_unidos.png" alt="logo">
+</a>
+
+<div #topbarmenu class="layout-topbar-menu"
+[ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
+<div style="display: flex; align-items: center;">
+<span>Bienvenido, {{ nombre_usuario }}</span>
+</div>
+
+<button class="p-link layout-topbar-button" (click)="cambiar_modo_oscuro()">
+  <i class="pi pi-moon"></i>
+  <span>Claro/Oscuro</span>
+</button>
+<button class="p-link layout-topbar-button" (click)="logout()">
+  <i class="pi pi-sign-out"></i>
+  <span>Salir</span>
+</button>
+</div>

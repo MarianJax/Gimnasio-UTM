@@ -1,0 +1,31 @@
+.sidebar {
+  place-items: center;
+}
+.sidebar-menu {
+  text-decoration: none;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  li {
+    text-decoration: none;
+    list-style: none;
+    list-style-position: inside;
+    a {
+      color: var(--text-color) !important;
+      .icon-wrapper {
+        padding: 0px 20px 0px 0px;
+        i,
+        i::before {
+          height: 100%;
+          font-size: 18px;
+        }
+      }
+
+      .menu-text {
+        font-size: 18px;
+      }
+    }
+  }
+}

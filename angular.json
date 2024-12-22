@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "gimnasio-utm": {
+    "gym-utm": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,10 +17,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/gimnasio-utm",
+            "outputPath": "dist/gym-utm",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -46,12 +48,6 @@
                   "maximumError": "4kb"
                 }
               ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
               "outputHashing": "all"
             },
             "development": {
@@ -69,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "gimnasio-utm:build:production"
+              "browserTarget": "gym-utm:build:production"
             },
             "development": {
-              "browserTarget": "gimnasio-utm:build:development"
+              "browserTarget": "gym-utm:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "gimnasio-utm:build"
+            "browserTarget": "gym-utm:build"
           }
         },
         "test": {

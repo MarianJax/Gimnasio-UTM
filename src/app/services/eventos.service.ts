@@ -120,7 +120,7 @@ export class EventosService {
         p_error: "",
         p_status: 0,
         p_roles: [{
-            descripcion: 'ESTUDIANTE'
+            descripcion: 'NO DEFINIDO'
         }],
         p_aplicacion: [{
             descripcion: 'NO DEFINIDO'
@@ -143,9 +143,9 @@ export class EventosService {
         p_funcionario: "",
         p_idpersonal: -1,
         p_indice_puesto_nombre: "",
-        p_cedula: "1314702018",
-        p_nombres: "Marian",
-        p_apellidos: "Parrales",
+        p_cedula: "",
+        p_nombres: "",
+        p_apellidos: "",
         p_escuelas: "",
         p_departamentos: ""
     };
