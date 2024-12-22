@@ -10,12 +10,14 @@ import { CoreModule } from './core/core.module';
 import { AdmiModule } from './admi/admi.component.module';
 import { AuthModule } from './auth/auth.module';
 import { NotfoundComponent } from './component/notfound/notfound.component';
+import { LoginComponent } from './auth/login/login.component';
 
 
 
 const routes: Routes = [
   
     { path: '', pathMatch: 'full', redirectTo: 'auth/login' },
+    { path: 'login', component: LoginComponent }
 
           
   {
