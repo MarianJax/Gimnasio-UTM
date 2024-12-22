@@ -1,0 +1,16 @@
+{
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "always"
+    },
+    "eslint.codeActionsOnSave.rules": null,
+    "eslint.format.enable": true,
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 2000,
+    "files.eol": "\n",
+    "files.encoding": "utf8",
+    "editor.wordWrap": "on",
+}
