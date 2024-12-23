@@ -1,0 +1,35 @@
+.container {
+    background-color: rgba(253, 255, 255, 0.082);
+    text-align: center;
+  }
+
+.workout-item{
+    padding: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .workout-items {
+    width: 240px;
+    padding: 40px 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    border: 2px solid #4caf50;
+    border-radius: 30px 2px;
+  }
+  
+  button {
+    width: fit-content;
+    margin: 0px auto;
+    padding: 5px 10px;
+    border: solid 2px #4caf50;
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+  }
+  button:hover {
+  background-color: #45a049
+
+  }
