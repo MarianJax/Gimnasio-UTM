@@ -23,19 +23,13 @@
     background-color: transparent;
     box-shadow: none;
     display: block;">
-        <div class="flex items-end ml-2 w-1 h-4 bg-green-100 rounded overflow-hidden"
-        *ngIf="selectedBehaviorTypesResultsCountByCountry[country.key].passedPercent">
-        <div class="flex w-full h-full bg-green-400"></div>
+    <p>Disponibilidad del Gimnasio {{ availability}}</p>
+        <div class="progress-bar-fill">  </div>
+    </div>
+        </div>h-full bg-green-400"><div>
     </div>-->
     <section style="padding: 88px 62px" class="bg-white flex flex-wrap gap-6">
-    <app-workout-card
-        *ngFor="let workout of workouts; let i = index"
-        [name]="workout.name"
-        [duration]="workout.duration">
-    </app-workout-card>
-        <app-workout-info class="workout-items" *ngIf="workouts[i]">
-        </app-workout-info>
-      </app-workout-card>
+
     </section>
-  </div>
+
   

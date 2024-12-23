@@ -2,7 +2,13 @@
     background-color: rgba(253, 255, 255, 0.082);
     text-align: center;
   }
-  
+
+.workout-item{
+    padding: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
   .workout-items {
     width: 240px;
     padding: 40px 35px;
@@ -23,4 +29,7 @@
     border-radius: 5px;
     color: black;
   }
-  
+  button:hover {
+  background-color: #45a049
+
+  }
