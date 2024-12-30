@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginModule } from './pages/auth/login/login.module';
 import { TopBarComponent } from './layout/top-bar/top-bar.component';
-import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
   {
     path: 'auth',
     children: [
-      { path: 'login', loadChildren: () => import('./pages/auth/login/login.module').then(m => m.LoginModule) }
+      { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) }
     ]
   },
   {
