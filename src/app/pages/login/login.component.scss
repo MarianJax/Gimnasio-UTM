@@ -1,0 +1,64 @@
+:host ::ng-deep eyeicon,
+:host ::ng-deep eyeslashicon {
+  transform: scale(1.6);
+  margin-right: 1rem;
+  right: 0;
+  color: var(--primary-color) !important;
+}
+
+.container-loading {
+  position: fixed;
+  width: 100%;
+  height: 850px;
+  /* Altura de tu elección */
+  background-color: transparent;
+  /* Color de fondo de tu elección */
+  z-index: 1000;
+}
+
+.transparent-div-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  /* Cambia este valor para ajustar la transparencia (0 es completamente transparente, 1 es opaco) */
+  background-color: #fff;
+  /* Color de fondo de tu elección */
+}
+
+.centered-div-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: transparent;
+  /* Color de fondo de tu elección para el div centrado */
+}
+
+.texto {
+  font-size: 14px !important;
+  font-weight: 900;
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.5;
+}
+
+#login {
+  margin: 0px auto !important;
+}
+
+.title {
+  text-shadow: 4px 2px 0px var(--primary-color);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px;
+  letter-spacing: 0.04em;
+  font-weight: 900;
+  margin: 35px auto;
+  text-transform: uppercase;
+}
