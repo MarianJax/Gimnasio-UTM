@@ -12,14 +12,6 @@ const routes: Routes = [
         loadChildren: () => import('./entrenamiento/entrenamiento.module').then(m => m.EntrenamientoModule)
       }
     ]
-  },
-  {
-    path: 'agendamiento',
-    loadChildren: () => import('../agendamiento/agendamiento.module').then(m => m.AgendamientoModule)
-  },
-  {
-    path: 'membresia',
-    loadChildren: () => import('../membresia/membresia.module').then(m => m.MembresiaModule)
   }
 ];
 
