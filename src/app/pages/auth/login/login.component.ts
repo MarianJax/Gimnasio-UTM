@@ -10,5 +10,5 @@ import { RippleModule } from 'primeng/ripple';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  
+  title = 'login-page';
 }
