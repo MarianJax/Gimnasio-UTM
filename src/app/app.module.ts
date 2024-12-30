@@ -1,25 +1,33 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { AppComponent } from './app.component';
-import { TopBarComponent } from './layout/top-bar/top-bar.component';
-import { AdminRoutingModule } from './pages/admin/admin-routing.module';
-import { HomeRoutingModule } from './pages/home/home-routing.module';
-import { HomeComponent } from './pages/home/home.component';
+import { LayoutComponent } from './layout/layout.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { MenuModule } from 'primeng/menu';
+import { LayoutModule } from './layout/layout.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    TopBarComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    LayoutModule,
+    NgbModule
   ],
-  providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+  providers: [
+    {
+        provide: LocationStrategy,
+        useClass: HashLocationStrategy
+    },
+    MenuModule,
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

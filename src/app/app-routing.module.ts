@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TopBarComponent } from './layout/top-bar/top-bar.component';
+import { LayoutComponent } from './layout/layout.component';
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: TopBarComponent,
+    component: LayoutComponent,
     children: [
       {
         path: '',
@@ -20,14 +20,22 @@ const routes: Routes = [
       {
         path: 'admin',
         loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)
+      },
+      {
+        path: 'agendamiento',
+        loadChildren: () => import('./pages/agendamiento/agendamiento.module').then(m => m.AgendamientoModule)
+      },
+      {
+        path: 'membresia',
+        loadChildren: () => import('./pages/membresia/membresia.module').then(m => m.MembresiaModule)
       }
     ]
   },
-  {
-    path: '',
-    redirectTo: '/auth/login',
-    pathMatch: 'full'
-  },
+  // {
+  //   path: '',
+  //   redirectTo: '/auth/login',
+  //   pathMatch: 'full'
+  // },
 ];
 
 @NgModule({
