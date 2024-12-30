@@ -28,5 +28,6 @@ import { RippleModule } from 'primeng/ripple';
     RippleModule
   ]
 })
+
 export class LoginModule { }
 
