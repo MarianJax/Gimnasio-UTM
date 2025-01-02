@@ -24,7 +24,7 @@
         </div>
 
         <button class="p-link layout-topbar-button" (click)="cambiar_modo_oscuro()">
-            <i class="pi pi-moon"></i>
+            <i class="pi" [ngClass]="layoutService.config.colorScheme === 'light' ? 'hgi-stroke hgi-moon-02' : 'hgi-stroke hgi-sun-03'"></i>
             <span>Claro/Oscuro </span>
         </button>
         <button class="p-link layout-topbar-button" (click)="cerrarSesion()"> 

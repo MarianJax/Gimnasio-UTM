@@ -80,19 +80,19 @@ export class MenuComponent implements OnInit {
         items: [
           {
             label: 'Explorar',
-            icon: 'pi pi-home',
+            icon: 'hgi-stroke hgi-discover-square',
             routerLink: ['/'],
             visible: true,
             items: [
               {
                 label: 'Rutinas',
-                icon: 'pi pi-home',
+                icon: 'hgi-stroke hgi-home-03',
                 routerLink: ['/'],
                 visible: true
               },
               {
                 label: 'Entrenamiento',
-                icon: 'pi pi-home',
+                icon: 'hgi-stroke hgi-layers-01',
                 routerLink: ['/entrenamiento'],
                 visible: true
               },
@@ -106,13 +106,13 @@ export class MenuComponent implements OnInit {
           },
           {
             label: 'Agendamiento',
-            icon: 'pi pi-calendar',
+            icon: 'hgi-stroke hgi-calendar-03',
             routerLink: ['/agendamiento'],
             visible: true
           },
           {
             label: 'Membresia',
-            icon: 'pi pi-id-card',
+            icon: 'hgi-stroke hgi-identity-card',
             routerLink: ['/membresia'],
             visible: true
           },

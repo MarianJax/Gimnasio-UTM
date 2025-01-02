@@ -18,17 +18,17 @@ const routes: Routes = [
         loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)
       },
       {
-        path: 'admin',
-        loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)
-      },
-      {
         path: 'agendamiento',
         loadChildren: () => import('./pages/agendamiento/agendamiento.module').then(m => m.AgendamientoModule)
       },
       {
         path: 'membresia',
         loadChildren: () => import('./pages/membresia/membresia.module').then(m => m.MembresiaModule)
-      }
+      },
+      {
+        path: 'admin',
+        loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)
+      },
     ]
   },
   // {
