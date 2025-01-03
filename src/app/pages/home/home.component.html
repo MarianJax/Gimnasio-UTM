@@ -1,2 +1,22 @@
-<h5>Inicio para las rutinas</h5>
-<router-outlet></router-outlet>
+<div style="display: flex; flex-direction: column; gap: 40px;">
+    <div
+        style="background-color: var(--surface-overlay); padding: 20px; border-radius: 12px; height: 100%; width: 100%;">
+        <h4 style="font-size: 24px;">Disponibilidad del Gimnasio</h4>
+
+    </div>
+
+    <section
+        style="background-color: var(--surface-overlay); padding: 60px 80px; border-radius: 12px; height: 100%; width: 100%; flex-wrap: wrap; display: flex; gap:60px; justify-content: center;">
+        <article
+            style="padding: 35px 40px; display: flex; flex-direction: column; gap:10px; width: 210px; border: 1px solid var(--primary-color); border-radius: 30px 2px; justify-content: center; "
+            *ngFor="let rutina of rutinas">
+            <h5 style="text-align: center; text-wrap: unset;">{{rutina.name}}</h5>
+            <div style="display: flex; justify-content: center; flex-direction: column;">
+                <mage-icon name='clock' strokeWidth="2px" size="30px"></mage-icon>
+                <p style="text-align: center;">{{rutina.time}}</p>
+            </div>
+            <button pButton style="display: flex; gap: 5px" (click)="goToRutinaDetail(rutina.slug)" 
+            pRipple><mage-icon name='plus' size="15px"></mage-icon>Ver Detalles</button>
+        </article>
+    </section>
+</div>

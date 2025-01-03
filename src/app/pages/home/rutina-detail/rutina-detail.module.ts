@@ -1,23 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HomeRoutingModule } from './home-routing.module';
-import { HomeComponent } from './home.component';
-import { IconModule } from 'src/app/components/icons/icons.module';
+import { RutinaDetailRoutingModule } from './rutina-detail-routing.module';
+import { RutinaDetailComponent } from './rutina-detail.component';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 
 
 @NgModule({
   declarations: [
-    HomeComponent
+    RutinaDetailComponent
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule,
-    IconModule,
+    RutinaDetailRoutingModule,
     ButtonModule,
     RippleModule
   ]
 })
-export class HomeModule { }
+export class RutinaDetailModule { }
