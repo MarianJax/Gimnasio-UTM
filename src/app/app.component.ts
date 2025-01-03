@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { LayoutService } from './layout/service/layout.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -36,6 +36,20 @@ export class AppComponent implements OnInit {
           location.reload();
         }
       });
+
+    this.primengConfig.setTranslation({
+      accept: 'Accept',
+      reject: 'Cancel',
+      dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+      dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+      dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+      monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+      monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+      today: 'Hoy',
+      clear: 'Limpiar',
+      weekHeader: 'Semana',
+      //translations
+    });
 
     this.primengConfig.ripple = true;       //enables core ripple functionality
 

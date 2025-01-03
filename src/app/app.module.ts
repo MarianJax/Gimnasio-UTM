@@ -4,30 +4,33 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { AppComponent } from './app.component';
-import { LayoutComponent } from './layout/layout.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MenuModule } from 'primeng/menu';
 import { LayoutModule } from './layout/layout.module';
+import { HttpClientModule } from '@angular/common/http';
+import { IconModule } from './components/icons/icons.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
+    IconModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
     LayoutModule,
     NgbModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [
     {
-        provide: LocationStrategy,
-        useClass: HashLocationStrategy
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
     },
     MenuModule,
-],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
