@@ -416,13 +416,13 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 .p-datepicker table td > span {
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 50%;
+  border-radius: 4px;
   transition: box-shadow 0.2s;
   border: 1px solid transparent;
 }
 .p-datepicker table td > span.p-highlight {
   color: #495057;
-  background: #E8F5E9;
+  background: color-mix(in srgb, var(--primary-color) 30%, transparent);;
 }
 .p-datepicker table td > span:focus {
   outline: 0 none;
@@ -430,13 +430,13 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   box-shadow: 0 0 0 0.2rem #b7e0b8;
 }
 .p-datepicker table td.p-datepicker-today > span {
-  background: #ced4da;
-  color: #495057;
+  background: var(--primary-color);
+  color: var(--surface-0);
   border-color: transparent;
 }
 .p-datepicker table td.p-datepicker-today > span.p-highlight {
   color: #495057;
-  background: #E8F5E9;
+  background: color-mix(in srgb, var(--primary-color) 30%, transparent);;
 }
 .p-datepicker .p-datepicker-buttonbar {
   padding: 1rem 0;
@@ -490,7 +490,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 }
 .p-datepicker .p-monthpicker .p-monthpicker-month.p-highlight {
   color: #495057;
-  background: #E8F5E9;
+  background: color-mix(in srgb, var(--primary-color) 30%, transparent);;
 }
 .p-datepicker .p-yearpicker {
   margin: 0.5rem 0;
@@ -502,7 +502,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 }
 .p-datepicker .p-yearpicker .p-yearpicker-year.p-highlight {
   color: #495057;
-  background: #E8F5E9;
+  background: color-mix(in srgb, var(--primary-color) 30%, transparent);;
 }
 .p-datepicker.p-datepicker-multiple-month .p-datepicker-group {
   border-left: 1px solid #dee2e6;
@@ -519,7 +519,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   padding-right: 0;
 }
 .p-datepicker:not(.p-disabled) table td span:not(.p-highlight):not(.p-disabled):hover {
-  background: #e9ecef;
+  background: color-mix(in srgb, var(--primary-color) 50%, transparent);
 }
 .p-datepicker:not(.p-disabled) table td span:not(.p-highlight):not(.p-disabled):focus {
   outline: 0 none;
@@ -527,7 +527,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   box-shadow: 0 0 0 0.2rem #b7e0b8;
 }
 .p-datepicker:not(.p-disabled) .p-monthpicker .p-monthpicker-month:not(.p-disabled):not(.p-highlight):hover {
-  background: #e9ecef;
+  background: color-mix(in srgb, var(--primary-color) 50%, transparent);
 }
 .p-datepicker:not(.p-disabled) .p-monthpicker .p-monthpicker-month:not(.p-disabled):focus {
   outline: 0 none;

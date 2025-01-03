@@ -61,6 +61,7 @@
 
         a {
             display: flex;
+            height: 44px;
             align-items: center;
             position: relative;
             outline: 0 none;
@@ -91,6 +92,11 @@
 
             &:focus {
                 @include focused-inset();
+            }
+
+
+            span {
+                height: min-content;
             }
         }
 
