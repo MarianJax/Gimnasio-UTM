@@ -20,6 +20,7 @@ import { LayoutComponent } from './layout.component';
 import { MenuComponent } from './sidebar/menu/menu.component';
 import { MenuitemComponent } from './sidebar/menuitem/menuitem.component';
 import { HttpClientModule } from '@angular/common/http';
+import { IconModule } from "../components/icons/icons.module";
 
 
 @NgModule({
@@ -46,8 +47,8 @@ import { HttpClientModule } from '@angular/common/http';
     RippleModule,
     RouterModule,
     HttpClientModule,
-    // AppConfigModule
-  ],
+    IconModule
+],
   exports: [
     LayoutComponent
   ]
