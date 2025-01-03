@@ -1,1 +1,23 @@
-<p>agendamiento works!</p>
+<div class="w-full justify-content-end mb-4">
+    <button (click)="agregarAgendamiento()" style="display: flex; gap: 5px; margin-left: auto; background: transparent; border: transparent; color: var(--surface-900);" pButton pRipple>
+        <mage-icon name="bookmark-plus" size="20px" ></mage-icon>
+        Registrar Agendamiento</button>
+</div>
+
+<div class="flex w-full" style="gap: 10px 30px; ">
+    <p-calendar class="max-w-full" [(ngModel)]="date" [inline]="true" />
+    <div class="flex flex-column w-full" style="gap: 30px">
+        <div class="w-full" style="border: 3px solid var(--primary-color); border-radius: 22px; padding: 25px 40px;">
+            <header class="flex gap-2">
+                <mage-icon name="arrow-list" size="20px"></mage-icon>
+                Lista de Reservas
+            </header>
+        </div>
+        <div class="w-full" style="border: 3px solid var(--primary-color); border-radius: 22px; padding: 25px 40px;">
+            <header class="flex gap-2">
+                <mage-icon name="arrow-list" size="20px"></mage-icon>
+                Agendamientos
+            </header>
+        </div>
+    </div>
+</div>
