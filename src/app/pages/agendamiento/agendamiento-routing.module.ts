@@ -6,7 +6,6 @@ import { RegistroComponent } from '../membresia/registro/registro.component';
 const routes: Routes = [
   {
     path: '',
-
     component: AgendamientoComponent,
   },
 ];
