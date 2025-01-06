@@ -2,7 +2,7 @@
     <p-button (click)="Regresar()" class="flex gap-3" style="padding: 10px 15px;" pButton pRipple ><mage-icon size="20px" name="arrow-left"></mage-icon> Regresar</p-button>
 </div>
 
-<p-dropdown [options]="days" [(ngModel)]="selectedDays" optionLabel="name" placeholder="Select a City" />
+<p-dropdown [options]="days" [(ngModel)]="selectedDays" optionLabel="name" placeholder="Seleccionar dia de semanana" />
 
 <div class="card">
     <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
