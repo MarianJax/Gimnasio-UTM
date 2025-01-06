@@ -16,17 +16,17 @@ export class RegistroComponent {
   selectedDays: undefined;
 
   cols = [
-    { field: 'code', header: 'Code' },
-    { field: 'name', header: 'Name' },
+    { field: 'hora', header: 'Hora' },
+    { field: 'estado', header: 'Estado' },
     { field: 'category', header: 'Category' },
     { field: 'quantity', header: 'Quantity' }
 ];
 
   products = [
-    { code: 'A', name: 'Apple', category: 'Fruits', quantity: 2 },
-    { code: 'B', name: 'Banana', category: 'Fruits', quantity: 1 },
-    { code: 'C', name: 'Cherry', category: 'Fruits', quantity: 3 },
-    { code: 'D', name: 'Durian', category: 'Fruits', quantity: 4 },
-    { code: 'E', name: 'Eggplant', category: 'Vegetables', quantity: 2 },
+    { hora: 'A', estado: 'Apple', category: 'Fruits', quantity: 2 },
+    { hora: 'B', estado: 'Banana', category: 'Fruits', quantity: 1 },
+    { hora: 'C', estado: 'Cherry', category: 'Fruits', quantity: 3 },
+    { hora: 'D', estado: 'Durian', category: 'Fruits', quantity: 4 },
+    { hora: 'E', estado: 'Eggplant', category: 'Vegetables', quantity: 2 },
   ]
 }

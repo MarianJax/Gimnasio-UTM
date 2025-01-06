@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RutinaDetailComponent } from './rutina-detail.component';
-import { PagosComponent } from './pagos/pagos.component';
+
+import { AgendamientoComponent } from '../../agendamiento/agendamiento.component';
 
 const routes: Routes = [
   {
@@ -13,7 +14,7 @@ const routes: Routes = [
       },
       {
         path: 'pago',
-        component: PagosComponent
+        component: AgendamientoComponent
       }
     ]
   }
