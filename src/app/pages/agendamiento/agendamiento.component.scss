@@ -1,3 +1,207 @@
-.p-datepicker table td.p-datepicker-today > span {
-    color: var(--primary-color);
-}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: system-ui, -apple-system, sans-serif;
+  
+    form {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  
+    h4 {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 1.25rem;
+    }
+  
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+      background-color: white;
+  
+      &::placeholder {
+        color: #999;
+      }
+  
+      &:focus {
+        outline: none;
+        border-color: #999;
+      }
+    }
+  
+    .ip, .Datos {
+      .Nombre, .card {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+    }
+  
+    .Vc {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+  
+    .grip {
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+  
+        input:last-child {
+          grid-column: span 2;
+        }
+      }
+    }
+  
+    .payment-section {
+      .payment-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 2rem;
+  
+        .option {
+          padding: 1.5rem;
+          border-radius: 8px;
+          position: relative;
+          cursor: pointer;
+  
+          &.daily {
+            background-color: #e8f5e9;
+          }
+  
+          &.monthly {
+            background-color: #e3f2fd;
+          }
+  
+          h5 {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #333;
+          }
+  
+          .amount {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1.5rem;
+          }
+  
+          .radio-container {
+            position: absolute;
+            right: 1.5rem;
+            bottom: 1.5rem;
+  
+            input[type="radio"] {
+              display: none;
+  
+              & + label {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                border: 2px solid #333;
+                border-radius: 50%;
+                cursor: pointer;
+                transition: background-color 0.2s;
+              }
+  
+              &:checked + label {
+                background-color: #333;
+              }
+            }
+          }
+        }
+      }
+  
+      .summary {
+        margin: 2rem 0;
+  
+        .summary-row {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 0.5rem;
+          color: #666;
+          font-size: 0.875rem;
+  
+          &.total {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e2e2;
+            font-weight: 600;
+            color: #333;
+          }
+        }
+      }
+  
+      .submit-button {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: #e8f5e9;
+        color: #333;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+  
+        &:hover {
+          background-color: #d4ebd5;
+        }
+  
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+  
+  // Bottom action buttons
+  .action-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  
+    button {
+      padding: 0.75rem;
+      background-color: #e8f5e9;
+      color: #333;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+  
+      &:hover {
+        background-color: #d4ebd5;
+      }
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .container {
+      form {
+        grid-template-columns: 1fr;
+      }
+  
+      .payment-section {
+        .payment-options {
+          grid-template-columns: 1fr;
+        }
+      }
+    }
+  }
+  
+  

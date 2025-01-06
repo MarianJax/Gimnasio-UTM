@@ -1,0 +1,24 @@
+<div class="flex w-full align-content-center mb-3">
+    <p-button (click)="Regresar()" class="flex gap-3" style="padding: 10px 15px;" pButton pRipple ><mage-icon size="20px" name="arrow-left"></mage-icon> Regresar</p-button>
+</div>
+
+<p-dropdown [options]="days" [(ngModel)]="selectedDays" optionLabel="name" placeholder="Select a City" />
+
+<div class="card">
+    <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{ col.header }}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    {{ rowData[col.field] }}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

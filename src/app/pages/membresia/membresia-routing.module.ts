@@ -1,12 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MembresiaComponent } from './membresia.component';
+import { RegistroComponent } from './registro/registro.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MembresiaComponent
-  }
+    children: [
+      {
+        path: '',
+        component: MembresiaComponent,
+      },
+      {
+        path: 'registro',
+        component: RegistroComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({

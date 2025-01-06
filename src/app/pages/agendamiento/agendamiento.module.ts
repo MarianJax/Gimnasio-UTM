@@ -5,11 +5,10 @@ import { AgendamientoRoutingModule } from './agendamiento-routing.module';
 import { AgendamientoComponent } from './agendamiento.component';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
-import { IconModule } from "../../components/icons/icons.module";
+import { IconModule } from '../../components/icons/icons.module';
 import { DropdownModule } from 'primeng/dropdown';
-import { RegistroComponent } from './registro/registro.component';
-import { RegistroModule } from './registro/registro.module';
-
+import { RegistroComponent } from '../membresia/registro/registro.component';
+import { RegistroModule } from '../membresia/registro/registro.module';
 
 @NgModule({
   declarations: [
@@ -19,11 +18,7 @@ import { RegistroModule } from './registro/registro.module';
   imports: [
     CommonModule,
     AgendamientoRoutingModule,
-    FormsModule, 
-    CalendarModule,
-    DropdownModule,
-    IconModule,
-    RegistroModule
-],
+   
+  ],
 })
-export class AgendamientoModule { }
+export class AgendamientoModule {}

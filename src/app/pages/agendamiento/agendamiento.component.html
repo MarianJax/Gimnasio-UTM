@@ -1,23 +1,133 @@
-<div class="w-full justify-content-end mb-4">
-    <button (click)="agregarAgendamiento()" style="display: flex; gap: 5px; margin-left: auto; background: transparent; border: transparent; color: var(--surface-900);" pButton pRipple>
-        <mage-icon name="bookmark-plus" size="20px" ></mage-icon>
-        Registrar Agendamiento</button>
-</div>
-
-<div class="flex w-full" style="gap: 10px 30px; ">
-    <p-calendar class="max-w-full" [(ngModel)]="date" [inline]="true" />
-    <div class="flex flex-column w-full" style="gap: 30px">
-        <div class="w-full" style="border: 3px solid var(--primary-color); border-radius: 22px; padding: 25px 40px;">
-            <header class="flex gap-2">
-                <mage-icon name="arrow-list" size="20px"></mage-icon>
-                Lista de Reservas
-            </header>
-        </div>
-        <div class="w-full" style="border: 3px solid var(--primary-color); border-radius: 22px; padding: 25px 40px;">
-            <header class="flex gap-2">
-                <mage-icon name="arrow-list" size="20px"></mage-icon>
-                Agendamientos
-            </header>
-        </div>
+<div class="container">
+  <form >
+    <!-- Informacion Personal -->
+    <div class="ip">
+      <h4 class="primerformulario">Información personal</h4>
+      <div class="Nombre">
+        <input
+          type="text"
+          formControlName="nombre"
+          placeholder="Nombre"
+        />
+        <input
+          type="text"
+          formControlName="apellido"
+          placeholder="Apellido"
+        />
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Correo electrónico"
+        />
+      </div>
     </div>
-</div>
+
+    <!-- Datos de tarjeta -->
+    <div class="Datos">
+      <h4>Datos de tarjeta</h4>
+      <div class="card">
+        <input
+          type="text"
+          formControlName="cardNumber"
+          placeholder="Número de tarjeta"
+        />
+        <div class="Vc">
+          <input
+            type="text"
+            formControlName="cvc"
+            placeholder="CVC"
+          />
+          <input
+            type="text"
+            formControlName="expiry"
+            placeholder="MM/AAA"
+          />
+        </div>
+        <input
+          type="text"
+          formControlName="cardHolder"
+          placeholder="Nombre del titular de la tarjeta"
+        />
+        
+        <div class="grip">
+          <div class="grid">
+            <input 
+              type="text" 
+              formControlName="pais" 
+              placeholder="País"
+            />
+            <input
+              type="text"
+              formControlName="ciudad"
+              placeholder="Ciudad"
+            />
+            <input
+              type="text"
+              formControlName="callePrincipal"
+              placeholder="Calle principal"
+            />
+            <input
+              type="text"
+              formControlName="calleSecundaria"
+              placeholder="Calle Secundaria"
+            />
+            <input
+              type="text"
+              formControlName="codigoPostal"
+              placeholder="Código Postal"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Options -->
+    <div class="payment-section">
+      <div class="payment-options">
+        <div class="option daily"></div>
+          <h5>Pago Diario</h5>
+          <p class="amount">USD 0,50</p>
+          <div class="radio-container">
+            <input 
+              type="radio" 
+              formControlName="paymentType" 
+              value="daily" 
+              id="daily"
+            />
+            <label for="daily"></label>
+          </div>
+        </div>
+        <div class="option monthly"  >
+          <h5>Pago Mensual</h5>
+          <p class="amount">USD 15,00</p>
+          <div class="radio-container">
+            <input 
+              type="radio" 
+              formControlName="paymentType" 
+              value="monthly" 
+              id="monthly"
+            />
+            <label for="monthly"></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary">
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>$$$</span>
+        </div>
+        <div class="summary-row">
+          <span>Impuesto</span>
+          <span>$$$</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total a pagar</span>
+          <span>$$$</span>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-button">
+        Procesar Pago
+      </button>
+ 

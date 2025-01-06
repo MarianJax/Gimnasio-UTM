@@ -6,8 +6,8 @@ import { HttpClient } from '@angular/common/http';
   selector: 'mage-icon',
   template: `
     <i *ngIf="isPrimeIcon" 
-       [class]="'pi pi-' + name"
-       [ngStyle]="{'font-size': size, 'color': color}">
+      [class]="'pi pi-' + name"
+      [ngStyle]="{'font-size': size, 'color': color}">
     </i>
     <span *ngIf="!isPrimeIcon" 
           [innerHTML]="svgContent"
