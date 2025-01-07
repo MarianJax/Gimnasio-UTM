@@ -264,9 +264,14 @@ export class RutinaDetailComponent implements OnInit {
       ],
     },
   ];
-
+  peso = [
+    { name: '10kg' },
+    { name: '20kg' },
+    {name: '30kg' },
+    {name: '0kg'},
+    { name: '10kg' }];
   constructor(private route: ActivatedRoute, private router: Router) {}
-
+ selectpeso!: any;
   ngOnInit(): void {
     this.rutinaSlug = this.route.snapshot.paramMap.get('slug') ?? '';
     // Aquí puedes cargar los detalles de la rutina usando el slug
@@ -279,3 +284,4 @@ export class RutinaDetailComponent implements OnInit {
   
   }
 }
+console.log('RutinaDetailComponent');

@@ -5,6 +5,7 @@ import { RutinaDetailRoutingModule } from './rutina-detail-routing.module';
 import { RutinaDetailComponent } from './rutina-detail.component';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -15,7 +16,9 @@ import { RippleModule } from 'primeng/ripple';
     CommonModule,
     RutinaDetailRoutingModule,
     ButtonModule,
-    RippleModule
+    RippleModule,
+    DropdownModule,
+    
   ]
 })
 export class RutinaDetailModule { }

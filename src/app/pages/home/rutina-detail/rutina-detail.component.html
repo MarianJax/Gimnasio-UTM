@@ -3,37 +3,29 @@
     style="display: flex; justify-content: space-between; align-items: end"
   >
     <h5>{{ rutinaSlug }}</h5>
-    <button
-      pButton
-      pRipple
-      (click)="goToPagos()"
-    >
-      Agendar
-    </button>
+    <button pButton pRipple (click)="goToPagos()">Agendar</button>
   </header>
 </section>
 
 <section class="conte-rutinas">
   <article class="rutina" *ngFor="let rutina of rutinaItems">
-    <ng-template [ngIf]="rutina.slug === rutinaSlug"
-      >
+    <ng-template [ngIf]="rutina.slug === rutinaSlug">
       <div class="routines" *ngFor="let maquina of rutina.machines">
-         <h5>Ejercicio:</h5>
-         <p>imagen </p> 
-      <img src="" alt="">
-      <h5>Descripción</h5>
-      <div class="ft">
-         <p class="tf">Estado</p>
-      <p class="tf"> Equipo</p>
+        <h5>Ejercicio:</h5>
+        <p>imagen</p>
+        <img src="" alt="" />
+        <h5>Descripción</h5>
+        <div class="ft">
+          <p class="tf">Estado</p>
+          <p class="tf">Equipo</p>
+        </div>
+        <div class="weight">
+         <p-dropdown 
+         [options]="peso" 
+         optionLabel="name" 
+         placeholder="Select a City" />
+        </div>
       </div>
-      <div class="weight">
-      <p class="we"> Peso</p>
-      <button class="m1"
-      pRipple
-      (click)="gotoPeso()">+</button>
-   </div>
-      </div>
-      </ng-template
-    >
+    </ng-template>
   </article>
 </section>
