@@ -1,7 +1,7 @@
 .routines {
   background: #ffffff;
-  width: fit-content;
-  padding: 6px 38px;
+  padding: 20px;
+  width: 175px;
   border: 1px solid var(--primary-color);
   justify-content: start;
   height: 100%;
@@ -16,6 +16,7 @@
   justify-content: center;
   margin: 0 auto;
   max-width: 1200px;
+  padding: 50px;
 }
 button {
   background-color: transparent;
@@ -32,6 +33,10 @@ image {
   justify-content: center;
 }
 
+h5{
+    margin: 0px;
+}
+
 .ft {
   border: 1px solid #4caf50;
   color: black;
@@ -39,7 +44,6 @@ image {
   display: 6;
   flex-direction: column;
   justify-content: flex-start;
-  margin-bottom: 16px;
   padding: 0;
   justify-content: end;
   display: flex;
@@ -69,4 +73,8 @@ gap: 10px;
   border: 1px solid var(--primary-color);
   padding: 0%;
   flex-wrap: wrap;
+}
+
+p {
+    margin: 0px;
 }

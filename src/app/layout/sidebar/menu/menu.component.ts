@@ -85,12 +85,6 @@ export class MenuComponent implements OnInit {
             visible: true
           },
           {
-            label: 'Entrenamiento',
-            icon: 'stack',
-            routerLink: ['/entrenamiento'],
-            visible: true
-          },
-          {
             label: 'Agendamiento',
             icon: 'calendar',
             routerLink: ['/agendamiento'],

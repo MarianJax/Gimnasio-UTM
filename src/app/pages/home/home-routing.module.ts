@@ -17,10 +17,6 @@ const routes: Routes = [
     path: 'rutina/:slug',
     loadChildren: () => import('./rutina-detail/rutina-detail.module').then(m => m.RutinaDetailModule)
   },
-  {
-    path: 'entrenamiento',
-    loadChildren: () => import('./entrenamiento/entrenamiento.module').then(m => m.EntrenamientoModule)
-  }
 ];
 
 @NgModule({

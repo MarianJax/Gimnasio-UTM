@@ -6,11 +6,13 @@ import { AdminComponent } from './admin.component';
 import { RippleModule } from 'primeng/ripple';
 import { ButtonModule } from 'primeng/button';
 import { IconModule } from 'src/app/components/icons/icons.module';
+import { LayoutComponent } from './layout/layout.component';
 
 
 @NgModule({
   declarations: [
-    AdminComponent
+    AdminComponent,
+    LayoutComponent
   ],
   imports: [
     CommonModule,
