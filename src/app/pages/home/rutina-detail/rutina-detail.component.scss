@@ -1,57 +1,78 @@
-
-.routines{
-    background: #FFFFFF;
-    width: fit-content;
-    padding: 6px;
-    border:1px solid  var(--primary-color);    justify-content: start;
+.routines {
+  background: #ffffff;
+  width: fit-content;
+  padding: 6px 38px;
+  border: 1px solid var(--primary-color);
+  justify-content: start;
+  height: 100%;
+  border-radius: 30px 2px;
 }
 
 .rutina {
-    background-color: #FFFFFF;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 60px
+  background-color: #ffffff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 60px;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1200px;
+  
 }
-button{
-    background-color: transparent;
-        border: 3px solid var(--primary-color);
-        color: var(--surface-900);
-        box-shadow: 0px 3px 3px 1px rgba(0, 0, 0, 0.15);
-        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.3));
-        border-radius: 5px;
+button {
+  background-color: transparent;
+  border: 3px solid var(--primary-color);
+  color: var(--surface-900);
+  box-shadow: 0px 3px 3px 1px rgba(0, 0, 0, 0.15);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.3));
+  border-radius: 5px;
 }
-image{
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #4CAF50;
-    padding: 20px;
+image {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.ft {
+  border: 1px solid #4caf50;
+  color: black;
+  font-style: italic;
+  display: 6;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+  padding: 0;
+  justify-content: end;
+  display: flex;
+  position: relative;
+}
+h5 {
+  font-size: 14px;
+  font-weight: 500;
+  color: var();
+  margin: flex;
+}
+.weight {
+  font-size: 15px;
+  font-weight: 400;
+  color: #000;
+  padding: 6px 38px;
+  display: flex;
 
-.ft{
-    border: 1px solid #4CAF50;
-    color: black;
-    font-style: italic;
+}
+.we{
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    gap: 10px;
+    width: 150px;
+    border: 1px solid var(--primary-color);
+    padding: 0%;
+}
+.m1{
+    justify-content: end;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 1px solid var(--primary-color);
 
 }
-h5{
-    font-size: 15px;
-    font-weight: 500;
-    color: var();
-    padding: flex; 
-}
-.weight{
-    font-size: 15px;
-    font-weight: 400;
-    color: #000;
-    padding: flex; 
-}
-button{
-    justify-content: center;
-}
-    

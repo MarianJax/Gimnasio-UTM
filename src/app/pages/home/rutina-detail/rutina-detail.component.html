@@ -2,7 +2,7 @@
   <header
     style="display: flex; justify-content: space-between; align-items: end"
   >
-    <h3>{{ rutinaSlug }}</h3>
+    <h5>{{ rutinaSlug }}</h5>
     <button
       pButton
       pRipple
@@ -18,16 +18,17 @@
     <ng-template [ngIf]="rutina.slug === rutinaSlug"
       >
       <div class="routines" *ngFor="let maquina of rutina.machines">
-         <h5>Ejercicio</h5>
+         <h5>Ejercicio:</h5>
          <p>imagen </p> 
       <img src="" alt="">
       <h5>Descripción</h5>
       <div class="ft">
-         <p>Estado</p>
-      <p> Equipo</p>
+         <p class="tf">Estado</p>
+      <p class="tf"> Equipo</p>
       </div>
       <div class="weight">
-      <p> Peso</p><button pButton
+      <p class="we"> Peso</p>
+      <button class="m1"
       pRipple
       (click)="gotoPeso()">+</button>
    </div>
