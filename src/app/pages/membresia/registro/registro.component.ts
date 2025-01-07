@@ -8,27 +8,27 @@ import { Router } from '@angular/router';
 })
 export class RegistroComponent {
   days = [
-    { name: 'Monday', code: 'MON' },
-    { name: 'Tuesday', code: 'TUE' },
-    { name: 'Wednesday', code: 'WED' },
-    { name: 'Thursday', code: 'THU' },
-    { name: 'Friday', code: 'FRI' }
+    { name: 'Lunes', code: 'MON' },
+    { name: 'Martes', code: 'TUE' },
+    { name: 'Miercoles', code: 'WED' },
+    { name: 'Jueves', code: 'THU' },
+    { name: 'Viernes', code: 'FRI' }
   ];
   selectedDays: undefined;
 
   cols = [
-    { field: 'code', header: 'Code' },
-    { field: 'name', header: 'Name' },
-    { field: 'category', header: 'Category' },
-    { field: 'quantity', header: 'Quantity' }
+    { field: 'hora', header: 'Hora' },
+    { field: 'estado', header: 'Estado' },
+    { field: 'agendamiento', header: 'Agendamiento' },
+   
 ];
 
   products = [
-    { code: 'A', name: 'Apple', category: 'Fruits', quantity: 2 },
-    { code: 'B', name: 'Banana', category: 'Fruits', quantity: 1 },
-    { code: 'C', name: 'Cherry', category: 'Fruits', quantity: 3 },
-    { code: 'D', name: 'Durian', category: 'Fruits', quantity: 4 },
-    { code: 'E', name: 'Eggplant', category: 'Vegetables', quantity: 2 },
+    { hora: '7:00', estado: 'Disponible', agendamiento: '', },
+    { hora: '8:00', estado: 'Disponible', category: 'Fruits',  },
+    { hora: '9:00', estado: 'Ocupado', category: 'Fruits',  },
+    { hora: '10:00', estado: 'Ocupado', category: 'Fruits',},
+    { hora: '11:00', estado: 'Disponible', category: 'Vegetables', },
   ]
    constructor(private router: Router) {}
   ; 

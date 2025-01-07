@@ -1,6 +1,38 @@
 <section>
-   <header style="display: flex; justify-content: space-between; align-items: end;">
+  <header
+    style="display: flex; justify-content: space-between; align-items: end"
+  >
     <h3>{{ rutinaSlug }}</h3>
-    <button pButton pRipple style="background-color: transparent; border: 3px solid var(--primary-color); color: var(--surface-900); box-shadow: 0px 3px 3px 1px rgba(0,0,0, 0.15); filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.3)); border-radius: 5px;" (click)="goToPagos()" >Guardar</button>
-   </header>
+    <button
+      pButton
+      pRipple
+      (click)="goToPagos()"
+    >
+      Agendar
+    </button>
+  </header>
+</section>
+
+<section class="conte-rutinas">
+  <article class="rutina" *ngFor="let rutina of rutinaItems">
+    <ng-template [ngIf]="rutina.slug === rutinaSlug"
+      >
+      <div class="routines" *ngFor="let maquina of rutina.machines">
+         <h5>Ejercicio</h5>
+         <p>imagen </p> 
+      <img src="" alt="">
+      <h5>Descripción</h5>
+      <div class="ft">
+         <p>Estado</p>
+      <p> Equipo</p>
+      </div>
+      <div class="weight">
+      <p> Peso</p><button pButton
+      pRipple
+      (click)="gotoPeso()">+</button>
+   </div>
+      </div>
+      </ng-template
+    >
+  </article>
 </section>
