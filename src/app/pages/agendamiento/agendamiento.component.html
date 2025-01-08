@@ -1,131 +1,76 @@
 <div class="container">
-  <form >
-    <!-- Informacion Personal -->
-    <div class="ip">
-      <h5 class="primerformulario">Información personal</h5>
-      <div class="Nombre">
-        <input
-          type="text"
-          formControlName="nombre"
-          placeholder="Nombre"
-        />
-        <input
-          type="text"
-          formControlName="apellido"
-          placeholder="Apellido"
-        />
-        <input
-          type="email"
-          formControlName="email"
-          placeholder="Correo electrónico"
-        />
-      </div>
-    </div>
+  <form>
+    <div style="display: flex; flex-direction: column; gap: 20px;" >
+      <!-- Informacion Personal -->
+    <fieldset style="padding: 10px 20px; border-radius: 10px;">
+      <legend>Información personal</legend>
+      <input pInputText type="text" placeholder="Nombre" />
+      <input pInputText type="text" placeholder="Apellido" />
+      <input pInputText type="email" placeholder="Correo electrónico" />
+    </fieldset>
 
     <!-- Datos de tarjeta -->
-    <div class="Datos">
-      <h4>Datos de tarjeta</h4>
-      <div class="card">
-        <input
-          type="text"
-          formControlName="cardNumber"
-          placeholder="Número de tarjeta"
-        />
-        <div class="Vc">
-          <input
-            type="text"
-            formControlName="cvc"
-            placeholder="CVC"
-          />
-          <input
-            type="text"
-            formControlName="expiry"
-            placeholder="MM/AAA"
-          />
-        </div>
-        <input
-          type="text"
-          formControlName="cardHolder"
-          placeholder="Nombre del titular de la tarjeta"
-        />
-        
-            <input 
-              type="text" 
-              formControlName="pais" 
-              placeholder="País"
-            />
-            <input
-              type="text"
-              formControlName="ciudad"
-              placeholder="Ciudad"
-            />
-            <input
-              type="text"
-              formControlName="callePrincipal"
-              placeholder="Calle principal"
-            />
-            <input
-              type="text"
-              formControlName="calleSecundaria"
-              placeholder="Calle Secundaria"
-            />
-            <input
-              type="text"
-              formControlName="codigoPostal"
-              placeholder="Código Postal"
-            />
-          </div>
-        </div>
-     
+
+    <fieldset style="padding: 10px 20px; border-radius: 10px; display: flex; flex-direction: column; gap: 10px;">
+      <legend>Datos de Tarjeta</legend>
+      <input pInputText type="text" placeholder="Número de tarjeta" />
+      <div style="display: flex; gap: 10px;">
+        <input type="text" style="width: calc(50% - 5px);" pInputText placeholder="CVC" />
+      <input type="text" style="width: calc(50% - 5px);" pInputText placeholder="MM/AAA" />
+      </div>
+      <input type="text" pInputText placeholder="Nombre del titular de la tarjeta" />
+
+      <input type="text" pInputText placeholder="País" />
+      <input type="text" pInputText placeholder="Ciudad" />
+      <input type="text" pInputText placeholder="Calle principal" />
+      <input type="text" pInputText placeholder="Calle Secundaria" />
+      <input type="text" pInputText placeholder="Código Postal" />
+    </fieldset>
+
+    <div style="display: flex ; gap: 10px; justify-content: space-between;">
+      <button type="submit" (click)="goToRutinas()" pButton pRipple>
+        Cancelar
+      </button>
+      <button type="submit" pButton pRipple class="submit-button">
+        Guardar
+      </button>
+    </div>
+    </div>
 
     <!-- Payment Options -->
     <div class="payment-section">
-      <div class="payment-options">
-        <div class="option daily"></div>
-          <h5>Pago Diario</h5>
+
+      <div style="display: flex; gap: 10px; height: fit-content; position: relative;">
+        <input type="radio" id="satisfied" name="satisfaction" value="Satisfied">
+        <label for="satisfied" class="radio-label">
+          <h5 style="font-size: 14px;">Pago Diario</h5>
           <p class="amount">USD 0,50</p>
+          <hr>
           <p class="rut">Rutina diaria</p>
-          <div class="radio-container">
-            <input 
-              type="radio" 
-              formControlName="paymentType" 
-              value="daily" 
-              id="daily"
-            />
-            <label for="daily"></label>
-          </div>
-        </div>
-        <div class="option monthly"  >
-          <h5>Pago Mensual</h5>
+        </label>
+
+        <input type="radio" id="neutral" name="satisfaction" value="neutral">
+        <label for="neutral" class="radio-label">
+          <h5 style="font-size: 14px;">Pago Mensual</h5>
           <p class="amount">USD 15,00</p>
-          <p class="rut">Rutina Mensual</p>
-          <div class="radio-container">
-            <input 
-              type="radio" 
-              formControlName="paymentType" 
-              value="monthly" 
-              id="monthly"
-            />
-            <label for="monthly"></label>
-          </div>
-        </div>
-        <div class="summary">
-          <div class="summary-row">
-            <span>Subtotal</span>
-            <span>$$$</span>
-          </div>
-          <div class="summary-row">
-            <span>Impuesto</span>
-            <span>$$$</span>
-          </div>
-          <div class="summary-row total">
-            <span>Total a pagar</span>
-            <span>$$$</span>
-          </div>
-        </div>
+          <hr>
+          <p class="rut"><mage-icon name="check" color="#148141" size="16px"></mage-icon> Programación personalizada de
+            rutinas</p>
+        </label>
       </div>
 
-      <button type="submit" class="submit-button">
-        Procesar Pago
-      </button>
- 
+      <!-- <div class="summary">
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>$$$</span>
+        </div>
+        <div class="summary-row">
+          <span>Impuesto</span>
+          <span>$$$</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total a pagar</span>
+          <span>$$$</span>
+        </div>
+      </div> -->
+    </div>

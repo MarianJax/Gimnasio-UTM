@@ -44,4 +44,8 @@ export class AgendamientoComponent {
       this.router.navigate(['/ruta-destino']); // Cambia '/ruta-destino' por la ruta deseada
     }
   }
+
+  goToRutinas() {
+    this.router.navigate(['/']);
+  }
 }

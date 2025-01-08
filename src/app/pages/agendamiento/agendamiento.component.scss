@@ -4,9 +4,10 @@
   padding: 2rem;
   font-family: system-ui, -apple-system, sans-serif;
 }
+
 form {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
 }
 
@@ -38,6 +39,7 @@ input {
 
 .ip,
 .Datos {
+
   .Nombre,
   .card {
     display: flex;
@@ -52,35 +54,78 @@ input {
   gap: 0.75rem;
   margin-bottom: 0.75rem;
 }
+
 .payment-options {
   padding: 10px;
   border: 1px solid #5c5c5c;
   border-radius: 5px;
   background-color: #C1C1C1;
 }
-.option monthly{
+
+.option monthly {
   border: 1px solid #5c5c5c;
   padding: 10px;
   border-radius: 5px;
   background-color: #C1C1C1;
-  
+
 }
-.summary{
+
+.summary {
   border: #5c5c5c;
   display: flex;
   flex-direction: column;
   padding: 20px;
 
 }
-.payment-section{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
- 
-}
-p{
+
+p {
   font-size: 14px;
   font-weight: 500;
   color: #333;
-  
+
+}
+
+/* Hide the default radio button */
+input[type="radio"] {
+  display: none;
+}
+
+/* Style for the label that will represent the radio button */
+.radio-label {
+  position: relative;
+  display: inline-block;
+  padding: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  width: 200px;
+  height: 173px;
+  background-color: rgba(193, 193, 193, 0.4);
+}
+
+/* Style when the radio button is checked */
+input[type="radio"]:checked+.radio-label {
+  position: relative;
+  background-color: rgba(35, 114, 33, 0.4);
+  color: white;
+}
+
+.amount {
+  color: #5C5C5C;
+  font-size: 25px;
+  margin: 0px;
+  text-transform: uppercase;
+}
+
+.rut {
+  font-size: 10px;
+}
+
+button {
+  background-color: transparent;
+  border: 3px solid var(--primary-color);
+  color: var(--surface-900);
+  box-shadow: 0px 3px 3px 1px rgba(0, 0, 0, 0.15);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.3));
+  border-radius: 5px;
+  padding: 10px 30px;
 }
