@@ -1,40 +1,40 @@
 <div class="container">
   <form>
-    <div style="display: flex; flex-direction: column; gap: 20px;" >
+    <div style="display: flex; flex-direction: column; gap: 20px;">
       <!-- Informacion Personal -->
-    <fieldset style="padding: 10px 20px; border-radius: 10px;">
-      <legend>Información personal</legend>
-      <input pInputText type="text" placeholder="Nombre" />
-      <input pInputText type="text" placeholder="Apellido" />
-      <input pInputText type="email" placeholder="Correo electrónico" />
-    </fieldset>
+      <fieldset style="padding: 10px 20px; border-radius: 10px;">
+        <legend>Información personal</legend>
+        <input pInputText type="text" placeholder="Nombre" />
+        <input pInputText type="text" placeholder="Apellido" />
+        <input pInputText type="email" placeholder="Correo electrónico" />
+      </fieldset>
 
-    <!-- Datos de tarjeta -->
+      <!-- Datos de tarjeta -->
 
-    <fieldset style="padding: 10px 20px; border-radius: 10px; display: flex; flex-direction: column; gap: 10px;">
-      <legend>Datos de Tarjeta</legend>
-      <input pInputText type="text" placeholder="Número de tarjeta" />
-      <div style="display: flex; gap: 10px;">
-        <input type="text" style="width: calc(50% - 5px);" pInputText placeholder="CVC" />
-      <input type="text" style="width: calc(50% - 5px);" pInputText placeholder="MM/AAA" />
+      <fieldset style="padding: 10px 20px; border-radius: 10px; display: flex; flex-direction: column; gap: 10px;">
+        <legend>Datos de Tarjeta</legend>
+        <input pInputText type="text" placeholder="Número de tarjeta" />
+        <div style="display: flex; gap: 10px;">
+          <input type="text" style="width: calc(50% - 5px);" pInputText placeholder="CVC" />
+          <input type="text" style="width: calc(50% - 5px);" pInputText placeholder="MM/AAA" />
+        </div>
+        <input type="text" pInputText placeholder="Nombre del titular de la tarjeta" />
+
+        <input type="text" pInputText placeholder="País" />
+        <input type="text" pInputText placeholder="Ciudad" />
+        <input type="text" pInputText placeholder="Calle principal" />
+        <input type="text" pInputText placeholder="Calle Secundaria" />
+        <input type="text" pInputText placeholder="Código Postal" />
+      </fieldset>
+
+      <div style="display: flex ; gap: 10px; justify-content: space-between;">
+        <button type="submit" (click)="goToRutinas()" pButton pRipple>
+          Cancelar
+        </button>
+        <button type="submit" pButton pRipple class="submit-button">
+          Guardar
+        </button>
       </div>
-      <input type="text" pInputText placeholder="Nombre del titular de la tarjeta" />
-
-      <input type="text" pInputText placeholder="País" />
-      <input type="text" pInputText placeholder="Ciudad" />
-      <input type="text" pInputText placeholder="Calle principal" />
-      <input type="text" pInputText placeholder="Calle Secundaria" />
-      <input type="text" pInputText placeholder="Código Postal" />
-    </fieldset>
-
-    <div style="display: flex ; gap: 10px; justify-content: space-between;">
-      <button type="submit" (click)="goToRutinas()" pButton pRipple>
-        Cancelar
-      </button>
-      <button type="submit" pButton pRipple class="submit-button">
-        Guardar
-      </button>
-    </div>
     </div>
 
     <!-- Payment Options -->
@@ -53,12 +53,9 @@
         <label for="neutral" class="radio-label">
           <h5 style="font-size: 14px;">Pago Mensual</h5>
           <p class="amount">USD 15,00</p>
-          <hr>
-          <p class="rut"><mage-icon name="check" color="#148141" size="16px"></mage-icon> Programación personalizada de
-            rutinas</p>
+          <p class="rut">Rutina Mensual</p>
         </label>
       </div>
-
       <!-- <div class="summary">
         <div class="summary-row">
           <span>Subtotal</span>
@@ -74,3 +71,5 @@
         </div>
       </div> -->
     </div>
+  </form>
+</div>
