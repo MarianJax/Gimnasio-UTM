@@ -23,37 +23,22 @@ export class EquiposComponent implements OnInit {
       id: '1',
       code: 'f230fh0g3',
       name: 'Bamboo Watch',
-      description: 'Product Description',
       fecha: '2024/01/10',
-      price: 65,
-      category: 'Accessories',
       quantity: 2,
-      inventoryStatus: 'INSTOCK',
-      rating: 5
     },
     {
       id: '2',
       code: 'gfvbghnhjh',
       name: 'Bamboo Watch',
-      description: 'Product Description',
       fecha: '2024/01/10',
-      price: 65,
-      category: 'Accessories',
       quantity: 5,
-      inventoryStatus: 'INSTOCK',
-      rating: 5
     },
     {
       id: '3',
       code: 'gfvbghhjh',
       name: 'Bamboo Watch',
-      description: 'Product Description',
       fecha: '2024/01/10',
-      price: 65,
-      category: 'Accessories',
       quantity: 4,
-      inventoryStatus: 'INSTOCK',
-      rating: 5
     }
   ];
 
