@@ -21,7 +21,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 10,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
         {
           id: 2,
@@ -30,7 +34,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 20,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
         {
           id: 3,
@@ -39,7 +47,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 25,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
         {
           id: 4,
@@ -48,7 +60,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 30,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
       ],
     },
@@ -62,7 +78,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 10,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
         {
           id: 2,
@@ -71,7 +91,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 20,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
         {
           id: 3,
@@ -80,7 +104,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 30,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
         {
           id: 4,
@@ -89,7 +117,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 40,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
 
         },
       ],
@@ -104,7 +136,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 10,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
         {
           id: 2,
@@ -113,7 +149,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 20,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
         {
           id: 3,
@@ -122,7 +162,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 30,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
         {
           id: 4,
@@ -131,7 +175,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 40,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
       ]
 
@@ -146,7 +194,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 10,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
         {
           id: 2,
@@ -155,7 +207,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 20,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
         {
           id: 3,
@@ -164,7 +220,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 30,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '20kg' },
+            { name: '30kg' },
+            {name: '50kg' },
+          ]
         },
         {
           id: 4,
@@ -173,7 +233,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 40,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
 
         },
       ],
@@ -189,7 +253,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 10,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
         {
           id: 2,
@@ -198,7 +266,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 20,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
         {
           id: 3,
@@ -207,7 +279,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 30,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
         {
           id: 4,
@@ -216,7 +292,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 40,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
 
         },
       ],
@@ -231,7 +311,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 10,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
         {
           id: 2,
@@ -240,7 +324,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 20,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
         },
         {
           id: 3,
@@ -249,7 +337,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 30,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ],
         },
         {
           id: 4,
@@ -258,7 +350,11 @@ export class RutinaDetailComponent implements OnInit {
           estado: 'Disponible',
           duracion: 40,
           maquina: 'Maquina',
-          peso:'10kg',
+          peso:[
+            { name: '10kg' },
+            { name: '20kg' },
+            {name: '30kg' },
+          ]
 
         },
       ],
