@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../../service/layout.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -13,9 +14,10 @@ export class MenuComponent implements OnInit {
 
   constructor(
     public layoutService: LayoutService,
+    private router: Router
   ) { }
 
-  ngOnInit() {
+  //ngOnInit() {
     // let session = sessionStorage.getItem(this.eventos._DATOS_GENERALES_LOGIN);
     // let session_rn: any = sessionStorage.getItem(this.eventos._DATOS_REGISTRO_NACIONAL);
     // let usuario = session ? JSON.parse(session) : null;
@@ -75,33 +77,92 @@ export class MenuComponent implements OnInit {
     //   this.actualizarVisibilidadElementos();
     // });
     // this.actualizarVisibilidadElementos();
-    this.model = [
-      {
-        items: [
-          {
-            label: 'Rutinas',
-            icon: 'home',
-            routerLink: ['/'],
-            visible: true
-          },
-          {
-            label: 'Agendamiento',
-            icon: 'calendar',
-            routerLink: ['/agendamiento'],
-            visible: true
-          },
-          {
-            label: 'Membresia',
-            icon: 'id-card',
-            routerLink: ['/membresia'],
-            visible: true
-          },
-        ]
-      },
-      {
-        label: ''
-      }
-    ];
+    
+  // }
+
+  ngOnInit() {
+    this.updateMenuBasedOnPath();
+
+    // Si deseas detectar cambios en la ruta (navegación dinámica), puedes suscribirte a los eventos de navegación
+    this.router.events.subscribe(() => {
+      this.updateMenuBasedOnPath();
+    });
+  }
+
+  private updateMenuBasedOnPath() {
+    const currentPath = this.router.url;
+
+    if (currentPath.startsWith('/admin')) {
+      // Rutas para la sección de administración
+      this.model = [
+        {
+          items: [
+            {
+              label: 'Dashboard',
+              icon: 'dashboard',
+              routerLink: ['/admin'],
+              visible: true
+            },
+            {
+              label: 'Equipos',
+              icon: 'calendar',
+              routerLink: ['/admin/equipos'],
+              visible: true
+            },
+            {
+              label: 'Pagos',
+              icon: 'dollar',
+              routerLink: ['/admin/pagos'],
+              visible: true
+            },
+            {
+              label: 'Entrenamiento',
+              icon: 'calendar-plus',
+              routerLink: ['/admin/entrenamientos'],
+              visible: true
+            },
+            {
+              label: 'Ejercicios',
+              icon: 'ejercicio',
+              routerLink: ['/admin/ejercicios'],
+              visible: true
+            },
+          ]
+        },
+        {
+          label: ''
+        }
+      ];
+    } else {
+      // Rutas generales
+      this.model = [
+        {
+          items: [
+            {
+              label: 'Rutinas',
+              icon: 'home',
+              routerLink: ['/'],
+              visible: true
+            },
+            {
+              label: 'Agendamiento',
+              icon: 'calendar',
+              routerLink: ['/agendamiento'],
+              visible: true
+            },
+            {
+              label: 'Membresia',
+              icon: 'id-card',
+              routerLink: ['/membresia'],
+              visible: true
+            },
+          ]
+        },
+        {
+          label: ''
+        }
+      ];
+    }
   }
 
   private actualizarVisibilidadElementos() {
