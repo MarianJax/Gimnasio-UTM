@@ -3,6 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { RutinasRoutingModule } from './rutinas-routing.module';
 import { RutinasComponent } from './rutinas.component';
+import { IconModule } from 'src/app/components/icons/icons.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 
 @NgModule({
@@ -11,7 +18,15 @@ import { RutinasComponent } from './rutinas.component';
   ],
   imports: [
     CommonModule,
-    RutinasRoutingModule
+    RutinasRoutingModule,
+    IconModule,
+    FormsModule,
+    ButtonModule,
+    RippleModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    InputTextareaModule,
+    AutoCompleteModule
   ]
 })
 export class RutinasModule { }
