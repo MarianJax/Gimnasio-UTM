@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: '',
     component: EquiposComponent
+  },
+  {
+    path: 'mantenimiento',
+    loadChildren: () => import('./mantenimiento/mantenimiento.module').then(m => m.MantenimientoModule)
   }
 ];
 

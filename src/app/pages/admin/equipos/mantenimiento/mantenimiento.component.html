@@ -1,0 +1,125 @@
+<section style="display: flex; flex-direction: column; gap: 25px; margin-top: 25px;">
+    <header style="width: --webkit-fill-available; display: flex; gap: 28px;">
+        <i
+            style="padding: 10px; border-radius: 5px; background-color: var(--primary-color); max-height: 50px; max-width: 50px; color: var(--surface-overlay);">
+            <mage-icon name="tools" size="30px"></mage-icon>
+        </i>
+        <h1 style="margin: auto 0px; padding: 0px; font-size: 24px;">Mantenimiento de Equipos</h1>
+        <button (click)="addMantenimiento()"
+            style="margin-top: auto; margin-left: auto; padding: 5px 15px; border: 1px solid var(--primary-color); font-size: 16px; color: black; background-color: white; border-radius: 10px 0px 10px 10px;"
+            pButton pRiple>Agregar mantenimiento</button>
+
+        <p-dialog header="Header" [(visible)]="mantenimientoDialog" [modal]="true" [style]="{ width: '45rem' }">
+            <ng-template pTemplate="header">
+                <div class="inline-flex align-items-center justify-content-center gap-2">
+                    <span class="font-bold white-space-nowrap">
+                        Formulario de Mantenimiento
+                    </span>
+                </div>
+            </ng-template>
+            <div [style]="{ width: '40rem', display: 'flex', gap: '20px', flexWrap: 'wrap' }">
+                <div class="flex flex-column gap-2 mb-3 min-w-full">
+                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Nombre de máquina</label>
+                    <input id="email1" type="text" placeholder="12345678" pInputText
+                        style="padding:1rem" />
+                </div>
+                <div class="flex flex-column gap-2 mb-3" style="width: calc(50% - 10px);">
+                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Fecha ingreso</label>
+                    <input id="email1" type="text" placeholder="12345678" pInputText
+                        style="padding:1rem" />
+                </div>
+                <div class="flex flex-column gap-2 mb-3" style="width: calc(50% - 10px);">
+                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Estado</label>
+                    <input id="email1" type="text" placeholder="12345678" pInputText
+                        style="padding:1rem" />
+                </div>
+                <div class="flex flex-column gap-2 mb-3" style="width: calc(50% - 10px);">
+                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Linea de tiempo</label>
+                    <input id="email1" type="text" placeholder="12345678" pInputText
+                        style="padding:1rem" />
+                </div>
+                <div class="flex flex-column gap-2 mb-3" style="width: calc(50% - 10px);">
+                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Costo</label>
+                    <input id="email1" type="text" placeholder="12345678" pInputText
+                        style="padding:1rem" />
+                </div>
+                <div style="width: -webkit-fill-available;">
+                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Descripción</label>
+                    <textarea class="w-full" pInputTextarea [autoResize]="true" rows="3"></textarea>
+                </div>
+            </div>
+            <ng-template pTemplate="footer">
+                <p-button label="Cancel" [text]="true" severity="secondary" (onClick)="mantenimientoDialog = false" />
+                <p-button label="Save" [outlined]="true" severity="secondary" (onClick)="mantenimientoDialog = false" />
+            </ng-template>
+        </p-dialog>
+    </header>
+    <div style="width: --webkit-fill-available; padding-bottom: 20px;">
+        <p-toast />
+        <p-table #dt [value]="pagos" [rows]="10" [paginator]="true"
+            [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+            [tableStyle]="{ 'min-width': '75rem' }" [(selection)]="selectedPagos" [rowHover]="true" dataKey="id"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [showCurrentPageReport]="true">
+            <ng-template pTemplate="caption">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText style="padding: 1rem 1rem 1rem 2rem;" type="text" placeholder="Search..." />
+                </span>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 4rem">
+                        <p-tableHeaderCheckbox />
+                    </th>
+                    <th style="width:4rem">
+                        #
+                    </th>
+                    <th pSortableColumn="price" style="width: 15rem;">
+                        Nombres <p-sortIcon field="price" />
+                    </th>
+                    <th pSortableColumn="category" style="width:6rem">
+                        Rol <p-sortIcon field="category" />
+                    </th>
+                    <th pSortableColumn="rating" style="width:15rem">
+                        tipo de membresía <p-sortIcon field="rating" />
+                    </th>
+                    <th pSortableColumn="inventoryStatus" style="width:8rem">
+                        fecha <p-sortIcon field="inventoryStatus" />
+                    </th>
+                    <th pSortableColumn="pago" style="width:7rem">
+                        Pago <p-sortIcon field="pago" />
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="product" />
+                    </td>
+                    <td>
+                        {{ product.id }}
+                    </td>
+                    <td>
+                        <div class="flex flex-column gap-1"><span style="color: black;">{{ product.name }}</span><span
+                                style="font-size: 12px; color: #687182; ">{{ product.cedula }}</span></div>
+                    </td>
+                    <td>
+                        {{ product.rol }}
+                    </td>
+                    <td>
+                        {{ product.tipoMembresia }}
+                    </td>
+                    <td>
+                        {{ product.fecha }}
+                    </td>
+                    <td>
+                        {{ product.precio | currency : 'USD' }}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+
+</section>

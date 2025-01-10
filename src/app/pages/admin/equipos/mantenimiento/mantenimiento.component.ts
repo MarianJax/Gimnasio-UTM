@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PagoService } from './pago.service';
+import { PagoService } from '../../pagos/pago.service';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 
 interface Pago {
@@ -15,11 +15,11 @@ interface Pago {
 }
 
 @Component({
-  selector: 'app-pagos',
-  templateUrl: './pagos.component.html',
-  styleUrls: ['./pagos.component.scss']
+  selector: 'app-mantenimiento',
+  templateUrl: './mantenimiento.component.html',
+  styleUrls: ['./mantenimiento.component.scss']
 })
-export class PagosComponent implements OnInit {
+export class MantenimientoComponent implements OnInit {
   items: MenuItem[] | undefined;
 
   home: MenuItem | undefined;
@@ -29,6 +29,9 @@ export class PagosComponent implements OnInit {
   pago!: Pago;
 
   selectedPagos!: Pago[] | null;
+
+
+  mantenimientoDialog: boolean = false;
 
   constructor(private pagoService: PagoService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
@@ -63,4 +66,15 @@ export class PagosComponent implements OnInit {
     }
   }
 
+
+  addMantenimiento() {
+    console.log('Clic', this.mantenimientoDialog);
+    this.mantenimientoDialog = true;
+  }
+
+  hideDialog() {
+    this.mantenimientoDialog = false;
+  }
+
 }
+

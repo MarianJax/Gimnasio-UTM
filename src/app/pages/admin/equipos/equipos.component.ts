@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-equipos',
@@ -9,7 +10,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class EquiposComponent implements OnInit {
   myGroup: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.myGroup = this.fb.group({
       cantidad: new FormControl<string | null>(null),
       nombre: new FormControl<string | null>(null),
@@ -45,4 +46,8 @@ export class EquiposComponent implements OnInit {
   selectedProducts!: any;
 
   ngOnInit(): void { }
+
+  goToMantenimiento() {
+    this.router.navigate(['/admin/equipos/mantenimiento']);
+  }
 }
