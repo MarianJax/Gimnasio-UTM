@@ -1,0 +1,79 @@
+:host ::ng-deep .p-autocomplete {
+    width: 100%;
+}
+
+:host ::ng-deep .p-autocomplete-panel {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+:host ::ng-deep .p-autocomplete-items {
+    padding: 0.5rem 0;
+}
+
+:host ::ng-deep .p-autocomplete-item {
+    padding: 0.5rem 1rem;
+    color: #495057;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+:host ::ng-deep .p-autocomplete-item:hover {
+    background-color: #e9ecef;
+    color: #1e1e1e;
+}
+
+:host ::ng-deep .p-inputtext {
+    padding: 1rem;
+    width: 100%;
+    //     border-radius: 4px;
+}
+
+:host ::ng-deep .p-input-icon-left>i:first-of-type {
+    left: 0.75rem;
+    color: #6c757d;
+}
+
+/* Ejercicios */
+
+.ejercicios-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 180px;
+    padding: 16px;
+    border: 2px solid var(--primary-color);
+    border-radius: 10px 0px 10px 10px;
+    background-color: #fff;
+    // justify-items: ;
+    justify-content: space-between;
+
+    button {
+        margin: 0px auto;
+    }
+}
+
+.ejercicios-card header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h5 {
+    margin: 0px;
+    text-align: center;
+}
+
+.ejercicios-card p {
+    margin: 0;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+button {
+    display: flex;
+    gap: 5px;
+    color: #4CAF50;
+    background-color: #fff;
+
+}

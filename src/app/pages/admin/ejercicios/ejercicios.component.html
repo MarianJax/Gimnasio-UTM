@@ -1,2 +1,58 @@
-<p>ejercicios works!</p>
-<router-outlet></router-outlet>
+<section style="display: flex; flex-direction: column; gap: 35px 45px;">
+    <header style="width: --webkit-fill-available; display: flex; gap: 28px;">
+        <i
+            style="padding: 10px; border-radius: 5px; background-color: var(--primary-color); max-height: 50px; max-width: 50px; color: var(--surface-overlay);">
+            <mage-icon name="ejercicio" size="30px"></mage-icon>
+        </i>
+        <h1 style="margin: auto 0px; padding: 0px; font-size: 24px;">Ejercicios</h1>
+    </header>
+
+    <div>
+        <h4>Formulario de Registro</h4>
+        <div [formGroup]="myGroup">
+            <form style="display: flex; flex-wrap: wrap; gap: 0px 20px">
+                <div style="width: calc(50% - 10px);">
+                    <label for="rutina" class="block text-900 text-xl font-medium mb-2">Rutinas</label>
+                    <p-autoComplete [suggestions]="filtrosRutinas" (completeMethod)="filtroRutinas($event)"
+                        [showEmptyMessage]="isEmpty" emptyMessage="No hay rutinas" optionLabel="name"
+                        name="rutina"
+                        placeholder="Buscar rutinas" class="w-full mb-5" />
+                </div>
+                <div style="width: calc(50% - 10px);">
+                    <label for="nombre" class="block text-900 text-xl font-medium mb-2">Nombre ejercicio</label>
+                    <input id="nombre" type="text" placeholder="ejercicio" pInputText class="w-full mb-5"
+                        style="padding:1rem" />
+                </div>
+            </form>
+        </div>
+        <div style="display: flex; gap:20px; width: 100%; justify-content: end; margin-top: 10px;">
+            <button type="reset"
+                style="padding: 10px 25px; border: 1px solid var(--primary-color); font-size: 16px; color: black; background-color: white; border-radius: 10px 0px 10px 10px;"
+                pButton type="submit" pRiple>Cancelar</button>
+            <button
+                style="padding: 10px 25px; border: 1px solid var(--primary-color); font-size: 16px; color: black; background-color: var(--primary-color);; border-radius: 10px 0px 10px 10px;"
+                pButton pRiple>Guardar</button>
+        </div>
+    </div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 35px 45px; margin-top: 25px;">
+    <header style="width: --webkit-fill-available; display: flex; gap: 28px;">
+        <i
+            style="padding: 10px; border-radius: 5px; background-color: var(--primary-color); max-height: 50px; max-width: 50px; color: var(--surface-overlay);">
+            <mage-icon name="ejercicio" size="30px"></mage-icon>
+        </i>
+        <h1 style="margin: auto 0px;  padding: 0px; font-size: 24px;">Ejercicios Registradas</h1>
+    </header>
+
+    <div style="width: --webkit-fill-available; padding-bottom: 20px; display: flex; gap: 30px;">
+        <article *ngFor="let ejercicio of ejerciciosData" class="ejercicios-card">
+            <header style="display: inline-flex; flex-direction: column; gap: 5px;">
+                <h5>{{ejercicio.maquina}}</h5>
+                <p>{{ejercicio.estado}}</p>
+                <p>{{ejercicio.ejercicio.nombre}}</p>
+            </header>
+            <button pButton pRipple><mage-icon name="edit" size="14px"></mage-icon>&nbsp;Actualizar</button>
+        </article>
+    </div>
+</section>
