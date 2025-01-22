@@ -6,12 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  products = [
+  asistencia = [
     {
       id: '1000',
-      code: 'f230fh0g3',
-      name: 'Bamboo Watch',
-      description: 'Product Description',
+      nombre: 'nombre de estuduiante',
+      name: 'nombre de estudiante',
+      rol: 'estudiante',
+      fecha: '2021-09-01',
       image: 'bamboo-watch.jpg',
       price: 65,
       category: 'Accessories',

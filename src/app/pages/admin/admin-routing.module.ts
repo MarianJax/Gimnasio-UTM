@@ -13,16 +13,8 @@ const routes: Routes = [
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
       },
       {
-        path: 'entrenamientos',
-        loadChildren: () => import('./rutinas/rutinas.module').then(m => m.RutinasModule)
-      },
-      {
         path: 'equipos',
         loadChildren: () => import('./equipos/equipos.module').then(m => m.EquiposModule)
-      },
-      {
-        path: 'ejercicios',
-        loadChildren: () => import('./ejercicios/ejercicios.module').then(m => m.EjerciciosModule)
       },
       {
         path: 'pagos',
