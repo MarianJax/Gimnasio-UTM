@@ -1,0 +1,100 @@
+.section-form {
+    display: flex;
+    flex-direction: column;
+    gap: 35px 45px;
+    height: fit-content;
+
+    header {
+        width: -webkit-fill-available;
+        display: flex;
+        gap: 28px;
+
+        span {
+            display: flex;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: var(--surface-overlay)
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 800;
+            margin: auto 0;
+        }
+
+        button {
+            margin: auto 0 auto auto;
+            padding: 5px 15px;
+            border: 1px solid var(--primary-color);
+            font-size: 16px;
+            color: black;
+            background-color: white;
+            border-radius: 10px 0px 10px 10px;
+        }
+    }
+
+    div {
+        h3 {
+            font-size: 1.5rem
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+
+            div {
+                label {
+                    display: block;
+                    color: black;
+                    font-size: 1.15rem;
+                }
+
+                input {
+                    margin-top: 8px;
+                    width: 100%;
+                    padding: 1rem;
+                }
+
+                textarea {
+                    margin-top: 8px;
+                    width: 100%;
+                    padding: 1rem;
+                }
+            }
+        }
+    }
+}
+
+.section-table {
+    display: flex;
+    flex-direction: column;
+    gap: 35px 45px;
+    margin-top: 25px;
+
+    header {
+        width: -webkit-fill-available;
+        display: flex;
+        gap: 28px;
+
+        span {
+            display: flex;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: var(--surface-overlay)
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 800;
+            margin: auto 0;
+        }
+    }
+
+    div {
+        width: -webkit-fill-available;
+        padding-bottom: 20px
+    }
+}

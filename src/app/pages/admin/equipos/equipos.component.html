@@ -1,149 +1,62 @@
-<section style="display: flex; flex-direction: column; gap: 35px 45px">
-  <header style="width: --webkit-fill-available; display: flex; gap: 28px">
-    <i
-      style="
-        padding: 10px;
-        border-radius: 5px;
-        background-color: var(--primary-color);
-        max-height: 50px;
-        max-width: 50px;
-        color: var(--surface-overlay);
-      "
-    >
-      <mage-icon name="calendar-plus" size="30px"></mage-icon>
-    </i>
-    <h1 style="margin: auto 0px; padding: 0px; font-size: 24px">Equipos</h1>
-    <button
-      (click)="goToMantenimiento()"
-      style="
-        margin-top: auto;
-        margin-left: auto;
-        padding: 5px 15px;
-        border: 1px solid var(--primary-color);
-        font-size: 16px;
-        color: black;
-        background-color: white;
-        border-radius: 10px 0px 10px 10px;
-      "
-      pButton
-      pRiple
-    >
+<section class="section-form">
+  <header>
+    <span>
+      <mage-icon name="calendar-plus" size="24px"></mage-icon>
+    </span>
+    <h1>Equipos</h1>
+    <button (click)="goToMantenimiento()" pButton pRiple>
       Mantenimiento
     </button>
   </header>
 
   <div>
     <h3>Formulario de Registro</h3>
-    <form
-      [formGroup]="myGroup"
-      (ngSubmit)="addMaquina()"
-      style="display: flex; flex-wrap: wrap; gap: 0px 20px"
-    >
-      <div style="width: calc(50% - 10px)">
-        <label for="email1" class="block text-900 text-xl font-medium mb-2"
-          >Cantidad</label
-        >
-        <input
-          id="email1"          
-          formControlName="cantidad"
-          type="number"
-          placeholder=""
-          pInputText
-          class="w-full mb-5"
-          style="padding: 1rem"
-        />
+    <form [formGroup]="myGroup" (ngSubmit)="addMaquina()">
+      <div style="width: calc(50% - 12px)">
+        <label for="email1" class="">Cantidad</label>
+        <input id="email1" formControlName="cantidad" type="number" placeholder="" pInputText />
       </div>
-      <div style="width: calc(50% - 10px)">
-        <label for="email1" class="block text-900 text-xl font-medium mb-2"
-          >Nombre maquina</label
-        >
-        <input
-          id="email1"
-          type="text"
-          placeholder=""
-          formControlName="name"
-          pInputText
-          class="w-full mb-5"
-          style="padding: 1rem"
-        />
+      <div style="width: calc(50% - 12px)">
+        <label for="email1" class="">Nombre maquina</label>
+        <input id="email1" type="text" placeholder="" formControlName="name" pInputText />
       </div>
-      <div style="width: calc(50% - 10px)">
-        <label for="email1" class="block text-900 text-xl font-medium mb-2"
-          >Estado</label
-        >
-        <input
-          id="email1"
-          type="text"
-          formControlName="estado"
-          placeholder="Disponible"
-          pInputText
-          class="w-full mb-5"
-          style="padding: 1rem"
-        />
+      <div style="width: calc(50% - 12px)">
+        <label for="email1" class="">Estado</label>
+        <input id="email1" type="text" formControlName="estado" placeholder="Disponible" pInputText />
       </div>
-      <div style="width: calc(50% - 10px)">
-        <label for="email1" class="block text-900 text-xl font-medium mb-2"
-          >Fecha Registro</label
-        >
-        <input
-          id="email1"
-          type="text"
-          placeholder=""
-          formControlName="date_compra"
-          pInputText
-          class="w-full mb-5"
-          style="padding: 1rem"
-        />
+      <div style="width: calc(50% - 12px)">
+        <label for="email1" class="">Fecha Registro</label>
+        <input id="email1" type="text" placeholder="" formControlName="date_compra" pInputText />
       </div>
       <div style="width: -webkit-fill-available">
-        <label for="email1" class="block text-900 text-xl font-medium mb-2"
-          >Descripción</label
-        >
-        <textarea
-          class="w-full"
-          pInputTextarea
-          [autoResize]="true"
-          formControlName="descripcion"
-          rows="3"
-        ></textarea>
+        <label for="email1" class="">Descripción</label>
+        <textarea pInputTextarea [autoResize]="true" formControlName="descripcion" rows="3"></textarea>
       </div>
-      <div
-        style="
+      <div style="
           display: flex;
           gap: 20px;
           width: 100%;
           justify-content: end;
           margin-top: 10px;
-        "
-      >
-        <button
-          type="reset"
-          style="
+        ">
+        <button type="reset" style="
             padding: 10px 25px;
             border: 1px solid var(--primary-color);
             font-size: 16px;
             color: black;
             background-color: white;
             border-radius: 10px 0px 10px 10px;
-          "
-          pButton
-          type="submit"
-          pRiple
-        >
+          " pButton type="submit" pRiple>
           Cancelar
         </button>
-        <button
-          style="
+        <button style="
             padding: 10px 25px;
             border: 1px solid var(--primary-color);
             font-size: 16px;
             color: black;
             background-color: var(--primary-color);
             border-radius: 10px 0px 10px 10px;
-          "
-          pButton
-          pRiple
-        >
+          " pButton pRiple>
           Guardar
         </button>
       </div>
@@ -151,43 +64,20 @@
   </div>
 </section>
 
-<section
-  style="
-    display: flex;
-    flex-direction: column;
-    gap: 35px 45px;
-    margin-top: 25px;
-  "
->
-  <header style="width: --webkit-fill-available; display: flex; gap: 28px">
-    <i
-      style="
-        padding: 10px;
-        border-radius: 5px;
-        background-color: var(--primary-color);
-        max-height: 50px;
-        max-width: 50px;
-        color: var(--surface-overlay);
-      "
-    >
-      <mage-icon name="dollar" size="30px"></mage-icon>
-    </i>
-    <h1 style="margin: auto 0px; padding: 0px; font-size: 24px">
+<section class="section-table">
+  <header>
+    <span>
+      <mage-icon name="dollar" size="26px"></mage-icon>
+    </span>
+    <h1>
       Equipos Registrados
     </h1>
   </header>
 
-  <div style="width: --webkit-fill-available; padding-bottom: 20px">
-    <p-table
-      [value]="maquinas"
-      [(selection)]="selectedProducts"
-      dataKey="code"
-      [tableStyle]="{ 'min-width': '50rem' }"
-    >
+  <div>
+    <p-table [value]="maquinas" dataKey="maquinas-registradas" [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="header">
         <tr>
-          <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
-          <th>#</th>
           <th>Cantidad</th>
           <th>Maquina</th>
           <th>Fecha Registro</th>
@@ -197,10 +87,6 @@
       </ng-template>
       <ng-template pTemplate="body" let-maquina>
         <tr>
-          <td>
-            <p-tableCheckbox [value]="maquina" />
-          </td>
-          <td>{{ maquina.id }}</td>
           <td>{{ maquina.cantidad }}</td>
           <td>{{ maquina.name }}</td>
           <td>{{ maquina.date_compra }}</td>
