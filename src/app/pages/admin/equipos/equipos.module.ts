@@ -10,6 +10,8 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     RippleModule,
     ReactiveFormsModule,
     InputTextModule,
-    InputTextareaModule
+    InputTextareaModule,
+    CalendarModule,
+    DropdownModule
   ]
 })
 export class EquiposModule { }

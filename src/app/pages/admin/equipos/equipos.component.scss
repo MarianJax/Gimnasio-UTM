@@ -67,6 +67,29 @@
     }
 }
 
+:host ::ng-deep .p-calendar {
+    width: 100%;
+
+    .p-inputtext {
+        margin-top: 8px;
+        padding: 1rem;
+    }
+
+    .p-datepicker {
+        min-width: fit-content;
+    }
+}
+
+:host ::ng-deep .p-dropdown {
+    margin-top: 8px;
+    width: 100%;
+
+    .p-inputtext {
+        padding: 1rem;
+        outline: none
+    }
+}
+
 .section-table {
     display: flex;
     flex-direction: column;

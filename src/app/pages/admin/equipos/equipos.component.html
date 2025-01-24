@@ -13,20 +13,21 @@
     <h3>Formulario de Registro</h3>
     <form [formGroup]="myGroup" (ngSubmit)="addMaquina()">
       <div style="width: calc(50% - 12px)">
-        <label for="email1" class="">Cantidad</label>
-        <input id="email1" formControlName="cantidad" type="number" placeholder="" pInputText />
+        <label for="cantidad" class="">Cantidad</label>
+        <input id="cantidad" formControlName="cantidad" type="number" placeholder="" pInputText />
       </div>
       <div style="width: calc(50% - 12px)">
-        <label for="email1" class="">Nombre maquina</label>
-        <input id="email1" type="text" placeholder="" formControlName="name" pInputText />
+        <label for="name" class="">Nombre maquina</label>
+        <input id="name" type="text" placeholder="" formControlName="name" pInputText />
       </div>
       <div style="width: calc(50% - 12px)">
-        <label for="email1" class="">Estado</label>
-        <input id="email1" type="text" formControlName="estado" placeholder="Disponible" pInputText />
+        <label for="estado" class="">Estado</label>
+        <p-dropdown formControlName="estado" optionLabel="name" [options]="estadosOpt" placeholder="Seleccione el estado" [ngModel]="estadosOpt[0]" />
       </div>
       <div style="width: calc(50% - 12px)">
-        <label for="email1" class="">Fecha Registro</label>
-        <input id="email1" type="text" placeholder="" formControlName="date_compra" pInputText />
+        <label for="date_compra" class="">Fecha Registro</label>
+        <p-calendar id="date_compra" 
+        dateFormat="dd-mm-yy" formControlName="date_compra" />
       </div>
       <div style="width: -webkit-fill-available">
         <label for="email1" class="">Descripción</label>

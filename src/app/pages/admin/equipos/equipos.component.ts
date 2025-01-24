@@ -3,6 +3,11 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EquiposerviceService } from './service/equiposervice.service';
 
+interface Estados {
+  name: string;
+  code: string;
+}
+
 @Component({
   selector: 'app-equipos',
   templateUrl: './equipos.component.html',
@@ -10,6 +15,13 @@ import { EquiposerviceService } from './service/equiposervice.service';
 })
 export class EquiposComponent implements OnInit {
   myGroup: FormGroup;
+  estadosOpt= [
+    { name: 'Disponible', code: 'disponible' },
+    { name: 'Mantenimiento', code: 'mantenimiento' },
+    { name: 'Fuera de Servicio', code: 'fueraservicio' }
+  ];
+
+  selectedestado: any
 
   constructor(
     private equipoService: EquiposerviceService,
@@ -19,9 +31,9 @@ export class EquiposComponent implements OnInit {
   ) {
     this.myGroup = this.fb.group({
       cantidad: new FormControl<number | null>(1),
-      estado: new FormControl<string | null>(null),
+      estado: new FormControl<Estados | null>(null),
       name: new FormControl<string | null>(null),
-      date_compra: new FormControl<string | null>(null),
+      date_compra: new FormControl<Date | null>(null),
       descripcion: new FormControl<string | null>(null),
     });
   }
@@ -31,9 +43,9 @@ export class EquiposComponent implements OnInit {
       console.log('Datos enviados exitosamente', response);
       this.myGroup = this.fb.group({
         cantidad: new FormControl<number | null>(1),
-        estado: new FormControl<string | null>(null),
+        estado: new FormControl<Estados | null>(null),
         name: new FormControl<string | null>(null),
-        date_compra: new FormControl<string | null>(null),
+        date_compra: new FormControl<Date | null>(null),
         descripcion: new FormControl<string | null>(null),
       });
       this.obtenerDatos();
