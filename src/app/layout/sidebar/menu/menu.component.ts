@@ -115,18 +115,6 @@ export class MenuComponent implements OnInit {
               routerLink: ['/admin/pagos'],
               visible: true
             },
-            {
-              label: 'Entrenamiento',
-              icon: 'calendar-plus',
-              routerLink: ['/admin/entrenamientos'],
-              visible: true
-            },
-            {
-              label: 'Ejercicios',
-              icon: 'ejercicio',
-              routerLink: ['/admin/ejercicios'],
-              visible: true
-            },
           ]
         },
         {
