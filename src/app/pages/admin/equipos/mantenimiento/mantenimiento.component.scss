@@ -11,3 +11,46 @@
 :host ::ng-deep .p-dialog-content {
     padding: 30px;
 }
+
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 25px;
+
+    header {
+        width: -webkit-fill-available;
+        display: flex;
+        gap: 28px;
+
+        #icon {
+            display: flex;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: var(--surface-overlay)
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 800;
+            margin: auto 0;
+        }
+
+        button {
+            margin: auto 0 auto auto;
+            padding: 5px 15px;
+            border: 1px solid var(--primary-color);
+            font-size: 16px;
+            color: black;
+            background-color: white;
+            border-radius: 10px 0px 10px 10px;
+        }
+    }
+
+    div {
+        width: -webkit-fill-available;
+        padding-bottom: 20px;
+    }
+
+}

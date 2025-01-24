@@ -1,10 +1,9 @@
-<section style="display: flex; flex-direction: column; gap: 15px; margin-top: 25px;">
-    <header style="width: --webkit-fill-available; display: flex; gap: 28px;">
-        <i
-            style="padding: 10px; border-radius: 5px; background-color: var(--primary-color); max-height: 50px; max-width: 50px; color: var(--surface-overlay);">
-            <mage-icon name="dollar" size="30px"></mage-icon>
+<section>
+    <header >
+        <i id="icon">
+            <mage-icon name="dollar" size="26px"></mage-icon>
         </i>
-        <h1 style="margin: auto 0px;  padding: 0px; font-size: 24px;">Total de Pagos</h1>
+        <h1 >Total de Pagos</h1>
     </header>
     <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
         <ng-template pTemplate="item" let-item>
@@ -22,19 +21,14 @@
         </ng-template>
         <ng-template pTemplate="separator"> &nbsp;&nbsp;/&nbsp;&nbsp; </ng-template>
     </p-breadcrumb>
-    <div style="width: --webkit-fill-available; padding-bottom: 20px;">
+
+    <div>
         <p-toast />
         <p-table #dt [value]="pagos" [rows]="10" [paginator]="true"
             [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-            [tableStyle]="{ 'min-width': '75rem' }" [rowHover]="true" dataKey="id"
+            [tableStyle]="{ 'min-width': '50rem' }" [rowHover]="true" dataKey="id"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [showCurrentPageReport]="true">
-            <ng-template pTemplate="caption">
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input pInputText style="padding: 1rem 1rem 1rem 2rem;" type="text" placeholder="Search..." />
-                </span>
-            </ng-template>
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="price" style="width: 15rem;">

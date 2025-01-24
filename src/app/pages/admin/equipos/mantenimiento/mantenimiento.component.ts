@@ -3,15 +3,11 @@ import { PagoService } from '../../pagos/pago.service';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 
 interface Pago {
-  id?: string;
-  code?: string;
-  name?: string;
-  cedula?: string;
-  rol?: string;
-  tipoMembresia?: string;
-  fecha?: string;
-  inventoryStatus?: string;
-  precio?: number;
+  id: string;
+  maquina: string;
+  fecha: string;
+  estado: string;
+  pago: number;
 }
 
 @Component({
@@ -33,10 +29,18 @@ export class MantenimientoComponent implements OnInit {
 
   mantenimientoDialog: boolean = false;
 
-  constructor(private pagoService: PagoService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
+  constructor(private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
-    this.pagoService.getPagos().then((data) => (this.pagos = data));
+    this.pagos = [
+      {
+        id: '1000',
+        maquina: 'Maquina 1',
+        fecha: '2023-01-01',
+        estado: 'Mantenimiento',
+        pago: 3.50
+      }
+    ];
     this.items = [{ icon: 'dashboard', route: '/admin' }, { label: 'Pagos' }];
 
   }

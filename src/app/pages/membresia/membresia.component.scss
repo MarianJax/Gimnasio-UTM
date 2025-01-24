@@ -1,0 +1,39 @@
+.contain-header {
+    width: 100%;
+    justify-content: end;
+    margin-bottom: 1.5rem;
+
+    button {
+        display: flex;
+        gap: 5px;
+        margin-left: auto;
+        background: transparent;
+        border: transparent;
+        color: var(--surface-900);
+    }
+}
+
+section {
+    display: flex;
+    width: 100%;
+    gap: 10px 30px;
+
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        width: 100%;
+
+        div {
+            width: 100%;
+            border: 3px solid var(--primary-color);
+            border-radius: 22px;
+            padding: 25px 40px;
+
+            header {
+                display: flex;
+                gap: 0.5rem; 
+            }
+        }
+    }
+}
