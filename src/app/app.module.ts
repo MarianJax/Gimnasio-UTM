@@ -14,6 +14,7 @@ import { IconModule } from './components/icons/icons.module';
 @NgModule({
   declarations: [
     AppComponent,
+
    
   ],
   imports: [

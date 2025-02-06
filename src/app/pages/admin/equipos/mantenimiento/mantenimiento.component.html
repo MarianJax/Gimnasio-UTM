@@ -3,7 +3,7 @@
         <span id="icon">
             <mage-icon name="tools-m" fill="white" size="26px"></mage-icon>
         </span>
-        <h1>Mantenimiento de Equipos</h1>
+        <h3>Mantenimiento de Equipos</h3>
         <button (click)="addMantenimiento()" pButton pRiple>Agregar mantenimiento</button>
 
         <p-dialog header="Header" [(visible)]="mantenimientoDialog" [modal]="true" [style]="{ width: '45rem' }">
@@ -27,10 +27,7 @@
                     <label for="email1" class="block text-900 text-xl font-medium mb-2">Estado</label>
                     <input id="email1" type="text" placeholder="12345678" pInputText style="padding:1rem" />
                 </div>
-                <div class="flex flex-column gap-2 mb-3" style="width: calc(50% - 10px);">
-                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Linea de tiempo</label>
-                    <input id="email1" type="text" placeholder="12345678" pInputText style="padding:1rem" />
-                </div>
+               
                 <div class="flex flex-column gap-2 mb-3" style="width: calc(50% - 10px);">
                     <label for="email1" class="block text-900 text-xl font-medium mb-2">Costo</label>
                     <input id="email1" type="text" placeholder="12345678" pInputText style="padding:1rem" />

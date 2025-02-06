@@ -12,11 +12,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
+import { RegistrosComponent } from './registros/registros.component';
 
 
 @NgModule({
   declarations: [
-    EquiposComponent
+    EquiposComponent,
+    RegistrosComponent
   ],
   imports: [
     CommonModule,
