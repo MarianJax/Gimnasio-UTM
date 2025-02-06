@@ -1,0 +1,37 @@
+:host ::ng-deep .p-breadcrumb-list {
+    gap: 1rem;
+    font-size: 16px;
+}
+
+:host ::ng-deep .p-breadcrumb{
+    border: transparent;
+    background: transparent;
+}
+
+
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 25px;
+
+    header {
+        width: -webkit-fill-available;
+        display: flex;
+        gap: 28px;
+
+        #icon {
+            display: flex;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: var(--surface-overlay)
+        }
+
+        h3 {
+            font-size: 26px;
+            font-weight: 800;
+            margin: auto 0;
+        }
+    }
+}

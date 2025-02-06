@@ -1,4 +1,62 @@
-<div>
-    equipos Registrados
-    <th> </th>
-</div>
+<section>
+    <header>
+        <span id="icon">
+            <mage-icon name="box-3d" color="white" size="26px"></mage-icon>
+        </span>
+        <h3>Registro de Equipos</h3>
+    </header>
+    <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
+        <ng-template pTemplate="item" let-item>
+            <ng-container *ngIf="item.route; else elseBlock">
+                <a [routerLink]="item.route" class="p-menuitem-link">
+                    <mage-icon size="20px" [name]="item.icon"></mage-icon>
+                    <span class="text-primary font-semibold">{{ item.label }}</span>
+                </a>
+            </ng-container>
+            <ng-template #elseBlock>
+                <a [href]="item.url">
+                    <span class="text-color">{{ item.label }}</span>
+                </a>
+            </ng-template>
+        </ng-template>
+        <ng-template pTemplate="separator"> &nbsp;&nbsp;/&nbsp;&nbsp; </ng-template>
+    </p-breadcrumb>
+</section>
+
+<p-table #dt [value]="equipos" [rows]="10" [paginator]="true"
+    [globalFilterFields]="['cantidad', 'nombre', 'fecha', 'estado']" [tableStyle]="{ 'min-width': '50rem' }"
+    [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="maquina" style="width: 15rem;">
+                cantidad <p-sortIcon field="maquina" />
+            </th>
+            <th pSortableColumn="nombre" style="width:6rem">
+                nombre <p-sortIcon field="nombre" />
+            </th>
+            <th pSortableColumn="fecha" style="width:8rem">
+                fecha <p-sortIcon field="fecha" />
+            </th>
+            <th pSortableColumn="estado" style="width:8rem">
+                estado <p-sortIcon field="estado" />
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pago>
+        <tr>
+            <td>
+                {{ pago.cantidad }}
+            </td>
+            <td>
+                {{ pago.nombre }}
+            </td>
+            <td>
+                {{ pago.fecha }}
+            </td>
+            <td>
+                {{ pago.estado }}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
