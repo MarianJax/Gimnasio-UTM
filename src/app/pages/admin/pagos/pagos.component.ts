@@ -34,7 +34,7 @@ export class PagosComponent implements OnInit {
 
   ngOnInit() {
     this.pagoService.getPagos().then((data) => (this.pagos = data));
-    this.items = [{ icon: 'dashboard', route: '/admin' }, { label: 'Pagos' }];
+    this.items = [{ icon: 'dashboard', route: '/admin', label: 'Inicio' }, { label: 'Pagos' }];
 
   }
 
