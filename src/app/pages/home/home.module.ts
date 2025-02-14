@@ -6,6 +6,7 @@ import { HomeComponent } from './home.component';
 import { IconModule } from 'src/app/components/icons/icons.module';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { RippleModule } from 'primeng/ripple';
     HomeRoutingModule,
     IconModule,
     ButtonModule,
-    RippleModule
+    RippleModule,
+    ProgressBarModule
   ]
 })
 export class HomeModule { }

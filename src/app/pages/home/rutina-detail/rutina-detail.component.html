@@ -1,9 +1,7 @@
-<section>
-  <header style="display: flex; justify-content: space-between; align-items: end">
-    <h5>{{ rutinaSlug }}</h5>
-    <button pButton pRipple (click)="goToPagos()">Agendar</button>
-  </header>
-</section>
+<header >
+  <h5>{{ rutinaSlug }}</h5>
+  <button pButton pRipple (click)="goToPagos()">Agendar</button>
+</header>
 
 <section class="conte-rutinas">
   <ng-container *ngFor="let rutina of rutinaItems">
