@@ -5,62 +5,30 @@
 </div>
 
 <form (ngSubmit)="onSubmit(myForm)" #myForm="ngForm">
-  <div style="display: flex; flex-wrap: wrap; gap: 20px">
+  <div class="content-inputs">
     <div style="width: calc(50% - 10px)">
-      <label for="email1" class="block text-900 text-xl font-medium mb-2"
-        >Fecha de Inicio</label
-      >
-      <p-calendar
-        [(ngModel)]="startDate"
-        [showButtonBar]="true"
-        name="startDate"
-      />
+      <label for="email1" class="block text-900 text-xl font-medium mb-2">Fecha de Inicio</label>
+      <p-calendar [(ngModel)]="startDate" [showButtonBar]="true" name="startDate" />
     </div>
     <div style="width: calc(50% - 10px)">
-      <label for="endDate" class="block text-900 text-xl font-medium mb-2"
-        >Fecha de Fin</label
-      >
+      <label for="endDate" class="block text-900 text-xl font-medium mb-2">Fecha de Fin</label>
       <p-calendar [(ngModel)]="endDate" [showButtonBar]="true" name="endDate" />
     </div>
     <div style="width: 100%">
-      <label for="email1" class="block text-900 text-xl font-medium mb-2"
-        >Tipo</label
-      >
-      <p-dropdown
-        name="selectedtipo"
-        [options]="tipos"
-        [(ngModel)]="selectedtipo"
-        optionLabel="name"
-        placeholder="Seleccionar dia de semanana"
-      />
+      <label for="email1" class="block text-900 text-xl font-medium mb-2">Tipo</label>
+      <p-dropdown name="selectedtipo" [options]="tipos" [(ngModel)]="selectedtipo" optionLabel="name"
+        placeholder="Seleccionar dia de semanana" />
     </div>
   </div>
-  <div
-    style="
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-bottom: 1rem;
-    "
-  >
-    <button
-      style="margin-top: 1rem; width: 150px; justify-content: center"
-      type="submit"
-      pButton
-      pRipple
-      class="submit-button"
-    >
+  <div class="content-button">
+    <button type="submit" pButton pRipple class="submit-button">
       Guardar
     </button>
   </div>
 </form>
 
 <div class="card">
-  <p-table
-    [columns]="cols"
-    [value]="products"
-    [tableStyle]="{ 'min-width': '50rem' }"
-  >
+  <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header" let-columns>
       <tr>
         <th *ngFor="let col of columns">
