@@ -41,7 +41,7 @@ export class MantenimientoComponent implements OnInit {
         pago: 3.50
       }
     ];
-    this.items = [{ icon: 'dashboard', route: '/admin' }, { label: 'Pagos' }];
+    this.items = [{ icon: 'dashboard', route: '/admin', label: 'Inicio' }, { label: 'Equipos', route: '/admin/equipos' }, { label: 'Mantenimientos' }];
 
   }
 

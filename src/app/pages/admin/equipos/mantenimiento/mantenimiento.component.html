@@ -1,54 +1,75 @@
-<section>
-    <header >
-        <span id="icon">
-            <mage-icon name="tools-m" fill="white" size="26px"></mage-icon>
-        </span>
-        <h3>Mantenimiento de Equipos</h3>
-        <button (click)="addMantenimiento()" pButton pRiple>Agregar mantenimiento</button>
+<header>
+    <span id="icon">
+        <mage-icon name="tools-m" fill="white" size="24px"></mage-icon>
+    </span>
+    <h2>Mantenimiento de Equipos</h2>
+    <button (click)="addMantenimiento()" pButton pRiple>Agregar mantenimiento</button>
 
-        <p-dialog header="Header" [(visible)]="mantenimientoDialog" [modal]="true" [style]="{ width: '45rem' }">
-            <ng-template pTemplate="header">
-                <div class="inline-flex align-items-center justify-content-center gap-2">
-                    <span class="font-bold white-space-nowrap">
-                        Formulario de Mantenimiento
-                    </span>
-                </div>
-            </ng-template>
-            <div [style]="{ width: '40rem', display: 'flex', gap: '20px', flexWrap: 'wrap' }">
-                <div class="flex flex-column gap-2 mb-3 min-w-full">
-                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Nombre de máquina</label>
-                    <input id="email1" type="text" placeholder="12345678" pInputText style="padding:1rem" />
-                </div>
-                <div class="flex flex-column gap-2 mb-3" style="width: calc(50% - 10px);">
-                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Fecha ingreso</label>
-                    <input id="email1" type="text" placeholder="12345678" pInputText style="padding:1rem" />
-                </div>
-                <div class="flex flex-column gap-2 mb-3" style="width: calc(50% - 10px);">
-                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Estado</label>
-                    <input id="email1" type="text" placeholder="12345678" pInputText style="padding:1rem" />
-                </div>
-               
-                <div class="flex flex-column gap-2 mb-3" style="width: calc(50% - 10px);">
-                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Costo</label>
-                    <input id="email1" type="text" placeholder="12345678" pInputText style="padding:1rem" />
-                </div>
-                <div style="width: -webkit-fill-available;">
-                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Descripción</label>
-                    <textarea class="w-full" pInputTextarea [autoResize]="true" rows="3"></textarea>
-                </div>
+    <p-dialog header="Header" [(visible)]="mantenimientoDialog" [modal]="true" [style]="{ width: '45rem' }">
+        <ng-template pTemplate="header">
+            <div class="inline-flex align-items-center justify-content-center gap-2">
+                <span class="font-bold white-space-nowrap">
+                    Formulario de Mantenimiento
+                </span>
             </div>
-            <ng-template pTemplate="footer">
-                <p-button label="Cancel" [text]="true" severity="secondary" (onClick)="mantenimientoDialog = false" />
-                <p-button label="Save" [outlined]="true" severity="secondary" (onClick)="mantenimientoDialog = false" />
-            </ng-template>
-        </p-dialog>
-    </header>
+        </ng-template>
+        <div [style]="{ width: '40rem', display: 'flex', gap: '20px', flexWrap: 'wrap' }">
+            <div class="flex flex-column gap-2 mb-3 min-w-full">
+                <label for="email1" class="block text-900 text-xl font-medium mb-2">Nombre de máquina</label>
+                <input id="email1" type="text" placeholder="12345678" pInputText style="padding:1rem" />
+            </div>
+            <div class="flex flex-column gap-2 mb-3" style="width: calc(50% - 10px);">
+                <label for="email1" class="block text-900 text-xl font-medium mb-2">Fecha ingreso</label>
+                <input id="email1" type="text" placeholder="12345678" pInputText style="padding:1rem" />
+            </div>
+            <div class="flex flex-column gap-2 mb-3" style="width: calc(50% - 10px);">
+                <label for="email1" class="block text-900 text-xl font-medium mb-2">Estado</label>
+                <input id="email1" type="text" placeholder="12345678" pInputText style="padding:1rem" />
+            </div>
 
-    <div >
+            <div class="flex flex-column gap-2 mb-3" style="width: calc(50% - 10px);">
+                <label for="email1" class="block text-900 text-xl font-medium mb-2">Costo</label>
+                <input id="email1" type="text" placeholder="12345678" pInputText style="padding:1rem" />
+            </div>
+            <div style="width: -webkit-fill-available;">
+                <label for="email1" class="block text-900 text-xl font-medium mb-2">Descripción</label>
+                <textarea class="w-full" pInputTextarea [autoResize]="true" rows="3"></textarea>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <p-button label="Cancel" [text]="true" severity="secondary" (onClick)="mantenimientoDialog = false" />
+            <p-button label="Save" [outlined]="true" severity="secondary" (onClick)="mantenimientoDialog = false" />
+        </ng-template>
+    </p-dialog>
+</header>
+
+
+<p-breadcrumb class="max-w-full" [model]="items" [home]="home">
+    <ng-template pTemplate="item" let-item>
+        <ng-container *ngIf="item.route; else elseBlock">
+            <a [routerLink]="item.route" class="p-menuitem-link">
+                <ng-container *ngIf="item.icon">
+                    <mage-icon size="20px" [name]="item.icon"></mage-icon>
+                </ng-container>
+                <span class="text-primary font-semibold">{{ item.label }}</span>
+            </a>
+        </ng-container>
+        <ng-template #elseBlock>
+            <a [href]="item.url">
+                <span class="text-color">{{ item.label }}</span>
+            </a>
+        </ng-template>
+    </ng-template>
+    <ng-template pTemplate="separator"> &nbsp;&nbsp;/&nbsp;&nbsp; </ng-template>
+</p-breadcrumb>
+
+<section>
+
+    <div>
         <p-toast />
         <p-table #dt [value]="pagos" [rows]="10" [paginator]="true"
-            [globalFilterFields]="['maquina', 'fecha', 'estado', 'pago']"
-            [tableStyle]="{ 'min-width': '50rem' }" [rowHover]="true" dataKey="id"
+            [globalFilterFields]="['maquina', 'fecha', 'estado', 'pago']" [tableStyle]="{ 'min-width': '50rem' }"
+            [rowHover]="true" dataKey="id"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [showCurrentPageReport]="true">
             <ng-template pTemplate="header">

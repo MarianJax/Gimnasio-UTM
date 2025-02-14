@@ -1,16 +1,15 @@
-<section class="section-form">
-  <header>
-    <span>
-      <mage-icon name="calendar-plus" size="24px"></mage-icon>
-    </span>
-    <h3>Equipos</h3>
-    <button (click)="goToMantenimiento()" pButton pRiple>
-      Mantenimiento
-    </button>
-  </header>
+<header>
+  <span>
+    <mage-icon name="calendar-plus" size="24px"></mage-icon>
+  </span>
+  <h2>Equipos</h2>
+  <button (click)="goToMantenimiento()" pButton pRiple>
+    Mantenimiento
+  </button>
+</header>
 
-  <div>
-    <h3>Formulario de Registro</h3>
+<section class="section-form">
+    <h3>Formulario de registro</h3>
     <form [formGroup]="myGroup" (ngSubmit)="addMaquina()">
       <div style="width: calc(50% - 12px)">
         <label for="cantidad" class="">Cantidad</label>
@@ -22,12 +21,12 @@
       </div>
       <div style="width: calc(50% - 12px)">
         <label for="estado" class="">Estado</label>
-        <p-dropdown formControlName="estado" optionLabel="name" [options]="estadosOpt" placeholder="Seleccione el estado" [ngModel]="estadosOpt[0]" />
+        <p-dropdown formControlName="estado" optionLabel="name" [options]="estadosOpt"
+          placeholder="Seleccione el estado" [ngModel]="estadosOpt[0]" />
       </div>
       <div style="width: calc(50% - 12px)">
         <label for="date_compra" class="">Fecha Registro</label>
-        <p-calendar id="date_compra" 
-        dateFormat="dd-mm-yy" formControlName="date_compra" />
+        <p-calendar id="date_compra" dateFormat="dd-mm-yy" formControlName="date_compra" />
       </div>
       <div style="width: -webkit-fill-available">
         <label for="email1" class="">Descripción</label>
@@ -43,25 +42,23 @@
         <button type="reset" pButton pRiple>
           Cancelar
         </button>
-        <button  type="submit" pButton pRiple>
+        <button type="submit" pButton pRiple>
           Registrar
         </button>
       </div>
     </form>
-  </div>
 </section>
 
 <section class="section-table">
-  <header>
-    <span>
+  <!-- <header> -->
+    <!-- <span>
       <mage-icon name="dollar" size="26px"></mage-icon>
-    </span>
+    </span> -->
     <h3>
-      Equipos Registrados
+      Listado de equipos
     </h3>
-  </header>
+  <!-- </header> -->
 
-  <div>
     <p-table [value]="maquinas" dataKey="maquinas-registradas" [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="header">
         <tr>
@@ -86,5 +83,4 @@
         </tr>
       </ng-template>
     </p-table>
-  </div>
 </section>
