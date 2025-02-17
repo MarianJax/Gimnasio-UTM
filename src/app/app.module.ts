@@ -10,12 +10,9 @@ import { LayoutModule } from './layout/layout.module';
 import { HttpClientModule } from '@angular/common/http';
 import { IconModule } from './components/icons/icons.module';
 
-
 @NgModule({
   declarations: [
     AppComponent,
-
-   
   ],
   imports: [
     BrowserModule,
