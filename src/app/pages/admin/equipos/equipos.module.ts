@@ -12,6 +12,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
+import { ToolbarModule } from 'primeng/toolbar';
+import { TagModule } from 'primeng/tag';
+import { FileUploadModule } from 'primeng/fileupload';
 
 
 @NgModule({
@@ -30,7 +33,9 @@ import { DropdownModule } from 'primeng/dropdown';
     InputTextModule,
     InputTextareaModule,
     CalendarModule,
-    DropdownModule
+    DropdownModule,
+    ToolbarModule,
+    FileUploadModule, TagModule, 
   ]
 })
 export class EquiposModule { }

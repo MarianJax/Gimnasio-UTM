@@ -1,0 +1,38 @@
+
+    <form [formGroup]="myGroup" (ngSubmit)="addMaquina()">
+      <div style="width: calc(50% - 12px)">
+        <label for="cantidad" class="">Cantidad</label>
+        <input id="cantidad" formControlName="cantidad" type="number" placeholder="" pInputText />
+      </div>
+      <div style="width: calc(50% - 12px)">
+        <label for="name" class="">Nombre maquina</label>
+        <input id="name" type="text" placeholder="" formControlName="name" pInputText />
+      </div>
+      <div style="width: calc(50% - 12px)">
+        <label for="estado" class="">Estado</label>
+        <p-dropdown formControlName="estado" optionLabel="name" [options]="estadosOpt"
+          placeholder="Seleccione el estado" [ngModel]="estadosOpt[0]" />
+      </div>
+      <div style="width: calc(50% - 12px)">
+        <label for="date_compra" class="">Fecha Registro</label>
+        <p-calendar id="date_compra" dateFormat="dd-mm-yy" formControlName="date_compra" />
+      </div>
+      <div style="width: -webkit-fill-available">
+        <label for="email1" class="">Descripción</label>
+        <textarea pInputTextarea [autoResize]="true" formControlName="descripcion" rows="3"></textarea>
+      </div>
+      <div style="
+          display: flex;
+          gap: 20px;
+          width: 100%;
+          justify-content: end;
+          margin-top: 10px;
+        ">
+        <button type="reset" pButton pRiple>
+          Cancelar
+        </button>
+        <button type="submit" pButton pRiple>
+          Registrar
+        </button>
+      </div>
+    </form>

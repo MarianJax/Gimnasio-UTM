@@ -17,20 +17,10 @@ interface Equipos {
 export class RegistrosComponent implements OnInit {
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
-  equipos!: Equipos[];
 
   constructor() { }
 
   ngOnInit() {
-    this.equipos = [
-      {
-        id: '1000',
-        nombre: 'Maquina 1',
-        fecha: '2023-01-01',
-        estado: 'Mantenimiento',
-        cantidad: 3.50
-      }
-    ];
     this.items = [{ icon: 'dashboard', route: '/admin', label: 'Inicio' }, { label: 'Equipos', route: '/admin/equipos' }, { label: 'Registros' }];
 
   }

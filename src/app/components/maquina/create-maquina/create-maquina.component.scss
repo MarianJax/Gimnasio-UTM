@@ -1,0 +1,72 @@
+h3 {
+    font-size: 21px;
+    margin: 0;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+
+    div {
+        label {
+            display: block;
+            color: black;
+            font-size: 1.15rem;
+        }
+
+        input {
+            margin-top: 8px;
+            width: 100%;
+            padding: 1rem;
+        }
+
+        textarea {
+            margin-top: 8px;
+            width: 100%;
+            padding: 1rem;
+        }
+    }
+
+    button[type="submit"] {
+        padding: 4px 80px;
+        border: 1px solid var(--primary-color);
+        font-size: 15px;
+        color: black;
+        background-color: rgba(76, 175, 79, 0.21);
+        border-radius: 10px 0px 10px 10px;
+    }
+
+    button[type="reset"] {
+        padding: 4px 80px;
+        border: 2px solid #4CAF50;
+        font-size: 16px;
+        color: black;
+        background-color: white;
+        border-radius: 10px 0px 10px 10px;
+    }
+}
+
+
+:host ::ng-deep .p-calendar {
+    width: 100%;
+
+    .p-inputtext {
+        margin-top: 8px;
+        padding: 1rem;
+    }
+
+    .p-datepicker {
+        min-width: fit-content;
+    }
+}
+
+:host ::ng-deep .p-dropdown {
+    margin-top: 8px;
+    width: 100%;
+
+    .p-inputtext {
+        padding: 1rem;
+        outline: none
+    }
+}
