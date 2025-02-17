@@ -16,8 +16,8 @@
         <input id="cantidad" formControlName="cantidad" type="number" placeholder="" pInputText />
       </div>
       <div style="width: calc(50% - 12px)">
-        <label for="name" class="">Nombre maquina</label>
-        <input id="name" type="text" placeholder="" formControlName="name" pInputText />
+        <label for="nombre" class="">Nombre maquina</label>
+        <input id="nombre" type="text" placeholder="" formControlName="nombre" pInputText />
       </div>
       <div style="width: calc(50% - 12px)">
         <label for="estado" class="">Estado</label>
@@ -25,11 +25,11 @@
           placeholder="Seleccione el estado" [ngModel]="estadosOpt[0]" />
       </div>
       <div style="width: calc(50% - 12px)">
-        <label for="date_compra" class="">Fecha Registro</label>
-        <p-calendar id="date_compra" dateFormat="dd-mm-yy" formControlName="date_compra" />
+        <label for="fecha_compra" class="">Fecha Registro</label>
+        <p-calendar id="fecha_compra" dateFormat="dd-mm-yy" formControlName="fecha_compra" />
       </div>
       <div style="width: -webkit-fill-available">
-        <label for="email1" class="">Descripción</label>
+        <label for="descripcion" class="">Descripción</label>
         <textarea pInputTextarea [autoResize]="true" formControlName="descripcion" rows="3"></textarea>
       </div>
       <div style="
@@ -72,8 +72,8 @@
       <ng-template pTemplate="body" let-maquina>
         <tr>
           <td>{{ maquina.cantidad }}</td>
-          <td>{{ maquina.name }}</td>
-          <td>{{ maquina.date_compra }}</td>
+          <td>{{ maquina.nombre }}</td>
+            <td>{{ maquina.fecha_compra | date:'dd/MM/yyyy' }}</td>
           <td>{{ maquina.estado }}</td>
           <td>
             <button type="button" pButton pRipple>

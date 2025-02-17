@@ -16,9 +16,9 @@ interface Estados {
 export class EquiposComponent implements OnInit {
   myGroup: FormGroup;
   estadosOpt= [
-    { name: 'Disponible', code: 'disponible' },
-    { name: 'Mantenimiento', code: 'mantenimiento' },
-    { name: 'Fuera de Servicio', code: 'fueraservicio' }
+    { name: 'Disponible', code: 'Disponible' },
+    { name: 'Mantenimiento', code: 'Mantenimiento' },
+    { name: 'Fuera de Servicio', code: 'Fuera de servicio' }
   ];
 
   selectedestado: any
@@ -32,20 +32,28 @@ export class EquiposComponent implements OnInit {
     this.myGroup = this.fb.group({
       cantidad: new FormControl<number | null>(1),
       estado: new FormControl<Estados | null>(null),
-      name: new FormControl<string | null>(null),
-      date_compra: new FormControl<Date | null>(null),
+      nombre: new FormControl<string | null>(null),
+      fecha_compra: new FormControl<Date | null>(null),
       descripcion: new FormControl<string | null>(null),
     });
   }
   addMaquina() {
     const newMaquina = this.myGroup.value;
-    this.equipoService.enviarDatos(newMaquina).subscribe((response) => {
+    
+    console.log('Datos enviado. ',  new Date(newMaquina.fecha_compra).toISOString());
+    this.equipoService.enviarDatos({
+      cantidad: newMaquina.cantidad,
+      estado: newMaquina.estado.code,
+      nombre: newMaquina.nombre,
+      fecha_compra: new Date(newMaquina.fecha_compra).toISOString(), // YYYY-MM-DD
+      descripcion: newMaquina.descripcion
+    }).subscribe((response) => {
       console.log('Datos enviados exitosamente', response);
       this.myGroup = this.fb.group({
         cantidad: new FormControl<number | null>(1),
         estado: new FormControl<Estados | null>(null),
-        name: new FormControl<string | null>(null),
-        date_compra: new FormControl<Date | null>(null),
+        nombre: new FormControl<string | null>(null),
+        fecha_compra: new FormControl<Date | null>(null),
         descripcion: new FormControl<string | null>(null),
       });
       this.obtenerDatos();
