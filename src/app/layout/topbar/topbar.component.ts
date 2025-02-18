@@ -27,17 +27,14 @@ export class TopbarComponent {
     public layoutService: LayoutService,
     private router: Router,
   ) {
-    // let session = sessionStorage.getItem(this.eventos._DATOS_GENERALES_LOGIN);
-    // let session_rn: any = sessionStorage.getItem(this.eventos._DATOS_REGISTRO_NACIONAL);
-    // let usuario = session ? JSON.parse(session) : null;
+   // let session = sessionStorage.getItem('session-usuario');
+  
+    
+   //let usuario = session ? JSON.parse(session) : null;
 
-    // if (!usuario) {
-    //     this.eventos.cerrar_sesion();
-    // } else {
-    //     this.eventos.usuario = usuario;
-    //     this.eventos.datos_personales = JSON.parse(session_rn);
-    // }
-
+ 
+         //this.nombre_usuario = usuario.nombre;
+   
     this.theme = localStorage.getItem('theme_utm_gimnasio');
     this.colorScheme = localStorage.getItem('color_scheme_utm_gimnasio');
     if (this.theme) {
@@ -46,13 +43,7 @@ export class TopbarComponent {
       this.theme = "saga-green";
       this.colorScheme = "light";
     }
-    // if (session_rn) {
-    //     this.nombre_usuario = this.eventos.datos_personales.apellidos + ' ' + this.eventos.datos_personales.nombres;
-    //     this.cedula = this.eventos.datos_personales.identificacion;
-    // } else {
-    //     this.nombre_usuario = this.eventos.usuario.p_funcionario;
-    //     this.cedula = this.eventos.usuario.p_cedula;
-    // }
+   
     this.cerrar_sesion = [
       {
         label: 'Perfil',
@@ -114,6 +105,7 @@ export class TopbarComponent {
     });
   }
   cerrarSesion() {
+    sessionStorage.removeItem('session-usuario');
     this.router.navigate(['/auth/login']);
   }
 }

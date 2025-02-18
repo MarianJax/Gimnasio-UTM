@@ -15,11 +15,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TagModule } from 'primeng/tag';
 import { FileUploadModule } from 'primeng/fileupload';
+import { TableMaquinaComponent } from 'src/app/components/maquina/table-maquina/table-maquina.component';
 
 
 @NgModule({
   declarations: [
-    EquiposComponent,
+    EquiposComponent, TableMaquinaComponent
   ],
   imports: [
     CommonModule,

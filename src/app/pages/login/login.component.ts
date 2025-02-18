@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LayoutService } from 'src/app/layout/service/layout.service';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   theme: any;
   colorScheme: any;
 
-  constructor(private fb: FormBuilder, private router: Router, public layoutService: LayoutService) {
+  constructor(private fb: FormBuilder, private router: Router, public layoutService: LayoutService, private authService: AuthService) {
     this.theme = localStorage.getItem('theme_utm_gimnasio');
     this.colorScheme = localStorage.getItem('color_scheme_utm_gimnasio');
     if (this.theme) {
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuarioForm = this.fb.group({
-      usuario: [''],
+      email: [''],
       password: ['']
     });
   }
@@ -59,10 +60,20 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onLogin() {
+  AutenticarDatos() {
     if (this.usuarioForm.valid) {
-      console.log('onLogin');
-      this.router.navigate(['/']); // Redirect to 'home' route
+      const usuario = this.usuarioForm.value;
+      //console.log('Desde el obSubmit ->',usuario);
+      this.authService.autenticar({
+        email: usuario.email,
+        password: usuario.password
+      })
+      .subscribe((response)=>{
+        sessionStorage.setItem('session-usuario', JSON.stringify(response));
+       // console.log(response);
+     // console.log('onLogin');
+      this.router.navigate(['/']);
+      }); // Redirect to 'home' route
     } else {
       console.log('Form is invalid');
     }

@@ -19,13 +19,13 @@ import { RippleModule } from 'primeng/ripple';
   imports: [
     CommonModule,
     LoginRoutingModule,
-    ReactiveFormsModule, 
-    FormsModule,
-    InputTextModule,
+    ReactiveFormsModule,  // esta
+    FormsModule, // esta
+    InputTextModule, // Esta
     PasswordModule,
-    ButtonModule,
+    ButtonModule, // esta
     ToastModule,
-    RippleModule
+    RippleModule // esta
   ]
 })
 

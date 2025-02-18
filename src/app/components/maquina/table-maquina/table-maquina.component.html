@@ -1,1 +1,46 @@
-<p>table-maquina works!</p>
+<header>
+    <span>
+      <mage-icon name="stack" size="24px"></mage-icon>
+    </span>
+    <h2>Listado de equipos</h2>
+    <button (click)="goToMantenimiento()" pButton pRiple>
+      Mantenimiento
+    </button>
+  </header>
+  
+  <section class="section-form">
+  
+    <p-table [rowsPerPageOptions]="[10, 25, 50]" [rows]="10" [paginator]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [value]="maquinas"
+      dataKey="maquinas-registradas" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="caption">
+        <div class="flex justify-content-between">
+          <input pInputText type="text" placeholder="Keyboard Search" />
+            <p-button severity="success" (click)="AddMaquina()" label="Agregar máquina" icon="pi pi-plus" class="mr-2" />
+  
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Cantidad</th>
+          <th>Maquina</th>
+          <th>Fecha Registro</th>
+          <th>Estado</th>
+          <th>Historial</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-maquina>
+        <tr>
+          <td>{{ maquina.cantidad }}</td>
+          <td>{{ maquina.nombre }}</td>
+          <td>{{ maquina.fecha_compra | date:'dd/MM/yyyy' }}</td>
+          <td>{{ maquina.estado }}</td>
+          <td>
+            <button type="button" pButton pRipple>
+              <mage-icon name="file-2"></mage-icon>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </section>
