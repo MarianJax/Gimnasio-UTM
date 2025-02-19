@@ -7,48 +7,61 @@ import { EquiposerviceService } from 'src/app/pages/admin/equipos/service/equipo
 @Component({
   selector: 'app-create-maquina',
   templateUrl: './create-maquina.component.html',
-  styleUrls: ['./create-maquina.component.scss']
+  styleUrls: ['./create-maquina.component.scss'],
 })
 export class CreateMaquinaComponent implements OnInit {
-  myGroup: FormGroup;
+  maquinaForm: FormGroup;
   estadosOpt = [
     { name: 'Disponible', code: 'Disponible' },
     { name: 'Mantenimiento', code: 'Mantenimiento' },
-    { name: 'Fuera de Servicio', code: 'Fuera de servicio' }
+    { name: 'Fuera de Servicio', code: 'Fuera de servicio' },
   ];
 
-  selectedestado: any
+  selectedestado: any;
 
   constructor(
     private equipoService: EquiposerviceService,
     private fb: FormBuilder,
     private router: Router,
-    private cdRef: ChangeDetectorRef
   ) {
-    this.myGroup = this.fb.group({
+    this.maquinaForm = this.fb.group({
       cantidad: new FormControl<number | null>(1),
       estado: new FormControl<Estados | null>(null),
-      name: new FormControl<string | null>(null),
-      date_compra: new FormControl<Date | null>(null),
+      nombre: new FormControl<string | null>(null),
+      fecha_compra: new FormControl<Date | null>(null),
       descripcion: new FormControl<string | null>(null),
     });
   }
+
   addMaquina() {
-    const newMaquina = this.myGroup.value;
-    this.equipoService.enviarDatos(newMaquina).subscribe((response) => {
-      console.log('Datos enviados exitosamente', response);
-      this.myGroup = this.fb.group({
-        cantidad: new FormControl<number | null>(1),
-        estado: new FormControl<Estados | null>(null),
-        name: new FormControl<string | null>(null),
-        date_compra: new FormControl<Date | null>(null),
-        descripcion: new FormControl<string | null>(null),
+    try {
+      const newMaquina = this.maquinaForm.value;
+      this.equipoService.enviarDatos({
+        cantidad: newMaquina.cantidad,
+        estado: newMaquina.estado && newMaquina.estado.code,
+        nombre: newMaquina.nombre,
+        fecha_compra: newMaquina.fecha_compra && new Date(newMaquina.fecha_compra).toISOString(),
+        descripcion: newMaquina.descripcion,
+      }).subscribe({
+        next: (response) => {
+          this.maquinaForm.reset({
+            cantidad: 1,
+            estado: null,
+            nombre: null,
+            fecha_compra: null,
+            descripcion: null,
+          });
+          this.router.navigate(['admin/equipos']);
+        },
+        error: (error) => {
+          console.log('Error al enviar los datos', error.error.errors);
+          this.maquinaForm.setErrors(error.error.errors);
+        }
       });
-      this.cdRef.detectChanges(); // Forzar la detección de cambios
-    });
+    } catch (error) {
+      console.log('Error al enviar los datos', error);
+    }
   }
 
-
-  ngOnInit(): void { }
-
+  ngOnInit(): void {}
 }
