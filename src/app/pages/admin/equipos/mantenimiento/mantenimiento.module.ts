@@ -17,23 +17,50 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TagModule } from 'primeng/tag';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { IconModule } from 'src/app/components/icons/icons.module';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { PagoService } from '../../pagos/pago.service';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { EquiposerviceService } from '../service/equiposervice.service';
+import { CalendarModule } from 'primeng/calendar';
+import { MantenimientoService } from './mantenimiento.service';
 
 @NgModule({
-  declarations: [
-    MantenimientoComponent
-  ],
+  declarations: [MantenimientoComponent],
   imports: [
     CommonModule,
     MantenimientoRoutingModule,
     IconModule,
-    TableModule, DialogModule, RippleModule, ButtonModule, ToastModule, ToolbarModule, ConfirmDialogModule, InputTextModule, InputTextareaModule, CommonModule, FileUploadModule, DropdownModule, TagModule, RadioButtonModule, RatingModule, InputTextModule, FormsModule, InputNumberModule, BreadcrumbModule
+    TableModule,
+    DialogModule,
+    RippleModule,
+    ButtonModule,
+    ToastModule,
+    ToolbarModule,
+    ConfirmDialogModule,
+    InputTextareaModule,
+    FileUploadModule,
+    DropdownModule,
+    TagModule,
+    CalendarModule,
+    RadioButtonModule,
+    RatingModule,
+    InputTextModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputNumberModule,
+    BreadcrumbModule,
+    AutoCompleteModule,
   ],
-  providers: [MessageService, ConfirmationService, PagoService],
+  providers: [
+    MessageService,
+    ConfirmationService,
+    PagoService,
+    EquiposerviceService,
+    MantenimientoService
+  ],
 })
-export class MantenimientoModule { }
+export class MantenimientoModule {}
