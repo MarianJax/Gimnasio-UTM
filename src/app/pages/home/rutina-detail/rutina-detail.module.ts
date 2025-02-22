@@ -6,6 +6,7 @@ import { RutinaDetailComponent } from './rutina-detail.component';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { DropdownModule } from 'primeng/dropdown';
+import { IconModule } from 'src/app/components/icons/icons.module';
 
 
 @NgModule({
@@ -14,11 +15,11 @@ import { DropdownModule } from 'primeng/dropdown';
   ],
   imports: [
     CommonModule,
+    IconModule,
     RutinaDetailRoutingModule,
     ButtonModule,
     RippleModule,
-    DropdownModule,
-    
+    DropdownModule
   ]
 })
 export class RutinaDetailModule { }
