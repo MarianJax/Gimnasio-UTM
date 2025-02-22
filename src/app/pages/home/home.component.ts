@@ -51,6 +51,6 @@ export class HomeComponent {
 
   goToRutinaDetail(rutinaName: string) {
     const slug = rutinaName.toLowerCase().replace(/ /g, '-');
-    this.router.navigate(['/rutina',slug]);
+    this.router.navigate(['/',slug]);
   }
 }
