@@ -54,11 +54,24 @@ a.disabled {
 }
 
 .title {
-  text-shadow: 4px 2px 0px var(--primary-color);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 36px;
+  //text-shadow: 4px 2px 0px var(--primary-color);
   letter-spacing: 0.04em;
-  font-weight: 900;
-  margin: 35px auto;
-  text-transform: uppercase;
+  font-weight: 700;
+  margin: 35px auto 45px auto;
+  span {
+    font-size: 26px;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    line-height: 0.7;
+  }
+
+  h5 {
+    line-height: 0.7;
+    font-size: 55px;
+    color: #f8d240;
+    margin: 0;
+    font-family: "Allura";
+    font-weight: 600;
+    letter-spacing: 1.5px;
+  }
 }
