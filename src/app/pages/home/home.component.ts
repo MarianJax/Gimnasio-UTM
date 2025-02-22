@@ -12,33 +12,39 @@ export class HomeComponent {
 
   rutinas = [
     {
-      name: 'Pecho / Triceps',
-      time: '1 hour',
+      nombre: 'Pecho / Triceps',
+      intensidad: 'Normal',
+      ejercicios: 5,
       slug: 'pecho-triceps'
     },
     {
-      name: 'Brazos',
-      time: '1 hour',
+      nombre: 'Brazos',
+      intensidad: 'Alta',
+      ejercicios: 3,
       slug: 'brazos'
     },
     {
-      name: 'Pierna',
-      time: '1 hour',
+      nombre: 'Pierna',
+      intensidad: 'Normal',
+      ejercicios: 4,
       slug: 'pierna'
     },
     {
-      name: 'Espalda y Bíceps',
-      time: '1 hour',
+      nombre: 'Espalda y Bíceps',
+      intensidad: 'Normal',
+      ejercicios: 5,
       slug: 'espalda-biceps'
     },
     {
-      name: 'Gluteo',
-      time: '1 hour',
+      nombre: 'Gluteo',
+      intensidad: 'Baja',
+      ejercicios: 8,
       slug: 'gluteo'
     },
     {
-      name: 'Hombros / Abdomen',
-      time: '1 hour',
+      nombre: 'Hombros / Abdomen',
+      intensidad: 'Alta',
+      ejercicios: 7,
       slug: 'hombros-abdomen'
     }
   ];

@@ -1,17 +1,32 @@
-<div class="container-disponibility">
+<!-- <div class="container-disponibility">
   <span>Disponibilidad del Gimnasio</span>
   <p-progressBar [value]="50" />
-</div>
+</div> -->
 
 <section class="conte-rutinas">
-  <article class="rutina" *ngFor="let rutina of rutinas">
-    <h5 >{{ rutina.name }}</h5>
-    <div class="rutinas-info">
-      <mage-icon name="clock" strokeWidth="2px" size="30px"></mage-icon>
-      <p>{{ rutina.time }}</p>
+  <article class="card-rutina" *ngFor="let rutina of rutinas">
+    <div class="card-highlight"></div>
+    <div class="card-content">
+      <div class="card-header">
+        <h3 class="card-title">{{ rutina.nombre }}</h3>
+        <div class="card-icon">
+          <mage-icon name="pulse" class="icon" size="20px"></mage-icon>
+        </div>
+      </div>
+      <div class="card-stats">
+        <div class="card-stat">
+          <div class="stat-label">Intensidad</div>
+          <div class="stat-value">{{ rutina.intensidad }}</div>
+        </div>
+        <div class="card-stat">
+          <div class="stat-label">Ejercicios</div>
+          <div class="stat-value">{{ rutina.ejercicios }}</div>
+        </div>
+      </div>
+
+      <Button pButton (click)="goToRutinaDetail(rutina.slug)" pRipple class="card-button">
+        Ver detalles
+      </Button>
     </div>
-    <button pButton (click)="goToRutinaDetail(rutina.slug)" pRipple>
-      <mage-icon name="plus" size="15px"></mage-icon>Ver Detalles
-    </button>
   </article>
 </section>
