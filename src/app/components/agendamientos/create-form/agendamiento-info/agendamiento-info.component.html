@@ -1,11 +1,31 @@
-<div class="step-content">
+<form class="step-content" [formGroup]="agendarForm" >
     <h3>Datos de agendamiento</h3>
-    <label for="fechaAgendamiento">Fecha de agendamiento</label>
-    <input id="fechaAgendamiento" [(ngModel)]="fechaAgendamiento" type="date" />
 
-    <label for="horaInicio">Hora de inicio</label>
-    <input id="horaInicio" [(ngModel)]="horaInicio" type="time" />
-
-    <label for="horaFin">Hora de fin</label>
-    <input id="horaFin" [(ngModel)]="horaFin" type="time" />
-</div>
+    <div style="width: 100%;">
+        <label for="fecha" class="">Fecha Registro</label>
+        <p-calendar id="fecha" dateFormat="dd-mm-yy" formControlName="fecha"
+            [ngClass]="{'ng-dirty ng-invalid': agendarForm.getError('fecha')}" />
+        <small *ngIf="agendarForm.getError('fecha')" class="ng-invalid text-red-600">
+            {{ agendarForm.getError('fecha') }}
+        </small>
+    </div>
+    <div style="width: calc(50% - 10px)">
+        <label for="ingreso" class="">Hora de ingreso</label>
+        <p-dropdown formControlName="ingreso" optionLabel="name" [options]="ingresoOpt"
+            placeholder="Seleccione una hora" [ngModel]="ingresoOpt[0]"
+            [ngClass]="{'ng-dirty ng-invalid': agendarForm.getError('ingreso')}" />
+        <small *ngIf="agendarForm.getError('ingreso')" class="ng-invalid text-red-600">
+            {{ agendarForm.getError('ingreso') }}
+        </small>
+    </div>
+    
+    <div style="width: calc(50% - 10px)">
+        <label for="salida" class="">Hora de salida</label>
+        <p-dropdown formControlName="salida" optionLabel="name" [options]="salidaOpt"
+            placeholder="Seleccione una hora" [ngModel]="salidaOpt[0]"
+            [ngClass]="{'ng-dirty ng-invalid': agendarForm.getError('salida')}" />
+        <small *ngIf="agendarForm.getError('salida')" class="ng-invalid text-red-600">
+            {{ agendarForm.getError('salida') }}
+        </small>
+    </div>
+</form>

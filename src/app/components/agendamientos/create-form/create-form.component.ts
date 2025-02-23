@@ -12,8 +12,8 @@ export class CreateFormComponent {
 
   ngOnInit() {
     this.items = [
-      { label: 'Datos de agendamiento' },
-      { label: 'Formulario de Pago' },
+      { label: 'agendamiento' },
+      { label: 'Pago' },
       { label: 'Confirmación' }
     ];
   }
@@ -33,17 +33,5 @@ export class CreateFormComponent {
   finalizar() {
     // Lógica para finalizar el proceso
     alert('Proceso finalizado con éxito');
-  }
-
-  continuar() {
-    this.next();
-  }
-
-  regresar() {
-    this.prev();
-  }
-
-  agendar() {
-    this.next();
   }
 }
