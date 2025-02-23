@@ -11,17 +11,19 @@ import { ButtonModule } from 'primeng/button';
 import { TabViewModule } from 'primeng/tabview';
 
 
-import { PagoComponent } from 'src/app/components/agendamientos/create-form/pago/pago.component';
 import { AgendamientoInfoComponent } from 'src/app/components/agendamientos/create-form/agendamiento-info/agendamiento-info.component';
 import { StepsModule } from 'primeng/steps';
 import { CreateFormComponent } from 'src/app/components/agendamientos/create-form/create-form.component';
+import { PagoFormComponent } from 'src/app/components/agendamientos/create-form/pago-form/pago-form.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
     AgendamientoComponent,
     CreateFormComponent,
     AgendamientoInfoComponent,
-    PagoComponent,
+    PagoFormComponent,
     // RegistroComponent
   ],
   imports: [
@@ -35,6 +37,8 @@ import { CreateFormComponent } from 'src/app/components/agendamientos/create-for
     RippleModule,
     StepsModule,
     TabViewModule,
+    CalendarModule,
+    DropdownModule,
   ],
 })
-export class AgendamientoModule {}
+export class AgendamientoModule { }
