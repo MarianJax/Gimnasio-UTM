@@ -14,7 +14,7 @@ const routes: Routes = [
     // ]
   },
   {
-    path: ':slug',
+    path: 'rutina/:slug',
     loadChildren: () => import('./rutina-detail/rutina-detail.module').then(m => m.RutinaDetailModule)
   },
 ];

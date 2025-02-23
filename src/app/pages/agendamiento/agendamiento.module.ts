@@ -10,12 +10,18 @@ import { RippleModule } from 'primeng/ripple';
 import { ButtonModule } from 'primeng/button';
 import { TabViewModule } from 'primeng/tabview';
 
-import { CreateComponent } from 'src/app/components/agendamientos/create/create.component';
+
+import { PagoComponent } from 'src/app/components/agendamientos/create-form/pago/pago.component';
+import { AgendamientoInfoComponent } from 'src/app/components/agendamientos/create-form/agendamiento-info/agendamiento-info.component';
+import { StepsModule } from 'primeng/steps';
+import { CreateFormComponent } from 'src/app/components/agendamientos/create-form/create-form.component';
 
 @NgModule({
   declarations: [
     AgendamientoComponent,
-    CreateComponent,
+    CreateFormComponent,
+    AgendamientoInfoComponent,
+    PagoComponent,
     // RegistroComponent
   ],
   imports: [
@@ -27,7 +33,7 @@ import { CreateComponent } from 'src/app/components/agendamientos/create/create.
     InputTextModule,
     ButtonModule,
     RippleModule,
-
+    StepsModule,
     TabViewModule,
   ],
 })
