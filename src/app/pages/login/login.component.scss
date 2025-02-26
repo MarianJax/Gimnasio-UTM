@@ -6,6 +6,16 @@
   color: var(--primary-color) !important;
 }
 
+:host ::ng-deep p-button {
+  margin: 0;
+  width: 100%;
+
+  .p-button {
+    width: 100%;
+    padding: 10px 25px;
+  }
+}
+
 .container-loading {
   position: fixed;
   width: 100%;

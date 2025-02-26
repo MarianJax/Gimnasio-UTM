@@ -1,0 +1,39 @@
+<header>
+    <i id="icon">
+        <mage-icon name="calendar-plus" size="24px"></mage-icon>
+    </i>
+    <h2>Horarios</h2>
+</header>
+<p-breadcrumb class="max-w-full" [model]="items" [home]="home">
+    <ng-template pTemplate="item" let-item>
+        <ng-container *ngIf="item.route; else elseBlock">
+            <a [routerLink]="item.route" class="p-menuitem-link">
+                <ng-container *ngIf="item.icon">
+                    <mage-icon size="20px" [name]="item.icon"></mage-icon>
+                </ng-container>
+                <span class="text-primary font-semibold">{{ item.label }}</span>
+            </a>
+        </ng-container>
+        <ng-template #elseBlock>
+            <a [href]="item.url">
+                <span class="text-color">{{ item.label }}</span>
+            </a>
+        </ng-template>
+    </ng-template>
+    <ng-template pTemplate="separator"> &nbsp;&nbsp;/&nbsp;&nbsp; </ng-template>
+</p-breadcrumb>
+
+<p-tabView>
+    <p-tabPanel header="Horarios para usuarios">
+        <app-create-form-horario></app-create-form-horario>
+    </p-tabPanel>
+    <p-tabPanel header="Horarios para entrenadores">
+        <p>
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+            Nemo enim
+            ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
+            qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+        </p>
+    </p-tabPanel>
+</p-tabView>
