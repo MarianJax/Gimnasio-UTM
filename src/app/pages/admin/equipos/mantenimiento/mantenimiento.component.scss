@@ -10,6 +10,7 @@
 
 :host ::ng-deep .p-breadcrumb-list {
   gap: 1rem;
+  color: var(--text-color);
   font-size: 16px;
 
   a {
