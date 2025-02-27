@@ -25,15 +25,15 @@
 
 <p-tabView>
     <p-tabPanel header="Horarios para usuarios">
-        <app-create-form-horario></app-create-form-horario>
+        <div class="flex gap-7 flex-column">
+            <app-create-form-horario></app-create-form-horario>
+            <app-table-horarios></app-table-horarios>
+        </div>
     </p-tabPanel>
     <p-tabPanel header="Horarios para entrenadores">
-        <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-            Nemo enim
-            ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-            qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
-        </p>
+        <div class="flex gap-7 flex-column">
+            <app-create-horario-entrenador></app-create-horario-entrenador>
+            <app-table-horario-entrenador></app-table-horario-entrenador>
+        </div>
     </p-tabPanel>
 </p-tabView>

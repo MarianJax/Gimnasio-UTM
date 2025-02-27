@@ -9,19 +9,19 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th>Nombres Rol</th>
-            <th>Jornada</th>
+            <th>Nombres</th>
+            <th>Rol</th>
             <th>Horas</th>
-            <th>Días</th>
+            <th>Fecha</th>
             <th>Acciones</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-maquina>
         <tr>
             <td>{{ maquina.nombre }}</td>
-            <td>{{ maquina.jornada }}</td>
-            <td>{{ maquina.horaIngreso }} - {{ maquina.horaSalida }}</td>
-            <td>{{ maquina.dia }}</td>
+            <td>{{ maquina.rol }}</td>
+            <td>{{ maquina.franja_hora_inicio }} - {{ maquina.franja_hora_salida }}</td>
+            <td>{{ maquina.fecha | date:'dd/MM/yyyy' }}</td>
             <td>
                 <button type="button" pButton pRipple>
                     <mage-icon name="file-2"></mage-icon>

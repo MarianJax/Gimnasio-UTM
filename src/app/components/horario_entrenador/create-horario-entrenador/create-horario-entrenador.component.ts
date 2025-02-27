@@ -3,11 +3,11 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Estados } from '../../agendamientos/create-form/agendamiento-info/agendamiento-info.component';
 
 @Component({
-  selector: 'app-create-form-horario',
-  templateUrl: './create-form-horario.component.html',
-  styleUrls: ['./create-form-horario.component.scss']
+  selector: 'app-create-horario-entrenador',
+  templateUrl: './create-horario-entrenador.component.html',
+  styleUrls: ['./create-horario-entrenador.component.scss']
 })
-export class CreateFormHorarioComponent implements OnInit {
+export class CreateHorarioEntrenadorComponent implements OnInit {
   horarioForm: FormGroup;
 
   horas = [

@@ -174,7 +174,7 @@
   --indigo-800:#232d64;
   --indigo-900:#192048;
   --teal-50:#f2faf9;
-  --teal-100:#c2e6e2;
+  --teal-100:#c2e6e2; /**/
   --teal-200:#91d2cc;
   --teal-300:#61beb5;
   --teal-400:#30aa9f;
@@ -1885,12 +1885,12 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border: 1px solid;
 }
 .p-button.p-button-outlined:enabled:hover {
-  background: rgba(76, 175, 80, 0.04);
+  background: #c2e6e291;
   color: #059669;
   border: 1px solid;
 }
 .p-button.p-button-outlined:enabled:active {
-  background: rgba(76, 175, 80, 0.16);
+  background: #c2e6e291;
   color: #059669;
   border: 1px solid;
 }
@@ -1912,12 +1912,12 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border-color: transparent;
 }
 .p-button.p-button-text:enabled:hover {
-  background: rgba(76, 175, 80, 0.04);
+  background: #c2e6e291;
   color: #059669;
   border-color: transparent;
 }
 .p-button.p-button-text:enabled:active {
-  background: rgba(76, 175, 80, 0.16);
+  background: #c2e6e291;
   color: #059669;
   border-color: transparent;
 }
@@ -2403,11 +2403,11 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border: 1px solid;
 }
 .p-splitbutton.p-button-outlined > .p-button:enabled:hover, .p-splitbutton.p-button-outlined > .p-button:not(button):not(a):not(.p-disabled):hover {
-  background: rgba(76, 175, 80, 0.04);
+  background: #c2e6e291;
   color: #059669;
 }
 .p-splitbutton.p-button-outlined > .p-button:enabled:active, .p-splitbutton.p-button-outlined > .p-button:not(button):not(a):not(.p-disabled):active {
-  background: rgba(76, 175, 80, 0.16);
+  background: #c2e6e291;
   color: #059669;
 }
 .p-splitbutton.p-button-outlined.p-button-plain > .p-button {
@@ -2428,12 +2428,12 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border-color: transparent;
 }
 .p-splitbutton.p-button-text > .p-button:enabled:hover, .p-splitbutton.p-button-text > .p-button:not(button):not(a):not(.p-disabled):hover {
-  background: rgba(76, 175, 80, 0.04);
+  background: #c2e6e291;
   color: #059669;
   border-color: transparent;
 }
 .p-splitbutton.p-button-text > .p-button:enabled:active, .p-splitbutton.p-button-text > .p-button:not(button):not(a):not(.p-disabled):active {
-  background: rgba(76, 175, 80, 0.16);
+  background: #c2e6e291;
   color: #059669;
   border-color: transparent;
 }
