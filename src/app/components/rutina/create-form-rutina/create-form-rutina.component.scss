@@ -1,0 +1,102 @@
+h3 {
+    width: fit-content;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 24px;
+    margin: 0;
+    background: linear-gradient(270deg, #2563EB 0%, #1779B3 6.64%, #059669 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    div {
+        label {
+            display: block;
+            color: black;
+            font-size: 1.15rem;
+        }
+
+        input {
+            margin-top: 8px;
+            width: 100%;
+            padding: 1rem;
+        }
+
+        textarea {
+            margin-top: 8px;
+            width: 100%;
+            padding: 1rem;
+        }
+    }
+
+}
+
+:host ::ng-deep {
+    .p-autocomplete.p-component.p-inputwrapper.p-autocomplete-dd.p-inputwrapper-filled {
+        width: 100%;
+        margin-top: 8px;
+
+        .p-autocomplete-multiple-container {
+            padding: 1rem;
+            padding-right: 2rem;
+            width: 100%;
+
+            .p-autocomplete-input-token {
+                padding: 0;
+            }
+        }
+    }
+
+    .p-dropdown {
+        margin-top: 8px;
+        width: 100%;
+
+        .p-inputtext {
+            padding: 1rem;
+            outline: none
+        }
+    }
+}
+
+:host ::ng-deep .p-multiselect {
+    margin-top: 8px;
+    min-height: 49px;
+    width: 100%;
+
+    .p-multiselect-label-container {
+        padding: 1rem;
+        outline: none;
+
+        .p-multiselect-label {
+            padding: 0;
+        }
+    }
+}
+
+:host ::ng-deep p-button {
+    margin: 0;
+
+    .p-button {
+        padding: 8px 80px;
+        border: 1px solid var(--primary-color);
+        font-size: 14px;
+        border-radius: 10px 0px 10px 10px;
+
+        &:not(.p-button-outlined) {
+            background-color: var(--primary-color);
+            color: white;
+
+            &:hover {
+                background-color: var(--primary-700);
+            }
+        }
+    }
+
+}

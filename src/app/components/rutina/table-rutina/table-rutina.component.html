@@ -1,0 +1,30 @@
+<p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" [paginator]="true"
+    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
+    [value]="rutinas" dataKey="maquinas-registradas" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="caption">
+        <div class="flex gap-3">
+            <p-button [outlined]="true" icon="pi pi-filter-slash" label="" />
+            <input pInputText type="text" placeholder="Buscar Rol" />
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Rutina</th>
+            <th>Numero Ejercicios</th>
+            <th>Inteisdad</th>
+            <th>Acciones</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-maquina>
+        <tr>
+            <td>{{ maquina.nombre }}</td>
+            <td>{{ maquina.cantidad_ejercicios }}</td>
+            <td>{{ maquina.intensidad }}</td>
+            <td>
+                <button type="button" pButton pRipple>
+                    <mage-icon name="file-2"></mage-icon>
+                </button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
