@@ -133,10 +133,13 @@ export class MenuComponent implements OnInit {
               routerLink: ['/admin/ejercicios'],
               visible: true
             },
+            {
+              label: 'Usuarios',
+              icon: 'users',
+              routerLink: ['/admin/usuarios'],
+              visible: true
+            }
           ]
-        },
-        {
-          label: ''
         }
       ];
     } else {

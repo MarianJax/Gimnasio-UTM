@@ -1,0 +1,106 @@
+<p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" [paginator]="true"
+    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
+    [value]="usuarios" dataKey="maquinas-registradas" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="caption">
+        <div class="flex gap-3">
+            <p-button [outlined]="true" icon="pi pi-filter-slash" label="" />
+            <input pInputText type="text" placeholder="Buscar usuario" />
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Nombre</th>
+            <th>Rol</th>
+            <th>Correo Electronico</th>
+            <th>Acciones</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-maquina>
+        <tr>
+            <td>
+                <div class="flex flex-column">
+                    <span>{{ maquina.nombre }} {{ maquina.apellido }}</span>
+                    <span>{{ maquina.cedula }}</span>
+                </div>
+            </td>
+            <td>{{ maquina.rol }}</td>
+            <td>{{ maquina.correo }}</td>
+            <td>
+                <button pButton pRiple (click)="showDialog(maquina.id)" type="button">
+                    <mage-icon name="edit" fill="#fff" size="17px"></mage-icon>&nbsp; editar </button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-dialog header="Actualizar usuario" [(visible)]="visible" [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false"
+    [resizable]="false">
+    <form [formGroup]="usuarioUpdatedForm">
+        <div style="width: calc(50% - 10px)">
+            <label for="rol_id" class="">Rol</label>
+            <p-autoComplete formControlName="rol_id" [dropdown]="true" [suggestions]="filteredEquipos"
+                (completeMethod)="filterCountry($event)" optionLabel="nombre" [ngClass]="{
+                  'ng-dirty ng-invalid': usuarioUpdatedForm.getError('rol_id')
+                }" [multiple]="true" [showClear]="true" />
+            <small *ngIf="usuarioUpdatedForm.getError('rol_id')" class="ng-invalid text-red-600">
+                {{ usuarioUpdatedForm.getError('rol_id') }}
+            </small>
+        </div>
+        <div style="width: calc(50% - 10px)">
+            <label for="nombre" class="">Nombres</label>
+            <input id="nombre" type="text" placeholder=""
+                [ngClass]="{'ng-dirty ng-invalid': usuarioUpdatedForm.getError('nombre')}" formControlName="nombre"
+                pInputText />
+            <small *ngIf="usuarioUpdatedForm.getError('nombre')" class="ng-invalid text-red-600">
+                {{ usuarioUpdatedForm.getError('nombre') }}
+            </small>
+        </div>
+        <div style="width: calc(50% - 10px)">
+            <label for="apellido" class="">Apellidos</label>
+            <input id="apellido" type="text" placeholder=""
+                [ngClass]="{'ng-dirty ng-invalid': usuarioUpdatedForm.getError('apellido')}" formControlName="apellido"
+                pInputText />
+            <small *ngIf="usuarioUpdatedForm.getError('apellido')" class="ng-invalid text-red-600">
+                {{ usuarioUpdatedForm.getError('apellido') }}
+            </small>
+        </div>
+        <div style="width: calc(50% - 10px)">
+            <label for="cedula" class="">Cédula</label>
+            <input id="cedula" type="text" placeholder=""
+                [ngClass]="{'ng-dirty ng-invalid': usuarioUpdatedForm.getError('cedula')}" formControlName="cedula"
+                pInputText />
+            <small *ngIf="usuarioUpdatedForm.getError('cedula')" class="ng-invalid text-red-600">
+                {{ usuarioUpdatedForm.getError('cedula') }}
+            </small>
+        </div>
+        <div style="width: calc(50% - 10px)">
+            <label for="telefono" class="">Telefono</label>
+            <input id="telefono" type="text" placeholder=""
+                [ngClass]="{'ng-dirty ng-invalid': usuarioUpdatedForm.getError('telefono')}" formControlName="telefono"
+                pInputText />
+            <small *ngIf="usuarioUpdatedForm.getError('telefono')" class="ng-invalid text-red-600">
+                {{ usuarioUpdatedForm.getError('telefono') }}
+            </small>
+        </div>
+        <div style="width: calc(50% - 10px)">
+            <label for="correo" class="">Correo Electronico</label>
+            <input id="correo" type="text" placeholder=""
+                [ngClass]="{'ng-dirty ng-invalid': usuarioUpdatedForm.getError('correo')}" formControlName="correo"
+                pInputText />
+            <small *ngIf="usuarioUpdatedForm.getError('correo')" class="ng-invalid text-red-600">
+                {{ usuarioUpdatedForm.getError('correo') }}
+            </small>
+        </div>
+        <div style="
+          display: flex;
+          gap: 20px;
+          width: 100%;
+          justify-content: end;
+          margin-top: 10px;
+        ">
+            <p-button type="button" (onClick)="closedDialog()" [outlined]="true" label="Cancelar" id="reset" />
+            <p-button type="submit" label="Registrar" id="guardar" />
+        </div>
+    </form>
+</p-dialog>
