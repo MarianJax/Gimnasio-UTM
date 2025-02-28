@@ -14,6 +14,8 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { IconModule } from 'src/app/components/icons/icons.module';
 import { TableEjerciciosComponent } from 'src/app/components/ejercicios/table-ejercicios/table-ejercicios.component';
 import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { RippleModule } from 'primeng/ripple';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { TableModule } from 'primeng/table';
     InputTextModule,
     InputTextareaModule,
     DropdownModule,
-    TableModule
+    TableModule,
+    DialogModule,
+    RippleModule
   ]
 })
 export class EjerciciosModule { }

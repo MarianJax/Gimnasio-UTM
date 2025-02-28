@@ -11,6 +11,16 @@ import { MenuItem } from 'primeng/api';
 })
 export class CreateFormEjercicioComponent implements OnInit {
   ejercicioForm: FormGroup;
+  visible: boolean = false;
+
+  showDialog() {
+    console.log('Abre dialogo');
+    this.visible = true;
+  }
+
+  closedDialog() {
+    this.visible = false;
+  }
 
   Niveles = [
     { name: 'Principiante', value: 'Principiante' },
