@@ -4,10 +4,7 @@ h3 {
     font-weight: 800;
     font-size: 24px;
     margin: 0;
-    background: linear-gradient(270deg, #2563EB 0%, #1779B3 6.64%, #059669 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: black;
     margin-bottom: 20px;
 }
 
@@ -20,31 +17,62 @@ form {
         label {
             display: block;
             color: black;
-            font-size: 1.15rem;
+            font-size: 16px;
         }
 
         input {
             margin-top: 8px;
             width: 100%;
-            padding: 1rem;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            height: 41px;
         }
 
         textarea {
-            margin-top: 8px;
+            margin-top: 4px;
             width: 100%;
-            padding: 1rem;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
         }
     }
 
 }
 
 :host ::ng-deep {
+
+    .p-dialog {
+        border-radius: 12px !important;
+        overflow: hidden;
+
+        .p-dialog-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 800;
+            padding: 24px 30px;
+            
+            .p-dialog-title {
+                font-size: 20px;
+
+            }
+
+            .p-dialog-header-icon {
+                color: white;
+            }
+        }
+
+        .p-dialog-content {
+            padding: 30px 50px;
+        }
+    }
+
     .p-autocomplete.p-component.p-inputwrapper.p-autocomplete-dd.p-inputwrapper-filled {
         width: 100%;
         margin-top: 8px;
 
         .p-autocomplete-multiple-container {
-            padding: 1rem;
+            padding: 10px 14px;
             padding-right: 2rem;
             width: 100%;
 
@@ -57,9 +85,10 @@ form {
     .p-dropdown {
         margin-top: 8px;
         width: 100%;
+        border-radius: 6px;
 
         .p-inputtext {
-            padding: 1rem;
+            padding: 10px 14px;
             outline: none
         }
     }
@@ -71,7 +100,7 @@ form {
     width: 100%;
 
     .p-multiselect-label-container {
-        padding: 1rem;
+        padding: 10px 14px;
         outline: none;
 
         .p-multiselect-label {
@@ -88,6 +117,7 @@ form {
         border: 1px solid var(--primary-color);
         font-size: 14px;
         border-radius: 10px 0px 10px 10px;
+        color: black;
 
         &:not(.p-button-outlined) {
             background-color: var(--primary-color);

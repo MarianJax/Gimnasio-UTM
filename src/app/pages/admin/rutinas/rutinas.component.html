@@ -4,31 +4,34 @@
     </i>
     <h2>Rutinas</h2>
 </header>
-<p-breadcrumb class="max-w-full" [model]="items" [home]="home">
-    <ng-template pTemplate="item" let-item>
-        <ng-container *ngIf="item.route; else elseBlock">
-            <a [routerLink]="item.route" class="p-menuitem-link">
-                <ng-container *ngIf="item.icon">
-                    <mage-icon size="20px" [name]="item.icon"></mage-icon>
-                </ng-container>
-                <span class="text-primary font-semibold">{{ item.label }}</span>
-            </a>
-        </ng-container>
-        <ng-template #elseBlock>
-            <a [href]="item.url">
-                <span class="text-color">{{ item.label }}</span>
-            </a>
+<section class="section-breadcrumb">
+    <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
+        <ng-template pTemplate="item" let-item>
+            <ng-container *ngIf="item.route; else elseBlock">
+                <a [routerLink]="item.route" class="p-menuitem-link">
+                    <ng-container *ngIf="item.icon">
+                        <mage-icon size="20px" [name]="item.icon"></mage-icon>
+                    </ng-container>
+                    <span class="text-primary font-semibold">{{ item.label }}</span>
+                </a>
+            </ng-container>
+            <ng-template #elseBlock>
+                <a [href]="item.url">
+                    <span class="text-color">{{ item.label }}</span>
+                </a>
+            </ng-template>
         </ng-template>
-    </ng-template>
-    <ng-template pTemplate="separator"> &nbsp;&nbsp;/&nbsp;&nbsp; </ng-template>
-</p-breadcrumb>
+        <ng-template pTemplate="separator"> &nbsp;&nbsp;/&nbsp;&nbsp; </ng-template>
+    </p-breadcrumb>
 
-<app-create-form-rutina></app-create-form-rutina>
+    <app-create-form-rutina></app-create-form-rutina>
+</section>
 
-<header style="margin-top: 40px;">
+
+<!-- <header style="margin-top: 40px;">
     <i id="icon">
         <mage-icon name="dollar" size="26px"></mage-icon>
     </i>
     <h3>Listado de rutinas</h3>
-</header>
+</header> -->
 <app-table-rutina></app-table-rutina>

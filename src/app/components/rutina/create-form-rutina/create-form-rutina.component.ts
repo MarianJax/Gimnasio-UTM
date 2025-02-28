@@ -10,6 +10,16 @@ import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 })
 export class CreateFormRutinaComponent implements OnInit {
   rutinaForm: FormGroup;
+  visible: boolean = false;
+
+  showDialog() {
+    console.log('Abre dialogo');
+    this.visible = true;
+  }
+
+  closedDialog() {
+    this.visible = false;
+  }
 
   Intensidad = [
     { name: 'Alto', value: 'alto' },
@@ -34,7 +44,7 @@ export class CreateFormRutinaComponent implements OnInit {
     this.rutinaForm = this.fb.group({
       nombre: new FormControl<string | null>(null),
       intensidad: new FormControl<string | null>(null),
-      descripcion: new FormControl<string | null>(null),      
+      descripcion: new FormControl<string | null>(null),
     });
   }
 

@@ -14,7 +14,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TableModule } from 'primeng/table';
 import { IconModule } from 'src/app/components/icons/icons.module';
-
+import { DialogModule } from 'primeng/dialog';
+import { RippleModule } from 'primeng/ripple';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,9 @@ import { IconModule } from 'src/app/components/icons/icons.module';
     InputTextModule,
     InputTextareaModule,
     DropdownModule,
-    TableModule
+    TableModule,
+    DialogModule,
+    RippleModule
   ]
 })
 export class RutinasModule { }

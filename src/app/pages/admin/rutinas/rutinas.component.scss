@@ -12,7 +12,6 @@
     border: transparent;
     background: transparent;
     padding: 5px 10px;
-    margin-bottom: 20px;
 }
 
 :host ::ng-deep .p-tabview {
@@ -42,7 +41,6 @@
                     outline: 0 none;
                     outline-offset: 0;
                     box-shadow: none;
-                    // border-color: transparent;
                 }
             }
         }
@@ -51,14 +49,6 @@
     li.p-highlight .p-tabview-nav-link {
         border-color: var(--primary-color);
     }
-
-    // li .p-tabview-nav-link[aria-selected="true"] {
-    //     border: solid #dee2e6;
-    //     border-width: 0 0 2px 0;
-    //     border-color: transparent transparent #dee2e6 transparent;
-    //     background: #ffffff;
-    //     color: var(--primary-color);
-    // }
 }
 
 h2 {
@@ -93,7 +83,8 @@ header {
     }
 }
 
-div {
-    width: -webkit-fill-available;
-    padding-bottom: 20px;
+.section-breadcrumb {
+    display: flex;
+    justify-content: space-between;
+    margin: 25px 0;
 }

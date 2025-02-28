@@ -1,39 +1,44 @@
-<h3>Registro rutinas</h3>
+<button pButton pRiple (click)="showDialog()" type="button">
+    <mage-icon name="plus" size="17px"></mage-icon>&nbsp; Agregar rutina </button>
 
-<form [formGroup]="rutinaForm">
-    <div style="width: calc(50% - 12px)">
-        <label for="nombre" class="">Nombre rutina</label>
-        <input id="nombre" type="text" placeholder=""
-            [ngClass]="{'ng-dirty ng-invalid': rutinaForm.getError('nombre')}" formControlName="nombre" pInputText />
-        <small *ngIf="rutinaForm.getError('nombre')" class="ng-invalid text-red-600">
-            {{ rutinaForm.getError('nombre') }}
-        </small>
-    </div>
-    <div style="width: calc(50% - 12px)">
-        <label for="nivel" class="">Intensidad</label>
-         <p-dropdown formControlName="intensidad" optionLabel="name" [options]="Intensidad"
-            placeholder="Seleccione una intensidad" [ngModel]="Intensidad[0]"
-            [ngClass]="{'ng-dirty ng-invalid': rutinaForm.getError('intensidad')}" />
-        <small *ngIf="rutinaForm.getError('intensidad')" class="ng-invalid text-red-600">
-            {{ rutinaForm.getError('intensidad') }}
-        </small>
-    </div>
-    <div style="width: -webkit-fill-available">
-        <label for="descripcion" class="">Descripcion</label>
-        <textarea id="descripcion" pInputTextarea [autoResize]="true" formControlName="descripcion" rows="3"
-            [ngClass]="{'ng-dirty ng-invalid': rutinaForm.getError('descripcion')}"></textarea>
-        <small *ngIf="rutinaForm.getError('descripcion')" class="ng-invalid text-red-600">
-            {{ rutinaForm.getError('descripcion') }}
-        </small>
-    </div>
-    <div style="
-      display: flex;
-      gap: 20px;
-      width: 100%;
-      justify-content: end;
-      margin-top: 10px;
-    ">
-        <p-button type="reset" [outlined]="true" label="Cancelar" id="reset" />
-        <p-button type="submit" label="Registrar" id="guardar" />
-    </div>
-</form>
+<p-dialog header="Registro de rutina" [(visible)]="visible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <form [formGroup]="rutinaForm">
+        <div style="width: calc(50% - 12px)">
+            <label for="nombre" class="">Nombre rutina</label>
+            <input id="nombre" type="text" placeholder=""
+                [ngClass]="{'ng-dirty ng-invalid': rutinaForm.getError('nombre')}" formControlName="nombre"
+                pInputText />
+            <small *ngIf="rutinaForm.getError('nombre')" class="ng-invalid text-red-600">
+                {{ rutinaForm.getError('nombre') }}
+            </small>
+        </div>
+        <div style="width: calc(50% - 12px)">
+            <label for="nivel" class="">Intensidad</label>
+            <p-dropdown formControlName="intensidad" optionLabel="name" [options]="Intensidad"
+                placeholder="Seleccione una intensidad" [ngModel]="Intensidad[0]"
+                [ngClass]="{'ng-dirty ng-invalid': rutinaForm.getError('intensidad')}" />
+            <small *ngIf="rutinaForm.getError('intensidad')" class="ng-invalid text-red-600">
+                {{ rutinaForm.getError('intensidad') }}
+            </small>
+        </div>
+        <div style="width: -webkit-fill-available">
+            <label for="descripcion" class="">Descripcion</label>
+            <textarea id="descripcion" pInputTextarea [autoResize]="true" formControlName="descripcion" rows="3"
+                [ngClass]="{'ng-dirty ng-invalid': rutinaForm.getError('descripcion')}"></textarea>
+            <small *ngIf="rutinaForm.getError('descripcion')" class="ng-invalid text-red-600">
+                {{ rutinaForm.getError('descripcion') }}
+            </small>
+        </div>
+        <div style="
+          display: flex;
+          gap: 20px;
+          width: 100%;
+          justify-content: end;
+          margin-top: 10px;
+        ">
+            <p-button type="button" (onClick)="closedDialog()" [outlined]="true" label="Cancelar" id="reset" />
+            <p-button type="submit" label="Registrar" id="guardar" />
+        </div>
+    </form>
+</p-dialog>
