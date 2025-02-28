@@ -33,7 +33,7 @@
 
         &.layout-static {
             .layout-main-container {
-                margin-left: 300px;
+                margin-left: 200px;
             }
 
             &.layout-static-inactive {
@@ -88,6 +88,7 @@
 
         &.layout-mobile-active {
             .layout-sidebar {
+                width: 250px;
                 transform: translateX(0);
             }
 

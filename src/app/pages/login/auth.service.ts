@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:3000/auth';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   autenticar(data: { email: string; password: string }): Observable<any> {
     //console.log('Desde el Service ->', data);
     return this.http.post<any>(this.apiUrl, {

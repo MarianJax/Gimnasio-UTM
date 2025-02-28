@@ -3,8 +3,10 @@
     justify-content: center;
     align-items: center;
     position: fixed;
-    width: 300px;
-    height: calc(100vh - 9rem);
+    width: 200px;
+    height: calc(100vh - 14rem);
+    color: black;
+    font-weight: bold;
     z-index: 999;
     overflow-y: auto;
     user-select: none;
@@ -58,6 +60,9 @@
         margin: 0;
         padding: 0;
         list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
 
         a {
             display: flex;
