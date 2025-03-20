@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { TableUsuarioComponent } from '../../../components/usuario/table-usuario/table-usuario.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -14,6 +15,14 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit() {
     this.items = [{ icon: 'dashboard', route: '/admin', label: 'Inicio' }, { label: 'Usuarios' }];
+  }
+
+  @ViewChild(TableUsuarioComponent) tableUsuario!: TableUsuarioComponent;
+
+  obtenerDatos() {
+    if (this.tableUsuario) {
+      this.tableUsuario.obtenerDatos(); // Llama al método de actualización de la tabla
+    }
   }
 
 }

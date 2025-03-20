@@ -4,15 +4,15 @@
 <p-dialog header="Registro de usuario" [(visible)]="visible" [modal]="true"
     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false"
     [resizable]="false">
-    <form [formGroup]="usuarioForm">
+    <form (ngSubmit)="addUsuario()" [formGroup]="usuarioForm">
         <div style="width: calc(50% - 10px)">
-            <label for="rol_id" class="">Rol</label>
-            <p-autoComplete formControlName="rol_id" [dropdown]="true" [suggestions]="filteredEquipos"
-                (completeMethod)="filterCountry($event)" optionLabel="nombre" [ngClass]="{
-                  'ng-dirty ng-invalid': usuarioForm.getError('rol_id')
+            <label for="roles" class="">Rol</label>
+            <p-autoComplete formControlName="roles" emptyMessage="No hay roles disponibles" [(ngModel)]="selectedRoles" [dropdown]="true" [suggestions]="filteredRoles"
+                (completeMethod)="filterRoles($event)" optionLabel="nombre" [ngClass]="{
+                  'ng-dirty ng-invalid': usuarioForm.getError('roles')
                 }" [multiple]="true" [showClear]="true" />
-            <small *ngIf="usuarioForm.getError('rol_id')" class="ng-invalid text-red-600">
-                {{ usuarioForm.getError('rol_id') }}
+            <small *ngIf="usuarioForm.getError('roles')" class="ng-invalid text-red-600">
+                {{ usuarioForm.getError('roles') }}
             </small>
         </div>
         <div style="width: calc(50% - 10px)">

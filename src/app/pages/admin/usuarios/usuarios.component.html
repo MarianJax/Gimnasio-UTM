@@ -24,6 +24,6 @@
         <ng-template pTemplate="separator"> &nbsp;&nbsp;/&nbsp;&nbsp; </ng-template>
     </p-breadcrumb>
 
-    <app-create-form-usuario></app-create-form-usuario>
+    <app-create-form-usuario (usuarioAgregado)="obtenerDatos()"></app-create-form-usuario>
 </section>
 <app-table-usuario></app-table-usuario>

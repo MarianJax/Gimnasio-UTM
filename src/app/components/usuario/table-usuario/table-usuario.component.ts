@@ -3,6 +3,8 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+import { RolesService } from '../../../service/roles/roles.service';
+import { UsuariosService } from '../../../service/usuarios/usuarios.service';
 
 @Component({
   selector: 'app-table-usuario',
@@ -12,27 +14,47 @@ import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 export class TableUsuarioComponent implements OnInit {
   usuarioUpdatedForm: FormGroup;
   visible: boolean = false;
-  rutina: any = undefined;
+  emptyMessage: string = 'Cargando usuarios...';
+  usuario: {
+    id: string;
+    roles: string[];
+    nombre: string;
+    apellido: string;
+    telefono: number;
+    cedula: number;
+    correo: string;
+  } | null = null;
 
-  Niveles = [
-    { name: 'Principiante', value: 'Principiante' },
-    { name: 'Intermedio', value: 'Intermedio' },
-    { name: 'Avanzado', value: 'Avanzado' }
-  ]
+  selectedRoles: {
+    nombre: string;
+    id: string;
+  }[] | null = null;
 
-  showDialog(id: string) {
-    this.visible = true;
+  roles: {
+    nombre: string;
+    id: string;
+  }[] = [];
 
-    this.rutina = this.usuarios.find((rutina: { id: string; }) => rutina.id === id);
-    this.usuarioUpdatedForm.patchValue({
-      rol_id: this.rutina.rol_id,
-      nombre: this.rutina.nombre,
-      apellido: this.rutina.apellido,
-      telefono: this.rutina.telefono,
-      cedula: this.rutina.cedula,
-      correo: this.rutina.correo
+  filteredRoles: any[] = [];
+
+  async showDialog(id: string) {
+    this.rolesService.obtenerRoles().subscribe((roles) => {
+      this.roles = roles;
     });
 
+    this.usuario = await this.usuariosService.obtenerUsuario(id).toPromise();
+
+    this.usuarioUpdatedForm.patchValue({
+      id: this.usuario?.id,
+      roles: this.usuario?.roles,
+      nombre: this.usuario?.nombre,
+      apellido: this.usuario?.apellido,
+      telefono: this.usuario?.telefono,
+      cedula: this.usuario?.cedula,
+      correo: this.usuario?.correo
+    });
+
+    this.visible = true;
   }
 
   closedDialog() {
@@ -48,10 +70,13 @@ export class TableUsuarioComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private usuariosService: UsuariosService,
+    private rolesService: RolesService
   ) {
     this.usuarioUpdatedForm = this.fb.group({
-      rol_id: new FormControl<string | null>(null),
+      id: new FormControl<string | null>(null),
+      roles: new FormControl<string[] | null>(null),
       nombre: new FormControl<string | null>(null),
       apellido: new FormControl<string | null>(null),
       telefono: new FormControl<number | null>(null),
@@ -75,26 +100,43 @@ export class TableUsuarioComponent implements OnInit {
   }
 
   obtenerDatos() {
-    this.usuarios = [
-      {
-        id: 1,
-        nombre: 'Usuario 1',
-        apellido: 'Apellido 1',
-        telefono: 123456789,
-        rol: 'Administrador',
-        cedula: 123456789,
-        correo: 'usuario1@example.com'
+    this.usuariosService.obtenerUsuarios().subscribe({
+      next: (usuarios) => {
+        this.usuarios = usuarios;
+        if (this.usuarios.length === 0) {
+          this.emptyMessage = 'No hay usuarios registrados';
+        }
       },
-      {
-        id: 2,
-        nombre: 'Usuario 2',
-        apellido: 'Apellido 2',
-        telefono: 123456789,
-        rol: 'Usuario',
-        cedula: 123456789,
-        correo: 'usuario2@example.com'
+      error: (err) => {
+        if (err.status === 401) {
+          this.emptyMessage = 'No tiene permisos para ver usuarios registrados';
+          console.error('Error -> ', err.status);
+        } else if (err.status === 500) {
+          this.emptyMessage = 'No se pudo obtener los usuarios';
+          console.error('Error -> ', err.status);
+        }
+
+        console.error('Error -> ', err.status);
       },
-    ];
+    });
+  }
+
+  filterRoles(event: AutoCompleteCompleteEvent) {
+    let filtered: any[] = [];
+    let query = event.query;
+
+    for (let i = 0; i < (this.roles as any[]).length; i++) {
+      let country = (this.roles as { id: string; nombre: string }[])[i];
+      // Verifica si el rol ya está seleccionado (basado en su 'id' o cualquier otro identificador único)
+      const isAlreadySelected = this.selectedRoles?.some(role => role.id === country.id);
+
+      // Si no está seleccionado, lo agrega a la lista de resultados filtrados
+      if (!isAlreadySelected && country.nombre.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+        filtered.push(country);
+      }
+    }
+
+    this.filteredRoles = filtered;
   }
 
   filterCountry(event: AutoCompleteCompleteEvent) {
@@ -109,6 +151,44 @@ export class TableUsuarioComponent implements OnInit {
     }
 
     this.filteredEquipos = filtered;
+  }
+
+  getRolesAsString(maquina: { id: string; roles: { nombre: string; }[]; }) {
+    return maquina.roles?.map(role => role.nombre).join(', ') || 'Sin rol asignado';
+  }
+
+  updateUsuario() {
+    if (this.usuarioUpdatedForm.valid) {
+      const usuarioData = this.usuarioUpdatedForm.value;
+      console.log({
+        id: this.usuario?.id,
+        roles: this.selectedRoles?.map(role => role.id),
+        nombre: usuarioData.nombre,
+        apellido: usuarioData.apellido,
+        cedula: usuarioData.cedula,
+        telefono: usuarioData.telefono,
+        correo: usuarioData.correo,
+      });
+      this.usuariosService.actualizarUsuario({
+        id: this.usuario?.id,
+        roles: this.selectedRoles?.map(role => role.id),
+        nombre: usuarioData.nombre,
+        apellido: usuarioData.apellido,
+        cedula: usuarioData.cedula,
+        telefono: usuarioData.telefono,
+        correo: usuarioData.correo,
+      }).subscribe({
+        next: () => {
+          this.usuarioUpdatedForm.reset();
+          this.obtenerDatos();
+          this.visible = false;
+        },
+        error: (error) => {
+          console.log('Error al enviar los datos', error);
+          this.usuarioUpdatedForm.setErrors(error.error.errors);
+        }
+      });
+    }
   }
 }
 

@@ -1,6 +1,5 @@
 <p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" [paginator]="true"
-    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
-    [value]="usuarios" dataKey="maquinas-registradas" [tableStyle]="{ 'min-width': '50rem' }">
+    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true" [showFirstLastIcon]="false" [value]="usuarios" dataKey="maquinas-registradas" [tableStyle]="{ 'min-width': '60rem' }">
     <ng-template pTemplate="caption">
         <div class="flex gap-3">
             <p-button [outlined]="true" icon="pi pi-filter-slash" label="" />
@@ -19,11 +18,11 @@
         <tr>
             <td>
                 <div class="flex flex-column">
-                    <span>{{ maquina.nombre }} {{ maquina.apellido }}</span>
-                    <span>{{ maquina.cedula }}</span>
+                    <span class="subtitle">{{ maquina.nombre }} {{ maquina.apellido }}</span>
+                    <span class="caption">{{ maquina.cedula }}</span>
                 </div>
             </td>
-            <td>{{ maquina.rol }}</td>
+            <td>{{ getRolesAsString(maquina) }}</td>
             <td>{{ maquina.correo }}</td>
             <td>
                 <button pButton pRiple (click)="showDialog(maquina.id)" type="button">
@@ -31,20 +30,26 @@
             </td>
         </tr>
     </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="4" rowspan="3" [style]="{ width: '100%', textAlign: 'center' }">{{ emptyMessage }}</td>
+        </tr>
+    </ng-template>
 </p-table>
 
 <p-dialog header="Actualizar usuario" [(visible)]="visible" [modal]="true"
     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false"
     [resizable]="false">
-    <form [formGroup]="usuarioUpdatedForm">
+    <form [formGroup]="usuarioUpdatedForm" (ngSubmit)="updateUsuario()">
+        <input type="text" formControlName="id" value="{{ usuario?.id }}" hidden />
         <div style="width: calc(50% - 10px)">
-            <label for="rol_id" class="">Rol</label>
-            <p-autoComplete formControlName="rol_id" [dropdown]="true" [suggestions]="filteredEquipos"
-                (completeMethod)="filterCountry($event)" optionLabel="nombre" [ngClass]="{
-                  'ng-dirty ng-invalid': usuarioUpdatedForm.getError('rol_id')
+            <label for="roles" class="">Rol</label>
+            <p-autoComplete formControlName="roles" [(ngModel)]="selectedRoles" [dropdown]="true"
+                [suggestions]="filteredRoles" (completeMethod)="filterRoles($event)" optionLabel="nombre" [ngClass]="{
+                  'ng-dirty ng-invalid': usuarioUpdatedForm.getError('roles')
                 }" [multiple]="true" [showClear]="true" />
-            <small *ngIf="usuarioUpdatedForm.getError('rol_id')" class="ng-invalid text-red-600">
-                {{ usuarioUpdatedForm.getError('rol_id') }}
+            <small *ngIf="usuarioUpdatedForm.getError('roles')" class="ng-invalid text-red-600">
+                {{ usuarioUpdatedForm.getError('roles') }}
             </small>
         </div>
         <div style="width: calc(50% - 10px)">
