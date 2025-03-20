@@ -1,8 +1,11 @@
 .layout-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
     transition: margin-left $transitionDuration;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 1rem;
-    border-top: 1px solid var(--surface-border);
+    padding: 0.5rem;
+    // border-top: 1px solid var(--surface-border);
 }
