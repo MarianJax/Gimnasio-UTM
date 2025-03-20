@@ -23,6 +23,6 @@
         </ng-template>
         <ng-template pTemplate="separator"> &nbsp;&nbsp;/&nbsp;&nbsp; </ng-template>
     </p-breadcrumb>
-    <app-create-form-ejercicio></app-create-form-ejercicio>
+    <app-create-form-ejercicio (ejercicioAgregado)="obtenerDatos()"></app-create-form-ejercicio>
 </section>
 <app-table-ejercicios></app-table-ejercicios>

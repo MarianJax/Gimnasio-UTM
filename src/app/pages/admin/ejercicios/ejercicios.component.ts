@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { TableUsuarioComponent } from '../../../components/usuario/table-usuario/table-usuario.component';
+import { TableEjerciciosComponent } from '../../../components/ejercicios/table-ejercicios/table-ejercicios.component';
 
 @Component({
   selector: 'app-ejercicios',
@@ -14,7 +16,14 @@ export class EjerciciosComponent implements OnInit {
 
   ngOnInit() {
     this.items = [{ icon: 'dashboard', route: '/admin', label: 'Inicio' }, { label: 'Ejercicios' }];
+  }
 
+  @ViewChild(TableEjerciciosComponent) tableEjercicio!: TableEjerciciosComponent;
+
+  obtenerDatos() {
+    if (this.tableEjercicio) {
+      this.tableEjercicio.obtenerDatos(); // Llama al método de actualización de la tabla
+    }
   }
 
 }

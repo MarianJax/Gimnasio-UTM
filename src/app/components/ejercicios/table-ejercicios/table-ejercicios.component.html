@@ -1,120 +1,134 @@
-<p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" [paginator]="true"
-    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
-    [value]="maquinas" dataKey="maquinas-registradas" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="caption">
-        <div class="flex gap-3">
-            <p-button [outlined]="true" icon="pi pi-filter-slash" label="" />
-            <input pInputText type="text" placeholder="Buscar ejercicio" />
-        </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Ejercicio</th>
-            <th>Maquina</th>
-            <th>Series</th>
-            <th>Repeticiones</th>
-            <th>Acciones</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-maquina>
-        <tr>
-            <td>{{ maquina.ejercicio }}</td>
-            <td>{{ maquina.maquina }}</td>
-            <td>{{ maquina.series }}</td>
-            <td>{{ maquina.repeticiones }}</td>
-            <td>
-                <button pButton pRiple (click)="showDialog(maquina.id)" type="button">
-                    <mage-icon name="edit" fill="#fff" size="17px"></mage-icon>&nbsp; editar </button>
-            </td>
-        </tr>
-    </ng-template>
-</p-table>
+<section>
+    <p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" [paginator]="true"
+        currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
+        [showFirstLastIcon]="false" paginatorLocale="es" [value]="ejercicios" dataKey="maquinas-registradas"
+        [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="caption">
+            <div class="flex gap-3">
+                <p-button [outlined]="true" icon="pi pi-filter-slash" label="" />
+                <input pInputText type="text" placeholder="Buscar ejercicio" />
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Ejercicio</th>
+                <th>Maquina</th>
+                <th>Series</th>
+                <th>Repeticiones</th>
+                <th>Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-maquina>
+            <tr>
+                <td>
+                    <div class="flex flex-column">
+                        <span class="subtitle">{{ maquina.nombre }}</span>
+                        <span class="caption">{{ maquina.nivel }}</span>
+                    </div>
+                </td>
+                <td>{{ getItemsAsString(maquina.maquinas) }}</td>
+                <td>{{ maquina.series }}</td>
+                <td>{{ maquina.repeticiones }}</td>
+                <td>
+                    <button pButton pRiple (click)="showDialog(maquina.id)" type="button">
+                        <mage-icon name="edit" fill="#fff" size="17px"></mage-icon>&nbsp; editar </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
 
-<p-dialog header="Actualizar ejercicio" [(visible)]="visible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-    [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
-    <form [formGroup]="updatedEjercicioForm">
-        <div style="width: calc(50% - 10px)">
-            <label for="maquina_id" class="">Maquinas</label>
-            <p-autoComplete formControlName="maquina_id" [dropdown]="true" [suggestions]="filteredEquipos"
-                (completeMethod)="filterCountry($event)" optionLabel="nombre" [ngClass]="{
-                  'ng-dirty ng-invalid': updatedEjercicioForm.getError('maquina_id')
+    <p-dialog header="Actualizar ejercicio" [(visible)]="visible" [modal]="true"
+        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false"
+        [resizable]="false">
+        <form [formGroup]="updatedEjercicioForm" (ngSubmit)="updatedEjercicio()">
+            <input type="hidden" name="id" formControlName="id" />
+            <div style="width: 100%">
+                <label for="maquinas" class="">Maquinas</label>
+                <p-autoComplete formControlName="maquinas" [dropdown]="true" [suggestions]="filteredMaquinas" [(ngModel)]="selectedMaquina"
+                    (completeMethod)="filterMaquinas($event)" optionLabel="nombre" [ngClass]="{
+                  'ng-dirty ng-invalid': updatedEjercicioForm.getError('maquinas')
                 }" [multiple]="true" [showClear]="true" />
-            <small *ngIf="updatedEjercicioForm.getError('maquina_id')" class="ng-invalid text-red-600">
-                {{ updatedEjercicioForm.getError('maquina_id') }}
-            </small>
-        </div>
-        <div style="width: calc(50% - 10px)">
-            <label for="rutina_id" class="">Rutinas</label>
-            <p-autoComplete formControlName="rutina_id" [dropdown]="true" [suggestions]="filteredEquipos"
-                (completeMethod)="filterCountry($event)" optionLabel="nombre" [ngClass]="{
-                  'ng-dirty ng-invalid': updatedEjercicioForm.getError('rutina_id')
+                <small *ngIf="updatedEjercicioForm.getError('maquinas')" class="ng-invalid text-red-600">
+                    {{ updatedEjercicioForm.getError('maquinas') }}
+                </small>
+            </div>
+            <div style="width: 100%">
+                <label for="rutinas" class="">Rutinas</label>
+                <p-autoComplete formControlName="rutinas" [dropdown]="true" [suggestions]="filteredRutinas" [(ngModel)]="selectedRutina"
+                    (completeMethod)="filterRutinas($event)" optionLabel="nombre" [ngClass]="{
+                  'ng-dirty ng-invalid': updatedEjercicioForm.getError('rutinas')
                 }" [multiple]="true" [showClear]="true" />
-            <small *ngIf="updatedEjercicioForm.getError('rutina_id')" class="ng-invalid text-red-600">
-                {{ updatedEjercicioForm.getError('rutina_id') }}
-            </small>
-        </div>
-        <div style="width: calc(50% - 10px)">
-            <label for="nombre" class="">Nombre ejercicio</label>
-            <input id="nombre" type="text" placeholder=""
-                [ngClass]="{'ng-dirty ng-invalid': updatedEjercicioForm.getError('nombre')}" formControlName="nombre" pInputText />
-            <small *ngIf="updatedEjercicioForm.getError('nombre')" class="ng-invalid text-red-600">
-                {{ updatedEjercicioForm.getError('nombre') }}
-            </small>
-        </div>
-    
-        <div style="width: calc(50% - 10px)">
-            <label for="nivel" class="">Nivel</label>
-             <p-dropdown formControlName="nivel" optionLabel="name" [options]="Niveles"
-                placeholder="Seleccione un nivel" [ngModel]="Niveles[0]"
-                [ngClass]="{'ng-dirty ng-invalid': updatedEjercicioForm.getError('nivel')}" />
-            <small *ngIf="updatedEjercicioForm.getError('nivel')" class="ng-invalid text-red-600">
-                {{ updatedEjercicioForm.getError('nivel') }}
-            </small>
-        </div>
-    
-        <div style="width: calc(33.33% - 14px)">
-            <label for="nombre" class="">Repeticiones</label>
-            <input id="repeticiones" type="text" placeholder=""
-                [ngClass]="{'ng-dirty ng-invalid': updatedEjercicioForm.getError('repeticiones')}" formControlName="repeticiones" pInputText />
-            <small *ngIf="updatedEjercicioForm.getError('repeticiones')" class="ng-invalid text-red-600">
-                {{ updatedEjercicioForm.getError('repeticiones') }}
-            </small>
-        </div>
-    
-        <div style="width: calc(33.33% - 13px)">
-            <label for="series" class="">Series</label>
-            <input id="series" type="text" placeholder=""
-                [ngClass]="{'ng-dirty ng-invalid': updatedEjercicioForm.getError('series')}" formControlName="series" pInputText />
-            <small *ngIf="updatedEjercicioForm.getError('series')" class="ng-invalid text-red-600">
-                {{ updatedEjercicioForm.getError('series') }}
-            </small>
-        </div>
-    
-        <div style="width: calc(33.33% - 13px)">
-            <label for="descanso" class="">Descanso</label>
-            <input id="descanso" type="text" placeholder=""
-                [ngClass]="{'ng-dirty ng-invalid': updatedEjercicioForm.getError('descanso')}" formControlName="descanso" pInputText />
-            <small *ngIf="updatedEjercicioForm.getError('descanso')" class="ng-invalid text-red-600">
-                {{ updatedEjercicioForm.getError('descanso') }}
-            </small>
-        </div>
-        <div style="width: -webkit-fill-available">
-            <label for="observaciones" class="">Observaciones</label>
-            <textarea id="observaciones" pInputTextarea [autoResize]="true" formControlName="observaciones" rows="3"
-                [ngClass]="{'ng-dirty ng-invalid': updatedEjercicioForm.getError('observaciones')}"></textarea>
-            <small *ngIf="updatedEjercicioForm.getError('observaciones')" class="ng-invalid text-red-600">
-                {{ updatedEjercicioForm.getError('observaciones') }}
-            </small>
-        </div>
-        <div style="
+                <small *ngIf="updatedEjercicioForm.getError('rutinas')" class="ng-invalid text-red-600">
+                    {{ updatedEjercicioForm.getError('rutinas') }}
+                </small>
+            </div>
+            <div style="width: calc(50% - 10px)">
+                <label for="nombre" class="">Nombre ejercicio</label>
+                <input id="nombre" type="text" placeholder=""
+                    [ngClass]="{'ng-dirty ng-invalid': updatedEjercicioForm.getError('nombre')}"
+                    formControlName="nombre" pInputText />
+                <small *ngIf="updatedEjercicioForm.getError('nombre')" class="ng-invalid text-red-600">
+                    {{ updatedEjercicioForm.getError('nombre') }}
+                </small>
+            </div>
+
+            <div style="width: calc(50% - 10px)">
+                <label for="nivel" class="">Nivel</label>
+                <p-dropdown formControlName="nivel" optionLabel="name" [options]="Niveles"
+                    placeholder="Seleccione un nivel" [ngModel]="Niveles[0]"
+                    [ngClass]="{'ng-dirty ng-invalid': updatedEjercicioForm.getError('nivel')}" />
+                <small *ngIf="updatedEjercicioForm.getError('nivel')" class="ng-invalid text-red-600">
+                    {{ updatedEjercicioForm.getError('nivel') }}
+                </small>
+            </div>
+
+            <div style="width: calc(33.33% - 14px)">
+                <label for="nombre" class="">Repeticiones</label>
+                <input id="repeticiones" type="text" placeholder=""
+                    [ngClass]="{'ng-dirty ng-invalid': updatedEjercicioForm.getError('repeticiones')}"
+                    formControlName="repeticiones" pInputText />
+                <small *ngIf="updatedEjercicioForm.getError('repeticiones')" class="ng-invalid text-red-600">
+                    {{ updatedEjercicioForm.getError('repeticiones') }}
+                </small>
+            </div>
+
+            <div style="width: calc(33.33% - 13px)">
+                <label for="series" class="">Series</label>
+                <input id="series" type="text" placeholder=""
+                    [ngClass]="{'ng-dirty ng-invalid': updatedEjercicioForm.getError('series')}"
+                    formControlName="series" pInputText />
+                <small *ngIf="updatedEjercicioForm.getError('series')" class="ng-invalid text-red-600">
+                    {{ updatedEjercicioForm.getError('series') }}
+                </small>
+            </div>
+
+            <div style="width: calc(33.33% - 13px)">
+                <label for="descanso" class="">Descanso</label>
+                <input id="descanso" type="text" placeholder=""
+                    [ngClass]="{'ng-dirty ng-invalid': updatedEjercicioForm.getError('descanso')}"
+                    formControlName="descanso" pInputText />
+                <small *ngIf="updatedEjercicioForm.getError('descanso')" class="ng-invalid text-red-600">
+                    {{ updatedEjercicioForm.getError('descanso') }}
+                </small>
+            </div>
+            <div style="width: -webkit-fill-available">
+                <label for="descripcion" class="">Descripción</label>
+                <textarea id="descripcion" pInputTextarea [autoResize]="true" formControlName="descripcion" rows="3"
+                    [ngClass]="{'ng-dirty ng-invalid': updatedEjercicioForm.getError('descripcion')}"></textarea>
+                <small *ngIf="updatedEjercicioForm.getError('descripcion')" class="ng-invalid text-red-600">
+                    {{ updatedEjercicioForm.getError('descripcion') }}
+                </small>
+            </div>
+            <div style="
           display: flex;
           gap: 20px;
           width: 100%;
           justify-content: end;
           margin-top: 10px;
         ">
-            <p-button type="button" (onClick)="closedDialog()" [outlined]="true" label="Cancelar" id="reset" />
-            <p-button type="submit" label="Registrar" id="guardar" />
-        </div>
-    </form>  
-</p-dialog>
+                <p-button type="button" (onClick)="closedDialog()" [outlined]="true" label="Cancelar" id="reset" />
+                <p-button type="submit" label="Registrar" id="guardar" />
+            </div>
+        </form>
+    </p-dialog>
+</section>
