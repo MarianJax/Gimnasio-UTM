@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { EquiposerviceService } from './service/equiposervice.service';
+import { EquiposService } from '../../../service/equipo/equipo.service';
 
 export interface Estados {
   name: string;
@@ -16,12 +16,12 @@ export interface Estados {
 export class EquiposComponent implements OnInit {
 
   constructor(
-    private equipoService: EquiposerviceService,
+    private equipoService: EquiposService,
     private fb: FormBuilder,
     private router: Router,
     private cdRef: ChangeDetectorRef
-  ) {  }
-  
+  ) { }
+
   maquinas = [];
 
   selectedProducts!: any;

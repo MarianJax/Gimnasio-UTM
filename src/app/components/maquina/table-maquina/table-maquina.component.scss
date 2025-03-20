@@ -1,3 +1,117 @@
+:host ::ng-deep .p-button.p-button-icon-only {
+    border-radius: 6px;
+    padding: 8px 12px;
+}
+
+:host ::ng-deep {
+
+    .p-dialog {
+        border-radius: 12px !important;
+        overflow: hidden;
+
+        .p-dialog-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 800;
+            padding: 24px 30px;
+
+            .p-dialog-title {
+                font-size: 20px;
+
+            }
+
+            .p-dialog-header-icon {
+                color: white;
+            }
+        }
+
+        .p-dialog-content {
+            padding: 30px 50px;
+
+            .p-dropdown {
+                margin-top: 8px;
+                width: 100%;
+                border-radius: 6px;
+
+                .p-inputtext {
+                    padding: 10px 14px;
+                    outline: none
+                }
+            }
+
+            .p-inputwrapper.p-autocomplete-dd.p-autocomplete-multiple {
+                width: 100%;
+                margin-top: 8px;
+
+                .p-autocomplete-multiple-container {
+                    padding: 10px 14px;
+                    padding-right: 2rem;
+                    width: 100%;
+                    border-radius: 6px;
+
+                    .p-autocomplete-input-token {
+                        padding: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .ng-star-inserted {
+        .p-inputtext.p-component.p-element {
+            width: 100%;
+            max-width: 320px;
+        }
+    }
+
+    .p-paginator {
+        .p-paginator-current.ng-star-inserted {
+            margin-right: auto;
+            order: -2;
+        }
+
+
+        .p-element.p-inputwrapper.ng-star-inserted.p-inputwrapper-filled.ng-dirty {
+            order: -1;
+            margin: 0px 20px;
+
+            &::before {
+                margin-left: 25px;
+                content: 'Registros por página';
+            }
+        }
+
+        .p-dropdown-label {
+            padding: 7px;
+            width: 31px;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+
+            &:focus,
+            &:focus-visible,
+            &:focus-within {
+                outline: none;
+            }
+        }
+    }
+}
+
+td {
+    .subtitle {
+        font-weight: 500;
+        font-size: 14px;
+        color: black;
+    }
+
+    .caption {
+        margin-top: 2px;
+        font-size: 12px;
+        font-weight: 400;
+        color: #464F60;
+    }
+}
+
 h2 {
     font-size: 26px;
     font-weight: 800;

@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Estados } from 'src/app/pages/admin/equipos/equipos.component';
-import { EquiposerviceService } from 'src/app/pages/admin/equipos/service/equiposervice.service';
+import { EquiposService } from 'src/app/service/equipo/equipo.service';
 
 @Component({
   selector: 'app-create-maquina',
@@ -20,7 +20,7 @@ export class CreateMaquinaComponent implements OnInit {
   selectedestado: any;
 
   constructor(
-    private equipoService: EquiposerviceService,
+    private equipoService: EquiposService,
     private fb: FormBuilder,
     private router: Router,
   ) {
@@ -63,5 +63,5 @@ export class CreateMaquinaComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

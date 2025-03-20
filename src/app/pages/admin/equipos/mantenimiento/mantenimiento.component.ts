@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Estados } from '../equipos.component';
-import { EquiposerviceService } from '../service/equiposervice.service';
-import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
-import { MantenimientoService } from './mantenimiento.service';
 import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
+import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+import { Estados } from '../equipos.component';
+import { MantenimientoService } from './mantenimiento.service';
+import { EquiposService } from '../../../../service/equipo/equipo.service';
 
 interface Mantenimiento {
   id: string;
@@ -49,7 +49,7 @@ export class MantenimientoComponent implements OnInit {
   mantenimientoDialog: boolean = false;
 
   constructor(
-    private equipoService: EquiposerviceService,
+    private equipoService: EquiposService,
     private mantenimientoService: MantenimientoService,
     private fb: FormBuilder,
     private router: Router

@@ -11,7 +11,7 @@
   <section class="section-form">
   
     <p-table [rowsPerPageOptions]="[10, 25, 50]" [rows]="10" [paginator]="true"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [value]="maquinas"
+    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true" [value]="maquinas" [showFirstLastIcon]="false" 
       dataKey="maquinas-registradas" [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="caption">
         <div class="flex justify-content-between">
@@ -42,5 +42,10 @@
           </td>
         </tr>
       </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="4" rowspan="3" [style]="{ width: '100%', textAlign: 'center' }">{{ emptyMessage }}</td>
+        </tr>
+    </ng-template>
     </p-table>
   </section>

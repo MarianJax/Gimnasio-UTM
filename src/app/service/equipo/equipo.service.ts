@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class EquiposerviceService {
+export class EquiposService {
   private apiUrl = 'http://localhost:3000/maquina';
   constructor(private http: HttpClient) {}
   enviarDatos(data:any): Observable<any> {

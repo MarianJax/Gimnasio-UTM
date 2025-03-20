@@ -1,31 +1,31 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { MantenimientoRoutingModule } from './mantenimiento-routing.module';
-import { MantenimientoComponent } from './mantenimiento.component';
-import { TableModule } from 'primeng/table';
-import { DialogModule } from 'primeng/dialog';
-import { RippleModule } from 'primeng/ripple';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { ToolbarModule } from 'primeng/toolbar';
+import { CalendarModule } from 'primeng/calendar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { FileUploadModule } from 'primeng/fileupload';
-import { DropdownModule } from 'primeng/dropdown';
-import { TagModule } from 'primeng/tag';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
 import { IconModule } from 'src/app/components/icons/icons.module';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { EquiposService } from '../../../../service/equipo/equipo.service';
 import { PagoService } from '../../pagos/pago.service';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { EquiposerviceService } from '../service/equiposervice.service';
-import { CalendarModule } from 'primeng/calendar';
+import { MantenimientoRoutingModule } from './mantenimiento-routing.module';
+import { MantenimientoComponent } from './mantenimiento.component';
 import { MantenimientoService } from './mantenimiento.service';
 
 @NgModule({
@@ -59,8 +59,8 @@ import { MantenimientoService } from './mantenimiento.service';
     MessageService,
     ConfirmationService,
     PagoService,
-    EquiposerviceService,
+    EquiposService,
     MantenimientoService
   ],
 })
-export class MantenimientoModule {}
+export class MantenimientoModule { }
