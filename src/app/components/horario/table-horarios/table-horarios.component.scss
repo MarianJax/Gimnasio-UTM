@@ -4,19 +4,34 @@
 }
 
 :host ::ng-deep .p-paginator {
-
-
     .p-paginator-current.ng-star-inserted {
         margin-right: auto;
-        order: 0;
+        order: -2;
     }
 
+    .p-element.p-inputwrapper.ng-star-inserted.p-inputwrapper-filled.ng-dirty {
+        order: -1;
+        margin: 0px 20px;
 
-    .p-element.p-inputwrapper.ng-untouched.ng-star-inserted.p-inputwrapper-filled.ng-dirty::before {
-        margin-left: auto;
-        content: 'Registros por página';
+        &::before {
+            margin-left: 25px;
+            content: 'Registros por página';
+        }
     }
 
+    .p-dropdown-label {
+        padding: 7px;
+        width: 31px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+
+        &:focus,
+        &:focus-visible,
+        &:focus-within {
+            outline: none;
+        }
+    }
 }
 
 input {

@@ -1,5 +1,5 @@
 <p-table #dt [rowsPerPageOptions]="[10, 25, 50]" [rows]="10" [paginator]="true"
-    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
+    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"[showFirstLastIcon]="false" 
     [value]="maquinas" dataKey="maquinas-registradas" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="caption">
         <div class="flex gap-3">

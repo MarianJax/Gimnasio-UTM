@@ -25,10 +25,8 @@
 
 <section>
     <p-toast />
-    <p-table #dt [value]="pagos" [rows]="10" [paginator]="true"
-        [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-        [tableStyle]="{ 'min-width': '50rem' }" [rowHover]="true" dataKey="id"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+    <p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" [paginator]="true"
+    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true" [showFirstLastIcon]="false" [showCurrentPageReport]="true" [value]="pagos" dataKey="pagos-registrados" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="price" style="width: 15rem;">
