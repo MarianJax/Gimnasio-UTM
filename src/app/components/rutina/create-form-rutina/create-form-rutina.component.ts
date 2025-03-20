@@ -1,16 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { MenuItem } from 'primeng/api';
-import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { RutinasService } from '../../../service/rutinas/rutinas.service';
 
 @Component({
   selector: 'app-create-form-rutina',
   templateUrl: './create-form-rutina.component.html',
   styleUrls: ['./create-form-rutina.component.scss']
 })
-export class CreateFormRutinaComponent implements OnInit {
-  rutinaForm: FormGroup;
+export class CreateFormRutinaComponent {
   visible: boolean = false;
+
+  Intensidad = [
+    { name: 'Alto', value: 'alto' },
+    { name: 'Normal', value: 'normal' },
+    { name: 'Bajo', value: 'bajo' }
+  ]
+
+  constructor(private fb: FormBuilder, private rutinaService: RutinasService) { }
+
+  rutinaForm = this.fb.group({
+    nombre: [''],
+    intensidad: [{ name: 'Normal', value: 'normal' }],
+    descripcion: [''],
+  });
 
   showDialog() {
     console.log('Abre dialogo');
@@ -21,47 +33,21 @@ export class CreateFormRutinaComponent implements OnInit {
     this.visible = false;
   }
 
-  Intensidad = [
-    { name: 'Alto', value: 'alto' },
-    { name: 'Medio', value: 'medio' },
-    { name: 'Bajo', value: 'bajo' }
-  ]
+  @Output() rutinaAgregada = new EventEmitter<void>();
 
-  items: MenuItem[] | undefined;
-
-  maquinas: {
-    nombre: string;
-    id: string;
-  }[] = [];
-
-  filteredEquipos: any[] = [];
-
-  fechaAgendamiento: string = '';
-  horaInicio: string = '';
-  horaFin: string = '';
-
-  constructor(private fb: FormBuilder) {
-    this.rutinaForm = this.fb.group({
-      nombre: new FormControl<string | null>(null),
-      intensidad: new FormControl<string | null>(null),
-      descripcion: new FormControl<string | null>(null),
-    });
-  }
-
-  ngOnInit() { }
-
-  filterCountry(event: AutoCompleteCompleteEvent) {
-    let filtered: any[] = [];
-    let query = event.query;
-
-    for (let i = 0; i < (this.maquinas as any[]).length; i++) {
-      let country = (this.maquinas as { id: string; nombre: string }[])[i];
-      if (country.nombre.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(country);
+  addRutina() {
+    const { intensidad, ...data } = this.rutinaForm.value || {};
+    this.rutinaService.agregarRutina({ intensidad: intensidad?.value, ...data }).subscribe({
+      next: () => {
+        this.rutinaAgregada.emit();
+        this.rutinaForm.reset();
+        this.visible = false;
+      },
+      error: (error) => {
+        this.rutinaForm.setErrors(error.error.errors)
+        console.error(error);
       }
-    }
-
-    this.filteredEquipos = filtered;
+    });
   }
 }
 

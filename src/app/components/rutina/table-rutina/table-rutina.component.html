@@ -1,74 +1,77 @@
-<p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" [paginator]="true"
-    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
-    [value]="rutinas" dataKey="maquinas-registradas" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="caption">
-        <div class="flex gap-3">
-            <p-button [outlined]="true" icon="pi pi-filter-slash" label="" />
-            <input pInputText type="text" placeholder="Buscar rutina" />
-        </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Rutina</th>
-            <th>Numero Ejercicios</th>
-            <th>Inteisdad</th>
-            <th>Acciones</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-maquina>
-        <tr>
-            <td>{{ maquina.nombre }}</td>
-            <td>{{ maquina.cantidad_ejercicios }}</td>
-            <td>{{ maquina.intensidad }}</td>
-            <td>
-                <button pButton pRiple (click)="showDialog(maquina.id)" type="button">
-                    <mage-icon name="edit" fill="#fff" size="17px"></mage-icon>&nbsp; editar </button>
-                
-            </td>
-        </tr>
-    </ng-template>
-</p-table>
+<section>
+    <p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" [paginator]="true"
+        currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true" [showFirstLastIcon]="false" 
+        [value]="rutinas" dataKey="maquinas-registradas" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="caption">
+            <div class="flex gap-3">
+                <p-button [outlined]="true" icon="pi pi-filter-slash" label="" />
+                <input pInputText type="text" placeholder="Buscar rutina" />
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Rutina</th>
+                <th>Numero Ejercicios</th>
+                <th>Inteisdad</th>
+                <th>Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-maquina>
+            <tr>
+                <td>{{ maquina.nombre }}</td>
+                <td>{{ maquina.cantidad_ejercicios }}</td>
+                <td>{{ maquina.intensidad | titlecase }}</td>
+                <td>
+                    <button pButton pRiple (click)="showDialog(maquina.id)" type="button">
+                        <mage-icon name="edit" fill="#fff" size="17px"></mage-icon>&nbsp; editar </button>
 
-<p-dialog header="Actualizar rutina" [(visible)]="visible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-    [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
-    <form [formGroup]="updatedRutinaForm">
-        <div style="width: calc(50% - 12px)">
-            <label for="nombre" class="">Nombre rutina</label>
-            <input id="nombre" type="text" placeholder=""
-                [ngClass]="{'ng-dirty ng-invalid': updatedRutinaForm.getError('nombre')}" formControlName="nombre"
-                value="{{updatedRutinaForm.get('nombre')?.value}}"
-                pInputText />
-            <small *ngIf="updatedRutinaForm.getError('nombre')" class="ng-invalid text-red-600">
-                {{ updatedRutinaForm.getError('nombre') }}
-            </small>
-        </div>
-        <div style="width: calc(50% - 12px)">
-            <label for="nivel" class="">Intensidad</label>
-            <p-dropdown formControlName="intensidad" optionLabel="name" [options]="Intensidad"
-                placeholder="Seleccione una intensidad" [ngModel]="updatedRutinaForm.get('intensidad')?.value"
-                [ngClass]="{'ng-dirty ng-invalid': updatedRutinaForm.getError('intensidad')}" />
-            <small *ngIf="updatedRutinaForm.getError('intensidad')" class="ng-invalid text-red-600">
-                {{ updatedRutinaForm.getError('intensidad') }}
-            </small>
-        </div>
-        <div style="width: -webkit-fill-available">
-            <label for="descripcion" class="">Descripcion</label>
-            <textarea id="descripcion" pInputTextarea [autoResize]="true" formControlName="descripcion" rows="3"
-            value="{{updatedRutinaForm.get('descripcion')?.value}}"
-                [ngClass]="{'ng-dirty ng-invalid': updatedRutinaForm.getError('descripcion')}"></textarea>
-            <small *ngIf="updatedRutinaForm.getError('descripcion')" class="ng-invalid text-red-600">
-                {{ updatedRutinaForm.getError('descripcion') }}
-            </small>
-        </div>
-        <div style="
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p-dialog header="Actualizar rutina" [(visible)]="visible" [modal]="true"
+        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false"
+        [resizable]="false">
+        <form [formGroup]="updatedRutinaForm" (ngSubmit)="updateRutina()">
+            <input type="hidden" name="id" formControlName="id" >
+            <div style="width: calc(50% - 12px)">
+                <label for="nombre" class="">Nombre rutina</label>
+                <input id="nombre" type="text" placeholder=""
+                    [ngClass]="{'ng-dirty ng-invalid': updatedRutinaForm.getError('nombre')}" formControlName="nombre"
+                    value="{{updatedRutinaForm.get('nombre')?.value}}" pInputText />
+                <small *ngIf="updatedRutinaForm.getError('nombre')" class="ng-invalid text-red-600">
+                    {{ updatedRutinaForm.getError('nombre') }}
+                </small>
+            </div>
+            <div style="width: calc(50% - 12px)">
+                <label for="nivel" class="">Intensidad</label>
+                <p-dropdown formControlName="intensidad" optionLabel="name" [options]="Intensidad"
+                    placeholder="Seleccione una intensidad" [ngModel]="updatedRutinaForm.get('intensidad')?.value"
+                    [ngClass]="{'ng-dirty ng-invalid': updatedRutinaForm.getError('intensidad')}" />
+                <small *ngIf="updatedRutinaForm.getError('intensidad')" class="ng-invalid text-red-600">
+                    {{ updatedRutinaForm.getError('intensidad') }}
+                </small>
+            </div>
+            <div style="width: -webkit-fill-available">
+                <label for="descripcion" class="">Descripcion</label>
+                <textarea id="descripcion" pInputTextarea [autoResize]="true" formControlName="descripcion" rows="3"
+                    value="{{updatedRutinaForm.get('descripcion')?.value}}"
+                    [ngClass]="{'ng-dirty ng-invalid': updatedRutinaForm.getError('descripcion')}"></textarea>
+                <small *ngIf="updatedRutinaForm.getError('descripcion')" class="ng-invalid text-red-600">
+                    {{ updatedRutinaForm.getError('descripcion') }}
+                </small>
+            </div>
+            <div style="
           display: flex;
           gap: 20px;
           width: 100%;
           justify-content: end;
           margin-top: 10px;
         ">
-            <p-button type="button" (onClick)="closedDialog()" [outlined]="true" label="Cancelar" id="reset" />
-            <p-button type="submit" label="Registrar" id="guardar" />
-        </div>
-    </form>
-</p-dialog>
+                <p-button type="button" (onClick)="closedDialog()" [outlined]="true" label="Cancelar" id="reset" />
+                <p-button type="submit" label="Registrar" id="guardar" />
+            </div>
+        </form>
+    </p-dialog>
+</section>

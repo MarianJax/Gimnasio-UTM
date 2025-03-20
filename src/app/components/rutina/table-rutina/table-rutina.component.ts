@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RutinasService } from '../../../service/rutinas/rutinas.service';
 
 @Component({
   selector: 'app-table-rutina',
@@ -12,22 +13,27 @@ export class TableRutinaComponent implements OnInit {
   visible: boolean = false;
   rutina: any = undefined;
 
+  selectedIntensidad: {
+    nombre: string;
+    id: string;
+  }[] | null = null;
+
   Intensidad = [
     { name: 'Alto', value: 'alto' },
-    { name: 'Medio', value: 'medio' },
+    { name: 'Normal', value: 'normal' },
     { name: 'Bajo', value: 'bajo' }
   ]
 
-  showDialog(id: string) {
-    this.visible = true;
-
-    this.rutina = this.rutinas.find((rutina: { id: string; }) => rutina.id === id);
+  async showDialog(id: string) {    
+    this.rutina = await this.rutinaService.obtenerRutina(id).toPromise();
     this.updatedRutinaForm.patchValue({
+      id: this.rutina.id,
       nombre: this.rutina.nombre,
-      intensidad: this.Intensidad.find((intensidad) => intensidad.name === this.rutina.intensidad),
+      intensidad: this.Intensidad.find((intensidad) => intensidad.value === this.rutina.intensidad),
       descripcion: this.rutina.descripcion,
     });
-
+    
+    this.visible = true;
   }
 
   closedDialog() {
@@ -36,9 +42,10 @@ export class TableRutinaComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
+    private rutinaService: RutinasService,
   ) {
     this.updatedRutinaForm = this.fb.group({
+      id: new FormControl<string | null>(null),
       nombre: new FormControl<string | null>(null),
       intensidad: new FormControl<string | null>(null),
       descripcion: new FormControl<string | null>(null),
@@ -54,22 +61,29 @@ export class TableRutinaComponent implements OnInit {
   }
 
   obtenerDatos() {
-    this.rutinas = [
-      {
-        id: 1,
-        nombre: 'Rutina 1',
-        intensidad: 'Alto',
-        cantidad_ejercicios: 5,
-        descripcion: 'Rutina de ejercicios para principiantes',
+    this.rutinaService.obtenerRutinas().subscribe({
+      next: (data) => {
+        this.rutinas = data;
       },
-      {
-        id: 2,
-        nombre: 'Rutina 2',
-        intensidad: 'Medio',
-        cantidad_ejercicios: 10,
-        descripcion: 'Rutina de ejercicios intermedios',
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  }
+
+  updateRutina() { 
+    const { intensidad, ...data } = this.updatedRutinaForm.value || {};
+    this.rutinaService.actualizarRutina({ intensidad: intensidad?.value, ...data }).subscribe({
+      next: () => {
+        this.updatedRutinaForm.reset();
+        this.obtenerDatos();
+        this.visible = false;
       },
-    ];
+      error: (error) => {
+        this.updatedRutinaForm.setErrors(error.error.errors)
+        console.error(error);
+      }
+    });
   }
 }
 
