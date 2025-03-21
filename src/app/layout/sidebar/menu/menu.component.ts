@@ -17,7 +17,7 @@ export class MenuComponent implements OnInit {
     private router: Router
   ) { }
 
-  //ngOnInit() {
+  // ngOnInit() {
     // let session = sessionStorage.getItem(this.eventos._DATOS_GENERALES_LOGIN);
     // let session_rn: any = sessionStorage.getItem(this.eventos._DATOS_REGISTRO_NACIONAL);
     // let usuario = session ? JSON.parse(session) : null;
@@ -81,6 +81,10 @@ export class MenuComponent implements OnInit {
   // }
 
   ngOnInit() {
+    let session = sessionStorage.getItem('session-usuario');
+    let usuario = session ? JSON.parse(session) : null;
+
+    console.log(usuario);
     this.updateMenuBasedOnPath();
 
     // Si deseas detectar cambios en la ruta (navegación dinámica), puedes suscribirte a los eventos de navegación

@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 import { LayoutService } from '../service/layout.service';
 
 @Component({
@@ -27,14 +27,11 @@ export class TopbarComponent {
     public layoutService: LayoutService,
     private router: Router,
   ) {
-   // let session = sessionStorage.getItem('session-usuario');
-  
-    
-   //let usuario = session ? JSON.parse(session) : null;
+    let session = sessionStorage.getItem('session-usuario');
+    let usuario = session ? JSON.parse(session) : null;
 
- 
-         //this.nombre_usuario = usuario.nombre;
-   
+    this.nombre_usuario = usuario ? (usuario.nombres.split(' ')[0] + ' ' + usuario.apellidos.split(' ')[0]) : 'No hay';
+
     this.theme = localStorage.getItem('theme_utm_gimnasio');
     this.colorScheme = localStorage.getItem('color_scheme_utm_gimnasio');
     if (this.theme) {
@@ -43,7 +40,7 @@ export class TopbarComponent {
       this.theme = "saga-green";
       this.colorScheme = "light";
     }
-   
+
     this.cerrar_sesion = [
       {
         label: 'Perfil',
