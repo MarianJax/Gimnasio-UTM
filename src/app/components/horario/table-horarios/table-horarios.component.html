@@ -1,6 +1,6 @@
 <p-table #dt [rowsPerPageOptions]="[10, 25, 50]" [rows]="10" [paginator]="true"
     currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"[showFirstLastIcon]="false" 
-    [value]="maquinas" dataKey="maquinas-registradas" [tableStyle]="{ 'min-width': '50rem' }">
+    [value]="horarios" dataKey="maquinas-registradas" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="caption">
         <div class="flex gap-3">
             <p-button [outlined]="true" icon="pi pi-filter-slash" label="" />
@@ -16,12 +16,12 @@
             <th>Acciones</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-maquina>
+    <ng-template pTemplate="body" let-horario>
         <tr>
-            <td>{{ maquina.nombre }}</td>
-            <td>{{ maquina.jornada }}</td>
-            <td>{{ maquina.horaIngreso }} - {{ maquina.horaSalida }}</td>
-            <td>{{ maquina.dia }}</td>
+            <td>{{ horario.rol.nombre }}</td>
+            <td>{{ horario.jornada }}</td>
+            <td>{{ horario.hora_inicio }} - {{ horario.hora_fin }}</td>
+            <td>{{ horario.dia_semana }}</td>
             <td>
                 <button type="button" pButton pRipple>
                     <mage-icon name="file-2"></mage-icon>

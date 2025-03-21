@@ -1,19 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HorarioService } from '../../../service/horarios/horario.service';
 
 @Component({
   selector: 'app-table-horarios',
   templateUrl: './table-horarios.component.html',
-  styleUrls: ['./table-horarios.component.scss']
+  styleUrls: ['./table-horarios.component.scss'],
 })
 export class TableHorariosComponent implements OnInit {
+  constructor(private router: Router, private horarioService: HorarioService) {}
 
-  constructor(
-    private router: Router,
-
-  ) { }
-
-  maquinas:any = [];
+  horarios: any = [];
 
   selectedProducts!: any;
 
@@ -30,14 +27,8 @@ export class TableHorariosComponent implements OnInit {
   }
 
   obtenerDatos() {
-    this.maquinas = [
-      {
-      nombre: 'Administrador',
-      jornada: 'Matutina',
-      dia: 'Lunes',
-      horaIngreso: '08:00',
-      horaSalida: '12:00',
-      }
-    ];
+    this.horarioService
+      .obtenerHorarios()
+      .subscribe((data) => (this.horarios = data));
   }
 }

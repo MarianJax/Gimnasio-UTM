@@ -1,14 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { HorarioService } from '../../../service/horarios/horario.service';
+import { RolesService } from '../../../service/roles/roles.service';
 import { Estados } from '../../agendamientos/create-form/agendamiento-info/agendamiento-info.component';
+
+const formInit = {
+  rol_id: new FormControl<Estados[] | null>([]),
+  hora_inicio: new FormControl<Estados | null>(null),
+  hora_fin: new FormControl<Estados | null>(null),
+  dia_semana: new FormControl<Estados | null>(null),
+  jornada: new FormControl<Estados | null>(null),
+};
 
 @Component({
   selector: 'app-create-form-horario',
   templateUrl: './create-form-horario.component.html',
-  styleUrls: ['./create-form-horario.component.scss']
+  styleUrls: ['./create-form-horario.component.scss'],
 })
 export class CreateFormHorarioComponent implements OnInit {
   horarioForm: FormGroup;
+  @Output() addedHorario = new EventEmitter<void>();
 
   horas = [
     { name: '08:00', value: '08:00' },
@@ -23,7 +34,7 @@ export class CreateFormHorarioComponent implements OnInit {
     { name: '17:00', value: '17:00' },
     { name: '18:00', value: '18:00' },
     { name: '19:00', value: '19:00' },
-    { name: '20:00', value: '20:00' }
+    { name: '20:00', value: '20:00' },
   ];
 
   dias = [
@@ -31,25 +42,22 @@ export class CreateFormHorarioComponent implements OnInit {
     { name: 'Martes', value: 'Martes' },
     { name: 'Miércoles', value: 'Miercoles' },
     { name: 'Jueves', value: 'Jueves' },
-    { name: 'Viernes', value: 'Viernes' }
-  ]
+    { name: 'Viernes', value: 'Viernes' },
+  ];
 
   jornada = [
     { name: 'Matutina', value: 'Matutina' },
-    { name: 'Vespertina', value: 'Vespertina' }
-  ]
-
-  roles = [
-    { name: 'Administrador', code: 'Administrador' },
-    { name: 'Estudiante', code: 'Estudiante' },
-    { name: 'Funcionario', code: 'Funcionario' },
-    { name: 'Entrenador', code: 'Entrenador' }
+    { name: 'Vespertina', value: 'Vespertina' },
   ];
+
+  roles: { name: string; code: string }[] = [];
 
   horasSalida: any[] = [...this.horas];
 
   onHoraIngresoChange() {
-    const horaIngresoIndex = this.horas.findIndex(hora => hora === this.horarioForm.get('ingreso')?.value);
+    const horaIngresoIndex = this.horas.findIndex(
+      (hora) => hora === this.horarioForm.get('ingreso')?.value
+    );
 
     if (horaIngresoIndex >= 0) {
       this.horasSalida = this.horas.slice(horaIngresoIndex + 1);
@@ -62,21 +70,48 @@ export class CreateFormHorarioComponent implements OnInit {
   horaInicio: string = '';
   horaFin: string = '';
 
-  constructor(private fb: FormBuilder) {
-    this.horarioForm = this.fb.group({
-      selectedRoles: new FormControl<Estados[] | null>([]),
-      fecha: new FormControl<Date | null>(null),
-      ingreso: new FormControl<Estados | null>(null),
-      salida: new FormControl<Estados | null>(null),
-      dias: new FormControl<Estados | null>(null),
-      jornada: new FormControl<Estados | null>(null),
-    });
+  constructor(
+    private fb: FormBuilder,
+    private horarioService: HorarioService,
+    private rolesService: RolesService
+  ) {
+    this.horarioForm = this.fb.group(formInit);
   }
 
   ngOnInit() {
     // Suscribirse a los cambios del campo 'ingreso'
-    this.horarioForm.get('ingreso')?.valueChanges.subscribe(() => {
+    this.horarioForm.get('hora_inicio')?.valueChanges.subscribe(() => {
       this.onHoraIngresoChange();
     });
+
+    this.rolesService.obtenerRoles().subscribe((roles) => {
+      roles.map((rol: any) => {
+        if (rol.nombre !== 'Entrenador') {
+          this.roles.push({ name: rol.nombre, code: rol.id });
+        }
+      });
+    });
+  }
+
+  onSubmit() {
+    const horario = this.horarioForm.value;
+    this.horarioService
+      .agregarHorario({
+        rol_id: horario.rol_id.code,
+        hora_inicio: horario.hora_inicio.value,
+        hora_fin: horario.hora_fin.value,
+        dia_semana: horario.dia_semana.value,
+        jornada: horario.jornada.value,
+      })
+      .subscribe({
+        next: () => {
+          this.addedHorario.emit();
+          this.horarioForm.reset(formInit);
+        },
+        error: (error) => {
+          console.log('Error al enviar los datos', error);
+          this.horarioForm.setErrors(error.error.errors);
+        },
+      });
   }
 }
