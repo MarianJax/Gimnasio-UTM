@@ -89,6 +89,7 @@ export class LoginComponent implements OnInit {
               return;
             }
             this.usuarioForm.setErrors(err.error.errors);
+            console.log('Error al enviar los datos', err);
           },
         });
     } else {
