@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LayoutService } from 'src/app/layout/service/layout.service';
 import { AuthService } from './auth.service';
@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuarioForm = this.fb.group({
-      email: [''],
-      password: ['']
+      correo: [''],
+      contrasena: ['']
     });
   }
 
@@ -64,16 +64,33 @@ export class LoginComponent implements OnInit {
     if (this.usuarioForm.valid) {
       const usuario = this.usuarioForm.value;
       //console.log('Desde el obSubmit ->',usuario);
-      this.authService.autenticar({
-        email: usuario.email,
-        password: usuario.password
-      })
-      .subscribe((response)=>{
-        sessionStorage.setItem('session-usuario', JSON.stringify(response));
-       // console.log(response);
-     // console.log('onLogin');
-      this.router.navigate(['/']);
-      }); // Redirect to 'home' route
+      this.authService.autenticar(usuario)
+        .subscribe({
+          next: (response) => {
+            if (response.state === 'success') {
+              sessionStorage.setItem('session-usuario', JSON.stringify(response.user));
+              this.router.navigate(['/']);
+            }
+          },
+          error: (err) => {
+            if (err.error.state === 'error') {
+              if (err.error.response.match(/El usuario \[<b>(.*?)<\/b>\],No existe!/)) {
+                const match = err.error.response.match(/El usuario \[<b>(.*?)<\/b>\],No existe!/);
+                console.log(`El usuario ${match[1]}, No existe!`);
+
+                this.usuarioForm.setErrors({
+                  correo: `El usuario ${match[1]}, No existe!`,
+                });
+              } else {
+                this.usuarioForm.setErrors({ contrasena: 'La contraseña es incorrecta' });
+              }
+
+              console.log('Error al enviar los datos', err.error.response);
+              return;
+            }
+            this.usuarioForm.setErrors(err.error.errors);
+          },
+        });
     } else {
       console.log('Form is invalid');
     }

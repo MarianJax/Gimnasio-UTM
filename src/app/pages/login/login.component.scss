@@ -6,13 +6,19 @@
   color: var(--primary-color) !important;
 }
 
-:host ::ng-deep p-button {
-  margin: 0;
-  width: 100%;
-
-  .p-button {
+:host ::ng-deep {
+  .p-inputwrapper.p-input-icon-right {
     width: 100%;
-    padding: 10px 25px;
+  }
+
+  p-button {
+    margin: 0;
+    width: 100%;
+
+    .p-button {
+      width: 100%;
+      padding: 10px 25px;
+    }
   }
 }
 
@@ -68,6 +74,7 @@ a.disabled {
   letter-spacing: 0.04em;
   font-weight: 700;
   margin: 35px auto 45px auto;
+
   span {
     font-size: 26px;
     color: var(--primary-color);
