@@ -1,6 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { HorariosEntrenadoresService } from '../../../service/horariosEntrenadores/horarios-entrenadores.service';
 import { Estados } from '../../agendamientos/create-form/agendamiento-info/agendamiento-info.component';
+
+const formInit = {
+  fecha: new FormControl<Date | null>(null),
+  franja_hora_inicio: new FormControl<Estados | null>(null),
+  franja_hora_fin: new FormControl<Estados | null>(null),
+  dia_semana: new FormControl<Estados | null>(null),
+};
 
 @Component({
   selector: 'app-create-horario-entrenador',
@@ -8,6 +16,7 @@ import { Estados } from '../../agendamientos/create-form/agendamiento-info/agend
   styleUrls: ['./create-horario-entrenador.component.scss']
 })
 export class CreateHorarioEntrenadorComponent implements OnInit {
+  @Output() addedHorarioEntrenador = new EventEmitter<void>();
   horarioForm: FormGroup;
 
   horas = [
@@ -39,44 +48,48 @@ export class CreateHorarioEntrenadorComponent implements OnInit {
     { name: 'Vespertina', value: 'Vespertina' }
   ]
 
-  roles = [
-    { name: 'Administrador', code: 'Administrador' },
-    { name: 'Estudiante', code: 'Estudiante' },
-    { name: 'Funcionario', code: 'Funcionario' },
-    { name: 'Entrenador', code: 'Entrenador' }
-  ];
-
   horasSalida: any[] = [...this.horas];
-
-  onHoraIngresoChange() {
-    const horaIngresoIndex = this.horas.findIndex(hora => hora === this.horarioForm.get('ingreso')?.value);
-
-    if (horaIngresoIndex >= 0) {
-      this.horasSalida = this.horas.slice(horaIngresoIndex + 1);
-    } else {
-      this.horasSalida = [...this.horas];
-    }
-  }
 
   fechaAgendamiento: string = '';
   horaInicio: string = '';
   horaFin: string = '';
 
-  constructor(private fb: FormBuilder) {
-    this.horarioForm = this.fb.group({
-      selectedRoles: new FormControl<Estados[] | null>([]),
-      fecha: new FormControl<Date | null>(null),
-      ingreso: new FormControl<Estados | null>(null),
-      salida: new FormControl<Estados | null>(null),
-      dias: new FormControl<Estados | null>(null),
-      jornada: new FormControl<Estados | null>(null),
-    });
+  constructor(private fb: FormBuilder, private horarioEntrenadorService: HorariosEntrenadoresService) {
+    this.horarioForm = this.fb.group(formInit);
   }
 
   ngOnInit() {
-    // Suscribirse a los cambios del campo 'ingreso'
-    this.horarioForm.get('ingreso')?.valueChanges.subscribe(() => {
-      this.onHoraIngresoChange();
+    // Suscribirse a los cambios del campo 'franja_hora_inicio'
+    this.horarioForm.get('franja_hora_inicio')?.valueChanges.subscribe((val) => {
+      const horaIngresoIndex = this.horas.findIndex(
+        (hora) => hora.value === val?.value
+      );
+
+      if (horaIngresoIndex >= 0) {
+        this.horasSalida = this.horas.slice(horaIngresoIndex + 1);
+      } else {
+        this.horasSalida = [...this.horas];
+      }
+    });
+  }
+
+  onSubmit() {
+    const horario = this.horarioForm.value;
+    console.log(horario);
+    this.horarioEntrenadorService.agregarHorario({
+      fecha: horario.fecha && new Date(horario.fecha).toISOString(),
+      franja_hora_inicio: horario.franja_hora_inicio && horario.franja_hora_inicio.value,
+      franja_hora_fin: horario.franja_hora_fin && horario.franja_hora_fin.value,
+      dia_semana: horario.dia_semana && horario.dia_semana.value
+    }).subscribe({
+      next: (data) => {
+        this.addedHorarioEntrenador.emit();
+        this.horarioForm.reset(formInit);
+      },
+      error: (error) => {
+        console.error(error);
+        this.horarioForm.setErrors(error.error.errors);
+      }
     });
   }
 }

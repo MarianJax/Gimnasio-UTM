@@ -1,6 +1,7 @@
 <p-table #dt [rowsPerPageOptions]="[10, 25, 50]" [rows]="10" [paginator]="true"
-    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"[showFirstLastIcon]="false" 
-    [value]="maquinas" dataKey="maquinas-registradas" [tableStyle]="{ 'min-width': '50rem' }">
+    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
+    [showFirstLastIcon]="false" [value]="horarios" dataKey="horarios-registradas"
+    [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="caption">
         <div class="flex gap-3">
             <p-button [outlined]="true" icon="pi pi-filter-slash" label="" />
@@ -9,24 +10,105 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th>Nombres</th>
+            <th>Días</th>
             <th>Rol</th>
             <th>Horas</th>
             <th>Fecha</th>
             <th>Acciones</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-maquina>
+    <ng-template pTemplate="body" let-horario>
         <tr>
-            <td>{{ maquina.nombre }}</td>
-            <td>{{ maquina.rol }}</td>
-            <td>{{ maquina.franja_hora_inicio }} - {{ maquina.franja_hora_salida }}</td>
-            <td>{{ maquina.fecha | date:'dd/MM/yyyy' }}</td>
+            <td>{{ horario.dia_semana }}</td>
+            <td>{{ horario.rol.nombre }}</td>
+            <td>{{ horario.franja_hora_inicio | slice:0:5 }} - {{ horario.franja_hora_fin | slice:0:5 }}</td>
+            <td>{{ horario.fecha | date:'dd/MM/yyyy' }}</td>
             <td>
-                <button type="button" pButton pRipple>
-                    <mage-icon name="file-2"></mage-icon>
-                </button>
+                <div class="flex gap-3 w-full justify-content-center">
+                    <p-button [outlined]="true" size="small" severity="primary" (click)="showDialog(horario.id)"
+                        class="w-min"><mage-icon name="edit" color="#059669"
+                            size="16px"></mage-icon>&nbsp;Editar</p-button>
+                    <p-button [outlined]="true" (onClick)="confirm(horario.id)" size="small" severity="danger"
+                        class="w-min"><mage-icon name="delete" stroke="#D32F2F"
+                            size="16px"></mage-icon>&nbsp;Eliminar</p-button>
+                </div>
             </td>
         </tr>
     </ng-template>
 </p-table>
+
+
+<p-confirmDialog #cd>
+    <ng-template pTemplate="headless" let-message>
+        <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+            <div style="background-color: red; color: white"
+                class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem">
+                <mage-icon name="delete" stroke="#D32F2F" size="16px"></mage-icon>
+            </div>
+            <span class="font-bold text-2xl block mb-2 mt-4">
+                {{ message.header }}
+            </span>
+            <p class="mb-0">{{ message.message }}</p>
+            <div class="flex align-items-center gap-2 mt-4">
+                <button pButton label="Save" (click)="cd.accept()" class="w-8rem">
+                </button>
+                <button pButton label="Cancel" (click)="cd.reject()" class="p-button-outlined w-8rem ">
+                </button>
+            </div>
+        </div>
+    </ng-template>
+</p-confirmDialog>
+
+<p-dialog header="Actualizar ejercicio" [(visible)]="visible" [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false"
+    [resizable]="false">
+    <form [formGroup]="horarioForm" (ngSubmit)="onSubmit()">
+        <input type="hidden" name="id" formControlName="id" />
+        <div style="width: calc(50% - 10px)">
+            <label for="fecha">Fecha</label>
+            <p-calendar appendTo="body" id="fecha" dateFormat="dd-mm-yy" formControlName="fecha"
+                [ngClass]="{'ng-dirty ng-invalid': horarioForm.getError('fecha')}" [showButtonBar]="true"
+                placeholder="Seleccione una fecha" />
+            <small *ngIf="horarioForm.getError('fecha')" class="ng-invalid text-red-600">
+                {{ horarioForm.getError('fecha') }}
+            </small>
+        </div>
+        <div style="width: calc(50% - 10px)">
+            <label for="dia_semana">Dia Semana</label>
+            <p-dropdown formControlName="dia_semana" optionLabel="name" [options]="dias"
+                placeholder="Seleccione un dia de semana"
+                [ngClass]="{'ng-dirty ng-invalid': horarioForm.getError('dia_semana')}" />
+            <small *ngIf="horarioForm.getError('dia_semana')" class="ng-invalid text-red-600">
+                {{ horarioForm.getError('dia_semana') }}
+            </small>
+        </div>
+        <div style="width: calc(50% - 10px)">
+            <label for="salida">Hora de inicio</label>
+            <p-dropdown formControlName="franja_hora_inicio" optionLabel="name" [options]="horas"
+                placeholder="Seleccione una hora"
+                [ngClass]="{'ng-dirty ng-invalid': horarioForm.getError('franja_hora_inicio')}" />
+            <small *ngIf="horarioForm.getError('franja_hora_inicio')" class="ng-invalid text-red-600">
+                {{ horarioForm.getError('franja_hora_inicio') }}
+            </small>
+        </div>
+        <div style="width: calc(50% - 10px)">
+            <label for="franja_hora_fin">Hora de salida</label>
+            <p-dropdown formControlName="franja_hora_fin" optionLabel="name" [options]="horasSalida"
+                placeholder="Seleccione una hora"
+                [ngClass]="{'ng-dirty ng-invalid': horarioForm.getError('franja_hora_fin')}" />
+            <small *ngIf="horarioForm.getError('franja_hora_fin')" class="ng-invalid text-red-600">
+                {{ horarioForm.getError('franja_hora_fin') }}
+            </small>
+        </div>
+        <div style="
+          display: flex;
+          gap: 20px;
+          width: 100%;
+          justify-content: end;
+          margin-top: 10px;
+        ">
+            <p-button (onClick)="closedDialog()" [outlined]="true" label="Cancelar" id="reset" />
+            <p-button type="submit" label="Actualizar" id="guardar" />
+        </div>
+    </form>
+</p-dialog>

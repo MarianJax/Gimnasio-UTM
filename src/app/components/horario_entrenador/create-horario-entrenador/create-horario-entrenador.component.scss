@@ -4,10 +4,6 @@ h3 {
     font-weight: 800;
     font-size: 24px;
     margin: 0;
-    background: linear-gradient(270deg, #2563EB 0%, #1779B3 6.64%, #059669 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
     margin-bottom: 20px;
 }
 
@@ -46,6 +42,26 @@ form {
         padding: 1rem;
         outline: none
     }
+}
+
+:host ::ng-deep {
+
+    .p-calendar {
+        width: 100%;
+
+        .p-inputtext {
+            margin-top: 8px;
+            padding: 1rem;
+        }
+
+        .p-datepicker {
+            min-width: fit-content;
+        }
+    }
+}
+
+:host ::ng-deep .p-datepicker-calendar {
+    width: fit-content;
 }
 
 :host ::ng-deep .p-multiselect {
