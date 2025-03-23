@@ -24,4 +24,8 @@ private apiUrl = 'http://localhost:3000/rutina';
   actualizarRutina(rutina:any):Observable<any>{
     return this.http.patch(`${this.apiUrl}/${rutina.id}`, rutina);
   }
+
+  eliminarRutina(id:any):Observable<any>{
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

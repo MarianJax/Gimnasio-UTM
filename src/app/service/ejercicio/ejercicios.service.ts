@@ -25,4 +25,8 @@ private apiUrl = 'http://localhost:3000/ejercicios';
     return this.http.patch(`${this.apiUrl}/${ejercicio.id}`, ejercicio);
   }
 
+  eliminarEjercicio(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
 }
