@@ -1,5 +1,7 @@
 <p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" [paginator]="true"
-    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true" [showFirstLastIcon]="false" [value]="usuarios" dataKey="maquinas-registradas" [tableStyle]="{ 'min-width': '60rem' }">
+    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
+    [showFirstLastIcon]="false" [value]="usuarios" dataKey="maquinas-registradas"
+    [tableStyle]="{ 'min-width': '60rem' }">
     <ng-template pTemplate="caption">
         <div class="flex gap-3">
             <p-button [outlined]="true" icon="pi pi-filter-slash" label="" />
@@ -25,8 +27,9 @@
             <td>{{ getRolesAsString(maquina) }}</td>
             <td>{{ maquina.correo }}</td>
             <td>
-                <button pButton pRiple (click)="showDialog(maquina.id)" type="button">
-                    <mage-icon name="edit" fill="#fff" size="17px"></mage-icon>&nbsp; editar </button>
+                <p-button [outlined]="true" size="small" severity="primary" class="w-min"
+                    (click)="showDialog(maquina.id)"><mage-icon name="edit" color="#059669"
+                        size="16px"></mage-icon>&nbsp;Editar</p-button>
             </td>
         </tr>
     </ng-template>
@@ -105,7 +108,7 @@
           margin-top: 10px;
         ">
             <p-button type="button" (onClick)="closedDialog()" [outlined]="true" label="Cancelar" id="reset" />
-            <p-button type="submit" label="Registrar" id="guardar" />
+            <p-button type="submit" label="Actualizar" id="guardar" />
         </div>
     </form>
 </p-dialog>

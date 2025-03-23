@@ -144,26 +144,26 @@ form {
     }
 }
 
-:host ::ng-deep {
-    p-button {
-        margin: 0;
+// :host ::ng-deep {
+//     p-button {
+//         margin: 0;
 
-        .p-button {
-            padding: 8px 80px;
-            border: 1px solid var(--primary-color);
-            font-size: 14px;
-            border-radius: 10px 0px 10px 10px;
-            color: black;
+//         .p-button {
+//             padding: 8px 80px;
+//             border: 1px solid var(--primary-color);
+//             font-size: 14px;
+//             border-radius: 10px 0px 10px 10px;
+//             color: black;
 
-            &:not(.p-button-outlined) {
-                background-color: var(--primary-color);
-                color: white;
+//             &:not(.p-button-outlined) {
+//                 background-color: var(--primary-color);
+//                 color: white;
 
-                &:hover {
-                    background-color: var(--primary-700);
-                }
-            }
-        }
+//                 &:hover {
+//                     background-color: var(--primary-700);
+//                 }
+//             }
+//         }
 
-    }
-}
+//     }
+// }

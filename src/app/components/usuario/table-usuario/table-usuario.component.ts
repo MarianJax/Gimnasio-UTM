@@ -190,6 +190,8 @@ export class TableUsuarioComponent implements OnInit {
       });
     }
   }
+
+  
 }
 
 
