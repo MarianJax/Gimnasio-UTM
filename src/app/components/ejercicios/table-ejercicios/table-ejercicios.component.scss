@@ -1,8 +1,3 @@
-:host ::ng-deep .p-button.p-button-icon-only {
-    border-radius: 6px;
-    padding: 8px 12px;
-}
-
 section {
     height: -webkit-fill-available;
 }
@@ -33,7 +28,7 @@ section {
             padding: 30px 50px;
 
             .p-dropdown {
-                margin-top: 8px;
+                margin-top: 4px;
                 width: 100%;
                 border-radius: 6px;
 
@@ -43,24 +38,30 @@ section {
                 }
             }
 
-            .p-inputwrapper.p-autocomplete-dd.p-autocomplete-multiple {
+            .p-multiselect {
                 width: 100%;
-                margin-top: 8px;
+                margin-top: 4px;
+                border-radius: 8px;
 
-                .p-autocomplete-multiple-container {
+                .p-multiselect-label {
                     padding: 10px 14px;
+                    font-size: 13px;
                     padding-right: 2rem;
-                    font-size: 12px;
                     width: 100%;
-                    border-radius: 6px;
 
                     .p-autocomplete-input-token {
                         padding: 0;
                     }
                 }
             }
+
+            p-multiselectitem {
+                font-size: 13px;
+            }
         }
     }
+
+
 
     .ng-star-inserted {
         .p-inputtext.p-component.p-element {
@@ -126,11 +127,11 @@ form {
         label {
             display: block;
             color: black;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         input {
-            margin-top: 8px;
+            margin-top: 4px;
             width: 100%;
             padding: 10px 14px;
             border-radius: 8px;
@@ -149,26 +150,25 @@ form {
     }
 }
 
-:host ::ng-deep {
-    p-button {
-        margin: 0;
+// :host ::ng-deep {
+//     p-button {
+//         margin: 0;
 
-        .p-button {
-            padding: 8px 80px;
-            border: 1px solid var(--primary-color);
-            font-size: 14px;
-            border-radius: 10px 0px 10px 10px;
-            color: black;
+//         .p-button {
+//             border: 1px solid var(--primary-color);
+//             font-size: 14px;
+//             border-radius: 10px 0px 10px 10px;
+//             color: black;
 
-            &:not(.p-button-outlined) {
-                background-color: var(--primary-color);
-                color: white;
+//             &:not(.p-button-outlined) {
+//                 background-color: var(--primary-color);
+//                 color: white;
 
-                &:hover {
-                    background-color: var(--primary-700);
-                }
-            }
-        }
+//                 &:hover {
+//                     background-color: var(--primary-700);
+//                 }
+//             }
+//         }
 
-    }
-}
+//     }
+// }

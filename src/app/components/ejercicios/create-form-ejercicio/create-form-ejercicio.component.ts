@@ -2,9 +2,14 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+import { EjerciciosService } from '../../../service/ejercicio/ejercicios.service';
 import { EquiposService } from '../../../service/equipo/equipo.service';
 import { RutinasService } from '../../../service/rutinas/rutinas.service';
-import { EjerciciosService } from '../../../service/ejercicio/ejercicios.service';
+
+interface Options {
+  name: string,
+  code: string
+}
 
 @Component({
   selector: 'app-create-form-ejercicio',
@@ -33,20 +38,14 @@ export class CreateFormEjercicioComponent implements OnInit {
 
   items: MenuItem[] | undefined;
 
-  maquinas: {
-    nombre: string;
-    id: string;
-  }[] = [];
+  maquinas: Options[] = [];
 
-  rutinas: {
-    nombre: string;
-    id: string;
-  }[] = [];
+  rutinas: Options[] = [];
 
-  filteredMaquinas: any[] = [];
-  filteredRutinas: any[] = [];
-  selectedMaquina: any[] = [];
-  selectedRutina: any[] = [];
+  filteredMaquinas!: Options[];
+  filteredRutinas!: Options[];
+  selectedMaquina: Options[] = [];
+  selectedRutina: Options[] = [];
 
   fechaAgendamiento: string = '';
   horaInicio: string = '';
@@ -72,10 +71,14 @@ export class CreateFormEjercicioComponent implements OnInit {
 
   ngOnInit() {
     this.rutinaService.obtenerRutinas().subscribe((data) => {
-      this.rutinas = data;
+      data.map((rutina: { nombre: string, id: string }) => {
+        this.rutinas.push({ name: rutina.nombre, code: rutina.id });
+      });
     });
     this.equiposService.obtenerDatos().subscribe((data) => {
-      this.maquinas = data;
+      data.map((maquina: { nombre: string, id: string }) => {
+        this.maquinas.push({ name: maquina.nombre, code: maquina.id });
+      });
     });
   }
 
@@ -84,11 +87,11 @@ export class CreateFormEjercicioComponent implements OnInit {
     let query = event.query;
 
     for (let i = 0; i < (this.maquinas as any[]).length; i++) {
-      let maquina = (this.maquinas as { id: string; nombre: string }[])[i];
+      let maquina = (this.maquinas as { code: string; name: string }[])[i];
 
-      const isAlreadySelected = this.selectedMaquina.find((selected) => selected.id === maquina.id);
+      const isAlreadySelected = this.selectedMaquina.find((selected) => selected.code === maquina.code);
 
-      if (!isAlreadySelected && maquina.nombre.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+      if (!isAlreadySelected && maquina.name.toLowerCase().indexOf(query.toLowerCase()) === 0) {
         filtered.push(maquina);
       }
     }
@@ -101,11 +104,11 @@ export class CreateFormEjercicioComponent implements OnInit {
     let query = event.query;
 
     for (let i = 0; i < (this.rutinas as any[]).length; i++) {
-      let rutina = (this.rutinas as { id: string; nombre: string }[])[i];
+      let rutina = (this.rutinas as { code: string; name: string }[])[i];
 
-      const isAlreadySelected = this.selectedRutina.find((selected) => selected.id === rutina.id);
+      const isAlreadySelected = this.selectedRutina.find((selected) => selected.code === rutina.code);
 
-      if (!isAlreadySelected && rutina.nombre.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+      if (!isAlreadySelected && rutina.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         filtered.push(rutina);
       }
     }
@@ -118,8 +121,8 @@ export class CreateFormEjercicioComponent implements OnInit {
       const { maquinas, rutinas, nivel, ...data } = this.ejercicioForm.value;
       this.ejerciciosService.agregarEjercicio({
         ...data,
-        maquinas: maquinas ? this.selectedMaquina.map((maquina) => maquina.id) : null,
-        rutinas: rutinas ? this.selectedRutina.map((rutina) => rutina.id) : null,
+        maquinas: maquinas ? this.selectedMaquina.map((maquina) => maquina.code) : null,
+        rutinas: rutinas ? this.selectedRutina.map((rutina) => rutina.code) : null,
         nivel: nivel && nivel.value
       }).subscribe({
         next: () => {

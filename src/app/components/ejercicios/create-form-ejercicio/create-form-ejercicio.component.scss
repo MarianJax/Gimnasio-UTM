@@ -15,13 +15,13 @@ form {
 
     div {
         label {
-            display: block;
+            // display: block;
             color: black;
-            font-size: 16px;
+            // font-size: 16px;
         }
 
         input {
-            margin-top: 8px;
+            margin-top: 4px;
             width: 100%;
             padding: 10px 14px;
             border-radius: 8px;
@@ -41,6 +41,15 @@ form {
 }
 
 :host ::ng-deep {
+
+    .p-button-contrast.p-button-outlined{
+        border: solid 2px;
+        font-weight: 700;
+
+        &:hover,&:not(:disabled):hover, &:not(:disabled):active, &:active {
+            border: solid 2px;
+        }
+    }
 
     .p-dialog {
         border-radius: 12px !important;
@@ -69,11 +78,11 @@ form {
 
     .p-autocomplete.p-component.p-inputwrapper.p-autocomplete-dd.p-inputwrapper-filled {
         width: 100%;
-        margin-top: 8px;
-        
+        margin-top: 4px;
+
         .p-autocomplete-multiple-container {
             padding: 10px 14px;
-            font-size: 12px;
+            font-size: 13px;
             padding-right: 2rem;
             width: 100%;
 
@@ -83,10 +92,14 @@ form {
         }
     }
 
+    p-multiselectitem {
+        font-size: 13px;
+    }
+
     .p-dropdown {
-        margin-top: 8px;
+        margin-top: 4px;
         width: 100%;
-        border-radius: 6px;
+        border-radius: 8px;
 
         .p-inputtext {
             padding: 10px 14px;
@@ -96,9 +109,10 @@ form {
 }
 
 :host ::ng-deep .p-multiselect {
-    margin-top: 8px;
-    min-height: 49px;
+    margin-top: 4px;
+    min-height: 40px;
     width: 100%;
+    border-radius: 8px;
 
     .p-multiselect-label-container {
         padding: 10px 14px;
@@ -106,6 +120,8 @@ form {
 
         .p-multiselect-label {
             padding: 0;
+            font-size: 13px;
+            align-content: end;
         }
     }
 }
@@ -114,20 +130,9 @@ form {
     margin: 0;
 
     .p-button {
-        padding: 8px 80px;
-        border: 1px solid var(--primary-color);
         font-size: 14px;
         border-radius: 10px 0px 10px 10px;
         color: black;
-
-        &:not(.p-button-outlined) {
-            background-color: var(--primary-color);
-            color: white;
-
-            &:hover {
-                background-color: var(--primary-700);
-            }
-        }
     }
 
 }

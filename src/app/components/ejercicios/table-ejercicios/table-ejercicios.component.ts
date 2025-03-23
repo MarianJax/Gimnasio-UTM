@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
-import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { EjerciciosService } from '../../../service/ejercicio/ejercicios.service';
 import { EquiposService } from '../../../service/equipo/equipo.service';
 import { RutinasService } from '../../../service/rutinas/rutinas.service';
+
+interface Options {
+  name: string,
+  code: string
+}
 
 const resetForm = {
   id: new FormControl<string | null>(null),
@@ -39,12 +43,10 @@ export class TableEjerciciosComponent implements OnInit {
   async showDialog(id: string) {
     const ejercicio = await this.ejerciciosService.obtenerEjercicio(id).toPromise();
 
-    console.log(ejercicio);
-
     this.updatedEjercicioForm.patchValue({
       id: ejercicio?.id ?? null,
-      maquinas: ejercicio?.maquinas ?? null,
-      rutinas: ejercicio?.rutinas ?? null,
+      maquinas: ejercicio?.maquinas.map((maquina: { nombre: string, id: string }) => ({ name: maquina.nombre, code: maquina.id })) ?? null,
+      rutinas: ejercicio?.rutinas.map((rutina: { nombre: string, id: string }) => ({ name: rutina.nombre, code: rutina.id })) ?? null,
       nombre: ejercicio?.nombre ?? null,
       nivel: this.Niveles.find((nivel) => nivel.name === ejercicio?.nivel) ?? null,
       series: ejercicio?.series ?? null,
@@ -62,27 +64,21 @@ export class TableEjerciciosComponent implements OnInit {
 
   items: MenuItem[] | undefined;
 
-  maquinas: {
-    nombre: string;
-    id: string;
-  }[] = [];
+  maquinas: Options[] = [];
 
-  rutinas: {
-    nombre: string;
-    id: string;
-  }[] = [];
+  rutinas: Options[] = [];
 
-  filteredMaquinas: any[] = [];
-  filteredRutinas: any[] = [];
-  selectedMaquina: any[] = [];
-  selectedRutina: any[] = [];
+  selectedMaquina: Options[] = [];
+  selectedRutina: Options[] = [];
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private rutinaService: RutinasService,
     private equiposService: EquiposService,
-    private ejerciciosService: EjerciciosService
+    private ejerciciosService: EjerciciosService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) {
     this.updatedEjercicioForm = this.fb.group(resetForm);
   }
@@ -94,43 +90,10 @@ export class TableEjerciciosComponent implements OnInit {
   }
 
   obtenerDatos() {
-    this.equiposService.obtenerDatos().subscribe((data) => this.maquinas = data);
-    this.rutinaService.obtenerRutinas().subscribe((data) => this.rutinas = data);
+    this.equiposService.obtenerDatos().subscribe((data) => { this.maquinas = data.map((maquina: { nombre: string, id: string }) => ({ name: maquina.nombre, code: maquina.id })) });
+    this.rutinaService.obtenerRutinas().subscribe((data) => { this.rutinas = data.map((rutina: { nombre: string, id: string }) => ({ name: rutina.nombre, code: rutina.id })) });
     this.ejerciciosService.obtenerEjercicios().subscribe((data) => this.ejercicios = data);
-  }
 
-  filterMaquinas(event: AutoCompleteCompleteEvent) {
-    let filtered: any[] = [];
-    let query = event.query;
-
-    for (let i = 0; i < (this.maquinas as any[]).length; i++) {
-      let maquina = (this.maquinas as { id: string; nombre: string }[])[i];
-
-      const isAlreadySelected = this.selectedMaquina.find((selected) => selected.id === maquina.id);
-
-      if (!isAlreadySelected && maquina.nombre.toLowerCase().indexOf(query.toLowerCase()) === 0) {
-        filtered.push(maquina);
-      }
-    }
-
-    this.filteredMaquinas = filtered;
-  }
-
-  filterRutinas(event: AutoCompleteCompleteEvent) {
-    let filtered: any[] = [];
-    let query = event.query;
-
-    for (let i = 0; i < (this.rutinas as any[]).length; i++) {
-      let rutina = (this.rutinas as { id: string; nombre: string }[])[i];
-
-      const isAlreadySelected = this.selectedRutina.find((selected) => selected.id === rutina.id);
-
-      if (!isAlreadySelected && rutina.nombre.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(rutina);
-      }
-    }
-
-    this.filteredRutinas = filtered;
   }
 
   getItemsAsString(items: { nombre: string; }[]) {
@@ -142,8 +105,8 @@ export class TableEjerciciosComponent implements OnInit {
       const { maquinas, rutinas, nivel, ...data } = this.updatedEjercicioForm.value;
       this.ejerciciosService.actualizarEjercicio({
         ...data,
-        maquinas: maquinas ? this.selectedMaquina.map((maquina) => maquina.id) : null,
-        rutinas: rutinas ? this.selectedRutina.map((rutina) => rutina.id) : null,
+        maquinas: maquinas ? this.selectedMaquina.map((maquina) => maquina.code) : null,
+        rutinas: rutinas ? this.selectedRutina.map((rutina) => rutina.code) : null,
         nivel: nivel && nivel.value
       }).subscribe({
         next: () => {
@@ -159,6 +122,21 @@ export class TableEjerciciosComponent implements OnInit {
     } catch (error) {
       console.log('Error al enviar los datos', error);
     }
+  }
+  confirm(id: string) {
+    this.confirmationService.confirm({
+      header: 'Eliminar Ejercicio',
+      message: 'El ejercicio se eliminará de forma permanente',
+      accept: () => {
+        this.ejerciciosService.eliminarEjercicio(id).subscribe({
+          next: () => {
+            this.obtenerDatos();
+            this.messageService.add({ severity: 'success', summary: 'Ejercicio eliminado', detail: 'Ejercicio eliminado con éxito' });
+          }
+        });
+      },
+      reject: () => { }
+    });
   }
 }
 
