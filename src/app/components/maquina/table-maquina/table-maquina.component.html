@@ -1,51 +1,57 @@
 <header>
-    <span>
-      <mage-icon name="stack" size="24px"></mage-icon>
-    </span>
-    <h2>Listado de equipos</h2>
-    <button (click)="goToMantenimiento()" pButton pRiple>
-      Mantenimiento
-    </button>
-  </header>
-  
-  <section class="section-form">
-  
-    <p-table [rowsPerPageOptions]="[10, 25, 50]" [rows]="10" [paginator]="true"
-    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true" [value]="maquinas" [showFirstLastIcon]="false" 
-      dataKey="maquinas-registradas" [tableStyle]="{ 'min-width': '50rem' }">
-      <ng-template pTemplate="caption">
-        <div class="flex justify-content-between">
-          <input pInputText type="text" placeholder="Keyboard Search" />
-            <p-button severity="success" (click)="AddMaquina()" label="Agregar máquina" icon="pi pi-plus" class="mr-2" />
-  
-        </div>
-      </ng-template>
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Cantidad</th>
-          <th>Maquina</th>
-          <th>Fecha Registro</th>
-          <th>Estado</th>
-          <th>Historial</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-maquina>
-        <tr>
-          <td>{{ maquina.cantidad }}</td>
-          <td>{{ maquina.nombre }}</td>
-          <td>{{ maquina.fecha_compra | date:'dd/MM/yyyy' }}</td>
-          <td>{{ maquina.estado }}</td>
-          <td>
-            <button type="button" pButton pRipple>
-              <mage-icon name="file-2"></mage-icon>
-            </button>
-          </td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="emptymessage">
-        <tr>
-            <td colspan="4" rowspan="3" [style]="{ width: '100%', textAlign: 'center' }">{{ emptyMessage }}</td>
-        </tr>
+  <span class="icon">
+    <mage-icon name="stack" size="24px"></mage-icon>
+  </span>
+  <h2>Listado de equipos</h2>
+  <p-button [outlined]="true" severity="contrast" (click)="goToMantenimiento()">
+    Mantenimiento
+  </p-button>
+</header>
+
+<section class="section-form">
+
+  <p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="10" [paginator]="true"
+    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
+    [value]="maquinas" [showFirstLastIcon]="false" dataKey="maquinas-registradas"
+    [tableStyle]="{ 'min-width': '50rem' }" [globalFilterFields]="['cantidad', 'nombre', 'fecha_compra', 'estado']">
+    <ng-template pTemplate="caption">
+      <div class="flex justify-content-start gap-3">
+        <p-button [outlined]="true" icon="pi pi-filter-slash" (onClick)="clearFilter(globalFilter)" />
+        <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Search..." />
+        <p-button [outlined]="true" severity="success" (click)="AddMaquina()" label="Agregar máquina" icon="pi pi-plus"
+          class="mr-2 ml-auto" />
+
+      </div>
     </ng-template>
-    </p-table>
-  </section>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="cantidad">Cantidad</th>
+        <th pSortableColumn="nombre">Maquina</th>
+        <th pSortableColumn="fecha_compra">Fecha Registro</th>
+        <th pSortableColumn="estado">Estado</th>
+        <th>Historial</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-maquina>
+      <tr>
+        <td>{{ maquina.cantidad }}</td>
+        <td>{{ maquina.nombre }}</td>
+        <td>{{ maquina.fecha_compra | date:'dd/MM/yyyy' }}</td>
+        <td>{{ maquina.estado }}</td>
+        <td>
+          <div class="flex gap-3 w-full justify-content-center">
+            <p-button [outlined]="true" size="small" severity="info" class="w-min"><mage-icon name="file-2"
+                size="16px"></mage-icon>&nbsp;ver</p-button>
+            <p-button [outlined]="true" size="small" severity="primary" class="w-min"><mage-icon name="edit"
+                size="16px"></mage-icon>&nbsp;Editar</p-button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="4" rowspan="3" [style]="{ width: '100%', textAlign: 'center' }">{{ emptyMessage }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</section>

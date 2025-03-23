@@ -1,82 +1,52 @@
 <form [formGroup]="maquinaForm" (ngSubmit)="addMaquina()">
   <div style="width: calc(50% - 12px)">
     <label for="cantidad" class="">Cantidad</label>
-    <input
-      id="cantidad"
-      formControlName="cantidad"
-      type="number"
-      placeholder=""
-      [ngClass]="{'ng-dirty ng-invalid': maquinaForm.getError('cantidad')}"
-      pInputText
-    />
-    <small  *ngIf="maquinaForm.getError('cantidad')" class="ng-invalid text-red-600">
+    <input id="cantidad" formControlName="cantidad" type="number" placeholder=""
+      [ngClass]="{'ng-dirty ng-invalid': maquinaForm.getError('cantidad')}" pInputText />
+    <small *ngIf="maquinaForm.getError('cantidad')" class="ng-invalid text-red-600">
       {{ maquinaForm.getError('cantidad') }}
-    </small >
+    </small>
   </div>
   <div style="width: calc(50% - 12px)">
     <label for="nombre" class="">Nombre maquina</label>
-    <input
-      id="nombre"
-      type="text"
-      placeholder=""
-      [ngClass]="{'ng-dirty ng-invalid': maquinaForm.getError('nombre')}"
-      formControlName="nombre"
-      pInputText
-    />
-    <small  *ngIf="maquinaForm.getError('nombre')" class="ng-invalid text-red-600">
+    <input id="nombre" type="text" placeholder="" [ngClass]="{'ng-dirty ng-invalid': maquinaForm.getError('nombre')}"
+      formControlName="nombre" pInputText />
+    <small *ngIf="maquinaForm.getError('nombre')" class="ng-invalid text-red-600">
       {{ maquinaForm.getError('nombre') }}
-    </small >
+    </small>
   </div>
   <div style="width: calc(50% - 12px)">
     <label for="estado" class="">Estado</label>
-    <p-dropdown
-      formControlName="estado"
-      optionLabel="name"
-      [options]="estadosOpt"
-      placeholder="Seleccione el estado"
-      [ngModel]="estadosOpt[0]"
-      [ngClass]="{'ng-dirty ng-invalid': maquinaForm.getError('estado')}"
-    />
-    <small  *ngIf="maquinaForm.getError('estado')" class="ng-invalid text-red-600">
+    <p-dropdown formControlName="estado" optionLabel="name" [options]="estadosOpt" placeholder="Seleccione el estado"
+      [ngModel]="estadosOpt[0]" [ngClass]="{'ng-dirty ng-invalid': maquinaForm.getError('estado')}" />
+    <small *ngIf="maquinaForm.getError('estado')" class="ng-invalid text-red-600">
       {{ maquinaForm.getError('estado') }}
     </small>
   </div>
   <div style="width: calc(50% - 12px)">
     <label for="fecha_compra" class="">Fecha Registro</label>
-    <p-calendar
-      id="fecha_compra"
-      dateFormat="dd-mm-yy"
-      formControlName="fecha_compra"
-      [ngClass]="{'ng-dirty ng-invalid': maquinaForm.getError('fecha_compra')}"
-    />
-    <small  *ngIf="maquinaForm.getError('fecha_compra')" class="ng-invalid text-red-600">
+    <p-calendar appendTo="body" id="fecha_compra" dateFormat="dd-mm-yy" formControlName="fecha_compra"
+      [ngClass]="{'ng-dirty ng-invalid': maquinaForm.getError('fecha_compra')}" />
+    <small *ngIf="maquinaForm.getError('fecha_compra')" class="ng-invalid text-red-600">
       {{ maquinaForm.getError('fecha_compra') }}
-    </small >
+    </small>
   </div>
   <div style="width: -webkit-fill-available">
     <label for="descripcion" class="">Descripción</label>
-    <textarea
-    id="descripcion"
-      pInputTextarea
-      [autoResize]="true"
-      formControlName="descripcion"
-      rows="3"
-      [ngClass]="{'ng-dirty ng-invalid': maquinaForm.getError('descripcion')}"
-    ></textarea>
-    <small  *ngIf="maquinaForm.getError('descripcion')" class="ng-invalid text-red-600">
+    <textarea id="descripcion" pInputTextarea [autoResize]="true" formControlName="descripcion" rows="3"
+      [ngClass]="{'ng-dirty ng-invalid': maquinaForm.getError('descripcion')}"></textarea>
+    <small *ngIf="maquinaForm.getError('descripcion')" class="ng-invalid text-red-600">
       {{ maquinaForm.getError('descripcion') }}
-    </small >
+    </small>
   </div>
-  <div
-    style="
+  <div style="
       display: flex;
       gap: 20px;
       width: 100%;
       justify-content: end;
-      margin-top: 10px;
-    "
-  >
-    <button type="reset" pButton pRiple>Cancelar</button>
-    <button type="submit" pButton pRiple>Registrar</button>
+      margin: 10px 0;
+    ">
+    <p-button [outlined]="true" severity="secondary">Cancelar</p-button>
+    <p-button type="submit" [outlined]="true" severity="contrast">Registrar</p-button>
   </div>
 </form>

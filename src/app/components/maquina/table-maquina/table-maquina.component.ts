@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Table } from 'primeng/table';
 import { EquiposService } from 'src/app/service/equipo/equipo.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { EquiposService } from 'src/app/service/equipo/equipo.service';
 })
 export class TableMaquinaComponent implements OnInit {
   emptyMessage: string = 'Cargando equipos...';
+  @ViewChild('dt') dt!: Table;
 
   constructor(
     private equipoService: EquiposService,
@@ -55,5 +57,16 @@ export class TableMaquinaComponent implements OnInit {
         },
 
       });
+  }
+  applyFilter(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.dt.filterGlobal(inputElement.value, 'contains');
+  }
+
+  clearFilter(inputElement: HTMLInputElement) {
+    inputElement.value = '';  // Limpia el input
+    if (this.dt) {
+      this.dt.clear();  // Limpia los filtros de la tabla
+    }
   }
 }
