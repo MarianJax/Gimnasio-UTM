@@ -7,5 +7,24 @@
     align-items: center;
     justify-content: center;
     padding: 0.5rem;
+    gap: 10px;
     // border-top: 1px solid var(--surface-border);
+
+    div {
+        color: black;
+
+        .text-title {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .text-slogan {
+            line-height: 0.5;
+            color: #f8d240;
+            font-family: "Allura";
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            font-size: 30px;
+        }
+    }
 }
