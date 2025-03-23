@@ -48,7 +48,11 @@ export class AppComponent implements OnInit {
       today: 'Hoy',
       clear: 'Limpiar',
       weekHeader: 'Semana',
-      noFilter: 'No hay resultados'
+      noFilter: 'No hay resultados',
+      emptySearchMessage: 'No se encontraron resultados',
+      emptyMessage: 'No hay resultados',
+      searchMessage: 'Buscar',
+      emptyFilterMessage: 'No hay resultados',
       //translations
     });
 

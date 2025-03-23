@@ -1,6 +1,10 @@
 <div class="layout-footer">
     <img src="/assets/images/{{layoutService.config.colorScheme === 'light' ? 'logo_horizontal_footer' : 'logo_horizontal_oscuro_footer'}}.png"
-        alt="Logo" height="45" class="mr-2" />
+        alt="Logo" height="45" />
     <!-- by -->
-    <span [style]="{color: 'black'}" class="font-medium ml-2 text-black">Gimnasio UTM</span>
+    <div class="flex flex-column align-items-center w-min">
+        <span class="text-title">UTM</span>
+        <span class="text-slogan">Gimnasio</span>
+
+    </div>
 </div>
