@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, NgForm } from '@angular/forms';
 import { HorarioService } from '../../../service/horarios/horario.service';
 import { RolesService } from '../../../service/roles/roles.service';
 import { Estados } from '../../agendamientos/create-form/agendamiento-info/agendamiento-info.component';
@@ -54,18 +54,6 @@ export class CreateFormHorarioComponent implements OnInit {
 
   horasSalida: any[] = [...this.horas];
 
-  onHoraIngresoChange() {
-    const horaIngresoIndex = this.horas.findIndex(
-      (hora) => hora === this.horarioForm.get('ingreso')?.value
-    );
-
-    if (horaIngresoIndex >= 0) {
-      this.horasSalida = this.horas.slice(horaIngresoIndex + 1);
-    } else {
-      this.horasSalida = [...this.horas];
-    }
-  }
-
   fechaAgendamiento: string = '';
   horaInicio: string = '';
   horaFin: string = '';
@@ -80,13 +68,21 @@ export class CreateFormHorarioComponent implements OnInit {
 
   ngOnInit() {
     // Suscribirse a los cambios del campo 'ingreso'
-    this.horarioForm.get('hora_inicio')?.valueChanges.subscribe(() => {
-      this.onHoraIngresoChange();
+    this.horarioForm.get('hora_inicio')?.valueChanges.subscribe((val) => {
+      const horaIngresoIndex = this.horas.findIndex(
+        (hora) => hora.value === val?.value
+      );
+
+      if (horaIngresoIndex >= 0) {
+        this.horasSalida = this.horas.slice(horaIngresoIndex + 1);
+      } else {
+        this.horasSalida = [...this.horas];
+      }
     });
 
     this.rolesService.obtenerRoles().subscribe((roles) => {
       roles.map((rol: any) => {
-        if (rol.nombre !== 'Entrenador') {
+        if (rol.nombre !== 'Entrenador' && rol.nombre !== 'Administrador') {
           this.roles.push({ name: rol.nombre, code: rol.id });
         }
       });
@@ -113,5 +109,9 @@ export class CreateFormHorarioComponent implements OnInit {
           this.horarioForm.setErrors(error.error.errors);
         },
       });
+  }
+
+  resetForm() {
+    this.horarioForm.reset({}); // Esto resetea el formulario
   }
 }

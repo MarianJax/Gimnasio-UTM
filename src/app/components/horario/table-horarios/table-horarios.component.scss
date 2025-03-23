@@ -34,6 +34,141 @@
     }
 }
 
+:host ::ng-deep {
+
+    .p-dialog {
+        border-radius: 12px !important;
+        overflow: hidden;
+
+        .p-dialog-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 800;
+            padding: 24px 30px;
+
+            .p-dialog-title {
+                font-size: 20px;
+
+            }
+
+            .p-dialog-header-icon {
+                color: white;
+            }
+        }
+
+        .p-dialog-content {
+            padding: 30px 50px;
+
+            form {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+
+                div {
+                    label {
+                        // display: block;
+                        color: black;
+                        // font-size: 16px;
+                    }
+
+                    input {
+                        margin-top: 4px;
+                        width: 100%;
+                        padding: 10px 14px;
+                        border-radius: 8px;
+                        font-size: 13px;
+                        height: 41px;
+                    }
+
+                    textarea {
+                        margin-top: 4px;
+                        width: 100%;
+                        padding: 10px 14px;
+                        border-radius: 8px;
+                        font-size: 13px;
+                    }
+
+                    .p-dropdown {
+                        margin-top: 4px;
+                        width: 100%;
+                        border-radius: 6px;
+
+                        .p-inputtext {
+                            padding: 10px 14px;
+                            outline: none
+                        }
+                    }
+
+                    .p-multiselect {
+                        width: 100%;
+                        margin-top: 4px;
+                        border-radius: 8px;
+
+                        .p-multiselect-label {
+                            padding: 10px 14px;
+                            font-size: 13px;
+                            padding-right: 2rem;
+                            width: 100%;
+
+                            .p-autocomplete-input-token {
+                                padding: 0;
+                            }
+                        }
+                    }
+
+                    p-multiselectitem {
+                        font-size: 13px;
+                    }
+                }
+
+            }
+
+
+        }
+    }
+
+
+
+    .ng-star-inserted {
+        .p-inputtext.p-component.p-element {
+            width: 100%;
+            max-width: 320px;
+        }
+    }
+
+    .p-paginator {
+        .p-paginator-current.ng-star-inserted {
+            margin-right: auto;
+            order: -2;
+        }
+
+
+        .p-element.p-inputwrapper.ng-star-inserted.p-inputwrapper-filled.ng-dirty {
+            order: -1;
+            margin: 0px 20px;
+
+            &::before {
+                margin-left: 25px;
+                content: 'Registros por página';
+            }
+        }
+
+        .p-dropdown-label {
+            padding: 7px;
+            width: 31px;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+
+            &:focus,
+            &:focus-visible,
+            &:focus-within {
+                outline: none;
+            }
+        }
+    }
+}
+
 input {
     width: 100%;
     max-width: 320px;
