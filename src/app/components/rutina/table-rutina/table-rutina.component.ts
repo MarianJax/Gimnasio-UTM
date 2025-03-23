@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { RutinasService } from '../../../service/rutinas/rutinas.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class TableRutinaComponent implements OnInit {
     { name: 'Bajo', value: 'bajo' }
   ]
 
-  async showDialog(id: string) {    
+  async showDialog(id: string) {
     this.rutina = await this.rutinaService.obtenerRutina(id).toPromise();
     this.updatedRutinaForm.patchValue({
       id: this.rutina.id,
@@ -32,7 +32,7 @@ export class TableRutinaComponent implements OnInit {
       intensidad: this.Intensidad.find((intensidad) => intensidad.value === this.rutina.intensidad),
       descripcion: this.rutina.descripcion,
     });
-    
+
     this.visible = true;
   }
 
@@ -43,6 +43,8 @@ export class TableRutinaComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private rutinaService: RutinasService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) {
     this.updatedRutinaForm = this.fb.group({
       id: new FormControl<string | null>(null),
@@ -71,7 +73,7 @@ export class TableRutinaComponent implements OnInit {
     });
   }
 
-  updateRutina() { 
+  updateRutina() {
     const { intensidad, ...data } = this.updatedRutinaForm.value || {};
     this.rutinaService.actualizarRutina({ intensidad: intensidad?.value, ...data }).subscribe({
       next: () => {
@@ -83,6 +85,22 @@ export class TableRutinaComponent implements OnInit {
         this.updatedRutinaForm.setErrors(error.error.errors)
         console.error(error);
       }
+    });
+  }
+
+  confirm(id: string) {
+    this.confirmationService.confirm({
+      header: 'Eliminar Ejercicio',
+      message: 'El ejercicio se eliminará de forma permanente',
+      accept: () => {
+        this.rutinaService.eliminarRutina(id).subscribe({
+          next: () => {
+            this.obtenerDatos();
+            this.messageService.add({ severity: 'success', summary: 'Ejercicio eliminado', detail: `Ejercicio eliminado con éxito` });
+          }
+        });
+      },
+      reject: () => { }
     });
   }
 }

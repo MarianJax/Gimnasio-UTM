@@ -15,9 +15,9 @@ form {
 
     div {
         label {
-            display: block;
+            // display: block;
             color: black;
-            font-size: 16px;
+            // font-size: 16px;
         }
 
         input {
@@ -41,6 +41,47 @@ form {
 }
 
 :host ::ng-deep {
+    .p-dialog-mask.p-component-overlay.p-component-overlay-enter.p-dialog-mask-scrollblocker.ng-star-inserted {
+        backdrop-filter: blur(5px);
+
+        .p-dialog {
+            background: linear-gradient(to bottom right, #cfe4da, #fff);
+
+            .p-dialog-header {
+                background: transparent;
+                color: black;
+
+                .p-dialog-header-icon.p-dialog-header-close {
+                    color: black;
+                }
+            }
+
+            .p-dialog-content {
+                background: transparent;
+
+                .p-button {
+                    border-radius: 8px !important;
+                    padding: 7px 20px;
+                }
+            }
+
+            .p-dialog-footer {
+                background: transparent;
+            }
+        }
+    }
+
+    .p-button-contrast.p-button-outlined {
+        border: solid 2px;
+        font-weight: 700;
+
+        &:hover,
+        &:not(:disabled):hover,
+        &:not(:disabled):active,
+        &:active {
+            border: solid 2px;
+        }
+    }
 
     .p-dialog {
         border-radius: 12px !important;
@@ -51,7 +92,7 @@ form {
             color: white;
             font-weight: 800;
             padding: 24px 30px;
-            
+
             .p-dialog-title {
                 font-size: 20px;
 
@@ -63,7 +104,7 @@ form {
         }
 
         .p-dialog-content {
-            padding: 30px 50px;
+            padding: 10px 50px 30px 50px;
         }
     }
 
@@ -113,20 +154,9 @@ form {
     margin: 0;
 
     .p-button {
-        padding: 8px 80px;
-        border: 1px solid var(--primary-color);
         font-size: 14px;
         border-radius: 10px 0px 10px 10px;
         color: black;
-
-        &:not(.p-button-outlined) {
-            background-color: var(--primary-color);
-            color: white;
-
-            &:hover {
-                background-color: var(--primary-700);
-            }
-        }
     }
 
 }

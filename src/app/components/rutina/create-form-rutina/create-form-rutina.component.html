@@ -1,9 +1,11 @@
-<button pButton pRiple (click)="showDialog()" type="button">
-    <mage-icon name="plus" size="17px"></mage-icon>&nbsp; Agregar rutina </button>
+<p-button [outlined]="true" severity="contrast" class="border-2" (onClick)="showDialog()">
+    <mage-icon name="plus" strokeWidth="2.5px" size="17px"></mage-icon>&nbsp; Agregar rutina
+</p-button>
 
-<p-dialog header="Registro de rutina" [(visible)]="visible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-    [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
-    <form [formGroup]="rutinaForm" (ngSubmit)="addRutina()" >
+<p-dialog header="Registro de rutina" [(visible)]="visible" [modal]="true"
+    [breakpoints]="{ '1199px': '60vw', '575px': '50vw' }" [style]="{ width: '50vw' }" [draggable]="false"
+    [resizable]="false">
+    <form [formGroup]="rutinaForm">
         <div style="width: calc(50% - 12px)">
             <label for="nombre" class="">Nombre rutina</label>
             <input id="nombre" type="text" placeholder=""
@@ -15,7 +17,7 @@
         </div>
         <div style="width: calc(50% - 12px)">
             <label for="nivel" class="">Intensidad</label>
-            <p-dropdown formControlName="intensidad" optionLabel="name" [options]="Intensidad"
+            <p-dropdown id="nivel" formControlName="intensidad" optionLabel="name" [options]="Intensidad"
                 placeholder="Seleccione una intensidad" [ngModel]="Intensidad[0]"
                 [ngClass]="{'ng-dirty ng-invalid': rutinaForm.getError('intensidad')}" />
             <small *ngIf="rutinaForm.getError('intensidad')" class="ng-invalid text-red-600">
@@ -30,15 +32,10 @@
                 {{ rutinaForm.getError('descripcion') }}
             </small>
         </div>
-        <div style="
-          display: flex;
-          gap: 20px;
-          width: 100%;
-          justify-content: end;
-          margin-top: 10px;
-        ">
-            <p-button type="button"(onClick)="closedDialog()" [outlined]="true" label="Cancelar" id="reset" />
-            <p-button type="submit" [disabled]="rutinaForm.invalid"  label="Registrar" id="guardar" />
-        </div>
     </form>
+    <ng-template pTemplate="footer">
+        <p-button [outlined]="true" (onClick)="closedDialog()" severity="secondary">Cancelar</p-button>
+        <p-button (onClick)="addRutina()" [disabled]="rutinaForm.invalid" [outlined]="true"
+            severity="contrast">Registrar</p-button>
+    </ng-template>
 </p-dialog>
