@@ -3,82 +3,10 @@
     <mage-icon name="tools-m" fill="white" size="24px"></mage-icon>
   </span>
   <h2>Mantenimiento de Equipos</h2>
-  <button (click)="openDialog()" pButton pRiple>Agregar mantenimiento</button>
-
-  <p-dialog header="Header" [(visible)]="mantenimientoDialog" [modal]="true" [style]="{ width: '50rem' }"
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
-    <ng-template pTemplate="header">
-      <div class="inline-flex align-items-center justify-content-center gap-2">
-        <span class="font-bold white-space-nowrap">
-          Formulario de Mantenimiento
-        </span>
-      </div>
-    </ng-template>
-    <form [formGroup]="mantenimientoForm">
-      <div [style]="{
-          display: 'flex',
-          gap: '24px',
-          flexWrap: 'wrap'
-        }">
-        <div class="flex flex-column gap-2 mb-3 min-w-full">
-          <label for="equipos">Nombre de máquina</label>
-          <p-autoComplete formControlName="maquina_id" [suggestions]="filteredEquipos"
-            (completeMethod)="filterCountry($event)" optionLabel="nombre" [ngClass]="{
-              'ng-dirty ng-invalid': mantenimientoForm.getError('maquina_id')
-            }" />
-          <small *ngIf="mantenimientoForm.getError('maquina_id')" class="ng-invalid text-red-600">
-            {{ mantenimientoForm.getError("maquina_id") }}
-          </small>
-        </div>
-        <div style="width: calc(33.33% - 16px)">
-          <label for="fecha_mantenimiento" class="">Fecha Registro</label>
-          <p-calendar id="fecha_mantenimiento" dateFormat="dd-mm-yy" formControlName="fecha_mantenimiento" [ngClass]="{
-              'ng-dirty ng-invalid': mantenimientoForm.getError(
-                'fecha_mantenimiento'
-              )
-            }" />
-          <small *ngIf="mantenimientoForm.getError('fecha_mantenimiento')" class="ng-invalid text-red-600">
-            {{ mantenimientoForm.getError("fecha_mantenimiento") }}
-          </small>
-        </div>
-        <div style="width: calc(33.33% - 16px)">
-          <label for="estado" class="">Estado</label>
-          <p-dropdown formControlName="estado" optionLabel="name" [options]="estadosOpt"
-            placeholder="Seleccione el estado" [ngModel]="estadosOpt[0]" [ngClass]="{
-              'ng-dirty ng-invalid': mantenimientoForm.getError('estado')
-            }" />
-          <small *ngIf="mantenimientoForm.getError('estado')" class="ng-invalid text-red-600">
-            {{ mantenimientoForm.getError("estado") }}
-          </small>
-        </div>
-        <div class="flex flex-column gap-2 mb-3" style="width: calc(33.33% - 16px)">
-          <label for="costo">Costo</label>
-          <input id="costo" formControlName="costo" type="number" step="0.01" pInputText style="padding: 1rem"
-            [ngClass]="{
-              'ng-dirty ng-invalid': mantenimientoForm.getError('costo')
-            }" />
-          <small *ngIf="mantenimientoForm.getError('costo')" class="ng-invalid text-red-600">
-            {{ mantenimientoForm.getError("costo") }}
-          </small>
-        </div>
-        <div style="width: -webkit-fill-available">
-          <label for="observaciones">Descripción</label>
-          <textarea id="observaciones" formControlName="observaciones" class="w-full" pInputTextarea [autoResize]="true"
-            rows="2" [ngClass]="{
-              'ng-dirty ng-invalid': mantenimientoForm.getError('observaciones')
-            }"></textarea>
-          <small *ngIf="mantenimientoForm.getError('observaciones')" class="ng-invalid text-red-600">
-            {{ mantenimientoForm.getError("observaciones") }}
-          </small>
-        </div>
-      </div>
-    </form>
-    <ng-template pTemplate="footer">
-      <p-button label="Cancel" [text]="true" severity="secondary" (onClick)="hideDialog()" />
-      <p-button label="Save" [outlined]="true" severity="secondary" (onClick)="addMantenimiento()" />
-    </ng-template>
-  </p-dialog>
+  <app-create-mantenimiento></app-create-mantenimiento>
 </header>
+
+<p-toast position="bottom-right" />
 
 <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
   <ng-template pTemplate="item" let-item>
@@ -101,44 +29,6 @@
 
 <section>
   <div>
-    <p-toast />
-    <p-table #dt [value]="mantenimientos" [rows]="10" [paginator]="true"
-      [globalFilterFields]="['maquina', 'fecha', 'estado', 'pago']" [tableStyle]="{ 'min-width': '50rem' }"
-      [rowHover]="true" dataKey="id"
-      currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-      [showCurrentPageReport]="true">
-      <ng-template pTemplate="header">
-        <tr>
-          <th pSortableColumn="maquina" style="width: 15rem">
-            Máquina <p-sortIcon field="maquina" />
-          </th>
-          <th pSortableColumn="estado" style="width: 6rem">
-            Estado <p-sortIcon field="estado" />
-          </th>
-          <th pSortableColumn="fecha_mantenimiento" style="width: 8rem">
-            fecha <p-sortIcon field="fecha_mantenimiento" />
-          </th>
-          <th pSortableColumn="costo" style="width: 7rem">
-            Costo <p-sortIcon field="costo" />
-          </th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-pago>
-        <tr>
-          <td>
-            {{ pago.maquina.nombre }}
-          </td>
-          <td>
-            {{ pago.estado }}
-          </td>
-          <td>
-            {{ pago.fecha_mantenimiento | date:'dd/MM/yyyy' }}
-          </td>
-          <td>
-            {{ pago.costo | currency : "USD" }}
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
+    <app-table-mantenimiento></app-table-mantenimiento>
   </div>
 </section>

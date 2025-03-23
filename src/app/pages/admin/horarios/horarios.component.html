@@ -4,6 +4,7 @@
     </i>
     <h2>Horarios</h2>
 </header>
+<p-toast position="bottom-right" />
 <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
     <ng-template pTemplate="item" let-item>
         <ng-container *ngIf="item.route; else elseBlock">
@@ -23,16 +24,17 @@
     <ng-template pTemplate="separator"> &nbsp;&nbsp;/&nbsp;&nbsp; </ng-template>
 </p-breadcrumb>
 
-<p-tabView>
+<p-tabView (onChange)="resetearFormularios($event)">
     <p-tabPanel header="Horarios para usuarios">
         <div class="flex gap-7 flex-column">
-            <app-create-form-horario></app-create-form-horario>
+            <app-create-form-horario (addedHorario)="obtenerHorario()"></app-create-form-horario>
             <app-table-horarios></app-table-horarios>
         </div>
     </p-tabPanel>
     <p-tabPanel header="Horarios para entrenadores">
         <div class="flex gap-7 flex-column">
-            <app-create-horario-entrenador></app-create-horario-entrenador>
+            <app-create-horario-entrenador
+                (addedHorarioEntrenador)="obtenerHorarioEntrenador()"></app-create-horario-entrenador>
             <app-table-horario-entrenador></app-table-horario-entrenador>
         </div>
     </p-tabPanel>

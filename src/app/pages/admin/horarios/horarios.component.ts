@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { TableHorariosComponent } from '../../../components/horario/table-horarios/table-horarios.component';
+import { CreateFormHorarioComponent } from '../../../components/horario/create-form-horario/create-form-horario.component';
+import { CreateHorarioEntrenadorComponent } from '../../../components/horario_entrenador/create-horario-entrenador/create-horario-entrenador.component';
+import { TableHorarioEntrenadorComponent } from '../../../components/horario_entrenador/table-horario-entrenador/table-horario-entrenador.component';
 
 @Component({
   selector: 'app-horarios',
@@ -14,7 +18,31 @@ export class HorariosComponent implements OnInit {
 
   ngOnInit() {
     this.items = [{ icon: 'dashboard', route: '/admin', label: 'Inicio' }, { label: 'Horarios' }];
+  }
 
+  @ViewChild(TableHorariosComponent) tableHorario!: TableHorariosComponent;
+  @ViewChild(TableHorarioEntrenadorComponent) tableHorarioEntr!: TableHorarioEntrenadorComponent;
+  @ViewChild(CreateFormHorarioComponent) formUsuarios!: CreateFormHorarioComponent;
+  @ViewChild(CreateHorarioEntrenadorComponent) formEntrenadores!: CreateHorarioEntrenadorComponent;
+
+  obtenerHorario() {
+    if (this.tableHorario) {
+      this.tableHorario.obtenerDatos(); // Llama al método de actualización de la tabla
+    }
+  }
+
+  obtenerHorarioEntrenador() {
+    if (this.tableHorarioEntr) {
+      this.tableHorarioEntr.obtenerDatos();
+    }
+  }
+
+  resetearFormularios(event: any) {
+    if (event.index === 0) {
+      this.formUsuarios.horarioForm.reset({}); // Llamar a la función de reseteo del formulario
+    } else if (event.index === 1) {
+      this.formEntrenadores.horarioForm.reset({}); // Llamar a la función de reseteo del formulario
+    }
   }
 
 }

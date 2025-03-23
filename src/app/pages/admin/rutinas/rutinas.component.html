@@ -4,6 +4,7 @@
     </i>
     <h2>Rutinas</h2>
 </header>
+<p-toast position="bottom-right" />
 <section class="section-breadcrumb">
     <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
         <ng-template pTemplate="item" let-item>
@@ -24,7 +25,7 @@
         <ng-template pTemplate="separator"> &nbsp;&nbsp;/&nbsp;&nbsp; </ng-template>
     </p-breadcrumb>
 
-    <app-create-form-rutina></app-create-form-rutina>
+    <app-create-form-rutina (rutinaAgregada)="loadRutinas()"></app-create-form-rutina>
 </section>
 
 

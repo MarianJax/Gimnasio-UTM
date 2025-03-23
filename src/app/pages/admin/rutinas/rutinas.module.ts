@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RutinasRoutingModule } from './rutinas-routing.module';
@@ -16,6 +16,9 @@ import { TableModule } from 'primeng/table';
 import { IconModule } from 'src/app/components/icons/icons.module';
 import { DialogModule } from 'primeng/dialog';
 import { RippleModule } from 'primeng/ripple';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,11 @@ import { RippleModule } from 'primeng/ripple';
     DropdownModule,
     TableModule,
     DialogModule,
-    RippleModule
-  ]
+    RippleModule,
+    ConfirmDialogModule,
+    ToastModule,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+  providers: [ConfirmationService, MessageService]
 })
 export class RutinasModule { }

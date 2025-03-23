@@ -26,10 +26,13 @@ import { EquiposService } from '../../../../service/equipo/equipo.service';
 import { PagoService } from '../../pagos/pago.service';
 import { MantenimientoRoutingModule } from './mantenimiento-routing.module';
 import { MantenimientoComponent } from './mantenimiento.component';
-import { MantenimientoService } from './mantenimiento.service';
+import { CreateMantenimientoComponent } from '../../../../components/mantenimientos/create-mantenimiento/create-mantenimiento.component';
+import { TableMantenimientoComponent } from '../../../../components/mantenimientos/table-mantenimiento/table-mantenimiento.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { MantenimientosService } from '../../../../service/mantenimiento/mantenimientos.service';
 
 @NgModule({
-  declarations: [MantenimientoComponent],
+  declarations: [MantenimientoComponent, CreateMantenimientoComponent, TableMantenimientoComponent],
   imports: [
     CommonModule,
     MantenimientoRoutingModule,
@@ -53,14 +56,15 @@ import { MantenimientoService } from './mantenimiento.service';
     ReactiveFormsModule,
     InputNumberModule,
     BreadcrumbModule,
-    AutoCompleteModule,
+    AutoCompleteModule,    
+    MultiSelectModule
   ],
   providers: [
     MessageService,
     ConfirmationService,
     PagoService,
     EquiposService,
-    MantenimientoService
+    MantenimientosService
   ],
 })
 export class MantenimientoModule { }
