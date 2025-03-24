@@ -1,35 +1,33 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { RutinasRoutingModule } from './rutinas-routing.module';
-import { RutinasComponent } from './rutinas.component';
-import { CreateFormRutinaComponent } from 'src/app/components/rutina/create-form-rutina/create-form-rutina.component';
-import { TableRutinaComponent } from 'src/app/components/rutina/table-rutina/table-rutina.component';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { TableModule } from 'primeng/table';
-import { IconModule } from 'src/app/components/icons/icons.module';
-import { DialogModule } from 'primeng/dialog';
-import { RippleModule } from 'primeng/ripple';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
-import { ConfirmationService, MessageService } from 'primeng/api';
 import { MenuModule } from 'primeng/menu';
+import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { IconModule } from '../../../../components/icons/icons.module';
+import { ListComponent } from '../../../../components/rutina/detalles/list/list.component';
+import { RutinaDetalleRoutingModule } from './rutina-detalle-routing.module';
+import { RutinaDetalleComponent } from './rutina-detalle.component';
+
 
 @NgModule({
   declarations: [
-    RutinasComponent,
-    CreateFormRutinaComponent,
-    TableRutinaComponent
+    RutinaDetalleComponent,
+    ListComponent
   ],
   imports: [
     CommonModule,
-    RutinasRoutingModule,
+    RutinaDetalleRoutingModule,
     IconModule,
     BreadcrumbModule,
     ReactiveFormsModule,
@@ -48,4 +46,4 @@ import { MenuModule } from 'primeng/menu';
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [ConfirmationService, MessageService]
 })
-export class RutinasModule { }
+export class RutinaDetalleModule { }

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { TableHorariosComponent } from '../../../components/horario/table-horarios/table-horarios.component';
 import { TableRutinaComponent } from '../../../components/rutina/table-rutina/table-rutina.component';
 
 @Component({
@@ -12,7 +12,7 @@ export class RutinasComponent implements OnInit {
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.items = [{ icon: 'dashboard', route: '/admin', label: 'Inicio' }, { label: 'Rutinas' }];
@@ -24,6 +24,10 @@ export class RutinasComponent implements OnInit {
     if (this.tableRutina) {
       this.tableRutina.obtenerDatos(); // Llama al método de actualización de la tabla
     }
+  }
+
+  goToEjercicios() {
+    this.router.navigate(['/admin/ejercicios']);
   }
 
 }

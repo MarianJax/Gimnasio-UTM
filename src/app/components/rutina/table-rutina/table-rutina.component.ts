@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { RutinasService } from '../../../service/rutinas/rutinas.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-table-rutina',
@@ -32,7 +33,6 @@ export class TableRutinaComponent implements OnInit {
       intensidad: this.Intensidad.find((intensidad) => intensidad.value === this.rutina.intensidad),
       descripcion: this.rutina.descripcion,
     });
-
     this.visible = true;
   }
 
@@ -41,6 +41,7 @@ export class TableRutinaComponent implements OnInit {
   }
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private rutinaService: RutinasService,
     private confirmationService: ConfirmationService,
@@ -58,13 +59,34 @@ export class TableRutinaComponent implements OnInit {
 
   selectedProducts!: any;
 
+  items: MenuItem[] | undefined;
+
   ngOnInit(): void {
     this.obtenerDatos();
+    this.items = [
+
+      {
+        label: 'Editar',
+        icon: 'edit',
+        action: async (id: string) => {
+          await this.showDialog(id);
+        }
+      },
+      {
+        label: 'Eliminar',
+        icon: 'delete',
+        action: (id: string) => {
+          this.confirm(id);
+        }
+      }
+
+    ];
   }
 
   obtenerDatos() {
     this.rutinaService.obtenerRutinas().subscribe({
       next: (data) => {
+        console.log(data);
         this.rutinas = data;
       },
       error: (error) => {
@@ -102,6 +124,10 @@ export class TableRutinaComponent implements OnInit {
       },
       reject: () => { }
     });
+  }
+
+  details(id: string) { 
+    this.router.navigate(['/admin/rutinas', id]);
   }
 }
 

@@ -1,54 +1,295 @@
-:host ::ng-deep .p-button.p-button-icon-only {
-    border-radius: 6px;
-    padding: 8px 12px;
+:host ::ng-deep .p-menu-list {
+
+    background-color: red;
 }
 
-section {
-    height: -webkit-fill-available;
+.conte-rutinas {
+    display: grid;
+    padding: 1.5rem;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1.25rem;
+
+    @media (min-width: 550px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (min-width: 1024px) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 }
 
-:host ::ng-deep {
+// Variables de color para mantener consistencia
+$emerald-light: #ECFDF5;
+$emerald-dark: #065F46;
+$emerald-primary: #34D399;
+$emerald-hover: #10B981;
+$emerald-text: #047857;
+$white: #ffffff;
+$shadow-color: rgba(0, 0, 0, 0.1);
 
-    .p-dialog {
-        border-radius: 12px !important;
-        overflow: hidden;
+// Card Container
+.card-rutina {
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(52, 211, 153, 0.5);
+    transition: all 0.3s ease-in-out;
+    transform: translateY(0);
 
-        .p-dialog-header {
-            background-color: var(--primary-color);
-            color: white;
-            font-weight: 800;
-            padding: 24px 30px;
+    &:hover {
+        box-shadow: 0 10px 15px $shadow-color;
+        transform: translateY(-4px);
+    }
 
-            .p-dialog-title {
-                font-size: 20px;
+    // Highlight Effect
+    .card-highlight {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background-color: $emerald-primary;
+        opacity: 0.2;
+        transition: all 0.3s ease-in-out;
+    }
 
-            }
+    &:hover .card-highlight {
+        width: 100%;
+        height: 100%;
+    }
 
-            .p-dialog-header-icon {
-                color: white;
-            }
+    // Card Content
+    .card-content {
+        padding: 20px;
+        background-color: $white;
+
+        body.dark-mode & {
+            background-color: $emerald-dark;
         }
+    }
 
-        .p-dialog-content {
-            padding: 30px 50px;
+    // Header
+    .card-header {
+        position: relative;
+        z-index: 5;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
 
-            .p-dropdown.p-inputwrapper-filled {
-                margin-top: 8px;
-                width: 100%;
-                border-radius: 6px;
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0px;
+            color: black;
+            transition: color 0.3s;
+        }
+    }
 
-                .p-inputtext {
-                    padding: 10px 14px;
-                    outline: none
-                }
+    // Stats
+    .card-stats {
+        position: relative;
+        z-index: 5;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin-bottom: 16px;
+
+        .card-stat {
+            background-color: rgba(236, 253, 245, 0.5);
+            border-radius: 8px;
+            padding: 8px;
+
+            body.dark-mode & {
+                background-color: rgba(4, 120, 87, 0.3);
+            }
+
+            .stat-label {
+                font-size: 12px;
+                color: black;
+                margin-bottom: 4px;
+            }
+
+            .stat-value {
+                font-size: 13px;
+                font-weight: 500;
+                color: $emerald-dark;
             }
         }
     }
 
-    .ng-star-inserted {
-        .p-inputtext.p-component.p-element {
-            width: 100%;
-            max-width: 320px;
+    // Action Button
+    .card-button {
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+        background-color: rgba(236, 253, 245, 0.5);
+        color: black;
+        font-size: 14px;
+        border: none;
+        padding: 8px 12px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s;
+
+        .button-icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0;
+            transition: all 0.3s;
+            transform: translateX(0);
+        }
+    }
+
+
+    &:hover {
+        .card-title {
+            color: $emerald-text;
+        }
+
+        .card-button {
+            background-color: $emerald-hover;
+            text-align: center;
+            color: black;
+        }
+    }
+}
+
+.text-danger {
+    color: #ef4444;
+}
+
+:host ::ng-deep {
+    .p-dialog-mask.p-component-overlay.p-component-overlay-enter.p-dialog-mask-scrollblocker.ng-star-inserted {
+        backdrop-filter: blur(5px);
+
+        .p-dialog {
+            border-radius: 12px !important;
+            overflow: hidden;
+            background: linear-gradient(to bottom right, #cfe4da, #fff);
+
+            .p-dialog-header {
+                background: transparent;
+                color: black;
+                font-weight: 800;
+                padding: 24px 30px;
+                font-size: 20px;
+
+                .p-dialog-header-close-icon {
+                    color: black;
+                }
+
+            }
+
+            .p-dialog-content {
+                padding: 10px 50px 30px 50px;
+                background: transparent;
+
+                form {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 20px;
+
+                    div {
+                        label {
+                            // display: block;
+                            color: black;
+                            // font-size: 16px;
+                        }
+
+                        input:not(.p-multiselect-filter) {
+                            margin-top: 8px;
+                            width: 100%;
+                            padding: 10px 14px;
+                            border-radius: 8px;
+                            font-size: 13px;
+                            height: 41px;
+                        }
+
+                        textarea {
+                            margin-top: 4px;
+                            width: 100%;
+                            padding: 10px 14px;
+                            border-radius: 8px;
+                            font-size: 13px;
+                        }
+
+                        .p-multiselect {
+                            margin-top: 4px;
+                            width: 100%;
+
+                            .p-multiselect-label-container {
+                                padding: 10px 14px;
+                                outline: none;
+
+                                .p-multiselect-label {
+                                    padding: 0;
+                                }
+                            }
+                        }
+
+                        .p-dropdown {
+                            margin-top: 8px;
+                            width: 100%;
+                            border-radius: 6px;
+
+                            .p-inputtext {
+                                padding: 10px 14px;
+                                outline: none
+                            }
+                        }
+
+                        .p-calendar {
+                            width: 100%;
+
+                            .p-inputtext {
+                                margin-top: 8px;
+                                padding: 1rem;
+                            }
+
+                            .p-datepicker {
+                                min-width: fit-content;
+                            }
+                        }
+
+                    }
+
+                    .p-button {
+                        border-radius: 8px !important;
+                        padding: 7px 20px;
+                    }
+                }
+            }
+
+            .p-dialog-footer {
+                background: transparent;
+                display: flex;
+                justify-content: flex-end;
+                gap: 15px;
+
+                p-button {
+                    margin: 0;
+
+                    .p-button.p-button-outlined {
+                        font-size: 14px;
+                        padding: 7px 30px;
+                        border-radius: 10px;
+                        font-weight: 700;
+
+                        &:not(.p-button-secondary) {
+                            color: black;
+                            border: solid 2px;
+
+                            &:hover,
+                            &:not(:disabled):hover,
+                            &:not(:disabled):active,
+                            &:active {
+                                border: solid 2px;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -83,61 +324,10 @@ section {
             }
         }
     }
-}
 
-
-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-
-    div {
-        label {
-            display: block;
-            color: black;
-            font-size: 16px;
-        }
-
-        input {
-            margin-top: 8px;
-            width: 100%;
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-            height: 41px;
-        }
-
-        textarea {
-            margin-top: 4px;
-            width: 100%;
-            max-width: 100% !important;
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-        }
-    }
-}
-
-:host ::ng-deep {
-    p-button {
-        margin: 0;
-
-        .p-button {
-            padding: 8px 80px;
-            border: 1px solid var(--primary-color);
-            font-size: 14px;
-            border-radius: 10px 0px 10px 10px;
-            color: black;
-
-            &:not(.p-button-outlined) {
-                background-color: var(--primary-color);
-                color: white;
-
-                &:hover {
-                    background-color: var(--primary-700);
-                }
-            }
-        }
+    .p-tag {
+        padding: 5px 10px;
+        border-radius: 99px;
 
     }
 }

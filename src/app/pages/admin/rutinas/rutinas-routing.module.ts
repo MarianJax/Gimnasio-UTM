@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: '',
     component: RutinasComponent
+  },
+  {
+    path: ':id',
+    loadChildren: () => import('./rutina-detalle/rutina-detalle.module').then(m => m.RutinaDetalleModule)
   }
 ];
 
