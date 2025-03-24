@@ -21,8 +21,8 @@ export class UsuariosService {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
-  actualizarUsuario(data: any): Observable<any> {
-    return this.http.patch<any>(`${this.apiUrl}/${data.id}`, data);
+  actualizarUsuario({ id, ...data }: any): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/${id}`, data);
   }
 
 }

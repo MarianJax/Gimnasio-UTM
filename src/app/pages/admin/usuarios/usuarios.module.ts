@@ -16,6 +16,7 @@ import { UsuariosRoutingModule } from './usuarios-routing.module';
 import { UsuariosComponent } from './usuarios.component';
 import { CreateFormUsuarioComponent } from '../../../components/usuario/create-form-usuario/create-form-usuario.component';
 import { TableUsuarioComponent } from '../../../components/usuario/table-usuario/table-usuario.component';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { TableUsuarioComponent } from '../../../components/usuario/table-usuario
     DropdownModule,
     TableModule,
     DialogModule,
-    RippleModule
+    RippleModule,
+    MultiSelectModule
   ]
 })
 export class UsuariosModule { }

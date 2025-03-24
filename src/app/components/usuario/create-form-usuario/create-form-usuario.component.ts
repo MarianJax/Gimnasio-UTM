@@ -1,9 +1,13 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
-import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { RolesService } from '../../../service/roles/roles.service';
 import { UsuariosService } from '../../../service/usuarios/usuarios.service';
+
+interface Options {
+  name: string,
+  code: string
+}
 
 @Component({
   selector: 'app-create-form-usuario',
@@ -13,16 +17,14 @@ import { UsuariosService } from '../../../service/usuarios/usuarios.service';
 export class CreateFormUsuarioComponent implements OnInit {
   usuarioForm: FormGroup;
   visible: boolean = false;
-  selectedRoles: {
-    nombre: string;
-    id: string;
-  }[] = [];
 
   @Output() usuarioAgregado = new EventEmitter<void>();
 
   showDialog() {
     this.rolesService.obtenerRoles().subscribe((roles) => {
-      this.roles = roles;
+      roles.map((rol: { nombre: string, id: string }) => {
+        this.roles.push({ name: rol.nombre, code: rol.id });
+      });
       this.visible = true;
     });
   }
@@ -39,12 +41,8 @@ export class CreateFormUsuarioComponent implements OnInit {
 
   items: MenuItem[] | undefined;
 
-  roles: {
-    nombre: string;
-    id: string;
-  }[] = [];
-
-  filteredRoles: any[] = [];
+  roles: Options[] = [];
+  selectedRoles!: Options[];
 
   fechaAgendamiento: string = '';
   horaInicio: string = '';
@@ -63,31 +61,12 @@ export class CreateFormUsuarioComponent implements OnInit {
 
   ngOnInit() { }
 
-  filterRoles(event: AutoCompleteCompleteEvent) {
-    let filtered: any[] = [];
-    let query = event.query;
-
-    for (let i = 0; i < (this.roles as any[]).length; i++) {
-      let rol = (this.roles as { id: string; nombre: string }[])[i];
-
-      // Verifica si el rol ya está seleccionado (basado en su 'id' o cualquier otro identificador único)
-      const isAlreadySelected = this.selectedRoles.some(role => role.id === rol.id);
-
-      // Si no está seleccionado, lo agrega a la lista de resultados filtrados
-      if (!isAlreadySelected && rol.nombre.toLowerCase().indexOf(query.toLowerCase()) === 0) {
-        filtered.push(rol);
-      }
-    }
-
-    this.filteredRoles = filtered;
-  }
-
   addUsuario() {
     try {
       const usuarioData = this.usuarioForm.value;
       console.log(usuarioData);
       this.usuarioService.agregarUsuario({
-        roles: this.selectedRoles.map(role => role.id),
+        roles: this.selectedRoles.map(role => role.code),
         nombre: usuarioData.nombre,
         apellido: usuarioData.apellido,
         cedula: usuarioData.cedula,

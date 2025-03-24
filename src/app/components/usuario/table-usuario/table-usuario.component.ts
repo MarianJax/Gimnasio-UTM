@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { RolesService } from '../../../service/roles/roles.service';
 import { UsuariosService } from '../../../service/usuarios/usuarios.service';
 
@@ -17,7 +16,7 @@ export class TableUsuarioComponent implements OnInit {
   emptyMessage: string = 'Cargando usuarios...';
   usuario: {
     id: string;
-    roles: string[];
+    roles: { id: string, nombre: string }[];
     nombre: string;
     apellido: string;
     telefono: number;
@@ -26,40 +25,49 @@ export class TableUsuarioComponent implements OnInit {
   } | null = null;
 
   selectedRoles: {
-    nombre: string;
-    id: string;
+    name: string;
+    code: string;
   }[] | null = null;
 
   roles: {
-    nombre: string;
-    id: string;
+    name: string;
+    code: string;
   }[] = [];
 
   filteredRoles: any[] = [];
 
-  async showDialog(id: string) {
-    this.rolesService.obtenerRoles().subscribe((roles) => {
-      this.roles = roles;
+  showDialog(id: string) {
+    this.usuariosService.obtenerUsuario(id).subscribe({
+      next: (usuario) => {
+        this.usuarioUpdatedForm.patchValue({
+          id: usuario?.id,
+          roles: this.roles.filter((obj) =>
+            usuario?.roles.some((role: { id: string }) => role.id === obj.code)
+          ),
+          nombre: usuario?.nombre,
+          apellido: usuario?.apellido,
+          telefono: usuario?.telefono,
+          cedula: usuario?.cedula,
+          correo: usuario?.correo
+        });
+
+        this.visible = true;
+      },
     });
 
-    this.usuario = await this.usuariosService.obtenerUsuario(id).toPromise();
-
-    this.usuarioUpdatedForm.patchValue({
-      id: this.usuario?.id,
-      roles: this.usuario?.roles,
-      nombre: this.usuario?.nombre,
-      apellido: this.usuario?.apellido,
-      telefono: this.usuario?.telefono,
-      cedula: this.usuario?.cedula,
-      correo: this.usuario?.correo
-    });
-
-    this.visible = true;
   }
 
   closedDialog() {
     this.visible = false;
-    this.usuarioUpdatedForm.reset();
+    this.usuarioUpdatedForm.reset({
+      id: null,
+      roles: null,
+      nombre: null,
+      apellido: null,
+      telefono: null,
+      cedula: null,
+      correo: null,
+    });
   }
 
   items: MenuItem[] | undefined;
@@ -88,6 +96,11 @@ export class TableUsuarioComponent implements OnInit {
   selectedProducts!: any;
 
   ngOnInit(): void {
+
+    this.rolesService.obtenerRoles().subscribe((roles) => {
+      roles.map((rol: { nombre: string, id: string }) =>
+        this.roles.push({ name: rol.nombre, code: rol.id }))
+    });
     this.obtenerDatos();
   }
 
@@ -121,38 +134,6 @@ export class TableUsuarioComponent implements OnInit {
     });
   }
 
-  filterRoles(event: AutoCompleteCompleteEvent) {
-    let filtered: any[] = [];
-    let query = event.query;
-
-    for (let i = 0; i < (this.roles as any[]).length; i++) {
-      let country = (this.roles as { id: string; nombre: string }[])[i];
-      // Verifica si el rol ya está seleccionado (basado en su 'id' o cualquier otro identificador único)
-      const isAlreadySelected = this.selectedRoles?.some(role => role.id === country.id);
-
-      // Si no está seleccionado, lo agrega a la lista de resultados filtrados
-      if (!isAlreadySelected && country.nombre.toLowerCase().indexOf(query.toLowerCase()) === 0) {
-        filtered.push(country);
-      }
-    }
-
-    this.filteredRoles = filtered;
-  }
-
-  filterCountry(event: AutoCompleteCompleteEvent) {
-    let filtered: any[] = [];
-    let query = event.query;
-
-    for (let i = 0; i < (this.usuarios as any[]).length; i++) {
-      let usuario = this.usuarios[i];
-      if (usuario.nombre.toLowerCase().indexOf(query.toLowerCase()) === 0) {
-        filtered.push(usuario);
-      }
-    }
-
-    this.filteredEquipos = filtered;
-  }
-
   getRolesAsString(maquina: { id: string; roles: { nombre: string; }[]; }) {
     return maquina.roles?.map(role => role.nombre).join(', ') || 'Sin rol asignado';
   }
@@ -160,18 +141,9 @@ export class TableUsuarioComponent implements OnInit {
   updateUsuario() {
     if (this.usuarioUpdatedForm.valid) {
       const usuarioData = this.usuarioUpdatedForm.value;
-      console.log({
-        id: this.usuario?.id,
-        roles: this.selectedRoles?.map(role => role.id),
-        nombre: usuarioData.nombre,
-        apellido: usuarioData.apellido,
-        cedula: usuarioData.cedula,
-        telefono: usuarioData.telefono,
-        correo: usuarioData.correo,
-      });
       this.usuariosService.actualizarUsuario({
-        id: this.usuario?.id,
-        roles: this.selectedRoles?.map(role => role.id),
+        id: usuarioData.id,
+        roles: this.selectedRoles?.map(role => role.code),
         nombre: usuarioData.nombre,
         apellido: usuarioData.apellido,
         cedula: usuarioData.cedula,
@@ -179,7 +151,15 @@ export class TableUsuarioComponent implements OnInit {
         correo: usuarioData.correo,
       }).subscribe({
         next: () => {
-          this.usuarioUpdatedForm.reset();
+          this.usuarioUpdatedForm.reset({
+            id: null,
+            roles: null,
+            nombre: null,
+            apellido: null,
+            telefono: null,
+            cedula: null,
+            correo: null,
+          });
           this.obtenerDatos();
           this.visible = false;
         },
@@ -191,7 +171,7 @@ export class TableUsuarioComponent implements OnInit {
     }
   }
 
-  
+
 }
 
 
