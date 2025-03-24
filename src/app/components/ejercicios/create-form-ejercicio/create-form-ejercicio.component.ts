@@ -19,7 +19,7 @@ interface Options {
 export class CreateFormEjercicioComponent implements OnInit {
   ejercicioForm: FormGroup;
   visible: boolean = false;
-  @Output() ejercicioAgregado = new EventEmitter<void>();
+  @Output() addedEjercicio = new EventEmitter<void>();
 
   showDialog() {
     console.log('Abre dialogo');
@@ -127,7 +127,7 @@ export class CreateFormEjercicioComponent implements OnInit {
       }).subscribe({
         next: () => {
           this.ejercicioForm.reset();
-          this.ejercicioAgregado.emit();
+          this.addedEjercicio.emit();
           this.visible = false;
         },
         error: (err) => {

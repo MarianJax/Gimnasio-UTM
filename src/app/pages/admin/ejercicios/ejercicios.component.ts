@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { TableUsuarioComponent } from '../../../components/usuario/table-usuario/table-usuario.component';
 import { TableEjerciciosComponent } from '../../../components/ejercicios/table-ejercicios/table-ejercicios.component';
 
 @Component({
@@ -15,7 +14,7 @@ export class EjerciciosComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.items = [{ icon: 'dashboard', route: '/admin', label: 'Inicio' }, { label: 'Ejercicios' }];
+    this.items = [{ icon: 'dashboard', route: '/admin', label: 'Inicio' }, { route: '/admin/rutinas', label: 'Rutinas' }, { label: 'Ejercicios' }];
   }
 
   @ViewChild(TableEjerciciosComponent) tableEjercicio!: TableEjerciciosComponent;

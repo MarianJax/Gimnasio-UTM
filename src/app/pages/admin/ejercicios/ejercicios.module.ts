@@ -1,26 +1,26 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { EjerciciosRoutingModule } from './ejercicios-routing.module';
-import { EjerciciosComponent } from './ejercicios.component';
-import { CreateFormEjercicioComponent } from 'src/app/components/ejercicios/create-form-ejercicio/create-form-ejercicio.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { DropdownModule } from 'primeng/dropdown';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { IconModule } from 'src/app/components/icons/icons.module';
-import { TableEjerciciosComponent } from 'src/app/components/ejercicios/table-ejercicios/table-ejercicios.component';
-import { TableModule } from 'primeng/table';
-import { DialogModule } from 'primeng/dialog';
-import { RippleModule } from 'primeng/ripple';
-import { CalendarModule } from 'primeng/calendar';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { MenuModule } from 'primeng/menu';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { IconModule } from 'src/app/components/icons/icons.module';
+import { EjerciciosRoutingModule } from './ejercicios-routing.module';
+import { EjerciciosComponent } from './ejercicios.component';
+import { CreateFormEjercicioComponent } from '../../../components/ejercicios/create-form-ejercicio/create-form-ejercicio.component';
+import { TableEjerciciosComponent } from '../../../components/ejercicios/table-ejercicios/table-ejercicios.component';
 
 
 @NgModule({
@@ -45,7 +45,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     RippleModule,
     ConfirmDialogModule,
     ToastModule,
-    MultiSelectModule
+    MultiSelectModule,
+    MenuModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [ConfirmationService, MessageService]

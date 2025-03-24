@@ -12,15 +12,15 @@ interface Options {
 }
 
 const resetForm = {
-  id: new FormControl<string | null>(null),
-  maquinas: new FormControl<string | null>(null),
-  rutinas: new FormControl<string | null>(null),
-  nombre: new FormControl<string | null>(null),
-  nivel: new FormControl<string | null>(null),
-  series: new FormControl<number | null>(null),
-  repeticiones: new FormControl<number | null>(null),
-  descanso: new FormControl<number | null>(null),
-  descripcion: new FormControl<string | null>(null),
+  id: null,
+  maquinas: null,
+  rutinas: null,
+  nombre: null,
+  nivel: null,
+  series: null,
+  repeticiones: null,
+  descanso: null,
+  descripcion: null,
 }
 
 @Component({
@@ -80,7 +80,17 @@ export class TableEjerciciosComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {
-    this.updatedEjercicioForm = this.fb.group(resetForm);
+    this.updatedEjercicioForm = this.fb.group({
+      id: new FormControl<string | null>(null),
+      maquinas: new FormControl<string | null>(null),
+      rutinas: new FormControl<string | null>(null),
+      nombre: new FormControl<string | null>(null),
+      nivel: new FormControl<string | null>(null),
+      series: new FormControl<number | null>(null),
+      repeticiones: new FormControl<number | null>(null),
+      descanso: new FormControl<number | null>(null),
+      descripcion: new FormControl<string | null>(null),
+    });
   }
 
   selectedProducts!: any;
