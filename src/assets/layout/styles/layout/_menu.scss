@@ -16,7 +16,7 @@
     transition: transform $transitionDuration, left $transitionDuration;
     background-color: var(--surface-overlay);
     border-radius: $borderRadius;
-    padding: 0.5rem 1.5rem;
+    padding: 1.5rem;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, .02), 0px 0px 2px rgba(0, 0, 0, .05), 0px 1px 4px rgba(0, 0, 0, .08);
 }
 
@@ -24,8 +24,11 @@
     margin: 0;
     padding: 0;
     list-style-type: none;
+    height: -webkit-fill-available;
 
     .layout-root-menuitem {
+        height: -webkit-fill-available;
+
         >.layout-menuitem-root-text {
             font-size: .857rem;
             text-transform: uppercase;
@@ -63,7 +66,9 @@
         list-style-type: none;
         display: flex;
         flex-direction: column;
+        justify-content: space-around;
         gap: 10px;
+        height: -webkit-fill-available;
 
         a {
             display: flex;
@@ -109,6 +114,7 @@
         ul {
             overflow: hidden;
             border-radius: $borderRadius;
+            height: -webkit-fill-available;
 
             li {
                 a {

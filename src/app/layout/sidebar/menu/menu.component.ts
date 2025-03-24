@@ -4,7 +4,12 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
-  templateUrl: './menu.component.html'
+  templateUrl: './menu.component.html',
+  styles: [`
+    app-menu {
+      height: 100%;
+    }
+    `]
 })
 export class MenuComponent implements OnInit {
 
@@ -131,12 +136,12 @@ export class MenuComponent implements OnInit {
               routerLink: ['/admin/rutinas'],
               visible: true
             },
-            {
-              label: 'Ejercicios',
-              icon: 'time-clock',
-              routerLink: ['/admin/ejercicios'],
-              visible: true
-            },
+            // {
+            //   label: 'Ejercicios',
+            //   icon: 'time-clock',
+            //   routerLink: ['/admin/ejercicios'],
+            //   visible: true
+            // },
             {
               label: 'Usuarios',
               icon: 'users',
