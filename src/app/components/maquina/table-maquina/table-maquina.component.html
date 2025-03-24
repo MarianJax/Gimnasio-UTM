@@ -10,7 +10,7 @@
 
 <section class="section-form">
 
-  <p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="10" [paginator]="true"
+  <p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" [paginator]="true"
     currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
     [value]="maquinas" [showFirstLastIcon]="false" dataKey="maquinas-registradas"
     [tableStyle]="{ 'min-width': '50rem' }" [globalFilterFields]="['cantidad', 'nombre', 'fecha_compra', 'estado']">
@@ -25,10 +25,18 @@
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="cantidad">Cantidad</th>
-        <th pSortableColumn="nombre">Maquina</th>
-        <th pSortableColumn="fecha_compra">Fecha Registro</th>
-        <th pSortableColumn="estado">Estado</th>
+        <th pSortableColumn="cantidad">Cantidad
+          <p-sortIcon field="cantidad" />
+        </th>
+        <th pSortableColumn="nombre">Maquina
+          <p-sortIcon field="nombre" />
+        </th>
+        <th pSortableColumn="fecha_compra">Fecha Registro
+          <p-sortIcon field="fecha_compra" />
+        </th>
+        <th pSortableColumn="estado">Estado
+          <p-sortIcon field="estado" />
+        </th>
         <th>Historial</th>
       </tr>
     </ng-template>
