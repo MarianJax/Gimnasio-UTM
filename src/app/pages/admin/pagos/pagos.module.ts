@@ -19,14 +19,15 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { PagoService } from './pago.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { IconModule } from 'src/app/components/icons/icons.module';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { TablePagosComponent } from '../../../components/pagos/table-pagos/table-pagos.component';
 
 @NgModule({
   declarations: [
-    PagosComponent
+    PagosComponent,
+    TablePagosComponent
   ],
   imports: [
     CommonModule,
@@ -34,6 +35,6 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     IconModule,
     TableModule, DialogModule, RippleModule, ButtonModule, ToastModule, ToolbarModule, ConfirmDialogModule, InputTextModule, InputTextareaModule, CommonModule, FileUploadModule, DropdownModule, TagModule, RadioButtonModule, RatingModule, InputTextModule, FormsModule, InputNumberModule, BreadcrumbModule
   ],
-  providers: [MessageService, ConfirmationService, PagoService], 
+  providers: [MessageService, ConfirmationService], 
 })
 export class PagosModule { }
