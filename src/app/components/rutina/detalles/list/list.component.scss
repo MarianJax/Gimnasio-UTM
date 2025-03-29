@@ -2,6 +2,10 @@ section {
     height: -webkit-fill-available;
 }
 
+.text-danger {
+    color: #ef4444;
+}
+
 :host ::ng-deep {
 
     .p-dialog {

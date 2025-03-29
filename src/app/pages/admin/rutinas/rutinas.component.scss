@@ -83,8 +83,28 @@ header {
     }
 }
 
-.section-breadcrumb {
-    display: flex;
-    justify-content: space-between;
-    margin: 25px 0;
+
+:host ::ng-deep {
+
+    .section-breadcrumb {
+        display: flex;
+        justify-content: space-between;
+        margin: 25px 0;
+
+        .p-button-contrast.p-button-outlined {
+            margin: 0;
+            border: solid 2px;
+            font-weight: 700;
+            font-size: 14px;
+            border-radius: 10px 0px 10px 10px;
+            color: black;
+
+            &:hover,
+            &:not(:disabled):hover,
+            &:not(:disabled):active,
+            &:active {
+                border: solid 2px;
+            }
+        }
+    }
 }

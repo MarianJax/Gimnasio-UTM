@@ -22,19 +22,20 @@
                 </a>
             </ng-template>
         </ng-template>
-        <ng-template pTemplate="separator"> &nbsp;&nbsp;/&nbsp;&nbsp; </ng-template>
+        <ng-template pTemplate="separator"> &nbsp;/&nbsp; </ng-template>
     </p-breadcrumb>
 
-    <div>
+    <div class="flex gap-3">
         <app-create-form-rutina (rutinaAgregada)="loadRutinas()"></app-create-form-rutina>
-        <p-button (onClick)="goToEjercicios()">Ejercicios</p-button>
+        <p-button [outlined]="true" severity="contrast" (onClick)="goToEjercicios()">Ejercicios
+        </p-button>
     </div>
 </section>
 
 
 <!-- <header style="margin-top: 40px;">
     <i id="icon">
-        <mage-icon name="dollar" size="26px"></mage-icon>
+        <mage-icon name="dollar" size="24px"></mage-icon>
     </i>
     <h3>Listado de rutinas</h3>
 </header> -->

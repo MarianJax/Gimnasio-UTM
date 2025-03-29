@@ -18,7 +18,7 @@ import { IconModule } from '../../../../components/icons/icons.module';
 import { ListComponent } from '../../../../components/rutina/detalles/list/list.component';
 import { RutinaDetalleRoutingModule } from './rutina-detalle-routing.module';
 import { RutinaDetalleComponent } from './rutina-detalle.component';
-
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -40,6 +40,7 @@ import { RutinaDetalleComponent } from './rutina-detalle.component';
     DialogModule,
     RippleModule,
     ConfirmDialogModule,
+    TooltipModule,
     ToastModule,
     MenuModule
   ],

@@ -28,8 +28,6 @@ export class ListComponent implements OnInit {
     { name: 'Avanzado', value: 'Avanzado' }
   ]
 
-  items: MenuItem[] | undefined;
-
   maquinas: Options[] = [];
   data: any;
 
@@ -105,22 +103,6 @@ export class ListComponent implements OnInit {
     });
       console.log(this.maquinas);
     this.loadRutina();
-    this.items = [
-      {
-        label: 'Editar',
-        icon: 'edit',
-        action: (id: string) => {
-          this.showDialog(id);
-        }
-      },
-      {
-        label: 'Eliminar',
-        icon: 'delete',
-        action: (id: string) => {
-          this.confirm(id);
-        }
-      }
-    ];
   }
 
   loadRutina() {
@@ -160,12 +142,12 @@ export class ListComponent implements OnInit {
       console.log('Error al enviar los datos', error);
     }
   }
-  confirm(id: string) {
+  confirmDelete(id: string, ejercicioId: string) {
     this.confirmationService.confirm({
       header: 'Eliminar Ejercicio',
       message: 'El ejercicio se eliminará de forma permanente',
       accept: () => {
-        this.ejerciciosService.eliminarEjercicio(id).subscribe({
+        this.rutinaService.eliminarEjercicio(id, ejercicioId).subscribe({
           next: () => {
             this.loadRutina();
             this.messageService.add({ severity: 'success', summary: 'Ejercicio eliminado', detail: 'Ejercicio eliminado con éxito' });
