@@ -13,4 +13,20 @@ export class RolesService {
     return this.http.get<any>(this.apiUrl);
   }
 
+  agregarRol(rol: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, rol);
+  }
+
+  obtenerRol(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
+  actualizarRol({ id, ...rol }: any): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/${id}`, rol);
+  }
+
+  eliminarHorario(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
+
 }

@@ -1,0 +1,172 @@
+h3 {
+    width: fit-content;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 24px;
+    margin: 0;
+    color: black;
+    margin-bottom: 20px;
+}
+
+:host ::ng-deep {
+    .p-dialog-mask.p-component-overlay.p-component-overlay-enter.p-dialog-mask-scrollblocker.ng-star-inserted {
+        backdrop-filter: blur(5px);
+
+        .p-dialog {
+            border-radius: 12px !important;
+            overflow: hidden;
+            background: linear-gradient(to bottom right, #cfe4da, #fff);
+
+            .p-dialog-header {
+                background: transparent;
+                color: black;
+                font-weight: 800;
+                padding: 24px 30px;
+                font-size: 20px;
+
+                .p-dialog-header-close-icon {
+                    color: black;
+                }
+
+            }
+
+            .p-dialog-content {
+                padding: 10px 50px 30px 50px;
+                background: transparent;
+
+                form {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 20px;
+
+                    div {
+                        label {
+                            // display: block;
+                            color: black;
+                            // font-size: 16px;
+                        }
+
+                        input:not(.p-multiselect-filter) {
+                            margin-top: 4px;
+                            width: 100%;
+                            padding: 10px 14px;
+                            border-radius: 8px;
+                            font-size: 13px;
+                            height: 41px;
+                        }
+
+                        .p-inputwrapper {
+                            width: 100%;
+                            .p-inputnumber {
+                                width: 100%;
+                            }
+                        }
+
+                        textarea {
+                            margin-top: 4px;
+                            width: 100%;
+                            padding: 10px 14px;
+                            border-radius: 8px;
+                            font-size: 13px;
+                        }
+
+                        .p-multiselect {
+                            margin-top: 4px;
+                            width: 100%;
+                            border-radius: 8px;
+
+                            .p-multiselect-label-container {
+                                padding: 10px 14px;
+                                outline: none;
+
+                                .p-multiselect-label {
+                                    padding: 0;
+                                }
+                            }
+                        }
+
+                        .p-dropdown {
+                            margin-top: 8px;
+                            width: 100%;
+                            border-radius: 6px;
+
+                            .p-inputtext {
+                                padding: 10px 14px;
+                                outline: none
+                            }
+                        }
+
+                        .p-calendar {
+                            width: 100%;
+
+                            .p-inputtext {
+                                margin-top: 8px;
+                                padding: 1rem;
+                            }
+
+                            .p-datepicker {
+                                min-width: fit-content;
+                            }
+                        }
+
+                    }
+
+                    .p-button {
+                        border-radius: 8px !important;
+                        padding: 7px 20px;
+                    }
+                }
+            }
+
+            .p-dialog-footer {
+                background: transparent;
+                display: flex;
+                justify-content: flex-end;
+                gap: 15px;
+
+                p-button {
+                    margin: 0;
+
+                    .p-button.p-button-outlined {
+                        font-size: 14px;
+                        padding: 7px 30px;
+                        border-radius: 10px;
+                        font-weight: 700;
+
+                        &:not(.p-button-secondary) {
+                            color: black;
+                            border: solid 2px;
+
+                            &:hover,
+                            &:not(:disabled):hover,
+                            &:not(:disabled):active,
+                            &:active {
+                                border: solid 2px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+:host ::ng-deep .p-button.p-button-outlined {
+    margin-left: auto;
+    font-size: 14px;
+    border-radius: 10px 0px 10px 10px;
+    font-weight: 700;
+
+    &:not(.p-button-secondary) {
+        color: black;
+        border: solid 2px;
+
+        &:hover,
+        &:not(:disabled):hover,
+        &:not(:disabled):active,
+        &:active {
+            border: solid 2px;
+        }
+    }
+}
