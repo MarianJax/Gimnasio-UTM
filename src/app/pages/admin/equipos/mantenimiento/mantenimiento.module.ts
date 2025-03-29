@@ -23,7 +23,6 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { IconModule } from 'src/app/components/icons/icons.module';
 import { EquiposService } from '../../../../service/equipo/equipo.service';
-import { PagoService } from '../../pagos/pago.service';
 import { MantenimientoRoutingModule } from './mantenimiento-routing.module';
 import { MantenimientoComponent } from './mantenimiento.component';
 import { CreateMantenimientoComponent } from '../../../../components/mantenimientos/create-mantenimiento/create-mantenimiento.component';
@@ -62,7 +61,6 @@ import { MantenimientosService } from '../../../../service/mantenimiento/manteni
   providers: [
     MessageService,
     ConfirmationService,
-    PagoService,
     EquiposService,
     MantenimientosService
   ],

@@ -1,0 +1,44 @@
+<p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" [paginator]="true"
+    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
+    paginatorPosition="bottom" paginatorDropdownAppendTo="body" [showFirstLastIcon]="false"
+    dataKey="mantenimientos-registradas" [tableStyle]="{ 'min-width': '50rem' }"
+    [globalFilterFields]="['observaciones', 'estado', 'fecha_mantenimiento', 'costo']" [value]="mantenimientos">
+    <ng-template pTemplate="caption">
+        <div class="flex gap-3">
+            <p-button [outlined]="true" icon="pi pi-filter-slash" (onClick)="clearFilter(globalFilter)" />
+            <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar" />
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="estado">
+                Estado <p-sortIcon field="estado" />
+            </th>
+            <th pSortableColumn="observaciones">
+                Descripción <p-sortIcon field="observaciones" />
+            </th>
+            <th pSortableColumn="costo">
+                Costo <p-sortIcon field="costo" />
+            </th>
+            <th pSortableColumn="fecha_mantenimiento">
+                Fecha <p-sortIcon field="fecha_mantenimiento" />
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pago let-i="rowIndex">
+        <tr>
+            <td>
+                <p-tag [value]="pago.estado" [severity]="getSeverity(pago.estado)" />
+            </td>
+            <td>
+                {{ pago.observaciones }}
+            </td>
+            <td>
+                {{ pago.costo | currency : "USD" }}
+            </td>
+            <td>
+                {{ pago.fecha_mantenimiento | date:'dd/MM/yyyy' }}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

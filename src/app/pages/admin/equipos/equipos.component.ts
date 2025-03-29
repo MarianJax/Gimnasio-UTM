@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EquiposService } from '../../../service/equipo/equipo.service';
+import { MenuItem } from 'primeng/api';
 
 export interface Estados {
   name: string;
@@ -14,7 +15,8 @@ export interface Estados {
   styleUrls: ['./equipos.component.scss'],
 })
 export class EquiposComponent implements OnInit {
-
+items: MenuItem[] | undefined;
+  home: MenuItem | undefined;
   constructor(
     private equipoService: EquiposService,
     private fb: FormBuilder,
@@ -28,6 +30,10 @@ export class EquiposComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerDatos();
+    this.items = [
+      { icon: 'dashboard', route: '/admin', label: 'Inicio' },
+      { label: 'Equipos' },
+    ];
   }
 
   goToMantenimiento() {

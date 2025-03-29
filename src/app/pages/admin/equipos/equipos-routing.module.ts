@@ -15,6 +15,15 @@ const routes: Routes = [
     path: 'registrar',
     loadChildren: () => import('./registros/registros.module').then(m => m.RegistrosModule)
   },
+  {
+    path: ':id',  // Ruta para subruta :id
+    children: [
+      {
+        path: 'historial',  // Subruta :id/historial
+        loadChildren: () => import('./historial/historial.module').then(m => m.HistorialModule)
+      }
+    ]
+  }
 ];
 
 @NgModule({

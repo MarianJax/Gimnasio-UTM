@@ -1,0 +1,46 @@
+:host ::ng-deep {
+    .p-paginator {
+        .p-paginator-current.ng-star-inserted {
+            margin-right: auto;
+            order: -2;
+        }
+
+
+        .p-element.p-inputwrapper.ng-star-inserted.p-inputwrapper-filled.ng-dirty {
+            order: -1;
+            margin: 0px 20px;
+
+            &::before {
+                margin-left: 25px;
+                content: 'Registros por página';
+            }
+        }
+
+        .p-dropdown-label {
+            padding: 7px;
+            width: 31px;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+
+            &:focus,
+            &:focus-visible,
+            &:focus-within {
+                outline: none;
+            }
+        }
+    }
+
+    .p-tag {
+        padding: 5px 10px;
+        border-radius: 99px;
+
+    }
+
+    .ng-star-inserted {
+        .p-inputtext.p-component.p-element {
+            width: 100%;
+            max-width: 320px;
+        }
+    }
+}

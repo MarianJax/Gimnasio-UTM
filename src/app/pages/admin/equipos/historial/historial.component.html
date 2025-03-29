@@ -1,11 +1,8 @@
 <header>
-    <span class="icon">
-        <mage-icon name="stack" size="24px"></mage-icon>
+    <span id="icon">
+        <mage-icon name="tools-m" fill="white" size="24px"></mage-icon>
     </span>
-    <h2>Listado de equipos</h2>
-    <p-button [outlined]="true" severity="contrast" (click)="goToMantenimiento()">
-        Mantenimiento
-    </p-button>
+    <h2>Historial de Equipos</h2>
 </header>
 
 <section class="section-breadcrumb">
@@ -29,4 +26,8 @@
     </p-breadcrumb>
 </section>
 
-<app-table-maquina> </app-table-maquina>
+<section>
+    <div>
+        <app-maquina-historial></app-maquina-historial>
+    </div>
+</section>
