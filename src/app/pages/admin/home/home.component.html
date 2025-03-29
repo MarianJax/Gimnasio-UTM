@@ -1,12 +1,11 @@
 <header>
     <span>
-        <mage-icon name="dashboard" size="26px"></mage-icon>
+        <mage-icon name="dashboard" size="24px"></mage-icon>
     </span>
     <h2>Panel de administración</h2>
 </header>
 
-<section class="section-cards">    
-    <h3>Panel de administración</h3>
+<section class="section-cards">
     <article>
         <span id="icon" style="--bg-color: #BEDAFE; --text-color: #3B83F7;">
             <mage-icon name="chart-central" size="30px" strokeWidth="2px"></mage-icon>
@@ -25,46 +24,27 @@
         <span id="icon" style="--bg-color: var(--primary-color);  --text-color: var(--surface-overlay);">
             <mage-icon name="dollar" size="30px" strokeWidth="2px"></mage-icon>
         </span>
-        <span id="number">150</span>
+        <span id="number">$ 150</span>
         <p>Total de Pagos</p>
     </article>
     <article>
         <span id="icon" style="--bg-color: var(--primary-color); --text-color: var(--surface-overlay);">
             <mage-icon name="dollar" size="30px" strokeWidth="2px"></mage-icon>
         </span>
-        <span id="number">150</span>
-        <p>Total de pago de Mantenimiento</p>
+        <span id="number">$ 150</span>
+        <p>Total de Mantenimiento</p>
     </article>
 </section>
 
 <section class="section-table">
     <header>
         <span>
-            <mage-icon name="dollar" size="26px"></mage-icon>
+            <mage-icon name="assignments" size="24px"></mage-icon>
         </span>
-        <h3>Listado de agendamientos</h3>
+        <h3>Listado de Reservas</h3>
     </header>
 
     <div>
-        <p-table [value]="asistencia" dataKey="tabla-agendamiento-registrados" [tableStyle]="{'min-width': '50rem'}">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Nombre</th>
-                    <th>rol</th>
-                    <th>Fecha</th>
-                    <th>tipo de pago</th>
-                    <th>asistencia</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-product>
-                <tr>
-                    <td>{{product.nombre}}</td>
-                    <td>{{product.rol}}</td>
-                    <td>{{product.fecha}}</td>
-                    <td>{{product.tipopago}}</td>
-
-                </tr>
-            </ng-template>
-        </p-table>
+        <app-table-agendamientos></app-table-agendamientos>
     </div>
 </section>

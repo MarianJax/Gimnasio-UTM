@@ -1,11 +1,12 @@
-<p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="10" [paginator]="true"
-    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true" paginatorPosition="bottom" paginatorDropdownAppendTo="body"
-    [showFirstLastIcon]="false" dataKey="mantenimientos-registradas" [tableStyle]="{ 'min-width': '50rem' }"
+<p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" [paginator]="true"
+    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
+    paginatorPosition="bottom" paginatorDropdownAppendTo="body" [showFirstLastIcon]="false"
+    dataKey="mantenimientos-registradas" [tableStyle]="{ 'min-width': '50rem' }"
     [globalFilterFields]="['maquina.nombre', 'estado', 'fecha_mantenimiento', 'costo']" [value]="mantenimientos">
     <ng-template pTemplate="caption">
         <div class="flex gap-3">
             <p-button [outlined]="true" icon="pi pi-filter-slash" (onClick)="clearFilter(globalFilter)" />
-        <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar" />
+            <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar" />
         </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -41,9 +42,8 @@
             </td>
             <td>
                 <div class="flex gap-3 w-full justify-content-center">
-                    <p-button [outlined]="true" size="small" severity="info" class="w-min"><mage-icon name="file-2"
-                            size="16px"></mage-icon>&nbsp;ver</p-button>
-                    <p-button *ngIf="pago.estado !== 'Finalizado'"  [outlined]="true" size="small" (onClick)="openDialog(pago.id)" severity="primary"
+                    <!-- *ngIf="pago.estado !== 'Finalizado'"  -->
+                    <p-button [outlined]="true" size="small" (onClick)="openDialog(pago.id)" severity="primary"
                         class="w-min"><mage-icon name="edit" size="16px"></mage-icon>&nbsp;Editar</p-button>
                 </div>
             </td>
