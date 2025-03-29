@@ -1,0 +1,27 @@
+<header>
+    <span>
+        <mage-icon name="assignments" size="24px"></mage-icon>
+    </span>
+    <h2>Reservas</h2>
+</header>
+
+<section class="section-breadcrumb">
+    <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
+        <ng-template pTemplate="item" let-item>
+            <ng-container *ngIf="item.route; else elseBlock">
+                <a [routerLink]="item.route" class="p-menuitem-link">
+                    <ng-container *ngIf="item.icon">
+                        <mage-icon size="20px" [name]="item.icon"></mage-icon>
+                    </ng-container>
+                    <span class="text-primary font-semibold">{{ item.label }}</span>
+                </a>
+            </ng-container>
+            <ng-template #elseBlock>
+                <a [href]="item.url">
+                    <span class="text-color">{{ item.label }}</span>
+                </a>
+            </ng-template>
+        </ng-template>
+        <ng-template pTemplate="separator"> &nbsp;/&nbsp; </ng-template>
+    </p-breadcrumb>
+</section>

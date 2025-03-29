@@ -1,0 +1,83 @@
+<p-toast />
+<p-table #dt [value]="products" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+    [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" [paginator]="true"
+    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
+    [showFirstLastIcon]="false" [showCurrentPageReport]="true" dataKey="products-registradas"
+    [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true" scrollHeight="365px">
+    <ng-template pTemplate="caption">
+        <div class="flex justify-content-between gap-3">
+            <div>
+                <p-button [outlined]="true" (onClick)="clearFilter(globalFilter)"> <mage-icon name="filter-remove"
+                        fill="currentColor" size="18px"></mage-icon> </p-button>
+                <span class="p-input-icon-left ml-3" style="min-width: 320px;">
+                    <mage-icon name="search" class="pi"
+                        style="left: 0.6rem; position: absolute;top: 50%;margin-top: -0.5rem;" fill="#868FA0"
+                        size="14px"></mage-icon>
+                    <!-- <i class="pi pi-search"></i> -->
+                    <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar..." />
+                </span>
+            </div>
+            <div>
+                <p-button [outlined]="true" (onClick)="goToAssistance()" severity="success"
+                    class="mr-3 ml-auto">Asistencia</p-button>
+                <p-button [outlined]="true" (onClick)="goToList()" severity="success"
+                    class="mr-2 ml-auto">Listado</p-button>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>#</th>
+            <th pSortableColumn="name">
+                Nombres
+                <ng-container *ngIf="dt.sortField === 'name'">
+                    <mage-icon *ngIf="dt.sortOrder === 1" fill="var(--primary-color)" size="18px"
+                        name="arrow-up"></mage-icon>
+                    <mage-icon *ngIf="dt.sortOrder === -1" fill="var(--primary-color)" size="18px"
+                        name="arrow-down"></mage-icon>
+                </ng-container>
+                <mage-icon *ngIf="dt.sortField !== 'name'" fill="currentColor" size="18px"
+                    name="arrows-alt"></mage-icon>
+            </th>
+            <th pSortableColumn="category">
+                Rol <ng-container *ngIf="dt.sortField === 'category'">
+                    <mage-icon *ngIf="dt.sortOrder === 1" fill="var(--primary-color)" size="18px"
+                        name="arrow-up"></mage-icon>
+                    <mage-icon *ngIf="dt.sortOrder === -1" fill="var(--primary-color)" size="18px"
+                        name="arrow-down"></mage-icon>
+                </ng-container>
+                <mage-icon *ngIf="dt.sortField !== 'category'" fill="currentColor" size="18px"
+                    name="arrows-alt"></mage-icon>
+            </th>
+            <th> Asistencia </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product let-i="rowIndex">
+        <tr>
+            <td>
+                {{ i + 1 }}
+            </td>
+            <td>
+                <div class="flex flex-column">
+                    <span class="subtitle">{{ product.name }} {{ product.code }}</span>
+                    <span class="caption">{{ product.category }}</span>
+                </div>
+            </td>
+            <td>
+                {{ product.description }}
+            </td>
+            <td>
+                <form class="flex gap-3" [formGroup]="getFormGroup(product.id)">
+                    <div *ngFor="let category of categories" class="field-checkbox">
+                        <p-radioButton [inputId]="category.key + '-' + product.id" [value]="category"
+                            formControlName="selectedCategory"
+                            (onClick)="onSelectionChange(product.id, category.key)" />
+                        <label [for]="category.key + '-' + product.id" class="ml-2">
+                            {{ category.name }}
+                        </label>
+                    </div>
+                </form>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
