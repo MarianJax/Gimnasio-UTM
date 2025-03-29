@@ -4,7 +4,7 @@ import { MenuItem } from 'primeng/api';
 import { RolesService } from '../../../service/roles/roles.service';
 import { UsuariosService } from '../../../service/usuarios/usuarios.service';
 
-interface Options {
+export interface Options {
   name: string,
   code: string
 }

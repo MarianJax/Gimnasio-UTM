@@ -37,7 +37,7 @@
                         }
 
                         input:not(.p-multiselect-filter) {
-                            margin-top: 4px;
+                            margin-top: 8px;
                             width: 100%;
                             padding: 10px 14px;
                             border-radius: 8px;
@@ -48,6 +48,7 @@
                         textarea {
                             margin-top: 4px;
                             width: 100%;
+                            min-width: -webkit-fill-available;
                             padding: 10px 14px;
                             border-radius: 8px;
                             font-size: 13px;
@@ -56,7 +57,6 @@
                         .p-multiselect {
                             margin-top: 4px;
                             width: 100%;
-                            border-radius: 8px;
 
                             .p-multiselect-label-container {
                                 padding: 10px 14px;
@@ -133,26 +133,45 @@
         }
     }
 
+    .ng-star-inserted {
+        .p-inputtext.p-component.p-element {
+            width: 100%;
+            max-width: 320px;
+        }
+    }
+
+    .p-paginator {
+        .p-paginator-current.ng-star-inserted {
+            margin-right: auto;
+            order: -2;
+        }
+
+
+        .p-element.p-inputwrapper.ng-star-inserted.p-inputwrapper-filled.ng-dirty {
+            order: -1;
+            margin: 0px 20px;
+
+            &::before {
+                margin-left: 25px;
+                content: 'Registros por página';
+            }
+        }
+
+        .p-dropdown-label {
+            padding: 7px;
+            width: 31px;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+
+            &:focus,
+            &:focus-visible,
+            &:focus-within {
+                outline: none;
+            }
+        }
+    }
 }
-
-// :host ::ng-deep .p-button.p-button-outlined {
-//     margin-left: auto;
-//     font-size: 14px;
-//     border-radius: 10px 0px 10px 10px;
-//     font-weight: 700;
-
-//     &:not(.p-button-secondary) {
-//         color: black;
-//         border: solid 2px;
-
-//         &:hover,
-//         &:not(:disabled):hover,
-//         &:not(:disabled):active,
-//         &:active {
-//             border: solid 2px;
-//         }
-//     }
-// }
 
 td {
     .subtitle {

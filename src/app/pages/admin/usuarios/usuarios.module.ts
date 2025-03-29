@@ -17,6 +17,7 @@ import { UsuariosComponent } from './usuarios.component';
 import { CreateFormUsuarioComponent } from '../../../components/usuario/create-form-usuario/create-form-usuario.component';
 import { TableUsuarioComponent } from '../../../components/usuario/table-usuario/table-usuario.component';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { RolesComponent } from './roles/roles.component';
 
 
 @NgModule({

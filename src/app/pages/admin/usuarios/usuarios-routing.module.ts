@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: '',
     component: UsuariosComponent
+  },
+  {
+    path: 'roles',  // Ruta para subruta :id
+    loadChildren: () => import('./roles/roles.module').then(m => m.RolesModule)
   }
 ];
 

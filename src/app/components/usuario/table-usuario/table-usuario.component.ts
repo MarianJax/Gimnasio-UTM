@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { RolesService } from '../../../service/roles/roles.service';
 import { UsuariosService } from '../../../service/usuarios/usuarios.service';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-table-usuario',
@@ -11,6 +12,7 @@ import { UsuariosService } from '../../../service/usuarios/usuarios.service';
   styleUrls: ['./table-usuario.component.scss']
 })
 export class TableUsuarioComponent implements OnInit {
+  @ViewChild('dt') dt!: Table;
   usuarioUpdatedForm: FormGroup;
   visible: boolean = false;
   emptyMessage: string = 'Cargando usuarios...';
@@ -104,8 +106,8 @@ export class TableUsuarioComponent implements OnInit {
     this.obtenerDatos();
   }
 
-  goToMantenimiento() {
-    this.router.navigate(['/admin/equipos/mantenimiento']);
+  goToRoles() {
+    this.router.navigate(['/admin/usuarios/roles']);
   }
 
   AddMaquina() {
@@ -170,7 +172,18 @@ export class TableUsuarioComponent implements OnInit {
       });
     }
   }
+  
+  applyFilter(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.dt.filterGlobal(inputElement.value, 'contains');
+  }
 
+  clearFilter(inputElement: HTMLInputElement) {
+    inputElement.value = '';  // Limpia el input
+    if (this.dt) {
+      this.dt.clear();  // Limpia los filtros de la tabla
+    }
+  }
 
 }
 
