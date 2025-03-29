@@ -1,15 +1,16 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { HorarioService } from '../../../service/horarios/horario.service';
 import { RolesService } from '../../../service/roles/roles.service';
 import { Estados } from '../../agendamientos/create-form/agendamiento-info/agendamiento-info.component';
 
 const formInit = {
-  rol_id: new FormControl<Estados[] | null>([]),
-  hora_inicio: new FormControl<Estados | null>(null),
-  hora_fin: new FormControl<Estados | null>(null),
-  dia_semana: new FormControl<Estados | null>(null),
-  jornada: new FormControl<Estados | null>(null),
+  id: null,
+  rol_id: null,
+  hora_inicio: null,
+  hora_fin: null,
+  dia_semana: null,
+  jornada: null,
 };
 
 @Component({
@@ -63,7 +64,13 @@ export class CreateFormHorarioComponent implements OnInit {
     private horarioService: HorarioService,
     private rolesService: RolesService
   ) {
-    this.horarioForm = this.fb.group(formInit);
+    this.horarioForm = this.fb.group({
+      rol_id: new FormControl<Estados[] | null>([]),
+      hora_inicio: new FormControl<Estados | null>(null),
+      hora_fin: new FormControl<Estados | null>(null),
+      dia_semana: new FormControl<Estados | null>(null),
+      jornada: new FormControl<Estados | null>(null),
+    });
   }
 
   ngOnInit() {
@@ -89,29 +96,34 @@ export class CreateFormHorarioComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    const horario = this.horarioForm.value;
-    this.horarioService
-      .agregarHorario({
-        rol_id: horario.rol_id.code,
-        hora_inicio: horario.hora_inicio.value,
-        hora_fin: horario.hora_fin.value,
-        dia_semana: horario.dia_semana.value,
-        jornada: horario.jornada.value,
-      })
-      .subscribe({
-        next: () => {
-          this.addedHorario.emit();
-          this.horarioForm.reset(formInit);
-        },
-        error: (error) => {
-          console.log('Error al enviar los datos', error);
-          this.horarioForm.setErrors(error.error.errors);
-        },
-      });
+  addHorario() {
+    try {
+      const horario = this.horarioForm.value;
+      this.horarioService
+        .agregarHorario({
+          rol_id: horario.rol_id && horario.rol_id.code,
+          hora_inicio: horario.hora_inicio && horario.hora_inicio.value,
+          hora_fin: horario.hora_fin && horario.hora_fin.value,
+          dia_semana: horario.dia_semana && horario.dia_semana.value,
+          jornada: horario.jornada && horario.jornada.value,
+        })
+        .subscribe({
+          next: () => {
+            this.addedHorario.emit();
+            this.horarioForm.reset(formInit);
+          },
+          error: (error) => {
+            console.log('Error al enviar los datos', error);
+            this.horarioForm.setErrors(error.error.errors);
+          },
+        });
+    } catch (error) {
+      console.error('Error al agregar el horario:', error);
+      // this.horarioForm.setErrors({ server: 'Error al agregar el horario' });
+    }
   }
 
   resetForm() {
-    this.horarioForm.reset({}); // Esto resetea el formulario
+    this.horarioForm.reset(formInit); // Esto resetea el formulario
   }
 }

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { HorariosEntrenadoresService } from '../../../service/horariosEntrenadores/horarios-entrenadores.service';
 import { Estados } from '../../agendamientos/create-form/agendamiento-info/agendamiento-info.component';
+import { Table } from 'primeng/table';
 
 const formInit = {
   id: new FormControl<string | null>(null),
@@ -19,6 +20,7 @@ const formInit = {
   styleUrls: ['./table-horario-entrenador.component.scss']
 })
 export class TableHorarioEntrenadorComponent implements OnInit {
+  @ViewChild('dt') dt!: Table;
   horarioForm: FormGroup;
   visible: boolean = false;
 
@@ -95,7 +97,7 @@ export class TableHorarioEntrenadorComponent implements OnInit {
     });
   }
 
-  confirm(id: string) {
+  deleteHorarioEntrenador(id: string) {
     this.confirmationService.confirm({
       header: 'Eliminar Ejercicio',
       message: 'El ejercicio se eliminará de forma permanente',
@@ -149,6 +151,18 @@ export class TableHorarioEntrenadorComponent implements OnInit {
   closedDialog() {
     this.visible = false;
     this.horarioForm.reset(formInit);
+  }
+  
+  applyFilter(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.dt.filterGlobal(inputElement.value, 'contains');
+  }
+
+  clearFilter(inputElement: HTMLInputElement) {
+    inputElement.value = '';  // Limpia el input
+    if (this.dt) {
+      this.dt.clear();  // Limpia los filtros de la tabla
+    }
   }
 }
 

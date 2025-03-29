@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { HorarioService } from '../../../service/horarios/horario.service';
-import { Estados } from '../../agendamientos/create-form/agendamiento-info/agendamiento-info.component';
 import { RolesService } from '../../../service/roles/roles.service';
+import { Estados } from '../../agendamientos/create-form/agendamiento-info/agendamiento-info.component';
+import { Table } from 'primeng/table';
 
 const formInit = {
   id: new FormControl<string | null>(null),
@@ -21,6 +22,7 @@ const formInit = {
   styleUrls: ['./table-horarios.component.scss'],
 })
 export class TableHorariosComponent implements OnInit {
+  @ViewChild('dt') dt!: Table;
   horarioForm: FormGroup;
   visible: boolean = false;
   roles: { name: string; code: string }[] = [];
@@ -61,7 +63,7 @@ export class TableHorariosComponent implements OnInit {
     private horarioService: HorarioService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-  private rolesService: RolesService) {
+    private rolesService: RolesService) {
     this.horarioForm = this.fb.group(formInit);
   }
 
@@ -106,7 +108,7 @@ export class TableHorariosComponent implements OnInit {
       .subscribe((data) => (this.horarios = data));
   }
 
-  confirm(id: string) {
+  deleteHorario(id: string) {
     this.confirmationService.confirm({
       header: 'Eliminar Ejercicio',
       message: 'El ejercicio se eliminará de forma permanente',
@@ -164,5 +166,17 @@ export class TableHorariosComponent implements OnInit {
           this.horarioForm.setErrors(error.error.errors);
         },
       });
+  }
+
+  applyFilter(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.dt.filterGlobal(inputElement.value, 'contains');
+  }
+
+  clearFilter(inputElement: HTMLInputElement) {
+    inputElement.value = '';  // Limpia el input
+    if (this.dt) {
+      this.dt.clear();  // Limpia los filtros de la tabla
+    }
   }
 }

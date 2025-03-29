@@ -1,19 +1,21 @@
 <p-table #dt [rowsPerPageOptions]="[10, 25, 50]" [rows]="10" [paginator]="true"
     currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
     [showFirstLastIcon]="false" [value]="horarios" dataKey="horarios-registradas"
-    [tableStyle]="{ 'min-width': '50rem' }">
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [globalFilterFields]="['dia_semana', 'rol.nombre', 'franja_hora_inicio', 'fecha']">
     <ng-template pTemplate="caption">
         <div class="flex gap-3">
-            <p-button [outlined]="true" icon="pi pi-filter-slash" label="" />
-            <input pInputText type="text" placeholder="Buscar Rol" />
+            <p-button [outlined]="true" icon="pi pi-filter-slash" (onClick)="clearFilter(globalFilter)" />
+            <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar" />
         </div>
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th>Días</th>
-            <th>Rol</th>
-            <th>Horas</th>
-            <th>Fecha</th>
+            <th pSortableColumn="dia_semana">Días <p-sortIcon field="dia_semana" /></th>
+            <th pSortableColumn="rol.nombre">
+                Roles <p-sortIcon field="rol.nombre" /></th>
+            <th pSortableColumn="franja_hora_inicio">Horas <p-sortIcon field="franja_hora_inicio" /></th>
+            <th pSortableColumn="fecha">Fecha <p-sortIcon field="fecha" /></th>
             <th>Acciones</th>
         </tr>
     </ng-template>
@@ -28,8 +30,8 @@
                     <p-button [outlined]="true" size="small" severity="primary" (click)="showDialog(horario.id)"
                         class="w-min"><mage-icon name="edit" color="#059669"
                             size="16px"></mage-icon>&nbsp;Editar</p-button>
-                    <p-button [outlined]="true" (onClick)="confirm(horario.id)" size="small" severity="danger"
-                        class="w-min"><mage-icon name="delete" stroke="#D32F2F"
+                    <p-button [outlined]="true" (onClick)="deleteHorarioEntrenador(horario.id)" size="small"
+                        severity="danger" class="w-min"><mage-icon name="delete" stroke="#D32F2F"
                             size="16px"></mage-icon>&nbsp;Eliminar</p-button>
                 </div>
             </td>
@@ -37,31 +39,16 @@
     </ng-template>
 </p-table>
 
-
-<p-confirmDialog #cd>
-    <ng-template pTemplate="headless" let-message>
-        <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
-            <div style="background-color: red; color: white"
-                class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem">
-                <mage-icon name="delete" stroke="#D32F2F" size="16px"></mage-icon>
-            </div>
-            <span class="font-bold text-2xl block mb-2 mt-4">
-                {{ message.header }}
-            </span>
-            <p class="mb-0">{{ message.message }}</p>
-            <div class="flex align-items-center gap-2 mt-4">
-                <button pButton label="Save" (click)="cd.accept()" class="w-8rem">
-                </button>
-                <button pButton label="Cancel" (click)="cd.reject()" class="p-button-outlined w-8rem ">
-                </button>
-            </div>
-        </div>
-    </ng-template>
-</p-confirmDialog>
-
 <p-dialog header="Actualizar ejercicio" [(visible)]="visible" [modal]="true"
     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false"
     [resizable]="false">
+    <ng-template pTemplate="header">
+        <div class="inline-flex align-items-center justify-content-center gap-2">
+            <span class="font-bold white-space-nowrap">
+                Actualizar Horario de entrenador
+            </span>
+        </div>
+    </ng-template>
     <form [formGroup]="horarioForm" (ngSubmit)="onSubmit()">
         <input type="hidden" name="id" formControlName="id" />
         <div style="width: calc(50% - 10px)">
@@ -100,15 +87,10 @@
                 {{ horarioForm.getError('franja_hora_fin') }}
             </small>
         </div>
-        <div style="
-          display: flex;
-          gap: 20px;
-          width: 100%;
-          justify-content: end;
-          margin-top: 10px;
-        ">
-            <p-button (onClick)="closedDialog()" [outlined]="true" label="Cancelar" id="reset" />
-            <p-button type="submit" label="Actualizar" id="guardar" />
-        </div>
     </form>
+    <ng-template pTemplate="footer">
+        <p-button [outlined]="true" (onClick)="closedDialog()" severity="secondary">Cancelar</p-button>
+        <p-button (onClick)="onSubmit()" [disabled]="horarioForm.invalid" [outlined]="true"
+            severity="contrast">Actualizar</p-button>
+    </ng-template>
 </p-dialog>

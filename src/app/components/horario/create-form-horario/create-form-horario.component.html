@@ -1,6 +1,6 @@
 <h3>Registro de Horario usuario</h3>
 
-<form [formGroup]="horarioForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="horarioForm" (ngSubmit)="addHorario()">
   <div style="width: calc(50% - 10px)">
     <label for="rol_id" class="">Roles</label>
     <p-dropdown formControlName="rol_id" optionLabel="name" [options]="roles" placeholder="Seleccione un rol"
@@ -42,23 +42,14 @@
       {{ horarioForm.getError("jornada") }}
     </small>
   </div>
-  <!-- <div style="width: calc(50% - 10px)">
-        <label for="ingreso" class="">Hora de ingreso</label>
-         <p-dropdown formControlName="ingreso" optionLabel="name" [options]="ingresoOpt"
-            placeholder="Seleccione una hora" [ngModel]="ingresoOpt[0]"
-            [ngClass]="{'ng-dirty ng-invalid': horarioForm.getError('ingreso')}" />
-        <small *ngIf="horarioForm.getError('ingreso')" class="ng-invalid text-red-600">
-            {{ horarioForm.getError('ingreso') }}
-        </small> 
-    </div> -->
   <div style="
-      display: flex;
-      gap: 20px;
-      width: 100%;
-      justify-content: end;
-      margin-top: 10px;
-    ">
-    <p-button type="reset" [outlined]="true" label="Cancelar" id="reset" />
-    <p-button type="submit" label="Registrar" id="guardar" />
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    justify-content: end;
+    margin: 10px 0;
+  ">
+    <p-button [outlined]="true" severity="secondary">Cancelar</p-button>
+    <p-button type="submit" [outlined]="true" severity="contrast">Registrar</p-button>
   </div>
 </form>
