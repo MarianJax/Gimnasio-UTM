@@ -28,4 +28,8 @@ private apiUrl = 'http://localhost:3000/rutina';
   eliminarRutina(id:any):Observable<any>{
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  eliminarEjercicio(id: string, ejercicio: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}/ejercicio/${ejercicio}`);
+  }
 }

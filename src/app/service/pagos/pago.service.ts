@@ -10,6 +10,7 @@ export class PagoService {
   private apiUrl = 'http://localhost:3000/pagos';
 
   constructor(private http: HttpClient) { }
+  
   obtenerPagos(): any{
     return this.http.get(this.apiUrl);
   }

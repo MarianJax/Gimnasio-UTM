@@ -28,4 +28,8 @@ private apiUrl = 'http://localhost:3000/mantenimiento';
   eliminarMantenimiento(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  obtenerHistorialMaquina(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/maquina/${id}`);
+  }
 }
