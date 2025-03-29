@@ -118,12 +118,16 @@ export class CreateFormEjercicioComponent implements OnInit {
 
   addEjercicio() {
     try {
-      const { maquinas, rutinas, nivel, ...data } = this.ejercicioForm.value;
+      const data = this.ejercicioForm.value;
       this.ejerciciosService.agregarEjercicio({
-        ...data,
-        maquinas: maquinas ? this.selectedMaquina.map((maquina) => maquina.code) : null,
-        rutinas: rutinas ? this.selectedRutina.map((rutina) => rutina.code) : null,
-        nivel: nivel && nivel.value
+        nombre: data.nombre,
+        series: data.series,
+        repeticiones: data.repeticiones,
+        descanso: data.descanso,
+        descripcion: data.descripcion,
+        maquinas: data.maquinas ? this.selectedMaquina.map((maquina) => maquina.code) : null,
+        rutinas: data.rutinas ? this.selectedRutina.map((rutina) => rutina.code) : null,
+        nivel: data.nivel && data.nivel.value
       }).subscribe({
         next: () => {
           this.ejercicioForm.reset();

@@ -8,131 +8,157 @@ h3 {
     margin-bottom: 20px;
 }
 
-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+:host ::ng-deep {
+    .p-dialog-mask.p-component-overlay.p-component-overlay-enter.p-dialog-mask-scrollblocker.ng-star-inserted {
+        backdrop-filter: blur(5px);
 
-    div {
-        label {
-            // display: block;
-            color: black;
-            // font-size: 16px;
-        }
+        .p-dialog {
+            border-radius: 12px !important;
+            overflow: hidden;
+            background: linear-gradient(to bottom right, #cfe4da, #fff);
 
-        input {
-            margin-top: 4px;
-            width: 100%;
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-            height: 41px;
-        }
+            .p-dialog-header {
+                background: transparent;
+                color: black;
+                font-weight: 800;
+                padding: 24px 30px;
+                font-size: 20px;
 
-        textarea {
-            margin-top: 4px;
-            width: 100%;
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 13px;
+                .p-dialog-header-close-icon {
+                    color: black;
+                }
+
+            }
+
+            .p-dialog-content {
+                padding: 10px 50px 30px 50px;
+                background: transparent;
+
+                form {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 20px;
+
+                    div {
+                        label {
+                            // display: block;
+                            color: black;
+                            // font-size: 16px;
+                        }
+
+                        input:not(.p-multiselect-filter) {
+                            margin-top: 8px;
+                            width: 100%;
+                            padding: 10px 14px;
+                            border-radius: 8px;
+                            font-size: 13px;
+                            height: 41px;
+                        }
+
+                        textarea {
+                            margin-top: 4px;
+                            width: 100%;
+                            padding: 10px 14px;
+                            border-radius: 8px;
+                            font-size: 13px;
+                        }
+
+                        .p-multiselect {
+                            margin-top: 4px;
+                            width: 100%;
+
+                            .p-multiselect-label-container {
+                                padding: 10px 14px;
+                                outline: none;
+
+                                .p-multiselect-label {
+                                    padding: 0;
+                                }
+                            }
+                        }
+
+                        .p-dropdown {
+                            margin-top: 8px;
+                            width: 100%;
+                            border-radius: 6px;
+
+                            .p-inputtext {
+                                padding: 10px 14px;
+                                outline: none
+                            }
+                        }
+
+                        .p-calendar {
+                            width: 100%;
+
+                            .p-inputtext {
+                                margin-top: 8px;
+                                padding: 1rem;
+                            }
+
+                            .p-datepicker {
+                                min-width: fit-content;
+                            }
+                        }
+
+                    }
+
+                    .p-button {
+                        border-radius: 8px !important;
+                        padding: 7px 20px;
+                    }
+                }
+            }
+
+            .p-dialog-footer {
+                background: transparent;
+                display: flex;
+                justify-content: flex-end;
+                gap: 15px;
+
+                p-button {
+                    margin: 0;
+
+                    .p-button.p-button-outlined {
+                        font-size: 14px;
+                        padding: 7px 30px;
+                        border-radius: 10px;
+                        font-weight: 700;
+
+                        &:not(.p-button-secondary) {
+                            color: black;
+                            border: solid 2px;
+
+                            &:hover,
+                            &:not(:disabled):hover,
+                            &:not(:disabled):active,
+                            &:active {
+                                border: solid 2px;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
 }
 
-:host ::ng-deep {
+:host ::ng-deep .p-button.p-button-outlined {
+    margin-left: auto;
+    font-size: 14px;
+    border-radius: 10px 0px 10px 10px;
+    font-weight: 700;
 
-    .p-button-contrast.p-button-outlined{
+    &:not(.p-button-secondary) {
+        color: black;
         border: solid 2px;
-        font-weight: 700;
 
-        &:hover,&:not(:disabled):hover, &:not(:disabled):active, &:active {
+        &:hover,
+        &:not(:disabled):hover,
+        &:not(:disabled):active,
+        &:active {
             border: solid 2px;
         }
     }
-
-    .p-dialog {
-        border-radius: 12px !important;
-        overflow: hidden;
-
-        .p-dialog-header {
-            background-color: var(--primary-color);
-            color: white;
-            font-weight: 800;
-            padding: 24px 30px;
-
-            .p-dialog-title {
-                font-size: 20px;
-
-            }
-
-            .p-dialog-header-icon {
-                color: white;
-            }
-        }
-
-        .p-dialog-content {
-            padding: 30px 50px;
-        }
-    }
-
-    .p-autocomplete.p-component.p-inputwrapper.p-autocomplete-dd.p-inputwrapper-filled {
-        width: 100%;
-        margin-top: 4px;
-
-        .p-autocomplete-multiple-container {
-            padding: 10px 14px;
-            font-size: 13px;
-            padding-right: 2rem;
-            width: 100%;
-
-            .p-autocomplete-input-token {
-                padding: 0;
-            }
-        }
-    }
-
-    p-multiselectitem {
-        font-size: 13px;
-    }
-
-    .p-dropdown {
-        margin-top: 4px;
-        width: 100%;
-        border-radius: 8px;
-
-        .p-inputtext {
-            padding: 10px 14px;
-            outline: none
-        }
-    }
-}
-
-:host ::ng-deep .p-multiselect {
-    margin-top: 4px;
-    min-height: 40px;
-    width: 100%;
-    border-radius: 8px;
-
-    .p-multiselect-label-container {
-        padding: 10px 14px;
-        outline: none;
-
-        .p-multiselect-label {
-            padding: 0;
-            font-size: 13px;
-            align-content: end;
-        }
-    }
-}
-
-:host ::ng-deep p-button {
-    margin: 0;
-
-    .p-button {
-        font-size: 14px;
-        border-radius: 10px 0px 10px 10px;
-        color: black;
-    }
-
 }

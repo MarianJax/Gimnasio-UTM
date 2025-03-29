@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { EjerciciosService } from '../../../service/ejercicio/ejercicios.service';
 import { EquiposService } from '../../../service/equipo/equipo.service';
 import { RutinasService } from '../../../service/rutinas/rutinas.service';
+import { Table } from 'primeng/table';
 
 interface Options {
   name: string,
@@ -29,6 +30,7 @@ const resetForm = {
   styleUrls: ['./table-ejercicios.component.scss']
 })
 export class TableEjerciciosComponent implements OnInit {
+  @ViewChild('dt') dt!: Table;
   updatedEjercicioForm: FormGroup;
   visible: boolean = false;
   rutina: any = undefined;
@@ -100,9 +102,9 @@ export class TableEjerciciosComponent implements OnInit {
   }
 
   obtenerDatos() {
+    this.ejerciciosService.obtenerEjercicios().subscribe((data) => this.ejercicios = data);
     this.equiposService.obtenerDatos().subscribe((data) => { this.maquinas = data.map((maquina: { nombre: string, id: string }) => ({ name: maquina.nombre, code: maquina.id })) });
     this.rutinaService.obtenerRutinas().subscribe((data) => { this.rutinas = data.map((rutina: { nombre: string, id: string }) => ({ name: rutina.nombre, code: rutina.id })) });
-    this.ejerciciosService.obtenerEjercicios().subscribe((data) => this.ejercicios = data);
 
   }
 
@@ -133,6 +135,19 @@ export class TableEjerciciosComponent implements OnInit {
       console.log('Error al enviar los datos', error);
     }
   }
+
+  applyFilter(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.dt.filterGlobal(inputElement.value, 'contains');
+  }
+
+  clearFilter(inputElement: HTMLInputElement) {
+    inputElement.value = '';  // Limpia el input
+    if (this.dt) {
+      this.dt.clear();  // Limpia los filtros de la tabla
+    }
+  }
+
   confirm(id: string) {
     this.confirmationService.confirm({
       header: 'Eliminar Ejercicio',
