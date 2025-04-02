@@ -5,11 +5,6 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styles: [`
-    app-menu {
-      height: 100%;
-    }
-    `]
 })
 export class MenuComponent implements OnInit {
 
@@ -89,7 +84,6 @@ export class MenuComponent implements OnInit {
     let session = sessionStorage.getItem('session-usuario');
     let usuario = session ? JSON.parse(session) : null;
 
-    console.log(usuario);
     this.updateMenuBasedOnPath();
 
     // Si deseas detectar cambios en la ruta (navegación dinámica), puedes suscribirte a los eventos de navegación
