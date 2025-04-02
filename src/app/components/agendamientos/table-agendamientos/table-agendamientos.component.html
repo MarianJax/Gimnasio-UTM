@@ -7,8 +7,9 @@
     <ng-template pTemplate="caption">
         <div class="flex justify-content-between gap-3">
             <div>
-                <p-button [outlined]="true" (onClick)="clearFilter(globalFilter)"> <mage-icon name="filter-remove"
-                        fill="currentColor" size="18px"></mage-icon> </p-button>
+                <p-button [outlined]="true" (onClick)="clearFilter(globalFilter)">
+                    <mage-icon name="filter-remove" fill="currentColor" size="18px" />
+                </p-button>
                 <span class="p-input-icon-left ml-3" style="min-width: 320px;">
                     <mage-icon name="search" class="pi"
                         style="left: 0.6rem; position: absolute;top: 50%;margin-top: -0.5rem;" fill="#868FA0"
@@ -30,24 +31,10 @@
             <th>#</th>
             <th pSortableColumn="name">
                 Nombres
-                <ng-container *ngIf="dt.sortField === 'name'">
-                    <mage-icon *ngIf="dt.sortOrder === 1" fill="var(--primary-color)" size="18px"
-                        name="arrow-up"></mage-icon>
-                    <mage-icon *ngIf="dt.sortOrder === -1" fill="var(--primary-color)" size="18px"
-                        name="arrow-down"></mage-icon>
-                </ng-container>
-                <mage-icon *ngIf="dt.sortField !== 'name'" fill="currentColor" size="18px"
-                    name="arrows-alt"></mage-icon>
+                <app-sort-icon [field]="'name'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
             <th pSortableColumn="category">
-                Rol <ng-container *ngIf="dt.sortField === 'category'">
-                    <mage-icon *ngIf="dt.sortOrder === 1" fill="var(--primary-color)" size="18px"
-                        name="arrow-up"></mage-icon>
-                    <mage-icon *ngIf="dt.sortOrder === -1" fill="var(--primary-color)" size="18px"
-                        name="arrow-down"></mage-icon>
-                </ng-container>
-                <mage-icon *ngIf="dt.sortField !== 'category'" fill="currentColor" size="18px"
-                    name="arrows-alt"></mage-icon>
+                Rol <app-sort-icon [field]="'category'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
             <th> Asistencia </th>
         </tr>

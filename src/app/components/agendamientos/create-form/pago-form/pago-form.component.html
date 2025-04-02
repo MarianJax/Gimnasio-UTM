@@ -1,6 +1,6 @@
 <form class="step-content" [formGroup]="pagoForm">
     <h3>Formulario de Pago</h3>
-    <div *ngIf="tieneMembresiaActiva; else formularioPago">
+    <div *ngIf="isMembresia; else formularioPago">
         <p>Ya tienes una membresía activa.</p>
         <p>Información de la membresía</p>
     </div>
@@ -12,13 +12,13 @@
         </div>
 
         <div style="width: calc(100%)">
-            <label for="estado" class="">Estado</label>
-            <p-dropdown formControlName="estado" optionLabel="name" [options]="metodoOpt"
-                placeholder="Seleccione el estado" [ngModel]="metodoOpt[0]" [ngClass]="{
-                'ng-dirty ng-invalid': pagoForm.getError('estado')
+            <label for="metodo_pago" class="">Método de Pago</label>
+            <p-dropdown formControlName="metodo_pago" optionLabel="name" [options]="metodoOpt"
+                placeholder="Seleccione el metodo de pago" [ngClass]="{
+                'ng-dirty ng-invalid': pagoForm.getError('metodo_pago')
               }" />
-            <small *ngIf="pagoForm.getError('estado')" class="ng-invalid text-red-600">
-                {{ pagoForm.getError("estado") }}
+            <small *ngIf="pagoForm.getError('metodo_pago')" class="ng-invalid text-red-600">
+                {{ pagoForm.getError("metodo_pago") }}
             </small>
         </div>
         <div style="width: calc(50% - 10px)">
@@ -30,34 +30,32 @@
             </small>
         </div>
         <div style="width: calc(50% - 10px)">
-            <label for="costo">Costo</label>
-            <input id="costo" formControlName="costo" type="number" step="0.01" pInputText style="padding: 1rem"
-                [ngClass]="{
-                'ng-dirty ng-invalid': pagoForm.getError('costo')
-              }" />
-            <small *ngIf="pagoForm.getError('costo')" class="ng-invalid text-red-600">
-                {{ pagoForm.getError("costo") }}
+            <label for="monto">Costo</label>
+            <p-inputNumber inputId="monto" placeholder=""
+                [ngClass]="{'ng-dirty ng-invalid': pagoForm.getError('monto')}" formControlName="monto" mode="currency"
+                currency="USD" locale="en-US" [min]="0.10" [ngClass]="{
+                    'ng-dirty ng-invalid': pagoForm.getError('monto')
+                  }" />
+            <small *ngIf="pagoForm.getError('monto')" class="ng-invalid text-red-600">
+                {{ pagoForm.getError("monto") }}
             </small>
         </div>
         <div style="width: calc(100%)">
-            <label for="costo">Evidencia de pago</label>
-            <div class="dropzone-container">
-                <label for="dropzone-file" class="dropzone-label">
-                    <div class="dropzone-content">
-                        <svg class="dropzone-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 20 16">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 
-                            5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 
-                            8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                        </svg>
-                        <p class="dropzone-text"><span class="dropzone-bold">Click to upload</span> or drag and drop</p>
-                        <p class="dropzone-subtext">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                    </div>
-                    <input id="dropzone-file" type="file" class="dropzone-input" (change)="onFileSelected($event)" />
-                    <img *ngIf="selectedImage" [src]="selectedImage" alt="Selected Image" class="selected-image" />
-                </label>
-            </div>
+            <label for="evidencia_pago">Evidencia de pago
+                <span style="position: relative;"
+                    [ngClass]="{'ng-dirty ng-invalid': pagoForm.getError('evidencia_pago')}" for="file-upload"
+                    class="file-upload-label">
+                    <input type="file" formControlName="evidencia_pago" (change)="onFileSelected($event)"
+                        id="file-upload" class="file-upload-input" accept="image/*">
+                    <mage-icon color="#808080" name="image-upload" class="upload-icon" size="30px" />
+                    <span class="file-name" id="file-name"> {{ selectedImage ? selectedImage : 'Selecciona una imagen'
+                        }}</span>
+                </span>
+            </label>
+            <small *ngIf="pagoForm.getError('evidencia_pago')" class="ng-invalid text-red-600">
+                {{ pagoForm.getError('evidencia_pago') }}
+            </small>
+
         </div>
     </ng-template>
 </form>

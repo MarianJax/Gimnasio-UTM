@@ -1,9 +1,9 @@
-<form class="step-content" [formGroup]="agendarForm" >
+<form class="step-content" [formGroup]="agendarForm">
     <h3>Datos de agendamiento</h3>
 
     <div style="width: 100%;">
-        <label for="fecha" class="">Fecha Registro</label>
-        <p-calendar id="fecha" dateFormat="dd-mm-yy" formControlName="fecha"
+        <label for="fecha" class="">Fecha Registro {{ agendarForm.getError('fecha') }}</label>
+        <p-calendar appendTo="body" id="fecha" dateFormat="dd-mm-yy" formControlName="fecha"
             [ngClass]="{'ng-dirty ng-invalid': agendarForm.getError('fecha')}" />
         <small *ngIf="agendarForm.getError('fecha')" class="ng-invalid text-red-600">
             {{ agendarForm.getError('fecha') }}
@@ -11,19 +11,29 @@
     </div>
     <div style="width: calc(50% - 10px)">
         <label for="ingreso" class="">Hora de ingreso</label>
-        <p-dropdown formControlName="ingreso" optionLabel="name" [options]="ingresoOpt"
-            placeholder="Seleccione una hora" [ngModel]="ingresoOpt[0]"
-            [ngClass]="{'ng-dirty ng-invalid': agendarForm.getError('ingreso')}" />
+        <p-dropdown formControlName="ingreso" appendTo="body" [options]="ingresoOpt" placeholder="Seleccione una hora"
+            [ngClass]="{'ng-dirty ng-invalid': agendarForm.getError('ingreso')}" [group]="true">
+            <ng-template let-group pTemplate="group">
+                <div class="flex align-items-center">
+                    <span>{{ group.label }}</span>
+                </div>
+            </ng-template>
+        </p-dropdown>
         <small *ngIf="agendarForm.getError('ingreso')" class="ng-invalid text-red-600">
             {{ agendarForm.getError('ingreso') }}
         </small>
     </div>
-    
+
     <div style="width: calc(50% - 10px)">
         <label for="salida" class="">Hora de salida</label>
-        <p-dropdown formControlName="salida" optionLabel="name" [options]="salidaOpt"
-            placeholder="Seleccione una hora" [ngModel]="salidaOpt[0]"
-            [ngClass]="{'ng-dirty ng-invalid': agendarForm.getError('salida')}" />
+        <p-dropdown appendTo="body" formControlName="salida" [options]="salidaOpt" placeholder="Seleccione una hora"
+            [ngClass]="{'ng-dirty ng-invalid': agendarForm.getError('salida')}" [group]="true">
+            <ng-template let-group pTemplate="group">
+                <div class="flex align-items-center">
+                    <span>{{ group.label }}</span>
+                </div>
+            </ng-template>
+        </p-dropdown>
         <small *ngIf="agendarForm.getError('salida')" class="ng-invalid text-red-600">
             {{ agendarForm.getError('salida') }}
         </small>

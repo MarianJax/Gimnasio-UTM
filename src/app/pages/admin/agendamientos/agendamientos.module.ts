@@ -5,6 +5,7 @@ import { AgendamientosRoutingModule } from './agendamientos-routing.module';
 import { AgendamientosComponent } from './agendamientos.component';
 import { IconModule } from '../../../components/icons/icons.module';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { SortIconModule } from '../../../components/sort-icon/sort-icon.module';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
   ],
   imports: [
     CommonModule,
+    SortIconModule,
     AgendamientosRoutingModule,
     IconModule,
     BreadcrumbModule,

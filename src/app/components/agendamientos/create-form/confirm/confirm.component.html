@@ -1,0 +1,31 @@
+<div class="step-content">
+    <h3>Confirmación de Agendamiento</h3>
+    
+    <div class="confirmation-section">
+      <h4>Datos de Agendamiento</h4>
+      <div class="confirmation-data" *ngIf="agendamientoData">
+        <p><strong>Fecha:</strong> {{ agendamientoData.fecha | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Hora de ingreso:</strong> {{ agendamientoData.ingreso }}</p>
+        <p><strong>Hora de salida:</strong> {{ agendamientoData.salida }}</p>
+      </div>
+    </div>
+    
+    <div class="confirmation-section">
+      <h4>Datos de Pago</h4>
+      <div class="confirmation-data" *ngIf="isMembresia">
+        <p>Membresía activa - No se requiere pago adicional</p>
+      </div>
+      <div class="confirmation-data" *ngIf="!isMembresia && pagoData">
+        <p><strong>Fecha de pago:</strong> {{ pagoData.fecha_pago | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Monto:</strong> {{ pagoData.monto | currency:'USD':'symbol':'1.2-2' }}</p>
+        <p><strong>Estado:</strong> {{ pagoData.metodo_pago?.name }}</p>
+        <p><strong>Evidencia de pago:</strong> {{ pagoData.evidencia_pago }}</p>
+      </div>
+    </div>
+    
+    <div class="confirmation-message">
+      <p>Por favor, revise que todos los datos sean correctos antes de finalizar.</p>
+    </div>
+  </div>
+  
+  

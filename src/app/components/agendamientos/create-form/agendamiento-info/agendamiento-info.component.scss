@@ -13,44 +13,45 @@ form {
         label {
             display: block;
             color: black;
-            font-size: 1.15rem;
         }
 
         input {
-            margin-top: 8px;
+            margin-top: 4px;
             width: 100%;
-            padding: 1rem;
+            padding: 10px 14px;
         }
 
         textarea {
-            margin-top: 8px;
+            margin-top: 4px;
             width: 100%;
-            padding: 1rem;
+            padding: 10px 14px;
         }
     }
 
 }
 
-
-:host ::ng-deep .p-calendar {
-    width: 100%;
+:host ::ng-deep {
 
     .p-inputtext {
-        margin-top: 8px;
-        padding: 1rem;
+        padding: 10px 14px;
     }
 
-    .p-datepicker {
-        min-width: fit-content;
+    .p-dropdown {
+        margin-top: 4px;
+        width: 100%;
+    }
+
+    .p-calendar {
+        width: 100%;
+
+        .p-inputtext {
+            margin-top: 4px;
+            padding: 10px 14px;
+        }
     }
 }
 
-:host ::ng-deep .p-dropdown {
-    margin-top: 8px;
-    width: 100%;
-
-    .p-inputtext {
-        padding: 1rem;
-        outline: none
-    }
+:host ::ng-deep .p-datepicker {
+    width: fit-content !important;
+    min-width: fit-content !important;
 }

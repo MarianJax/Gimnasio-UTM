@@ -1,15 +1,19 @@
+
+<p-toast position="top-right" />
+
 <div class="container-form">
-    <p-steps [model]="items" [readonly]="true" [activeIndex]="activeIndex"></p-steps>
+    <p-steps [model]="items" [readonly]="true" [activeIndex]="activeIndex" >
+    </p-steps>
 
     <div [hidden]="activeIndex !== 0">
-        <app-agendamiento-info class="element"></app-agendamiento-info>
+        <app-agendamiento-info [rolUser]="rol" [isMembresia]="membresia" class="element"></app-agendamiento-info>
         <div class="button">
             <button pButton type="button" label="Siguiente" (click)="next()"></button>
         </div>
     </div>
 
     <div [hidden]="activeIndex !== 1">
-        <app-pago-form></app-pago-form>
+        <app-pago-form [isMembresia]="membresia"></app-pago-form>
         <div class="button">
             <button pButton type="button" label="Regresar" (click)="prev()"></button>
             <button pButton type="button" label="Agendar" (click)="next()"></button>
@@ -17,7 +21,7 @@
     </div>
 
     <div [hidden]="activeIndex !== 2">
-        <!-- <app-confirmacion></app-confirmacion> -->
+        <app-confirm></app-confirm>
         <div class="button">
             <button pButton type="button" label="Anterior" (click)="prev()"></button>
             <button pButton type="button" label="Finalizar" (click)="finalizar()"></button>
