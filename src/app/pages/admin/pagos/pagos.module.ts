@@ -23,6 +23,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { IconModule } from 'src/app/components/icons/icons.module';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TablePagosComponent } from '../../../components/pagos/table-pagos/table-pagos.component';
+import { SortIconModule } from '../../../components/sort-icon/sort-icon.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { TablePagosComponent } from '../../../components/pagos/table-pagos/table
   ],
   imports: [
     CommonModule,
+    SortIconModule,
     PagosRoutingModule,
     IconModule,
     TableModule, DialogModule, RippleModule, ButtonModule, ToastModule, ToolbarModule, ConfirmDialogModule, InputTextModule, InputTextareaModule, CommonModule, FileUploadModule, DropdownModule, TagModule, RadioButtonModule, RatingModule, InputTextModule, FormsModule, InputNumberModule, BreadcrumbModule

@@ -14,6 +14,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
+import { SortIconModule } from '../../../../components/sort-icon/sort-icon.module';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { DropdownModule } from 'primeng/dropdown';
   ],
   imports: [
     CommonModule,
+    SortIconModule,
     RegistrosRoutingModule,
     IconModule,
     ButtonModule,

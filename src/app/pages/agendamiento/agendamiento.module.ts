@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AgendamientoRoutingModule } from './agendamiento-routing.module';
@@ -17,6 +17,10 @@ import { CreateFormComponent } from 'src/app/components/agendamientos/create-for
 import { PagoFormComponent } from 'src/app/components/agendamientos/create-form/pago-form/pago-form.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { ConfirmComponent } from '../../components/agendamientos/create-form/confirm/confirm.component';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -24,6 +28,7 @@ import { CalendarModule } from 'primeng/calendar';
     CreateFormComponent,
     AgendamientoInfoComponent,
     PagoFormComponent,
+    ConfirmComponent
     // RegistroComponent
   ],
   imports: [
@@ -39,6 +44,10 @@ import { CalendarModule } from 'primeng/calendar';
     TabViewModule,
     CalendarModule,
     DropdownModule,
+    InputNumberModule,
+    ToastModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+  providers: [ConfirmationService, MessageService]
 })
 export class AgendamientoModule { }

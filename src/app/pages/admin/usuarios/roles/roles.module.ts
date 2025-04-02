@@ -21,6 +21,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { SortIconModule } from '../../../../components/sort-icon/sort-icon.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ToastModule } from 'primeng/toast';
   ],
   imports: [
     CommonModule,
+    SortIconModule,
     RolesRoutingModule,
     IconModule,
     BreadcrumbModule,

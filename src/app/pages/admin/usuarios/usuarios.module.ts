@@ -18,6 +18,7 @@ import { CreateFormUsuarioComponent } from '../../../components/usuario/create-f
 import { TableUsuarioComponent } from '../../../components/usuario/table-usuario/table-usuario.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { RolesComponent } from './roles/roles.component';
+import { SortIconModule } from '../../../components/sort-icon/sort-icon.module';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { RolesComponent } from './roles/roles.component';
   ],
   imports: [
     CommonModule,
+    SortIconModule,
     UsuariosRoutingModule,
     IconModule,
     BreadcrumbModule,

@@ -1,27 +1,29 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { HomeRoutingModule } from './home-routing.module';
-import { IconModule } from 'src/app/components/icons/icons.module';
-import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
-import { HomeComponent } from './home.component';
-import { TableModule } from 'primeng/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TableAgendamientosComponent } from '../../../components/agendamientos/table-agendamientos/table-agendamientos.component';
-import { DialogModule } from 'primeng/dialog';
-import { ToastModule } from 'primeng/toast';
-import { ToolbarModule } from 'primeng/toolbar';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { FileUploadModule } from 'primeng/fileupload';
-import { DropdownModule } from 'primeng/dropdown';
-import { TagModule } from 'primeng/tag';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { IconModule } from 'src/app/components/icons/icons.module';
+import { TableAgendamientosComponent } from '../../../components/agendamientos/table-agendamientos/table-agendamientos.component';
+import { HomeRoutingModule } from './home-routing.module';
+import { HomeComponent } from './home.component';
+import { AdminModule } from '../admin.module';
+import { SortIconModule } from '../../../components/sort-icon/sort-icon.module';
 
 
 @NgModule({
@@ -31,9 +33,10 @@ import { ConfirmationService, MessageService } from 'primeng/api';
   ],
   imports: [
     CommonModule,
+    SortIconModule,
     HomeRoutingModule,
     IconModule,
-    TableModule, 
+    TableModule,
     FormsModule,
     ReactiveFormsModule,
 

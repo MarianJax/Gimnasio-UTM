@@ -10,6 +10,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { InputTextModule } from 'primeng/inputtext';
+import { SortIconModule } from '../../../../components/sort-icon/sort-icon.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { InputTextModule } from 'primeng/inputtext';
   ],
   imports: [
     CommonModule,
+    SortIconModule,
     HistorialRoutingModule,
     IconModule,
     BreadcrumbModule,
