@@ -5,18 +5,26 @@
     [globalFilterFields]="['dia_semana', 'rol.nombre', 'franja_hora_inicio', 'fecha']">
     <ng-template pTemplate="caption">
         <div class="flex gap-3">
-            <p-button [outlined]="true" icon="pi pi-filter-slash" (onClick)="clearFilter(globalFilter)" />
-            <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar" />
+            <p-button [outlined]="true" (onClick)="clearFilter(globalFilter)">
+                <mage-icon name="filter-remove" fill="currentColor" size="18px" />
+            </p-button>
+            <span class="p-input-icon-left ml-3" style="min-width: 320px;">
+                <mage-icon name="search" class="pi"
+                    style="left: 0.6rem; position: absolute;top: 50%;margin-top: -0.5rem;" fill="#868FA0"
+                    size="14px"></mage-icon>
+                <!-- <i class="pi pi-search"></i> -->
+                <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar..." />
+            </span>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="dia_semana">Días <p-sortIcon field="dia_semana" /></th>
+            <th pSortableColumn="dia_semana">Días <app-sort-icon [field]="'dia_semana'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
             <th pSortableColumn="rol.nombre">
-                Roles <p-sortIcon field="rol.nombre" /></th>
-            <th pSortableColumn="franja_hora_inicio">Horas <p-sortIcon field="franja_hora_inicio" /></th>
-            <th pSortableColumn="fecha">Fecha <p-sortIcon field="fecha" /></th>
-            <th>Acciones</th>
+                Roles <app-sort-icon [field]="'rol.nombre'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
+            <th pSortableColumn="franja_hora_inicio">Horas <app-sort-icon [field]="'franja_hora_inicio'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
+            <th pSortableColumn="fecha">Fecha <app-sort-icon [field]="'fecha'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
+            <th class="text-center">Acciones</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-horario>
