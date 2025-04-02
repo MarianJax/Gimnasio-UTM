@@ -1,3 +1,4 @@
+
 <p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" [paginator]="true"
     currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
     [showFirstLastIcon]="false" [value]="usuarios" dataKey="maquinas-registradas"
@@ -5,8 +6,16 @@
     [globalFilterFields]="['nombre', 'apellido', 'cedula', 'correo', 'roles.nombre']">
     <ng-template pTemplate="caption">
         <div class="flex justify-content-start gap-3">
-          <p-button [outlined]="true" icon="pi pi-filter-slash" (onClick)="clearFilter(globalFilter)" />
-          <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar" />
+            <p-button [outlined]="true" (onClick)="clearFilter(globalFilter)">
+                <mage-icon name="filter-remove" fill="currentColor" size="18px" />
+            </p-button>
+            <span class="p-input-icon-left" style="min-width: 320px;">
+                <mage-icon name="search" class="pi"
+                    style="left: 0.6rem; position: absolute;top: 50%;margin-top: -0.5rem;" fill="#868FA0"
+                    size="14px"></mage-icon>
+                <!-- <i class="pi pi-search"></i> -->
+                <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar..." />
+            </span>
           <p-button [outlined]="true" severity="success" (click)="goToRoles()" class="mr-2 ml-auto"><mage-icon name="user-lock" size="16px"></mage-icon>&nbsp;Roles</p-button>
   
         </div>

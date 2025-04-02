@@ -85,6 +85,12 @@ export class TableRolesComponent implements OnInit {
     this.confirmationService.confirm({
       header: 'Eliminar Ejercicio',
       message: 'El ejercicio se eliminará de forma permanente',
+      // acceptIcon: "none",
+      // rejectIcon: "none",
+      acceptLabel: 'Eliminar',
+      rejectLabel: 'Cancelar',
+      rejectButtonStyleClass: "p-button-success mr-4 p-button-outlined",
+      acceptButtonStyleClass: "p-button-danger p-button-outlined",
       accept: () => {
         this.rolesService.eliminarHorario(id).subscribe({
           next: () => {

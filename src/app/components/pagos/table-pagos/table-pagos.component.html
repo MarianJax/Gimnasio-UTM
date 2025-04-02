@@ -4,40 +4,42 @@
     [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="price" style="width: 15rem;">
-                Nombres <p-sortIcon field="price" />
+            <th pSortableColumn="name" style="width: 15rem;">
+                Nombres <app-sort-icon [field]="'name'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
-            <th pSortableColumn="category" style="width:6rem">
-                Rol <p-sortIcon field="category" />
+            <th pSortableColumn="rol" style="width:6rem">
+                Rol <app-sort-icon [field]="'rol'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
-            <th pSortableColumn="rating" style="width:15rem">
-                tipo de Pago <p-sortIcon field="rating" />
+            <th pSortableColumn="tipoMembresia" style="width:15rem">
+                tipo de Pago <app-sort-icon [field]="'tipoMembresia'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
-            <th pSortableColumn="inventoryStatus" style="width:8rem">
-                fecha <p-sortIcon field="inventoryStatus" />
+            <th pSortableColumn="fecha" style="width:8rem">
+                fecha <app-sort-icon [field]="'fecha'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
-            <th pSortableColumn="pago" style="width:7rem">
-                Pago <p-sortIcon field="pago" />
+            <th pSortableColumn="precio" style="width:7rem">
+                Pago <app-sort-icon [field]="'precio'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product>
+    <ng-template pTemplate="body" let-pago>
         <tr>
             <td>
-                <div class="flex flex-column gap-1"><span style="color: black;">{{ product.name }}</span><span
-                        style="font-size: 12px; color: #687182; ">{{ product.cedula }}</span></div>
+                <div class="flex flex-column gap-1">
+                    <span style="color: black;">{{ pago.name }}</span>
+                    <span style="font-size: 12px; color: #687182; ">{{ pago.cedula }}</span>
+                </div>
             </td>
             <td>
-                {{ product.rol }}
+                {{ pago.rol }}
             </td>
             <td>
-                {{ product.tipoMembresia }}
+                {{ pago.tipoMembresia }}
             </td>
             <td>
-                {{ product.fecha }}
+                {{ pago.fecha }}
             </td>
             <td>
-                {{ product.precio | currency : 'USD' }}
+                {{ pago.precio | currency : 'USD' }}
             </td>
         </tr>
     </ng-template>
