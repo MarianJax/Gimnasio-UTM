@@ -5,23 +5,31 @@
     [globalFilterFields]="['maquina.nombre', 'estado', 'fecha_mantenimiento', 'costo']" [value]="mantenimientos">
     <ng-template pTemplate="caption">
         <div class="flex gap-3">
-            <p-button [outlined]="true" icon="pi pi-filter-slash" (onClick)="clearFilter(globalFilter)" />
-            <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar" />
+            <p-button [outlined]="true" (onClick)="clearFilter(globalFilter)">
+                <mage-icon name="filter-remove" fill="currentColor" size="18px" />
+            </p-button>
+            <span class="p-input-icon-left ml-3" style="min-width: 320px;">
+                <mage-icon name="search" class="pi"
+                    style="left: 0.6rem; position: absolute;top: 50%;margin-top: -0.5rem;" fill="#868FA0"
+                    size="14px"></mage-icon>
+                <!-- <i class="pi pi-search"></i> -->
+                <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar..." />
+            </span>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
             <th pSortableColumn="maquina.nombre">
-                Máquina <p-sortIcon field="maquina.nombre" />
+                Máquina <app-sort-icon [field]="'maquina.nombre'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
             <th pSortableColumn="estado">
-                Estado <p-sortIcon field="estado" />
+                Estado <app-sort-icon [field]="'estado'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
             <th pSortableColumn="fecha_mantenimiento">
-                Fecha <p-sortIcon field="fecha_mantenimiento" />
+                Fecha <app-sort-icon [field]="'fecha_mantenimiento'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
             <th pSortableColumn="costo">
-                Costo <p-sortIcon field="costo" />
+                Costo <app-sort-icon [field]="'costo'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
             <th style="width: 65px">Acciones</th>
         </tr>

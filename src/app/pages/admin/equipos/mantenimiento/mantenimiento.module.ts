@@ -29,11 +29,13 @@ import { CreateMantenimientoComponent } from '../../../../components/mantenimien
 import { TableMantenimientoComponent } from '../../../../components/mantenimientos/table-mantenimiento/table-mantenimiento.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { MantenimientosService } from '../../../../service/mantenimiento/mantenimientos.service';
+import { SortIconModule } from '../../../../components/sort-icon/sort-icon.module';
 
 @NgModule({
   declarations: [MantenimientoComponent, CreateMantenimientoComponent, TableMantenimientoComponent],
   imports: [
     CommonModule,
+    SortIconModule,
     MantenimientoRoutingModule,
     IconModule,
     TableModule,
