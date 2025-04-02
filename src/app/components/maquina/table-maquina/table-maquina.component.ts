@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { EquiposService } from 'src/app/service/equipo/equipo.service';
 import { Estados } from '../../../pages/admin/equipos/equipos.component';
-import { Mantenimiento } from '../../mantenimientos/table-mantenimiento/table-mantenimiento.component';
 
 @Component({
   selector: 'app-table-maquina',
@@ -26,6 +26,7 @@ export class TableMaquinaComponent implements OnInit {
     private equipoService: EquiposService,
     private router: Router,
     private fb: FormBuilder,
+    private messageService: MessageService,
   ) {
     this.maquinaForm = this.fb.group({
       id: new FormControl<string | null>(null),
@@ -123,6 +124,7 @@ export class TableMaquinaComponent implements OnInit {
           }
         },
         error: (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Message Content' });
           if (error.status === 401) {
             this.emptyMessage = 'No tiene permisos para ver equipos registrados';
             console.error('Error -> ', error.status);
@@ -130,7 +132,7 @@ export class TableMaquinaComponent implements OnInit {
             this.emptyMessage = 'No se pudo obtener los equipos';
             console.error('Error -> ', error.status);
           }
-
+          this.emptyMessage = 'No se pudo obtener los equipos';
           console.error('Error -> ', error.status);
         },
 

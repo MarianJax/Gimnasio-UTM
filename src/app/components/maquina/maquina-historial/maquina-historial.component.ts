@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { MantenimientosService } from '../../../service/mantenimiento/mantenimientos.service';
-import { ActivatedRoute, Route } from '@angular/router';
 
 @Component({
   selector: 'app-maquina-historial',
@@ -12,7 +13,7 @@ export class MaquinaHistorialComponent implements OnInit {
   @ViewChild('dt') dt!: Table;
   mantenimientos: any[] = [];
 
-  constructor(private route: ActivatedRoute,private mantenimientoService: MantenimientosService) { }
+  constructor(private route: ActivatedRoute, private mantenimientoService: MantenimientosService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.loadHistorial();
@@ -20,9 +21,14 @@ export class MaquinaHistorialComponent implements OnInit {
 
   loadHistorial() {
     const equipo = this.route.snapshot.paramMap.get('id') ?? '';
-    this.mantenimientoService.obtenerHistorialMaquina(equipo).subscribe(data => {
-      console.log(data)
-      this.mantenimientos = data;
+    this.mantenimientoService.obtenerHistorialMaquina(equipo).subscribe({
+      next: (mantenimientos) => {
+        this.mantenimientos = mantenimientos;
+      },
+      error: (error) => {
+        console.error('Error al cargar el historial de mantenimientos:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Message Content' });
+      }
     });
   }
 

@@ -5,8 +5,16 @@
     [globalFilterFields]="['observaciones', 'estado', 'fecha_mantenimiento', 'costo']" [value]="mantenimientos">
     <ng-template pTemplate="caption">
         <div class="flex gap-3">
-            <p-button [outlined]="true" icon="pi pi-filter-slash" (onClick)="clearFilter(globalFilter)" />
-            <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar" />
+            <p-button [outlined]="true" (onClick)="clearFilter(globalFilter)">
+                <mage-icon name="filter-remove" fill="currentColor" size="18px" />
+            </p-button>
+            <span class="p-input-icon-left ml-3" style="min-width: 320px;">
+                <mage-icon name="search" class="pi"
+                    style="left: 0.6rem; position: absolute;top: 50%;margin-top: -0.5rem;" fill="#868FA0"
+                    size="14px"></mage-icon>
+                <!-- <i class="pi pi-search"></i> -->
+                <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar..." />
+            </span>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
