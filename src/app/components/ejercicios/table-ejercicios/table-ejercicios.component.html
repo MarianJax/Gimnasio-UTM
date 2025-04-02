@@ -6,17 +6,25 @@
         [globalFilterFields]="['nombre', 'series', 'repeticiones', 'maquinas.nombre']">
         <ng-template pTemplate="caption">
             <div class="flex gap-3">
-                <p-button [outlined]="true" icon="pi pi-filter-slash" (onClick)="clearFilter(globalFilter)" label="" />
-                <input #globalFilter pInputText (input)="applyFilter($event)" type="text" placeholder="Buscar ejercicio" />
+                <p-button [outlined]="true" (onClick)="clearFilter(globalFilter)">
+                    <mage-icon name="filter-remove" fill="currentColor" size="18px" />
+                </p-button>
+                <span class="p-input-icon-left ml-3" style="min-width: 320px;">
+                    <mage-icon name="search" class="pi"
+                        style="left: 0.6rem; position: absolute;top: 50%;margin-top: -0.5rem;" fill="#868FA0"
+                        size="14px"></mage-icon>
+                    <!-- <i class="pi pi-search"></i> -->
+                    <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar..." />
+                </span>
             </div>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="nombre">
-                    Ejercicio<p-sortIcon field="nombre" /></th>
-                <th pSortableColumn="maquinas.nombre">Maquina<p-sortIcon field="maquinas.nombre" /></th>
-                <th pSortableColumn="series">Series<p-sortIcon field="series" /></th>
-                <th pSortableColumn="repeticiones">Repeticiones<p-sortIcon field="repeticiones" /></th>
+                    Ejercicio<app-sort-icon [field]="'nombre'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
+                <th pSortableColumn="maquinas.nombre">Maquina<app-sort-icon [field]="'maquinas.nombre'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
+                <th pSortableColumn="series">Series<app-sort-icon [field]="'series'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
+                <th pSortableColumn="repeticiones">Repeticiones<app-sort-icon [field]="'repeticiones'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
                 <th class="text-center">Acciones</th>
             </tr>
         </ng-template>

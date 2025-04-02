@@ -21,6 +21,7 @@ import { EjerciciosRoutingModule } from './ejercicios-routing.module';
 import { EjerciciosComponent } from './ejercicios.component';
 import { CreateFormEjercicioComponent } from '../../../components/ejercicios/create-form-ejercicio/create-form-ejercicio.component';
 import { TableEjerciciosComponent } from '../../../components/ejercicios/table-ejercicios/table-ejercicios.component';
+import { SortIconModule } from '../../../components/sort-icon/sort-icon.module';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { TableEjerciciosComponent } from '../../../components/ejercicios/table-e
   ],
   imports: [
     CommonModule,
+    SortIconModule,
     EjerciciosRoutingModule,
     IconModule,
     BreadcrumbModule,
