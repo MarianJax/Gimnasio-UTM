@@ -5,18 +5,30 @@
     [globalFilterFields]="['rol.nombre', 'jornada', 'hora_inicio', 'dia_semana', 'horario.hora_fin']">
     <ng-template pTemplate="caption">
         <div class="flex gap-3">
-            <p-button [outlined]="true" icon="pi pi-filter-slash" (onClick)="clearFilter(globalFilter)" />
-            <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar" />
+            <p-button [outlined]="true" (onClick)="clearFilter(globalFilter)">
+                <mage-icon name="filter-remove" fill="currentColor" size="18px" />
+            </p-button>
+            <span class="p-input-icon-left ml-3" style="min-width: 320px;">
+                <mage-icon name="search" class="pi"
+                    style="left: 0.6rem; position: absolute;top: 50%;margin-top: -0.5rem;" fill="#868FA0"
+                    size="14px"></mage-icon>
+                <!-- <i class="pi pi-search"></i> -->
+                <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar..." />
+            </span>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
             <th pSortableColumn="rol.nombre">
-                Roles <p-sortIcon field="rol.nombre" /></th>
-            <th pSortableColumn="jornada">Jornada<p-sortIcon field="jornada" /></th>
-            <th pSortableColumn="hora_inicio">Horas<p-sortIcon field="hora_inicio" /></th>
-            <th pSortableColumn="dia_semana">Días<p-sortIcon field="dia_semana" /></th>
-            <th>Acciones</th>
+                Roles <app-sort-icon [field]="'rol.nombre'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
+            </th>
+            <th pSortableColumn="jornada">Jornada<app-sort-icon [field]="'jornada'" [sortField]="dt.sortField"
+                    [sortOrder]="dt.sortOrder" /></th>
+            <th pSortableColumn="hora_inicio">Horas<app-sort-icon [field]="'hora_inicio'" [sortField]="dt.sortField"
+                    [sortOrder]="dt.sortOrder" /></th>
+            <th pSortableColumn="dia_semana">Días<app-sort-icon [field]="'dia_semana'" [sortField]="dt.sortField"
+                    [sortOrder]="dt.sortOrder" /></th>
+            <th class="text-center">Acciones</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-horario>
@@ -27,8 +39,9 @@
             <td>{{ horario.dia_semana }}</td>
             <td>
                 <div class="flex gap-3 w-full justify-content-center">
-                    <p-button [outlined]="true" size="small" severity="primary" (click)="showDialog(horario.id)" class="w-min"><mage-icon name="edit"
-                            color="#059669" size="16px"></mage-icon>&nbsp;Editar</p-button>
+                    <p-button [outlined]="true" size="small" severity="primary" (click)="showDialog(horario.id)"
+                        class="w-min"><mage-icon name="edit" color="#059669"
+                            size="16px"></mage-icon>&nbsp;Editar</p-button>
                     <p-button [outlined]="true" (onClick)="deleteHorario(horario.id)" size="small" severity="danger"
                         class="w-min"><mage-icon name="delete" stroke="#D32F2F"
                             size="16px"></mage-icon>&nbsp;Eliminar</p-button>
@@ -43,24 +56,24 @@
     [resizable]="false">
     <ng-template pTemplate="header">
         <div class="inline-flex align-items-center justify-content-center gap-2">
-          <span class="font-bold white-space-nowrap">
-            Actualizar Horario de usuarios
-          </span>
+            <span class="font-bold white-space-nowrap">
+                Actualizar Horario de usuarios
+            </span>
         </div>
-      </ng-template>
+    </ng-template>
     <form [formGroup]="horarioForm" (ngSubmit)="onSubmit()">
         <div style="width: calc(50% - 10px)">
             <input type="hidden" formControlName="id" />
             <label for="rol_id" class="">Roles</label>
-            <p-dropdown formControlName="rol_id" optionLabel="name" [options]="roles" placeholder="Seleccione un rol"
-                [ngClass]="{ 'ng-dirty ng-invalid': horarioForm.getError('rol_id') }" />
+            <p-dropdown appendTo="body" formControlName="rol_id" optionLabel="name" [options]="roles"
+                placeholder="Seleccione un rol" [ngClass]="{ 'ng-dirty ng-invalid': horarioForm.getError('rol_id') }" />
             <small *ngIf="horarioForm.getError('rol_id')" class="ng-invalid text-red-600">
                 {{ horarioForm.getError("rol_id") }}
             </small>
         </div>
         <div style="width: calc(50% - 10px)">
             <label for="dia_semana" class="">Dias de semana</label>
-            <p-dropdown formControlName="dia_semana" optionLabel="name" [options]="dias"
+            <p-dropdown appendTo="body" formControlName="dia_semana" optionLabel="name" [options]="dias"
                 placeholder="Seleccione un dia de semana"
                 [ngClass]="{ 'ng-dirty ng-invalid': horarioForm.getError('dia_semana') }" />
             <small *ngIf="horarioForm.getError('dia_semana')" class="ng-invalid text-red-600">
@@ -69,7 +82,7 @@
         </div>
         <div style="width: calc(35% - 15px)">
             <label for="hora_inicio" class="">Hora de ingreso</label>
-            <p-dropdown formControlName="hora_inicio" optionLabel="name" [options]="horas"
+            <p-dropdown appendTo="body" formControlName="hora_inicio" optionLabel="name" [options]="horas"
                 placeholder="Seleccione una hora"
                 [ngClass]="{ 'ng-dirty ng-invalid': horarioForm.getError('hora_inicio') }" />
             <small *ngIf="horarioForm.getError('hora_inicio')" class="ng-invalid text-red-600">
@@ -78,7 +91,7 @@
         </div>
         <div style="width: calc(35% - 15px)">
             <label for="hora_fin" class="">Hora de salida</label>
-            <p-dropdown formControlName="hora_fin" optionLabel="name" [options]="horasSalida"
+            <p-dropdown appendTo="body" formControlName="hora_fin" optionLabel="name" [options]="horasSalida"
                 placeholder="Seleccione una hora"
                 [ngClass]="{ 'ng-dirty ng-invalid': horarioForm.getError('hora_fin') }" />
             <small *ngIf="horarioForm.getError('hora_fin')" class="ng-invalid text-red-600">
@@ -87,8 +100,8 @@
         </div>
         <div style="width: calc(30% - 10px)">
             <label for="jornada" class="">Jornada</label>
-            <p-dropdown formControlName="jornada" optionLabel="name" [options]="jornada"
-                placeholder="Seleccione una hora"
+            <p-dropdown appendTo="body" formControlName="jornada" optionLabel="name" [options]="jornada"
+                placeholder="Seleccione una jornada"
                 [ngClass]="{ 'ng-dirty ng-invalid': horarioForm.getError('jornada') }" />
             <small *ngIf="horarioForm.getError('jornada')" class="ng-invalid text-red-600">
                 {{ horarioForm.getError("jornada") }}
@@ -98,6 +111,6 @@
     <ng-template pTemplate="footer">
         <p-button [outlined]="true" (onClick)="closedDialog()" severity="secondary">Cancelar</p-button>
         <p-button (onClick)="onSubmit()" [disabled]="horarioForm.invalid" [outlined]="true"
-          severity="contrast">Actualizar</p-button>
-      </ng-template>
+            severity="contrast">Actualizar</p-button>
+    </ng-template>
 </p-dialog>

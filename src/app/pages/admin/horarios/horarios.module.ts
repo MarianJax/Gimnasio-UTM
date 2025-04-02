@@ -21,11 +21,13 @@ import { TableHorarioEntrenadorComponent } from 'src/app/components/horario_entr
 import { IconModule } from 'src/app/components/icons/icons.module';
 import { HorariosRoutingModule } from './horarios-routing.module';
 import { HorariosComponent } from './horarios.component';
+import { SortIconModule } from '../../../components/sort-icon/sort-icon.module';
 
 @NgModule({
   declarations: [HorariosComponent, CreateFormHorarioComponent, TableHorariosComponent, CreateHorarioEntrenadorComponent, TableHorarioEntrenadorComponent],
   imports: [
     CommonModule,
+    SortIconModule,
     HorariosRoutingModule,
     FormsModule,
     ReactiveFormsModule,

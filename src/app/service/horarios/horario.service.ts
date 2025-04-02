@@ -29,4 +29,8 @@ private apiUrl = 'http://localhost:3000/horario';
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
+  obtenerHorarioPorRolYDia(rol: string, dia: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/rol/${rol}/${dia}`)
+  }
+
 }
