@@ -21,7 +21,9 @@ export class FormService {
   // Actualizar datos de agendamiento
   updateAgendamientoData(data: any): void {
     if (!this.updatingFromService) {
-      this.agendamientoData.next(data)
+      this.updatingFromService = true;
+      this.agendamientoData.next(data);
+      setTimeout(() => this.updatingFromService = false, 100);
     }
   }
 

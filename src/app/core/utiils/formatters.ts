@@ -1,7 +1,8 @@
 import { SelectItemGroup } from "primeng/api";
 
 export const formatDate = (date: Date): string => {
-    return new Intl.DateTimeFormat('es-ec', { weekday: "long" }).format(date);
+    const weekday = new Intl.DateTimeFormat('es-ec', { weekday: "long" }).format(date);
+    return weekday.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
 export const capitalizeFirstLetter = (text: string): string => {

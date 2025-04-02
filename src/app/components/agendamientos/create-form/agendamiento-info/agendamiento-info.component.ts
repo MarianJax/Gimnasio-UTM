@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SelectItemGroup } from 'primeng/api';
-import { debounceTime, Subscription } from 'rxjs';
+import { debounceTime, skip, Subscription } from 'rxjs';
 import { FormService } from "src/app/service/agendamiento/form-service.service";
 import { capitalizeFirstLetter, filterHoursForSalida, formatDate, formatTime, getAvailableHours } from '../../../../core/utiils/formatters';
 import { HorarioService } from '../../../../service/horarios/horario.service';
@@ -27,13 +27,11 @@ export class AgendamientoInfoComponent implements OnInit, OnDestroy {
   salidaOpt: SelectItemGroup[] = [];
 
   fechaAgendamiento: string = '';
-  fechaInicial: Date | null = null;
 
   constructor(private fb: FormBuilder, private horarioService: HorarioService, private formDataService: FormService) {
     const date = !this.isMembresia ? new Date() : null;
     if (date) {
       this.fechaAgendamiento = capitalizeFirstLetter(formatDate(date));
-      this.fechaInicial = date;
     }
 
     // Cargar datos previos si existen
@@ -72,17 +70,20 @@ export class AgendamientoInfoComponent implements OnInit, OnDestroy {
       this.salidaOpt = filterHoursForSalida(val, this.ingresoOpt);
     });
 
-    // **Cargar datos previos si existen**
-    this.formDataService.agendamientoData$.subscribe((data) => {
+    // Y modifica la suscripción a agendamientoData$ en el ngOnInit:
+    this.formDataService.agendamientoData$.pipe(
+      skip(1) // Salta la emisión inicial
+    ).subscribe((data) => {
       if (data && Object.keys(data).length > 0) {
-        this.agendarForm.patchValue(data);
+        // Deshabilitar temporalmente valueChanges
+        this.formSubscription.unsubscribe();
 
-        // Habilitar o deshabilitar el campo "fecha" según el valor de isMembresia
-        if (this.isMembresia) {
-          this.agendarForm.get('fecha')?.enable(); // Habilitar si es membresía
-        } else {
-          this.agendarForm.get('fecha')?.disable(); // Deshabilitar si no lo es
-        }
+        this.agendarForm.patchValue(data, { emitEvent: false }); // <-- emitEvent: false es clave
+
+        // Restaurar la suscripción
+        this.formSubscription = this.agendarForm.valueChanges
+          .pipe(debounceTime(300))
+          .subscribe(() => this.updateFormWithoutCycle());
       }
     });
 
@@ -118,9 +119,21 @@ export class AgendamientoInfoComponent implements OnInit, OnDestroy {
     return true
   }
 
+  // Modifica el método updateFormWithoutCycle
   private updateFormWithoutCycle(): void {
     if (this.agendarForm.valid) {
-      this.formDataService.updateAgendamientoData(this.agendarForm.value)
+      // 1. Desuscribir temporalmente para evitar el ciclo
+      this.formSubscription.unsubscribe();
+
+      // 2. Actualizar el servicio
+      this.formDataService.updateAgendamientoData(this.agendarForm.value);
+
+      // 3. Volver a suscribir después de un breve retraso
+      setTimeout(() => {
+        this.formSubscription = this.agendarForm.valueChanges
+          .pipe(debounceTime(300))
+          .subscribe(() => this.updateFormWithoutCycle());
+      }, 100);
     }
   }
 

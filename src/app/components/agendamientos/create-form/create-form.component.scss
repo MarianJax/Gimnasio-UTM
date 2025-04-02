@@ -22,3 +22,98 @@
         margin-left: auto;
     }
 }
+
+:host ::ng-deep {
+    .p-steps {
+        ul {
+            .p-steps-item {
+                &:not(:last-child) {
+
+                    /* Estilos que se aplicarán a TODOS excepto al último */
+                    &::before {
+                        border-radius: 99px;
+                        border: 1.5px solid var(--primary-color);
+                        width: 82%;
+                        top: 50%;
+                        left: 50%;
+                        transform: translateX(10%);
+                        /* Ejemplo: borde para todos menos el último */
+                    }
+                }
+
+                /* El último item mantendrá sus estilos normales o puedes sobrescribirlos aquí */
+                &:last-child::before {
+                    border: none;
+                }
+            }
+        }
+    }
+
+    .p-menuitem-link {
+        &:not(.p-disabled):focus {
+            outline: none;
+            box-shadow: none !important;
+        }
+
+        min-width: 110px;
+        background: transparent !important;
+
+        &[aria-selected="true"] {
+            .p-steps-number {
+                height: 40px;
+                width: 40px;
+                border-radius: 5px;
+                background: #F8D13C !important;
+                color: #441f04;
+                border: 1px solid #F8D13C;
+            }
+        }
+
+        /* Estilos para cuando NO está seleccionado (false) */
+        &[aria-selected="false"] {
+            .p-steps-number {
+                height: 40px;
+                width: 40px;
+                border-radius: 5px;
+                background: #fff !important;
+                /* Color diferente para no seleccionado */
+                color: #F8D13C;
+                border: 1px solid #F8D13C;
+                /* content: 'Hola'; */
+                /* Commenting out the content property */
+            }
+        }
+
+    }
+
+    button[label="Siguiente"],
+    button[label="Agendar"] {
+        background: transparent;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+        box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.3));
+
+        &:hover,
+        &:active {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+    }
+
+    button[label="Regresar"] {
+        background: transparent;
+        border: 2px solid #F8D13C;
+        color: black;
+        box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.3));
+
+        &:hover,
+        &:active {
+            background: transparent;
+            border: 2px solid #F8D13C;
+            color: black;
+        }
+    }
+}

@@ -10,7 +10,6 @@ import { FormService } from '../../../../service/agendamiento/form-service.servi
 })
 export class PagoFormComponent implements OnInit {
   @Input() isMembresia!: Boolean;
-  agendamientoData: any
   pagoData: any
   pagoForm: FormGroup;
   selectedImage: string | null = null;
@@ -99,8 +98,7 @@ export class PagoFormComponent implements OnInit {
     if (this.pagoForm.valid || this.isMembresia) {
       const formData = {
         ...this.pagoForm.value,
-        evidenciaFileName: this.selectedImage,
-        evidenciaFile: this.selectedFile,
+        evidencia_pago: this.selectedImage,
         isMembresia: this.isMembresia,
       }
       this.formDataService.updatePagoData(formData)
