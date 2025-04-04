@@ -1,15 +1,24 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { RolesService } from '../../service/roles/roles.service';
 import { LayoutService } from '../service/layout.service';
+
+interface Rol {
+  name: string;
+  code: string;
+}
 
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html'
 })
 export class TopbarComponent {
+  changeRol: boolean = false;
   items!: MenuItem[];
   cerrar_sesion!: MenuItem[];
+  roles: Rol[] = [];
 
   nombre_usuario: any;
   cedula: any;
@@ -20,26 +29,15 @@ export class TopbarComponent {
 
   @ViewChild('topbarmenu') menu!: ElementRef;
 
-  theme: any;
-  colorScheme: any;
-
   constructor(
     public layoutService: LayoutService,
     private router: Router,
+    private rolService: RolesService
   ) {
     let session = sessionStorage.getItem('session-usuario');
     let usuario = session ? JSON.parse(session) : null;
 
     this.nombre_usuario = usuario ? (usuario.nombres.split(' ')[0] + ' ' + usuario.apellidos.split(' ')[0]) : 'No hay';
-
-    this.theme = localStorage.getItem('theme_utm_gimnasio');
-    this.colorScheme = localStorage.getItem('color_scheme_utm_gimnasio');
-    if (this.theme) {
-      this.changeTheme(this.theme, this.colorScheme);
-    } else {
-      this.theme = "saga-green";
-      this.colorScheme = "light";
-    }
 
     this.cerrar_sesion = [
       {
@@ -59,50 +57,46 @@ export class TopbarComponent {
         ]
       }
     ]
+
+    this.rolService.obtenerRolUsuario(usuario.id).subscribe({
+      next: (data) => {
+        this.roles = data.map((rol: any) => ({
+          label: rol.nombre,
+          action: () => this.cambiarRol(rol.nombre)
+        }));
+        this.changeRol = true;
+      },
+      error: (error) => {
+        console.error('Error al obtener los roles del usuario', error);
+      }
+    });
+
   }
 
-  cambiar_modo_oscuro() {
-    if (this.colorScheme == "light") {
-      this.theme = "arya-orange";
-      this.colorScheme = "dark";
-    } else {
-      this.theme = "saga-green";
-      this.colorScheme = "light";
+  cambiarRol(id: string) { 
+    const session = sessionStorage.getItem('session-usuario');
+    if (session) {
+      const usuario = JSON.parse(session);
+      usuario.roles = id;
+      sessionStorage.setItem('session-usuario', JSON.stringify(usuario));
+      this.getPagebyRol(id);
     }
-    localStorage.setItem('theme_utm_gimnasio', this.theme);
-    localStorage.setItem('color_scheme_utm_gimnasio', this.colorScheme);
-    this.changeTheme(this.theme, this.colorScheme);
   }
 
-  changeTheme(theme: string, colorScheme: string) {
-    const themeLink = <HTMLLinkElement>document.getElementById('theme-css');
-    const newHref = themeLink.getAttribute('href')!.replace(this.layoutService.config.theme, theme);
-    this.layoutService.config.colorScheme
-    this.replaceThemeLink(newHref, () => {
-      this.layoutService.config.theme = theme;
-      this.layoutService.config.colorScheme = colorScheme;
-      this.layoutService.onConfigUpdate();
-    });
-  }
-
-  replaceThemeLink(href: string, onComplete: Function) {
-    const id = 'theme-css';
-    const themeLink = <HTMLLinkElement>document.getElementById('theme-css');
-    const cloneLinkElement = <HTMLLinkElement>themeLink.cloneNode(true);
-
-    cloneLinkElement.setAttribute('href', href);
-    cloneLinkElement.setAttribute('id', id + '-clone');
-
-    themeLink.parentNode!.insertBefore(cloneLinkElement, themeLink.nextSibling);
-
-    cloneLinkElement.addEventListener('load', () => {
-      themeLink.remove();
-      cloneLinkElement.setAttribute('id', id);
-      onComplete();
-    });
-  }
   cerrarSesion() {
     sessionStorage.removeItem('session-usuario');
     this.router.navigate(['/auth/login']);
+  }
+
+  getPagebyRol(rol: string) { 
+    switch (rol) {
+      case 'Administrador':
+      case 'Entrenador':
+        this.router.navigate(['/admin']);
+        break;
+      default:
+        this.router.navigate(['/']);
+        break;
+    }
   }
 }

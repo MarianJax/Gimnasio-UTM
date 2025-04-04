@@ -6,7 +6,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { TopbarComponent } from './topbar/topbar.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { BadgeModule } from 'primeng/badge';
@@ -22,7 +22,9 @@ import { IconModule } from "../components/icons/icons.module";
 import { LayoutComponent } from './layout.component';
 import { MenuComponent } from './sidebar/menu/menu.component';
 import { MenuitemComponent } from './sidebar/menuitem/menuitem.component';
-
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,11 @@ import { MenuitemComponent } from './sidebar/menuitem/menuitem.component';
     RouterModule,
     HttpClientModule,
     IconModule,
-    ScrollPanelModule
+    ScrollPanelModule,
+    DialogModule,
+    ButtonModule,
+    ReactiveFormsModule,
+    DropdownModule
   ],
   exports: [
     LayoutComponent

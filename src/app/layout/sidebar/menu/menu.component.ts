@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LayoutService } from '../../service/layout.service';
 import { Router } from '@angular/router';
+import { LayoutService } from '../../service/layout.service';
 
 @Component({
   selector: 'app-menu',
@@ -18,66 +18,66 @@ export class MenuComponent implements OnInit {
   ) { }
 
   // ngOnInit() {
-    // let session = sessionStorage.getItem(this.eventos._DATOS_GENERALES_LOGIN);
-    // let session_rn: any = sessionStorage.getItem(this.eventos._DATOS_REGISTRO_NACIONAL);
-    // let usuario = session ? JSON.parse(session) : null;
+  // let session = sessionStorage.getItem(this.eventos._DATOS_GENERALES_LOGIN);
+  // let session_rn: any = sessionStorage.getItem(this.eventos._DATOS_REGISTRO_NACIONAL);
+  // let usuario = session ? JSON.parse(session) : null;
 
-    // if (!usuario) {
-    //   this.eventos.cerrar_sesion();
-    // } else {
-    //   this.eventos.usuario = usuario;
-    //   this.eventos.datos_personales = JSON.parse(session_rn);
-    // }
+  // if (!usuario) {
+  //   this.eventos.cerrar_sesion();
+  // } else {
+  //   this.eventos.usuario = usuario;
+  //   this.eventos.datos_personales = JSON.parse(session_rn);
+  // }
 
-    // if (typeof this.eventos.usuario.p_usuario !== "undefined" && this.eventos.usuario.p_usuario.includes("@utm.edu.ec")) {
-    //   let menu = this.eventos.usuario.p_menu_defecto;
-    //   localStorage.setItem(this.eventos._MENU_DEFECTO, JSON.stringify(menu));
+  // if (typeof this.eventos.usuario.p_usuario !== "undefined" && this.eventos.usuario.p_usuario.includes("@utm.edu.ec")) {
+  //   let menu = this.eventos.usuario.p_menu_defecto;
+  //   localStorage.setItem(this.eventos._MENU_DEFECTO, JSON.stringify(menu));
 
-    //   for (let i = 0; i < menu.length; i++) {
-    //     let item = menu[i];
-    //     this.menu_final.push({
-    //       label: item.menu_rol_menu.descripcion,
-    //       icon: item.menu_rol_menu.icono,
-    //       routerLink: [item.menu_rol_menu.ruta],
-    //       visible: true
-    //     });
-    //   }
-    //   console.log(this.menu_final)
-    //   this.model = [{
-    //     label: 'Administración',
-    //     items: this.menu_final
-    //   }];
-    // } else {
-    //   this.api.mostrar_menu({
-    //     idrol: 55,
-    //     idapp: 26,
-    //     idmod: 22
-    //   }).subscribe((resp) => {
-    //     let menu = resp[0].p_menu;
-    //     localStorage.setItem(this.eventos._MENU_DEFECTO, JSON.stringify(menu));
-    //     for (let i = 0; i < menu.length; i++) {
-    //       let item = menu[i];
-    //       this.menu_final.push({
-    //         label: item.menu_rol_menu.descripcion,
-    //         icon: item.menu_rol_menu.icono,
-    //         routerLink: [item.menu_rol_menu.ruta],
-    //         visible: true
-    //       });
-    //     }        
-    //     this.model = [{
-    //       label: 'Nivelación',
-    //       items: this.menu_final
-    //     }];
-    //   }, (err) => {
-    //     alert("Error en el servidor, actualice e intente nuevamente...");
-    //   });
-    // }
-    // this.api.estadoDeclaracion$.subscribe(estado => {
-    //   this.declaracionAceptada = estado === 'aceptada';
-    //   this.actualizarVisibilidadElementos();
-    // });
-    // this.actualizarVisibilidadElementos();
-    
+  //   for (let i = 0; i < menu.length; i++) {
+  //     let item = menu[i];
+  //     this.menu_final.push({
+  //       label: item.menu_rol_menu.descripcion,
+  //       icon: item.menu_rol_menu.icono,
+  //       routerLink: [item.menu_rol_menu.ruta],
+  //       visible: true
+  //     });
+  //   }
+  //   console.log(this.menu_final)
+  //   this.model = [{
+  //     label: 'Administración',
+  //     items: this.menu_final
+  //   }];
+  // } else {
+  //   this.api.mostrar_menu({
+  //     idrol: 55,
+  //     idapp: 26,
+  //     idmod: 22
+  //   }).subscribe((resp) => {
+  //     let menu = resp[0].p_menu;
+  //     localStorage.setItem(this.eventos._MENU_DEFECTO, JSON.stringify(menu));
+  //     for (let i = 0; i < menu.length; i++) {
+  //       let item = menu[i];
+  //       this.menu_final.push({
+  //         label: item.menu_rol_menu.descripcion,
+  //         icon: item.menu_rol_menu.icono,
+  //         routerLink: [item.menu_rol_menu.ruta],
+  //         visible: true
+  //       });
+  //     }        
+  //     this.model = [{
+  //       label: 'Nivelación',
+  //       items: this.menu_final
+  //     }];
+  //   }, (err) => {
+  //     alert("Error en el servidor, actualice e intente nuevamente...");
+  //   });
+  // }
+  // this.api.estadoDeclaracion$.subscribe(estado => {
+  //   this.declaracionAceptada = estado === 'aceptada';
+  //   this.actualizarVisibilidadElementos();
+  // });
+  // this.actualizarVisibilidadElementos();
+
   // }
 
   ngOnInit() {
@@ -86,13 +86,15 @@ export class MenuComponent implements OnInit {
 
     this.updateMenuBasedOnPath();
 
-    // Si deseas detectar cambios en la ruta (navegación dinámica), puedes suscribirte a los eventos de navegación
+    // // Si deseas detectar cambios en la ruta (navegación dinámica), puedes suscribirte a los eventos de navegación
     this.router.events.subscribe(() => {
       this.updateMenuBasedOnPath();
     });
   }
 
   private updateMenuBasedOnPath() {
+    let session = sessionStorage.getItem('session-usuario');
+    let usuario = session ? JSON.parse(session) : null;
     const currentPath = this.router.url;
 
     if (currentPath.startsWith('/admin')) {
@@ -122,7 +124,7 @@ export class MenuComponent implements OnInit {
               label: 'Horarios',
               icon: 'calendar-plus',
               routerLink: ['/admin/horarios'],
-              visible: true
+              visible: !['Entrenador'].includes(usuario.roles)
             },
             {
               label: 'Rutinas',

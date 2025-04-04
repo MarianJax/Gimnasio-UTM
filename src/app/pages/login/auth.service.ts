@@ -12,4 +12,17 @@ export class AuthService {
     //console.log('Desde el Service ->', data);
     return this.http.post<any>(this.apiUrl, data);
   }
+
+  isAuthenticated(): boolean {
+    const session = sessionStorage.getItem('session-usuario');
+    return !!session;
+  }
+
+  getUserData(): any {
+    const session = sessionStorage.getItem('session-usuario');
+    if (session) {
+      return JSON.parse(session);
+    }
+    return null;
+  }
 }

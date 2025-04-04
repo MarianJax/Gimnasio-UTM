@@ -1,7 +1,6 @@
 <div class="layout-topbar">
     <a class="layout-topbar-logo" routerLink="nivelacion/terminos_condiciones">
-        <img src="../../assets/images/logo_horizontal_oscuro.png"
-            alt="logo" style="">
+        <img src="../../assets/images/logo_horizontal_oscuro.png" alt="logo" style="">
     </a>
 
     <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
@@ -22,16 +21,24 @@
         <div style="display: flex; align-items: center;">
             <span>Bienvenido, {{nombre_usuario}}</span>
         </div>
+        <p-menu appendTo="body" #menu [model]="roles" [popup]="true">
+            <ng-template pTemplate="item" let-item>
+                <a type="button"
+                    [ngClass]="item.icon === 'edit' ? 'text-primary': 'text-danger p-button-danger'"
+                    (click)="item.action(item.id)" class="flex align-items-center p-menuitem-link">
+                    <span class="ml-2">{{ item.label }}</span>
+                </a>
+            </ng-template>
+        </p-menu>
 
-        <button class="p-link layout-topbar-button" (click)="cambiar_modo_oscuro()">
-            <i class="pi" [ngClass]="layoutService.config.colorScheme === 'light' ? 'hgi-stroke hgi-moon-02' : 'hgi-stroke hgi-sun-03'"></i>
-            <span>Claro/Oscuro </span>
+        <button class="p-link layout-topbar-button" (click)="menu.toggle($event)">
+            <mage-icon name="user-switch"></mage-icon>
+            <span>Cambiar Rol</span>
         </button>
-        <button class="p-link layout-topbar-button" (click)="cerrarSesion()"> 
-            <i class="pi pi-sign-out"></i>
+        <button class="p-link layout-topbar-button" (click)="cerrarSesion()">
+            <mage-icon name="logout"></mage-icon>
             <span>Cerrar Sesion</span>
         </button>
-        <!-- <p-menu #menu [model]="cerrar_sesion" [popup]="true"></p-menu> -->
 
     </div>
 </div>

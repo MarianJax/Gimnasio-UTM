@@ -31,6 +31,7 @@ export class MenuitemComponent implements OnInit, OnDestroy {
   @Input() parentKey!: string;
 
   active = false;
+  rol!: string;
   user: boolean;
 
   menuSourceSubscription: Subscription;
@@ -43,6 +44,7 @@ export class MenuitemComponent implements OnInit, OnDestroy {
     const session = sessionStorage.getItem('session-usuario');
     const usr = session ? JSON.parse(session) : null;
     this.user = usr !== null && (usr.roles === 'Administrador' || usr.roles === 'Entrenador');
+    this.rol = usr ? usr.roles : '';
 
     this.menuSourceSubscription = this.menuService.menuSource$.subscribe(value => {
       Promise.resolve(null).then(() => {
