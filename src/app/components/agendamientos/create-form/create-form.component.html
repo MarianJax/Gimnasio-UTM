@@ -13,7 +13,7 @@
     </div>
 
     <div [hidden]="activeIndex !== 1">
-        <app-pago-form [isMembresia]="membresia"></app-pago-form>
+        <app-pago-form [isMembresia]="membresia" [usuario]="usuario"></app-pago-form>
         <div class="button">
             <button pButton type="button" label="Regresar" (click)="prev()"></button>
             <button pButton type="button" label="Agendar" (click)="next()"></button>

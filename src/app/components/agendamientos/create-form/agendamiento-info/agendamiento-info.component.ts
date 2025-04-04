@@ -49,6 +49,7 @@ export class AgendamientoInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log(this.isMembresia, 'this.isMembresia');
     this.horarioService.obtenerHorarioPorRolYDia(this.rolUser, this.fechaAgendamiento)
       .subscribe({
         next: (value) => {
@@ -115,7 +116,6 @@ export class AgendamientoInfoComponent implements OnInit, OnDestroy {
       })
       return false
     }
-    this.agendarForm.get('fecha')?.enable();
     return true
   }
 
@@ -126,7 +126,11 @@ export class AgendamientoInfoComponent implements OnInit, OnDestroy {
       this.formSubscription.unsubscribe();
 
       // 2. Actualizar el servicio
-      this.formDataService.updateAgendamientoData(this.agendarForm.value);
+      this.formDataService.updateAgendamientoData({
+        fecha: this.agendarForm.get('fecha')?.value,
+        ingreso: this.agendarForm.get('ingreso')?.value,
+        salida: this.agendarForm.get('salida')?.value,
+      });
 
       // 3. Volver a suscribir después de un breve retraso
       setTimeout(() => {

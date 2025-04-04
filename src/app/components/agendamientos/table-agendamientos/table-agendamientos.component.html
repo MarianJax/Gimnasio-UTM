@@ -1,7 +1,6 @@
 <p-toast />
 <p-table #dt [value]="products" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-    [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" [paginator]="true"
-    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5"    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
     [showFirstLastIcon]="false" [showCurrentPageReport]="true" dataKey="products-registradas"
     [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true" scrollHeight="365px">
     <ng-template pTemplate="caption">
@@ -36,7 +35,10 @@
             <th pSortableColumn="category">
                 Rol <app-sort-icon [field]="'category'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
-            <th> Asistencia </th>
+            <th pSortableColumn="pago">
+                Tipo de Pago <app-sort-icon [field]="'pago'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
+            </th>
+            <th class="text-center"> Confirmación </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product let-i="rowIndex">
@@ -54,16 +56,20 @@
                 {{ product.description }}
             </td>
             <td>
-                <form class="flex gap-3" [formGroup]="getFormGroup(product.id)">
-                    <div *ngFor="let category of categories" class="field-checkbox">
-                        <p-radioButton [inputId]="category.key + '-' + product.id" [value]="category"
-                            formControlName="selectedCategory"
-                            (onClick)="onSelectionChange(product.id, category.key)" />
-                        <label [for]="category.key + '-' + product.id" class="ml-2">
-                            {{ category.name }}
-                        </label>
-                    </div>
-                </form>
+                {{ product.pago }}
+            </td>
+            <td>
+                <div class="flex gap-3 w-full justify-content-center">
+                    <p-image
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJcf0fkeh950WW9kXqe0WAK6fnw00Yxg8d_2zKq_vNBW8pGb5i6jWuhOVP3TkNZt1RcuU&usqp=CAU"
+                        [alt]="product.name" height="30" width="50" class="bg-gray-500" [preview]="true" />
+                    <p-button [outlined]="true" [text]="true" size="small" severity="primary" class="w-min"
+                        (click)="onSelectionChange(product.id, 'Si')"><mage-icon name="check"
+                            size="18px"></mage-icon></p-button>
+                    <p-button [outlined]="true" [text]="true" size="small" severity="danger" class="w-min"
+                        (click)="onSelectionChange(product.id, 'No')"><mage-icon name="cancel"
+                            size="18px"></mage-icon></p-button>
+                </div>
             </td>
         </tr>
     </ng-template>

@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { FormService } from '../../../service/agendamiento/form-service.service';
 import { MembresiaService } from '../../../service/membresias/membresia.service';
 import { AgendamientoInfoComponent } from './agendamiento-info/agendamiento-info.component';
 import { PagoFormComponent } from './pago-form/pago-form.component';
-import { FormService } from '../../../service/agendamiento/form-service.service';
 
 @Component({
   selector: 'app-create-form',
@@ -13,7 +13,7 @@ import { FormService } from '../../../service/agendamiento/form-service.service'
 export class CreateFormComponent implements AfterViewInit {
   @ViewChild(AgendamientoInfoComponent) agendamientoComponent!: AgendamientoInfoComponent
   @ViewChild(PagoFormComponent) pagoComponent!: PagoFormComponent
-
+  usuario: any;
   membresia: Boolean = true;
   rol!: string;
   items: MenuItem[] = [];
@@ -30,7 +30,24 @@ export class CreateFormComponent implements AfterViewInit {
     private membresiaService: MembresiaService,
     private formDataService: FormService,
     private messageService: MessageService
-  ) { }
+  ) {
+    let session = sessionStorage.getItem('session-usuario');
+    this.usuario = session ? JSON.parse(session) : null;
+
+    if (this.usuario) {
+      this.rol = this.usuario.roles;
+      this.membresiaService.obtenerMembresiaPorUsuario(this.usuario.id, new Date())
+        .subscribe({
+          next: (value) => {
+            console.log(value, 'membresia', value ? true : false);
+            this.membresia = value ? true : false;
+          },
+          error: (err) => {
+            console.error(err);
+          }
+        });
+    }
+  }
 
   ngOnInit() {
     this.items = [
@@ -39,21 +56,7 @@ export class CreateFormComponent implements AfterViewInit {
       { label: 'Confirmación' }
     ];
 
-    let session = sessionStorage.getItem('session-usuario');
-    let usuario = session ? JSON.parse(session) : null;
 
-    if (usuario) {
-      this.rol = usuario.roles;
-      this.membresiaService.obtenerMembresiaPorUsuario(usuario.id, new Date())
-        .subscribe({
-          next: (value) => {
-            this.membresia = value ? true : false;
-          },
-          error: (err) => {
-            console.error(err);
-          }
-        });
-    }
   }
 
   ngAfterViewInit() {

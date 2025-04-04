@@ -13,7 +13,7 @@ export class AgendamientosComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.items = [{ icon: 'dashboard', route: '/admin', label: 'Inicio' }, { label: 'Reservas' }];
+    this.items = [{ icon: 'dashboard', route: '/admin', label: 'Inicio' }, { label: 'Agendamientos' }];
   }
 
 }

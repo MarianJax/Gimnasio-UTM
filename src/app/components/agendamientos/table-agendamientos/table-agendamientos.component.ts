@@ -12,6 +12,7 @@ const ProductsA = {
   image: 'bamboo-watch.jpg',
   price: 65,
   category: 'Accessories',
+  pago: 'Si',
   quantity: 24,
   inventoryStatus: 'INSTOCK',
   rating: 5
@@ -26,7 +27,6 @@ type Product = typeof ProductsA;
 })
 export class TableAgendamientosComponent implements OnInit {
   @ViewChild('dt') dt!: Table;
-  // Object to store form groups for each product
   productForms: { [key: string]: FormGroup } = {}
 
   categories: any[] = [
@@ -49,7 +49,8 @@ export class TableAgendamientosComponent implements OnInit {
       name: 'Bamboo Watch',
       description: 'Product Description',
       image: 'bamboo-watch.jpg',
-      price: 65,
+      price: 65,      
+      pago: 'Diario',
       category: 'Accessories',
       quantity: 24,
       inventoryStatus: 'INSTOCK',
@@ -62,6 +63,7 @@ export class TableAgendamientosComponent implements OnInit {
       description: 'Product Description',
       image: 'bamboo-watch.jpg',
       price: 65,
+      pago: 'Mensual',
       category: 'Accessories',
       quantity: 24,
       inventoryStatus: 'INSTOCK',
