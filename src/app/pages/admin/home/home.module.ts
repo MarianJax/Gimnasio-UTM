@@ -24,6 +24,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { AdminModule } from '../admin.module';
 import { SortIconModule } from '../../../components/sort-icon/sort-icon.module';
+import { ImageModule } from 'primeng/image';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { SortIconModule } from '../../../components/sort-icon/sort-icon.module';
     TableModule,
     FormsModule,
     ReactiveFormsModule,
+    ImageModule,
 
     TableModule, DialogModule, RippleModule, ButtonModule, ToastModule, ToolbarModule, ConfirmDialogModule, InputTextModule, InputTextareaModule, FileUploadModule, DropdownModule, TagModule, RadioButtonModule, RatingModule, InputNumberModule
   ],

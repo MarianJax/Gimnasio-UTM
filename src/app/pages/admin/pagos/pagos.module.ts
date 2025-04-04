@@ -25,6 +25,8 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TablePagosComponent } from '../../../components/pagos/table-pagos/table-pagos.component';
 import { SortIconModule } from '../../../components/sort-icon/sort-icon.module';
 
+import { TabViewModule } from 'primeng/tabview';
+
 @NgModule({
   declarations: [
     PagosComponent,
@@ -35,7 +37,9 @@ import { SortIconModule } from '../../../components/sort-icon/sort-icon.module';
     SortIconModule,
     PagosRoutingModule,
     IconModule,
-    TableModule, DialogModule, RippleModule, ButtonModule, ToastModule, ToolbarModule, ConfirmDialogModule, InputTextModule, InputTextareaModule, CommonModule, FileUploadModule, DropdownModule, TagModule, RadioButtonModule, RatingModule, InputTextModule, FormsModule, InputNumberModule, BreadcrumbModule
+    TableModule, DialogModule, RippleModule, ButtonModule, ToastModule, ToolbarModule, ConfirmDialogModule, InputTextModule, InputTextareaModule, CommonModule, FileUploadModule, DropdownModule, TagModule, RadioButtonModule, RatingModule, InputTextModule, FormsModule, InputNumberModule, BreadcrumbModule,
+
+    TabViewModule
   ],
   providers: [MessageService, ConfirmationService], 
 })
