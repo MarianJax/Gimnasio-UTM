@@ -17,7 +17,7 @@
             <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar..." />
           </span>
         </div>
-        <p-button [outlined]="true" severity="success" (click)="goToRegistrar()" label="Agregar máquina"
+        <p-button *ngIf="authorize" [outlined]="true" severity="success" (click)="goToRegistrar()" label="Agregar máquina"
           icon="pi pi-plus" class="mr-2 ml-auto" />
 
       </div>

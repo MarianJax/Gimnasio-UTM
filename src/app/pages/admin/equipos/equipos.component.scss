@@ -26,19 +26,20 @@
 
             .p-button {
                 padding: 5px 30px;
-                font-weight: 600;
-                font-size: 16px;
+                font-size: 14px;
                 border-radius: 8px 0px 8px 8px;
 
-                &.p-button-contrast {
-                    border: 2px solid;
+                &.p-button-outlined {
+                color: #000;
+                    border: 1px solid black;
 
                     &:active,
                     &:focus,
                     &:hover,
                     &:not(.disabled):hover,
                     &:not(.disabled):active {
-                        border: 2px solid;
+                        color: black;
+                        border: 1px solid black;
                     }
                 }
             }

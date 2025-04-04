@@ -148,17 +148,16 @@ h3 {
     margin-left: auto;
     font-size: 14px;
     border-radius: 10px 0px 10px 10px;
-    font-weight: 700;
 
     &:not(.p-button-secondary) {
         color: black;
-        border: solid 2px;
+        border: solid 1px;
 
         &:hover,
         &:not(:disabled):hover,
         &:not(:disabled):active,
         &:active {
-            border: solid 2px;
+            border: solid 1px;
         }
     }
 }

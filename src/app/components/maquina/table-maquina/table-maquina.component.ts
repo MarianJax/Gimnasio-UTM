@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { EquiposService } from 'src/app/service/equipo/equipo.service';
 import { Estados } from '../../../pages/admin/equipos/equipos.component';
+import { AuthService } from '../../../pages/login/auth.service';
 
 @Component({
   selector: 'app-table-maquina',
@@ -12,6 +13,7 @@ import { Estados } from '../../../pages/admin/equipos/equipos.component';
   styleUrls: ['./table-maquina.component.scss']
 })
 export class TableMaquinaComponent implements OnInit {
+  authorize: boolean = true;
   emptyMessage: string = 'Cargando equipos...';
   visible: boolean = false;
   @ViewChild('dt') dt!: Table;
@@ -27,7 +29,10 @@ export class TableMaquinaComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private messageService: MessageService,
+    private authService: AuthService
   ) {
+    this.authorize = this.authService.getUserData()?.roles === 'Entrenador' ? false : true
+
     this.maquinaForm = this.fb.group({
       id: new FormControl<string | null>(null),
       cantidad: new FormControl<number | null>(1),

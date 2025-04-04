@@ -20,16 +20,16 @@
     <ng-template pTemplate="header">
         <tr>
             <th pSortableColumn="estado">
-                Estado <p-sortIcon field="estado" />
+                Estado  <app-sort-icon [field]="'estado'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
             <th pSortableColumn="observaciones">
-                Descripción <p-sortIcon field="observaciones" />
+                Descripción <app-sort-icon [field]="'observaciones'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
             <th pSortableColumn="costo">
-                Costo <p-sortIcon field="costo" />
+                Costo <app-sort-icon [field]="'costo'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
             <th pSortableColumn="fecha_mantenimiento">
-                Fecha <p-sortIcon field="fecha_mantenimiento" />
+                Fecha <app-sort-icon [field]="'fecha_mantenimiento'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
         </tr>
     </ng-template>

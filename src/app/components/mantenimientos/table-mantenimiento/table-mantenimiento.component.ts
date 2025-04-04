@@ -168,10 +168,10 @@ export class TableMantenimientoComponent implements OnInit {
         return 'success';
 
       case 'En proceso':
-        return 'info';
+        return 'warning';
 
       case 'Pendiente':
-        return 'warning';
+        return 'danger';
       default:
         return 'secondary';
     }
