@@ -25,6 +25,10 @@ export class RolesService {
     return this.http.get<any>(`${this.apiUrl}/usuario/${id}`);
   }
 
+  obtenerRolPorNombre(nombre: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/nombre/${nombre}`);
+  }
+
   actualizarRol({ id, ...rol }: any): Observable<any> {
     return this.http.patch<any>(`${this.apiUrl}/${id}`, rol);
   }

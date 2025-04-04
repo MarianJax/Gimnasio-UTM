@@ -114,19 +114,7 @@
                         font-size: 14px;
                         padding: 7px 30px;
                         border-radius: 10px;
-                        font-weight: 700;
-
-                        &:not(.p-button-secondary) {
-                            color: black;
-                            border: solid 2px;
-
-                            &:hover,
-                            &:not(:disabled):hover,
-                            &:not(:disabled):active,
-                            &:active {
-                                border: solid 2px;
-                            }
-                        }
+                        
                     }
                 }
             }
