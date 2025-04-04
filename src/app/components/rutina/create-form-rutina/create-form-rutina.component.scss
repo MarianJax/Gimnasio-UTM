@@ -71,18 +71,6 @@ form {
         }
     }
 
-    .p-button-contrast.p-button-outlined {
-        border: solid 2px;
-        font-weight: 700;
-
-        &:hover,
-        &:not(:disabled):hover,
-        &:not(:disabled):active,
-        &:active {
-            border: solid 2px;
-        }
-    }
-
     .p-dialog {
         border-radius: 12px !important;
         overflow: hidden;
