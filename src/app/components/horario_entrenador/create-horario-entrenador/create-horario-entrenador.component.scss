@@ -22,13 +22,13 @@ form {
         input {
             margin-top: 8px;
             width: 100%;
-            padding: 1rem;
+            padding: 10px 14px;
         }
 
         textarea {
             margin-top: 8px;
             width: 100%;
-            padding: 1rem;
+            padding: 10px 14px;
         }
     }
 
@@ -39,7 +39,7 @@ form {
     width: 100%;
 
     .p-inputtext {
-        padding: 1rem;
+        padding: 10px 14px;
         outline: none
     }
 }
@@ -51,7 +51,7 @@ form {
 
         .p-inputtext {
             margin-top: 8px;
-            padding: 1rem;
+            padding: 10px 14px;
         }
 
         .p-datepicker {
@@ -70,7 +70,7 @@ form {
     width: 100%;
 
     .p-multiselect-label-container {
-        padding: 1rem;
+        padding: 10px 14px;
         outline: none;
 
         .p-multiselect-label {
@@ -81,19 +81,6 @@ form {
 
 :host ::ng-deep .p-button {
     padding: 5px 60px;
-    font-weight: 600;
     font-size: 16px;
     border-radius: 8px 0px 8px 8px;
-
-    &.p-button-contrast {
-        border: 2px solid;
-
-        &:active,
-        &:focus,
-        &:hover,
-        &:not(.disabled):hover,
-        &:not(.disabled):active {
-            border: 2px solid;
-        }
-    }
 }
