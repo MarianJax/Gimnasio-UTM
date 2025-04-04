@@ -1,5 +1,5 @@
 <div class="layout-topbar">
-    <a class="layout-topbar-logo" routerLink="nivelacion/terminos_condiciones">
+    <a class="layout-topbar-logo" routerLink="/">
         <img src="../../assets/images/logo_horizontal_oscuro.png" alt="logo" style="">
     </a>
 
@@ -11,10 +11,6 @@
         (click)="layoutService.showProfileSidebar()">
         <i class="pi pi-ellipsis-v"></i>
     </button>
-
-    <a class="layout-topbar-logo-utm-unidos" routerLink="nivelacion/terminos_condiciones">
-        <img src="../../assets/images/utm_unidos.png" alt="logo">
-    </a>
 
     <div #topbarmenu class="layout-topbar-menu"
         [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
