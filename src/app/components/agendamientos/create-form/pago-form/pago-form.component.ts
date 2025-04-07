@@ -90,7 +90,6 @@ export class PagoFormComponent implements OnInit {
           this.monto = Number(rol.monto_pago) * diasRestantes;
         }
         this.pagoForm.patchValue({ monto: this.monto }, { emitEvent: false });
-        console.log(val, this.monto);
       });
       this.monto = 0.0;
 

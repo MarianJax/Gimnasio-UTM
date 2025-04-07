@@ -4,6 +4,7 @@ import { FormService } from '../../../service/agendamiento/form-service.service'
 import { MembresiaService } from '../../../service/membresias/membresia.service';
 import { AgendamientoInfoComponent } from './agendamiento-info/agendamiento-info.component';
 import { PagoFormComponent } from './pago-form/pago-form.component';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 @Component({
   selector: 'app-create-form',
@@ -13,8 +14,8 @@ import { PagoFormComponent } from './pago-form/pago-form.component';
 export class CreateFormComponent implements AfterViewInit {
   @ViewChild(AgendamientoInfoComponent) agendamientoComponent!: AgendamientoInfoComponent
   @ViewChild(PagoFormComponent) pagoComponent!: PagoFormComponent
+  @ViewChild(ConfirmComponent) confirmComponent!: ConfirmComponent
   usuario: any;
-  membresia: Boolean = true;
   rol!: string;
   items: MenuItem[] = [];
   activeIndex: number = 0;
@@ -30,33 +31,18 @@ export class CreateFormComponent implements AfterViewInit {
     private membresiaService: MembresiaService,
     private formDataService: FormService,
     private messageService: MessageService
-  ) {
-    let session = sessionStorage.getItem('session-usuario');
-    this.usuario = session ? JSON.parse(session) : null;
-
-    if (this.usuario) {
-      this.rol = this.usuario.roles;
-      this.membresiaService.obtenerMembresiaPorUsuario(this.usuario.id, new Date())
-        .subscribe({
-          next: (value) => {
-            console.log(value, 'membresia', value ? true : false);
-            this.membresia = value ? true : false;
-          },
-          error: (err) => {
-            console.error(err);
-          }
-        });
-    }
-  }
+  ) {   }
 
   ngOnInit() {
     this.items = [
       { label: 'agendamiento' },
       { label: 'Pago' },
-      { label: 'Confirmación' }
+      { label: 'Confirmación' },
+      { label: 'Finalizar' }
     ];
-
-
+    let session = sessionStorage.getItem('session-usuario');
+    this.usuario = session ? JSON.parse(session) : null;
+    this.rol = this.usuario.roles;
   }
 
   ngAfterViewInit() {
@@ -99,12 +85,6 @@ export class CreateFormComponent implements AfterViewInit {
 
       case 1: // Pago
         if (this.pagoComponent) {
-          // Si tiene membresía, el paso de pago siempre es válido
-          if (this.membresia) {
-            this.stepValidation[1] = true
-            return true
-          }
-
           const isValid = this.pagoComponent.validateForm()
           this.stepValidation[1] = isValid
           return isValid
@@ -114,8 +94,7 @@ export class CreateFormComponent implements AfterViewInit {
       case 2: // Confirmación
         // La confirmación siempre es válida, solo muestra datos
         this.stepValidation[2] = true
-        console.log("Datos de agendamiento:", this.agendamientoComponent.agendarForm.value)
-        console.log("Datos de pago:", this.pagoComponent.pagoForm.value)
+        this.confirmComponent.obtenerDatosCompletos();
         return true
 
       default:

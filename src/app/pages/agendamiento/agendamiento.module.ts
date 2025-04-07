@@ -21,6 +21,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ConfirmComponent } from '../../components/agendamientos/create-form/confirm/confirm.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { TimelineModule } from 'primeng/timeline';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ToastModule } from 'primeng/toast';
     DropdownModule,
     InputNumberModule,
     ToastModule,
+    TimelineModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [ConfirmationService, MessageService]

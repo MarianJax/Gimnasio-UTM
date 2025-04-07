@@ -9,9 +9,9 @@ import { FormService } from '../../../../service/agendamiento/form-service.servi
 export class ConfirmComponent implements OnInit {
   agendamientoData: any
   pagoData: any
-  isMembresia = false
+  data: any[] = []
 
-  constructor(private formDataService: FormService) {}
+  constructor(private formDataService: FormService) { }
 
   ngOnInit() {
     // Obtener datos de agendamiento
@@ -22,8 +22,12 @@ export class ConfirmComponent implements OnInit {
     // Obtener datos de pago
     this.formDataService.pagoData$.subscribe((data) => {
       this.pagoData = data
-      // Determinar si tiene membresía basado en los datos
-      this.isMembresia = data.isMembresia || false
     })
   }
+
+  obtenerDatosCompletos() {
+    this.data = this.formDataService.getAllFormData();
+    return this.formDataService.getAllFormData();
+  }
+
 }

@@ -6,14 +6,14 @@
     </p-steps>
 
     <div [hidden]="activeIndex !== 0">
-        <app-agendamiento-info [rolUser]="rol" [isMembresia]="membresia" class="element"></app-agendamiento-info>
+        <app-agendamiento-info [rolUser]="rol" class="element"></app-agendamiento-info>
         <div class="button">
             <button pButton type="button" label="Siguiente" (click)="next()"></button>
         </div>
     </div>
 
     <div [hidden]="activeIndex !== 1">
-        <app-pago-form [isMembresia]="membresia" [usuario]="usuario"></app-pago-form>
+        <app-pago-form [usuario]="usuario"></app-pago-form>
         <div class="button">
             <button pButton type="button" label="Regresar" (click)="prev()"></button>
             <button pButton type="button" label="Agendar" (click)="next()"></button>
@@ -24,7 +24,17 @@
         <app-confirm></app-confirm>
         <div class="button">
             <button pButton type="button" label="Regresar" (click)="prev()"></button>
-            <button pButton type="button" label="Finalizar" (click)="finalizar()"></button>
+            <button pButton type="button" label="Finalizar" (click)="next()"></button>
+        </div>
+    </div>
+    <div [hidden]="activeIndex !== 3">
+        <div style="height: 270px; width: 100%; display: flex; justify-content: center; align-items: center; color: #299607; flex-direction: column; font-size: 16px;">
+            <mage-icon name="checkmark-fill" size="60px" color="white" fill="#299607"></mage-icon>
+            <span>¡Proceso completado con éxito!</span>
+        </div>
+        <div class="button">
+            <button pButton type="button" label="Regresar" (click)="prev()"></button>
+            <button pButton type="button" label="Ver rutinas" (click)="finalizar()"></button>
         </div>
     </div>
 </div>

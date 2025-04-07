@@ -1,6 +1,5 @@
 <form class="step-content" [formGroup]="agendarForm">
     <h3>Datos de agendamiento</h3>
-
     <div style="width: 100%;">
         <label for="fecha" class="">Fecha Registro {{ agendarForm.getError('fecha') }}</label>
         <p-calendar appendTo="body" id="fecha" dateFormat="dd-mm-yy" formControlName="fecha"

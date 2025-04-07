@@ -17,7 +17,6 @@ export interface Estados {
   styleUrls: ['./agendamiento-info.component.scss']
 })
 export class AgendamientoInfoComponent implements OnInit, OnDestroy {
-  @Input() isMembresia!: Boolean;
   @Input() rolUser!: string;
   private formSubscription: Subscription = new Subscription()
   agendarForm: FormGroup;
@@ -29,10 +28,8 @@ export class AgendamientoInfoComponent implements OnInit, OnDestroy {
   fechaAgendamiento: string = '';
 
   constructor(private fb: FormBuilder, private horarioService: HorarioService, private formDataService: FormService) {
-    const date = !this.isMembresia ? new Date() : null;
-    if (date) {
-      this.fechaAgendamiento = capitalizeFirstLetter(formatDate(date));
-    }
+    const date = new Date();
+    this.fechaAgendamiento = capitalizeFirstLetter(formatDate(date));
 
     // Cargar datos previos si existen
     this.formDataService.agendamientoData$.subscribe((data) => {
@@ -42,15 +39,14 @@ export class AgendamientoInfoComponent implements OnInit, OnDestroy {
     });
 
     this.agendarForm = this.fb.group({
-      fecha: new FormControl<Date | null>({ value: date, disabled: !this.isMembresia as boolean }, [Validators.required]),
+      fecha: new FormControl<Date | null>({ value: date, disabled: false }, [Validators.required]),
       ingreso: new FormControl<Estados | null>(null, [Validators.required]),
       salida: new FormControl<Estados | null>(null, [Validators.required]),
     });
   }
 
-  ngOnInit() {
-    console.log(this.isMembresia, 'this.isMembresia');
-    this.horarioService.obtenerHorarioPorRolYDia(this.rolUser, this.fechaAgendamiento)
+  obtenerHorarios(rol: string, fecha: string) { 
+    this.horarioService.obtenerHorarioPorRolYDia(rol, fecha)
       .subscribe({
         next: (value) => {
           this.ingresoOpt = [];
@@ -64,8 +60,15 @@ export class AgendamientoInfoComponent implements OnInit, OnDestroy {
           console.log(err)
         },
       })
+  }
+
+  ngOnInit() {
 
 
+    this.agendarForm.get('fecha')?.valueChanges.subscribe((val) => {
+      this.fechaAgendamiento = capitalizeFirstLetter(formatDate(val));
+      this.obtenerHorarios(this.rolUser, this.fechaAgendamiento);
+    });
     this.agendarForm.get('ingreso')?.valueChanges.subscribe((val) => {
       this.salidaOpt = [];
       this.salidaOpt = filterHoursForSalida(val, this.ingresoOpt);
