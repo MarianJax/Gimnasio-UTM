@@ -35,11 +35,13 @@ export class FormService {
   }
 
   // Obtener todos los datos combinados
-  getAllFormData(): any {
-    return {
-      agendamiento: this.agendamientoData.value,
-      pago: this.pagoData.value,
-    }
+  getAllFormData(): any[] {
+    return [
+      {
+        title: 'Agendamiento', icon: 'calendar', data: this.agendamientoData.value
+      },
+      { title: 'Pago', icon: 'dollar-01', data: this.pagoData.value },
+    ]
   }
 
   // Limpiar todos los datos
