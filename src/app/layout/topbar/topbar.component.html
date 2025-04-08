@@ -15,14 +15,13 @@
     <div #topbarmenu class="layout-topbar-menu"
         [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
         <div style="display: flex; align-items: center;">
-            <span>Bienvenido, {{nombre_usuario}}</span>
+            <span class="mb-2 mt-2">Bienvenido, {{nombre_usuario | lowercase | titlecase}}</span>
         </div>
         <p-menu appendTo="body" #menu [model]="roles" [popup]="true">
             <ng-template pTemplate="item" let-item>
-                <a type="button"
-                    [ngClass]="item.icon === 'edit' ? 'text-primary': 'text-danger p-button-danger'"
+                <a type="button" [ngClass]="item.icon === 'edit' ? 'text-primary': 'text-danger p-button-danger'"
                     (click)="item.action(item.id)" class="flex align-items-center p-menuitem-link">
-                    <span class="ml-2">{{ item.label }}</span>
+                    <span class="ml-2">{{ item.label | lowercase | titlecase }}</span>
                 </a>
             </ng-template>
         </p-menu>

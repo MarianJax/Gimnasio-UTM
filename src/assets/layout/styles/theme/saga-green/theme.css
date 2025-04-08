@@ -1345,6 +1345,15 @@ p-inputswitch.ng-dirty.ng-invalid>.p-inputswitch {
 
 .p-inputtext.ng-dirty.ng-invalid {
   border-color: #f44336;
+
+  &:enabled:focus {
+    box-shadow: 0 0 0 0.2rem #e6c2c2;
+  }
+}
+
+.p-inputtext.ng-dirty.ng-invalid:enabled:focus {
+  box-shadow: 0 0 0 0.2rem #e6c2c2;
+
 }
 
 .p-inputtext.p-inputtext-sm {
