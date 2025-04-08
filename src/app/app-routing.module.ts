@@ -4,11 +4,7 @@ import { authGuard } from './guards/auth.guard';
 import { LayoutComponent } from './layout/layout.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/',
-    pathMatch: 'full'
-  },
+  
   {
     path: 'auth',
     children: [
@@ -18,7 +14,7 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    canActivate: [authGuard],
+     canActivate: [authGuard],
     children: [
       {
         path: '',

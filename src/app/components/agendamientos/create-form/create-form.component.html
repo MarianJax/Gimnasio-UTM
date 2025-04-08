@@ -1,40 +1,62 @@
-
 <p-toast position="top-right" />
 
 <div class="container-form">
-    <p-steps [model]="items" [readonly]="true" [activeIndex]="activeIndex" >
-    </p-steps>
+  <p-steps [model]="items" [readonly]="true" [activeIndex]="activeIndex">
+  </p-steps>
 
-    <div [hidden]="activeIndex !== 0">
-        <app-agendamiento-info [rolUser]="rol" class="element"></app-agendamiento-info>
-        <div class="button">
-            <button pButton type="button" label="Siguiente" (click)="next()"></button>
-        </div>
+  <div [hidden]="activeIndex !== 0">
+    <app-agendamiento-info class="element"></app-agendamiento-info>
+    <div class="button">
+      <button pButton type="button" label="Siguiente" (click)="next()"></button>
     </div>
+  </div>
 
-    <div [hidden]="activeIndex !== 1">
-        <app-pago-form [usuario]="usuario"></app-pago-form>
-        <div class="button">
-            <button pButton type="button" label="Regresar" (click)="prev()"></button>
-            <button pButton type="button" label="Agendar" (click)="next()"></button>
-        </div>
+  <div [hidden]="activeIndex !== 1">
+    <app-pago-form [usuario]="usuario"></app-pago-form>
+    <div class="button">
+      <button pButton type="button" label="Regresar" (click)="prev()"></button>
+      <button pButton type="button" label="Agendar" (click)="next()"></button>
     </div>
+  </div>
 
-    <div [hidden]="activeIndex !== 2">
-        <app-confirm></app-confirm>
-        <div class="button">
-            <button pButton type="button" label="Regresar" (click)="prev()"></button>
-            <button pButton type="button" label="Finalizar" (click)="next()"></button>
-        </div>
+  <div [hidden]="activeIndex !== 2">
+    <app-confirm></app-confirm>
+    <div class="button">
+      <button pButton type="button" label="Regresar" (click)="prev()"></button>
+      <button pButton type="button" label="Finalizar" (click)="next()"></button>
     </div>
-    <div [hidden]="activeIndex !== 3">
-        <div style="height: 270px; width: 100%; display: flex; justify-content: center; align-items: center; color: #299607; flex-direction: column; font-size: 16px;">
-            <mage-icon name="checkmark-fill" size="60px" color="white" fill="#299607"></mage-icon>
-            <span>¡Proceso completado con éxito!</span>
-        </div>
-        <div class="button">
-            <button pButton type="button" label="Regresar" (click)="prev()"></button>
-            <button pButton type="button" label="Ver rutinas" (click)="finalizar()"></button>
-        </div>
+  </div>
+  <div [hidden]="activeIndex !== 3">
+    <div
+      style="
+        height: 270px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #299607;
+        flex-direction: column;
+        font-size: 16px;
+      "
+    >
+      <div class="flex flex-column" *ngIf="dataAction">
+        <mage-icon
+          name="checkmark-fill"
+          size="60px"
+          [color]="dataAction.status === 'success' ? 'white': '#FF0C10'"
+          [fill]="dataAction.status === 'success' ? '#299607': 'none'"
+          
+        ></mage-icon>
+        <span [style]="{ color: dataAction.status === 'success'? '#299607' : '#FF0C10' }">{{ dataAction.message }}</span>
+      </div>
     </div>
+    <div class="button">
+      <button
+        pButton
+        type="button"
+        label="Ver rutinas"
+        (click)="goToRutinas()"
+      ></button>
+    </div>
+  </div>
 </div>

@@ -1,44 +1,48 @@
 <div class="step-content">
-  <h3>Confirmación de Agendamiento</h3>
+  <h3 class="mb-1">Información de Agendamiento</h3>
 
-  <p-timeline [value]="obtenerDatosCompletos()" class="w-full md:w-20rem" align="left">
+  <p-timeline [value]="data" class="w-full md:w-20rem" align="left">
     <ng-template pTemplate="marker" let-event>
-      <span class="flex w-3rem h-3rem align-items-center justify-content-center text-white border-circle z-1 shadow-1"
-        [style]="{ 'background-color': event.color }">
+      <span
+        class="flex w-3rem h-3rem align-items-center justify-content-center text-white border-circle z-1 shadow-1"
+        [style]="{ 'background-color': 'var(--primary-color)' }"
+      >
         <mage-icon size="24px" [name]="event.icon"></mage-icon>
       </span>
     </ng-template>
     <ng-template pTemplate="content" let-event>
-      <p-card [header]="event.status" [subheader]="event.date">
-        <h4>{{ event.title }}</h4>
-        <p>{{ event.data.fecha | date:'dd/MM/yyyy' }}</p>
-        <p><strong>Detalles:</strong> {{ event.data.detalles }}</p>
+      <p-card>
+        <h4 class="font-bold">{{ event.title }}</h4>
+        <div *ngIf="event.title == 'Agendamiento'; else pagoTemplate">
+          <p>
+            <strong>Fecha: </strong>{{ event.data.fecha | date : "dd/MM/yyyy" }}
+          </p>
+          <div class="flex gap-5">
+            <p><strong>Hora Ingeso: </strong>{{ event.data.ingreso }}</p>
+            <p><strong>Hora Salida: </strong>{{ event.data.salida }}</p>
+          </div>
+        </div>
+        <ng-template #pagoTemplate>
+          <p>
+            <strong>Fecha: </strong
+            >{{ event.data.fecha_pago | date : "dd/MM/yyyy" }}
+          </p>
+          <div class="flex gap-5">
+            <p>
+              <strong>Método de Pago: </strong>{{ event.data.metodo_pago.name }}
+            </p>
+            <p>
+              <strong>Monto: </strong>{{ event.data.monto | currency : "USD" }}
+            </p>
+          </div>
+          <p><strong>Evidencia: </strong>{{ event.data.evidencia_pago }}</p>
+        </ng-template>
       </p-card>
     </ng-template>
   </p-timeline>
-  <!-- {{ obtenerDatosCompletos()[0] | json }}
-  {{ obtenerDatosCompletos()[1] | json }} -->
-  <div class="confirmation-section">
-    <h4>Datos de Agendamiento</h4>
-    <div class="confirmation-data" *ngIf="agendamientoData">
-      <p><strong>Fecha:</strong> {{ agendamientoData.fecha | date:'dd/MM/yyyy' }}</p>
-      <p><strong>Hora de ingreso:</strong> {{ agendamientoData.ingreso }}</p>
-      <p><strong>Hora de salida:</strong> {{ agendamientoData.salida }}</p>
-    </div>
-  </div>
-
-  <div class="confirmation-section">
-    <h4>Datos de Pago</h4>
-    <div class="confirmation-data">
-      <p><strong>Fecha de pago:</strong> {{ pagoData.fecha_pago | date:'dd/MM/yyyy' }}</p>
-      <p><strong>Monto:</strong> {{ pagoData.monto | currency:'USD':'symbol':'1.2-2' }}</p>
-      <p><strong>Estado:</strong> {{ pagoData.metodo_pago?.name }}</p>
-      <p><strong>Evidencia de pago:</strong> {{ pagoData.evidencia_pago }}</p>
-      <p><strong>Archivo de evidencia:</strong> {{ pagoData.evidencia_pago }}</p>
-    </div>
-  </div>
-
   <div class="confirmation-message">
-    <p>Por favor, revise que todos los datos sean correctos antes de finalizar.</p>
+    <p>
+      Por favor, revise que todos los datos sean correctos antes de finalizar.
+    </p>
   </div>
 </div>

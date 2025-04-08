@@ -1,137 +1,107 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { debounceTime, Subscription, take } from 'rxjs';
-import { FormService } from '../../../../service/agendamiento/form-service.service';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { RolesService } from '../../../../service/roles/roles.service';
+import { imageToArrayBuffer } from '../../../../core/utiils/convertImage';
 
 @Component({
   selector: 'app-pago-form',
   templateUrl: './pago-form.component.html',
-  styleUrls: ['./pago-form.component.scss']
+  styleUrls: ['./pago-form.component.scss'],
 })
 export class PagoFormComponent implements OnInit {
-  @Input() isMembresia!: Boolean;
   @Input() usuario!: any;
-  pagoData: any
   pagoForm: FormGroup;
   selectedImage: string | null = null;
-  private formSubscription: Subscription = new Subscription()
 
   metodoOpt = [
     { name: 'Diario', value: 'diario' },
-    { name: 'Mensual', value: 'mensual' }
+    { name: 'Mensual', value: 'mensual' },
   ];
 
-  cuentaAhorros = ""
-  metodoPago = "Diario"
-  fechaPago = ""
-  monto = 0.0
-  evidenciaPago = ""
-  selectedFile: File | null = null
+  cuentaAhorros = '';
+  metodoPago = 'Diario';
+  fechaPago = '';
+  monto = 0.0;
+  evidenciaPago = '';
+  selectedFile: File | null = null;
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
+      imageToArrayBuffer(input).then((arrayBuffer) => {
+        this.pagoForm.patchValue({
+          evidencia_pago_buffer: arrayBuffer,
+        });
+      });
+      console.log(typeof input.files[0]);
       this.selectedImage = input.files[0].name;
+      this.pagoForm.patchValue({
+        evidencia_pago: input,
+      });
     }
   }
 
-  constructor(private fb: FormBuilder, private formDataService: FormService, private rolService: RolesService) {
+  constructor(private fb: FormBuilder, private rolService: RolesService) {
     this.pagoForm = this.fb.group({
-      evidencia_pago: new FormControl<string | null>(null, this.isMembresia ? null : [Validators.required]),
-      fecha_pago: new FormControl<Date | null>(null, this.isMembresia ? null : [Validators.required]),
+      evidencia_pago: new FormControl<string | null>(null, [
+        Validators.required,
+      ]),
+      fecha_pago: new FormControl<Date | null>(null, [Validators.required]),
       monto: new FormControl<number | null>({ value: 0.0, disabled: true }),
-      metodo_pago: new FormControl<string | null>(null, this.isMembresia ? null : [Validators.required]),
+      metodo_pago: new FormControl<string | null>(null, [Validators.required]),
     });
   }
 
   ngOnInit() {
-    this.rolService.obtenerRolPorNombre(this.usuario.roles).subscribe((rol) => {
-      if (rol) {
-        this.monto = Number(rol.monto_pago);
-      }
-    });
-    // Obtener datos de agendamiento
-    this.formDataService.pagoData$
-      .pipe(
-        take(1), // Tomar solo el primer valor para evitar ciclos
-      )
-      .subscribe((data) => {
-        if (data && Object.keys(data).length > 0) {
-          // Establecer flag para evitar ciclo
-          this.formDataService.setUpdatingFlag(true)
-          this.pagoForm.patchValue(data)
-          this.selectedImage = data.evidenciaFileName || null
-          this.formDataService.setUpdatingFlag(false)
-        }
-      })
-
-    // Suscribirse a cambios en el formulario con debounce para evitar actualizaciones excesivas
-    this.formSubscription = this.pagoForm.valueChanges
-      .pipe(
-        debounceTime(300), // Esperar 300ms de inactividad antes de emitir
-      )
-      .subscribe((values) => {
-        // Actualizar el servicio solo si los cambios no vienen del servicio
-        this.updateFormWithoutCycle()
-      })
-
     this.pagoForm.get('metodo_pago')?.valueChanges.subscribe((val) => {
-      this.rolService.obtenerRolPorNombre(this.usuario.roles).subscribe((rol) => {
-        if (val.value === 'diario') {
-          this.monto = Number(rol.monto_pago) * 1
+      let monto = 0.0;
+      this.rolService.obtenerRolPorNombre(this.usuario.roles).subscribe(
+        (rol) => {
+          if (val.value === 'diario') {
+            monto = Number(rol.monto_pago) * 1;
+          }
+          if (val.value === 'mensual') {
+            const fechaActual = new Date();
+            const fecha = new Date(fechaActual); // Create a copy of fechaActual
+            fecha.setMonth(fechaActual.getMonth() + 1);
+            const fechaFin = new Date(fecha);
+            const diasRestantes = Math.ceil(
+              (fechaFin.getTime() - fechaActual.getTime()) /
+                (1000 * 60 * 60 * 24)
+            );
+            monto = Number(rol.monto_pago) * diasRestantes;
+          }
+          console.log('Monto calculado:', monto);
+          this.pagoForm.patchValue({ monto: monto });
+        },
+        (error) => {
+          console.log(error);
         }
-        if (val.value === 'mensual') {
-          const fechaActual = new Date();
-          const fecha = new Date(fechaActual); // Create a copy of fechaActual
-          fecha.setMonth(fechaActual.getMonth() + 1);
-          const fechaFin = new Date(fecha);
-          const diasRestantes = Math.ceil((fechaFin.getTime() - fechaActual.getTime()) / (1000 * 60 * 60 * 24));
-          this.monto = Number(rol.monto_pago) * diasRestantes;
-        }
-        this.pagoForm.patchValue({ monto: this.monto }, { emitEvent: false });
-      });
-      this.monto = 0.0;
-
+      );
+      monto = 0.0;
     });
-  }
-
-
-
-  ngOnDestroy() {
-    // Limpiar suscripciones para evitar memory leaks
-    this.formSubscription.unsubscribe()
   }
 
   // Método para validar el formulario (puede ser llamado desde el componente padre)
   validateForm(): boolean {
-    if (this.isMembresia) {
-      return true // Si tiene membresía, no necesita validación
-    }
-
     if (this.pagoForm.invalid) {
       let errors: { [key: string]: string } = {};
       Object.keys(this.pagoForm.controls).forEach((key) => {
-        const control = this.pagoForm.get(key)
-        errors = { ...errors, ...this.validatedForm(key, control) as { [key: string]: string } }
-      })
-      this.pagoForm.setErrors(errors)
-      return false
+        const control = this.pagoForm.get(key);
+        errors = {
+          ...errors,
+          ...(this.validatedForm(key, control) as { [key: string]: string }),
+        };
+      });
+      this.pagoForm.setErrors(errors);
+      return false;
     }
-    return true
-  }
-
-  // Método para actualizar el servicio sin crear ciclos
-  private updateFormWithoutCycle(): void {
-    if (this.pagoForm.valid || this.isMembresia) {
-      const formData = {
-        ...this.pagoForm.value,
-        monto: this.monto,
-        evidencia_pago: this.selectedImage,
-        isMembresia: this.isMembresia,
-      }
-      this.formDataService.updatePagoData(formData)
-    }
+    return true;
   }
 
   private validatedForm(key: string, control: any) {

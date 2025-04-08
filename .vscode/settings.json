@@ -1,22 +1,22 @@
 {
-    "editor.formatOnSave": true,
-    "eslint.codeActionsOnSave.rules": null,
-    "eslint.format.enable": true,
-    "[typescriptreact]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features"
-    },
-    "files.autoSave": "afterDelay",
-    "files.autoSaveDelay": 2000,
-    "files.eol": "\n",
-    "files.encoding": "utf8",
-    "editor.wordWrap": "on",
-    "typescript.preferences.importModuleSpecifier": "relative",
-    "typescript.preferences.organizeImports": {
-        "enabled": true,
-        "sortImports": true
-    },
-    "editor.codeActionsOnSave": {
-        "source.organizeImports": "always",
-        "source.fixAll.eslint": "always"
-    },
+  "editor.formatOnSave": true,
+  "eslint.codeActionsOnSave.rules": null,
+  "eslint.format.enable": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 2000,
+  "files.eol": "\n",
+  "files.encoding": "utf8",
+  "editor.wordWrap": "on",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.organizeImports": {
+    "enabled": true,
+    "sortImports": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always",
+    "source.fixAll.eslint": "always"
+  }
 }
