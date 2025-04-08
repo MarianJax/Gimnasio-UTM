@@ -8,6 +8,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { FileUploadModule } from 'primeng/fileupload';
+import { ImageModule } from 'primeng/image';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -19,22 +20,21 @@ import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { IconModule } from 'src/app/components/icons/icons.module';
-import { TableAgendamientosComponent } from '../../../components/agendamientos/table-agendamientos/table-agendamientos.component';
+import { TableValidacionesComponent } from '../../../components/pagos/validaciones/table-validaciones/table-validaciones.component';
+import { SortIconModule } from '../../../components/sort-icon/sort-icon.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { AdminModule } from '../admin.module';
-import { SortIconModule } from '../../../components/sort-icon/sort-icon.module';
-import { ImageModule } from 'primeng/image';
+import { SharedModule } from '../../../components/shared/shared.module';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
-    TableAgendamientosComponent
   ],
   imports: [
     CommonModule,
     SortIconModule,
+    SharedModule,
     HomeRoutingModule,
     IconModule,
     TableModule,
