@@ -63,7 +63,7 @@
         <label for="evidencia_pago">Evidencia de pago
             <span style="position: relative;" [ngClass]="{'ng-dirty ng-invalid': pagoForm.getError('evidencia_pago')}"
                 for="file-upload" class="file-upload-label">
-                <input type="file" formControlName="evidencia_pago" (change)="onFileSelected($event)" id="file-upload"
+                <input type="file" (change)="onFileSelected($event)" id="file-upload"
                     class="file-upload-input" accept="image/*">
                 <mage-icon color="#808080" name="image-upload" class="upload-icon" size="30px" />
                 <span class="file-name" id="file-name"> {{ selectedImage ? selectedImage : 'Selecciona una imagen'

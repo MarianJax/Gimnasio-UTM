@@ -1,8 +1,10 @@
 <p-toast />
-<p-table #dt [value]="products" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-    [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5"    currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
-    [showFirstLastIcon]="false" [showCurrentPageReport]="true" dataKey="products-registradas"
-    [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true" scrollHeight="365px">
+<p-table #dt [value]="agendamientos"
+[paginator]="true"
+    [globalFilterFields]="['user.nombre', 'user.apellido', 'user.cedula', 'user.rol', 'agendamiento.asistio']"
+    [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" currentPageReportTemplate="{first} - {last} de {totalRecords}"
+    [filterDelay]="0" [showCurrentPageReport]="true" [showFirstLastIcon]="false" [showCurrentPageReport]="true"
+    dataKey="products-registradas" [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true" scrollHeight="365px">
     <ng-template pTemplate="caption">
         <div class="flex justify-content-between gap-3">
             <div>
@@ -13,62 +15,48 @@
                     <mage-icon name="search" class="pi"
                         style="left: 0.6rem; position: absolute;top: 50%;margin-top: -0.5rem;" fill="#868FA0"
                         size="14px"></mage-icon>
-                    <!-- <i class="pi pi-search"></i> -->
                     <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar..." />
                 </span>
-            </div>
-            <div>
-                <p-button [outlined]="true" (onClick)="goToAssistance()" severity="success"
-                    class="mr-3 ml-auto">Asistencia</p-button>
-                <p-button [outlined]="true" (onClick)="goToList()" severity="success"
-                    class="mr-2 ml-auto">Listado</p-button>
             </div>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
             <th>#</th>
-            <th pSortableColumn="name">
-                Nombres
-                <app-sort-icon [field]="'name'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
-            </th>
-            <th pSortableColumn="category">
-                Rol <app-sort-icon [field]="'category'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
-            </th>
-            <th pSortableColumn="pago">
-                Tipo de Pago <app-sort-icon [field]="'pago'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
-            </th>
-            <th class="text-center"> Confirmación </th>
+            <th>Nombres</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th class="text-center"> Asistencia </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product let-i="rowIndex">
+    <ng-template pTemplate="body" let-agendamiento let-i="rowIndex">
         <tr>
             <td>
                 {{ i + 1 }}
             </td>
             <td>
                 <div class="flex flex-column">
-                    <span class="subtitle">{{ product.name }} {{ product.code }}</span>
-                    <span class="caption">{{ product.category }}</span>
+                    <span class="subtitle">{{ agendamiento.user.nombre | lowercase | titlecase }} {{
+                        agendamiento.user.apellido | lowercase | titlecase }}</span>
+                    <span class="caption">{{ agendamiento.user.cedula }}</span>
                 </div>
             </td>
             <td>
-                {{ product.description }}
+                {{ agendamiento.user.rol }}
             </td>
             <td>
-                {{ product.pago }}
+                <p-tag
+                    [value]="agendamiento.asistio === null ? 'Pendiente': agendamiento.asistio ? 'Asistió' : 'No asistió'"
+                    [severity]="getSeverity(agendamiento.asistio)" />
             </td>
             <td>
                 <div class="flex gap-3 w-full justify-content-center">
-                    <p-image
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJcf0fkeh950WW9kXqe0WAK6fnw00Yxg8d_2zKq_vNBW8pGb5i6jWuhOVP3TkNZt1RcuU&usqp=CAU"
-                        [alt]="product.name" height="30" width="50" class="bg-gray-500" [preview]="true" />
-                    <p-button [outlined]="true" [text]="true" size="small" severity="primary" class="w-min"
-                        (click)="onSelectionChange(product.id, 'Si')"><mage-icon name="check"
-                            size="18px"></mage-icon></p-button>
-                    <p-button [outlined]="true" [text]="true" size="small" severity="danger" class="w-min"
-                        (click)="onSelectionChange(product.id, 'No')"><mage-icon name="cancel"
-                            size="18px"></mage-icon></p-button>
+                    <p-button *ngIf="agendamiento.asistio === null" [outlined]="true" [text]="true" size="small" severity="primary" class="w-min"
+                        (click)="onSelectionChange(agendamiento.id, true)"><mage-icon
+                            name="check" size="18px"></mage-icon>&nbsp;Si</p-button>
+                    <p-button *ngIf="agendamiento.asistio === null" [outlined]="true" [text]="true" size="small" severity="danger" class="w-min"
+                        (click)="onSelectionChange(agendamiento.id, false)"><mage-icon
+                            name="cancel" size="18px"></mage-icon>&nbsp;No</p-button>
                 </div>
             </td>
         </tr>

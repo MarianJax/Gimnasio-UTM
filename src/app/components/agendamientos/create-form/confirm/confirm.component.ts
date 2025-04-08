@@ -17,7 +17,6 @@ export class ConfirmComponent implements OnInit {
   ngOnInit() {}
 
   obtenerDatosCompletos(data: any[]) {
-    console.log(data);
     this.data = data;
   }
 

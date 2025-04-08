@@ -5,8 +5,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { RolesService } from '../../../../service/roles/roles.service';
 import { imageToArrayBuffer } from '../../../../core/utiils/convertImage';
+import { RolesService } from '../../../../service/roles/roles.service';
 
 @Component({
   selector: 'app-pago-form',
@@ -33,15 +33,15 @@ export class PagoFormComponent implements OnInit {
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
-      imageToArrayBuffer(input).then((arrayBuffer) => {
+      imageToArrayBuffer(input).then(({ buffer, mimeType }) => {
         this.pagoForm.patchValue({
-          evidencia_pago_buffer: arrayBuffer,
+          evidencia_pago_buffer: buffer,
+          tipo: mimeType,
         });
       });
-      console.log(typeof input.files[0]);
       this.selectedImage = input.files[0].name;
       this.pagoForm.patchValue({
-        evidencia_pago: input,
+        evidencia_pago: this.selectedImage,
       });
     }
   }
@@ -51,7 +51,9 @@ export class PagoFormComponent implements OnInit {
       evidencia_pago: new FormControl<string | null>(null, [
         Validators.required,
       ]),
+      evidencia_pago_buffer: new FormControl<ArrayBuffer | null>(null),
       fecha_pago: new FormControl<Date | null>(null, [Validators.required]),
+      tipo: new FormControl<string>('image/png'),
       monto: new FormControl<number | null>({ value: 0.0, disabled: true }),
       metodo_pago: new FormControl<string | null>(null, [Validators.required]),
     });
@@ -72,11 +74,10 @@ export class PagoFormComponent implements OnInit {
             const fechaFin = new Date(fecha);
             const diasRestantes = Math.ceil(
               (fechaFin.getTime() - fechaActual.getTime()) /
-                (1000 * 60 * 60 * 24)
+              (1000 * 60 * 60 * 24)
             );
             monto = Number(rol.monto_pago) * diasRestantes;
           }
-          console.log('Monto calculado:', monto);
           this.pagoForm.patchValue({ monto: monto });
         },
         (error) => {

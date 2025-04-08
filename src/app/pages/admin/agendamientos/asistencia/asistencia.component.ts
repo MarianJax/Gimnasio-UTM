@@ -13,7 +13,7 @@ export class AsistenciaComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.items = [{ icon: 'dashboard', route: '/admin', label: 'Inicio' }, { label: 'Reservas', route: '/admin/agendamientos' }, { label: 'Asistencia' }];  
+    this.items = [{ icon: 'dashboard', route: '/admin', label: 'Inicio' }, { label: 'Agendamientos', route: '/admin/agendamientos' }, { label: 'Asistencia' }];  
   }
 
 }

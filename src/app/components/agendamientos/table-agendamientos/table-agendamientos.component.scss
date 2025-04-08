@@ -98,6 +98,67 @@
     }
 }
 
+:host ::ng-deep {
+    .p-tag {
+        color: black !important;
+        padding: 5px 10px;
+        border-radius: 99px;
+
+    }
+
+    .p-dialog-mask.p-component-overlay.p-component-overlay-enter.p-dialog-mask-scrollblocker.ng-star-inserted {
+        background-color: rgb(0 0 0 / 90%) !important;
+
+        .p-dialog {
+            border-radius: 12px !important;
+            overflow: hidden;
+            // background: linear-gradient(to bottom right, #cfe4da, #fff);
+
+            .p-dialog-header {
+                position: absolute;
+                top: 0;
+                right: 0;
+                background: transparent;
+                color: rgb(255, 255, 255);
+                font-weight: 800;
+                padding: 24px 30px;
+                font-size: 20px;
+
+                .p-dialog-header-icon {
+                    height: 3rem;
+                    width: 3rem;
+                    color: #ffffff;
+
+                    .p-dialog-header-close-icon {
+                        width: 21px;
+                        height: 21px;
+                        color: #ffffff;
+                    }
+
+                    &:hover,
+                    &:focus,
+                    &:active,
+                    &:focus-visible,
+                    &:focus-within {
+                        background: rgba(255, 255, 255, 0.1);
+                        outline: none;
+                        box-shadow: none;
+                    }
+                }
+
+            }
+
+            .p-dialog-content {
+                padding: 0;
+                display: flex;
+                background: transparent;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+}
+
 td {
     .subtitle {
         font-weight: 500;

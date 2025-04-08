@@ -1,24 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
-
-const ProductsA = {
-  id: '1000',
-  code: 'f230fh0g3',
-  name: 'Bamboo Watch',
-  description: 'Product Description',
-  image: 'bamboo-watch.jpg',
-  price: 65,
-  category: 'Accessories',
-  pago: 'Si',
-  quantity: 24,
-  inventoryStatus: 'INSTOCK',
-  rating: 5
-}
-
-type Product = typeof ProductsA;
+import { AgendamientosService } from '../../../service/agendamiento/agendamientos.service';
+import { AgendamientoType } from './type';
 
 @Component({
   selector: 'app-table-agendamientos',
@@ -27,92 +11,58 @@ type Product = typeof ProductsA;
 })
 export class TableAgendamientosComponent implements OnInit {
   @ViewChild('dt') dt!: Table;
-  productForms: { [key: string]: FormGroup } = {}
 
   categories: any[] = [
     { name: 'Si', key: 'si' },
     { name: 'No', key: 'no' },
   ];
 
-  productDialog: boolean = false;
-  products!: Product[];
-  product!: Product;
+  agendamientos!: AgendamientoType[];
 
-  statuses!: any[];
+  constructor(private messageService: MessageService, private agendamientoService: AgendamientosService) {
+  }
 
-  constructor(private messageService: MessageService, private confirmationService: ConfirmationService,private fb: FormBuilder, private router: Router) { }
+  ngOnInit() { this.loadAgendamientos(); }
 
-  ngOnInit() {
-    this.products = [{
-      id: '1000',
-      code: 'f230fh0g3',
-      name: 'Bamboo Watch',
-      description: 'Product Description',
-      image: 'bamboo-watch.jpg',
-      price: 65,      
-      pago: 'Diario',
-      category: 'Accessories',
-      quantity: 24,
-      inventoryStatus: 'INSTOCK',
-      rating: 5
-    },
-    {
-      id: '2000',
-      code: 'f2231fh0g3',
-      name: 'BaGnd Watch',
-      description: 'Product Description',
-      image: 'bamboo-watch.jpg',
-      price: 65,
-      pago: 'Mensual',
-      category: 'Accessories',
-      quantity: 24,
-      inventoryStatus: 'INSTOCK',
-      rating: 5
-    }];
+  loadAgendamientos() {
+    this.agendamientoService.obtenerAgendamientos().subscribe((data: any[]) => {
 
-    // Create a form group for each product
-    this.products.forEach((product: Product) => {
-      this.productForms[product.id] = this.fb.group({
-        selectedCategory: new FormControl(null),
-      });
+      this.agendamientos = data.map(item => ({
+        ...item,
+        user: {
+          ...item.user,
+          rol: item.user.roles[0]?.nombre,  // Solo el nombre del primer rol
+        }
+      }));
     });
   }
 
-  onSelectionChange(productId: string, index: string) {
-    console.log(`Producto ID: ${productId}, Asistencia: ${index}`);
+  getSeverity(status: boolean) {
+    switch (status) {
+      case true:
+        return 'success';
+
+      case false:
+        return 'danger';
+
+      default:
+        return 'warning';
+    }
   }
 
-  // Helper method to get form group for a specific product
-  getFormGroup(productId: number): FormGroup {
-    return this.productForms[productId]
-  }
-
-  onAction(product: Product) {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + product.name + '?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.products = this.products.filter((val) => val.id !== product.id);
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+  onSelectionChange(id: string, asistio: boolean) {
+    this.agendamientoService.actualizarAgendamiento(id, { asistio }).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
+        this.loadAgendamientos();
+      },
+      error: (error) => {
+        console.error('Error updating product:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to update product', life: 3000 });
       }
     });
   }
-
-  hideDialog() {
-    this.productDialog = false;
-  }
-
-
-  goToList() {
-    this.router.navigate(['/admin/agendamientos']);
-  }
-
-  goToAssistance() {
-    this.router.navigate(['/admin/agendamientos/asistencia']);
-  }
-
-  
 
   applyFilter(event: Event) {
     const inputElement = event.target as HTMLInputElement;

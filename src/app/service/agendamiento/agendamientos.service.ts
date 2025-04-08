@@ -9,8 +9,16 @@ export class AgendamientosService {
   private apiUrl = 'http://localhost:3000/agendamiento';
   constructor(private http: HttpClient) {}
 
+  obtenerAgendamientosWithPendingValidation(take?: number, skip?: boolean): Observable<any> {
+    return this.http.get(`${this.apiUrl}/with-pending-validation?${take ? `_limit=${take}` : ''}${skip ? `&_all=${skip}` : false}`);
+  }
+
   obtenerAgendamientos(): Observable<any> {
     return this.http.get(this.apiUrl);
+  }
+
+  actualizarAgendamiento(id: string, agendamiento: any): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/${id}`, agendamiento);
   }
 
   crearAgendamiento(agendamiento: any): Observable<any> {

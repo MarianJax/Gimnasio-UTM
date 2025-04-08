@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AuthService } from '../../../pages/login/auth.service';
 import { AgendamientosService } from '../../../service/agendamiento/agendamientos.service';
@@ -6,8 +7,6 @@ import { FormService } from '../../../service/agendamiento/form-service.service'
 import { AgendamientoInfoComponent } from './agendamiento-info/agendamiento-info.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { PagoFormComponent } from './pago-form/pago-form.component';
-import { imageToArrayBuffer } from '../../../core/utiils/convertImage';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-form',
@@ -73,7 +72,7 @@ export class CreateFormComponent implements AfterViewInit {
     }
   }
 
-  goToRutinas(){
+  goToRutinas() {
     this.router.navigate(['/']);
   }
 
@@ -131,6 +130,10 @@ export class CreateFormComponent implements AfterViewInit {
       case 3: // Finalizar
         const user = this.authService.getUserData();
         let ret: boolean = false;
+        const uint8Array = new Uint8Array(this.pagoComponent.pagoForm
+          .get('evidencia_pago_buffer')
+          ?.getRawValue());
+        const array = Array.from(uint8Array);
         this.agendamientoService
           .crearAgendamiento({
             fecha: this.agendamientoComponent.agendarForm
@@ -144,14 +147,13 @@ export class CreateFormComponent implements AfterViewInit {
               .get('salida')
               ?.getRawValue(),
             rol: user.roles,
+            tipo: this.pagoComponent.pagoForm.get('tipo')?.getRawValue(),
             usuario_id: user.id,
             metodo_pago: (this.pagoComponent.pagoForm
               .get('metodo_pago')
               ?.getRawValue()).name,
             monto: this.pagoComponent.pagoForm.get('monto')?.getRawValue(),
-            evidencia_pago: imageToArrayBuffer(this.pagoComponent.pagoForm
-              .get('evidencia_pago')
-              ?.getRawValue()),
+            evidencia_pago: array,
           })
           .subscribe({
             next: (data: any) => {
@@ -161,11 +163,13 @@ export class CreateFormComponent implements AfterViewInit {
               return ret;
             },
             error: (err) => {
+              console.log(err);
               ret = false;
               this.dataAction = err;
               return ret;
             },
           });
+
         return ret;
 
       default:
