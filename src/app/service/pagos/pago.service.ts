@@ -7,20 +7,20 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PagoService {
-  private apiUrl = 'http://localhost:3000/pagos';
+  private apiUrl = 'http://localhost:3000/pago';
 
   constructor(private http: HttpClient) { }
-  
-  obtenerPagos(): any{
+
+  obtenerPagos(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
-  agregarPago(pago: any): any {
+  agregarPago(pago: any): Observable<any> {
     return this.http.post(this.apiUrl, pago);
   }
-  obtenerPago(id: string): any {
+  obtenerPago(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
-  actualizarPago(pago: any): 
+  actualizarPago(pago: any):
     Observable<any> {
     return this.http.patch(`${this.apiUrl}/${pago.id}`, pago);
   }
