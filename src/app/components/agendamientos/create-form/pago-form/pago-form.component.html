@@ -29,9 +29,9 @@
             </table>
         </div>
     </div>
-    <h3>Formulario de Pago</h3>
+    <h3 class="font-bold">Formulario de Pago</h3>
 
-    <div style="width: calc(100%)">
+    <div style="width: calc(50% - 10px)">
         <label for="metodo_pago" class="">Método de Pago</label>
         <p-dropdown formControlName="metodo_pago" optionLabel="name" [options]="metodoOpt"
             placeholder="Seleccione el metodo de pago" [ngClass]="{
@@ -39,14 +39,6 @@
               }" />
         <small *ngIf="pagoForm.getError('metodo_pago')" class="ng-invalid text-red-600">
             {{ pagoForm.getError("metodo_pago") }}
-        </small>
-    </div>
-    <div style="width: calc(50% - 10px)">
-        <label for="fecha_pago" class="">Fecha Registro</label>
-        <p-calendar id="fecha_pago" dateFormat="dd-mm-yy" formControlName="fecha_pago"
-            [ngClass]="{'ng-dirty ng-invalid': pagoForm.getError('fecha_pago')}" />
-        <small *ngIf="pagoForm.getError('fecha_pago')" class="ng-invalid text-red-600">
-            {{ pagoForm.getError('fecha_pago') }}
         </small>
     </div>
     <div style="width: calc(50% - 10px)">

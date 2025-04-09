@@ -52,7 +52,6 @@ export class PagoFormComponent implements OnInit {
         Validators.required,
       ]),
       evidencia_pago_buffer: new FormControl<ArrayBuffer | null>(null),
-      fecha_pago: new FormControl<Date | null>(null, [Validators.required]),
       tipo: new FormControl<string>('image/png'),
       monto: new FormControl<number | null>({ value: 0.0, disabled: true }),
       metodo_pago: new FormControl<string | null>(null, [Validators.required]),

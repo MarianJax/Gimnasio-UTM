@@ -23,10 +23,6 @@
           </div>
         </div>
         <ng-template #pagoTemplate>
-          <p>
-            <strong>Fecha: </strong
-            >{{ event.data.fecha_pago | date : "dd/MM/yyyy" }}
-          </p>
           <div class="flex gap-5">
             <p>
               <strong>Método de Pago: </strong>{{ event.data.metodo_pago.name }}
