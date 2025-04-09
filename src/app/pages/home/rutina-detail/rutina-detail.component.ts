@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RutinasService } from '../../../service/rutinas/rutinas.service';
 
 
 @Component({
@@ -294,19 +295,16 @@ export class RutinaDetailComponent implements OnInit {
     }
   ];
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router, private rutinasService: RutinasService) { }
   selectpeso!: any;
   ngOnInit(): void {
     this.rutinaSlug = this.route.snapshot.paramMap.get('slug') ?? '';
-    this.rutina = this.rutinaItems.find((rutina: any) => rutina.slug === this.rutinaSlug);
-    console.log(this.rutina);
-    // Aquí puedes cargar los detalles de la rutina usando el slug
+    this.rutinasService.obtenerRutina(this.rutinaSlug).subscribe(data => {
+      this.rutina = data;
+    });
   }
-
-  goToPagos() {
-    this.router.navigate(['/rutina', this.rutinaSlug, 'pago']);
-  }
-  gotoPeso() {
-
+  
+  ObtenerNombreMaquinas(maquina: {id: string, nombre:string}[]) {
+    return maquina.map(m => m.nombre).join(', ');
   }
 }

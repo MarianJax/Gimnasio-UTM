@@ -9,15 +9,13 @@ $color-badge-text: #059669;
   position: sticky;
   top: 0;
   z-index: 10;
-  backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.7);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.5);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
   transition: background-color 0.3s, border-color 0.3s;
 
   .header-container {
     max-width: 80rem;
     margin: 0 auto;
-    padding: 12px 16px;
+    padding: 16px;
 
     .header-content {
       display: flex;
@@ -26,6 +24,7 @@ $color-badge-text: #059669;
 
       .header-button {
         display: flex;
+        gap: 5px;
         align-items: center;
         color: $color-primary;
         text-decoration: none;
@@ -64,6 +63,14 @@ $color-badge-text: #059669;
   }
 }
 
+.rutina-detail {
+  border-radius: 12px;
+  overflow: hidden;
+  height: auto;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
 /* Contenedor principal */
 .container {
   max-width: 80rem;
@@ -80,9 +87,7 @@ $color-badge-text: #059669;
     font-size: 30px;
     margin: 0;
     font-weight: bold;
-    background: linear-gradient(to right, #059669, #2563eb);
-    background-clip: text;
-    color: transparent;
+    color: black;
   }
 
   .header-description {
@@ -106,14 +111,14 @@ $color-badge-text: #059669;
   position: relative;
   background: white;
   border-radius: 0.75rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   transition: all 0.3s;
   animation: fade-in 0.5s ease-out;
   animation-delay: 0.15s;
 
   &:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 
     .progress-bar {
       transform: scaleX(1);

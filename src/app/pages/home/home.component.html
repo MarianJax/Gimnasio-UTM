@@ -20,11 +20,11 @@
         </div>
         <div class="card-stat">
           <div class="stat-label">Ejercicios</div>
-          <div class="stat-value">{{ rutina.ejercicios }}</div>
+          <div class="stat-value">{{ rutina.cantidad_ejercicios }}</div>
         </div>
       </div>
 
-      <Button pButton (click)="goToRutinaDetail(rutina.slug)" pRipple class="card-button">
+      <Button pButton (click)="goToRutinaDetail(rutina.id)" pRipple class="card-button">
         Ver detalles
       </Button>
     </div>
