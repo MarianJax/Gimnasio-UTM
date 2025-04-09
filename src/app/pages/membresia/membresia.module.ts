@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MembresiaRoutingModule } from './membresia-routing.module';
 import { MembresiaComponent } from './membresia.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { IconModule } from 'src/app/components/icons/icons.module';
@@ -17,7 +17,7 @@ import { RegistroModule } from './registro/registro.module';
   imports: [
     CommonModule,
     MembresiaRoutingModule,
-    FormsModule,
+    ReactiveFormsModule,
     CalendarModule,
     DropdownModule,
     IconModule,

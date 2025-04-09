@@ -54,12 +54,12 @@ export class TableAgendamientosComponent implements OnInit {
     this.agendamientoService.actualizarAgendamiento(id, { asistio }).subscribe({
       next: (data: any) => {
         console.log(data);
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'Agendamiento actualizado', detail: 'Agendamiento actualizado con éxito', life: 3000 });
         this.loadAgendamientos();
       },
       error: (error) => {
         console.error('Error updating product:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to update product', life: 3000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar el agendamiento', life: 3000 });
       }
     });
   }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AgendamientosService } from '../../service/agendamiento/agendamientos.service';
 import { MembresiaService } from '../../service/membresias/membresia.service';
 import { AuthService } from '../login/auth.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-membresia',
@@ -10,6 +11,7 @@ import { AuthService } from '../login/auth.service';
   styleUrls: ['./membresia.component.scss'],
 })
 export class MembresiaComponent implements OnInit {
+  form: FormGroup;
   isMembresia!: boolean;
   date: Date[] | undefined;
   agendamientosPendientes!: any[];
@@ -19,8 +21,13 @@ export class MembresiaComponent implements OnInit {
     private router: Router,
     private serviceMembresia: MembresiaService,
     private authService: AuthService,
-    private serviceAgendamiento: AgendamientosService
-  ) {}
+    private serviceAgendamiento: AgendamientosService,
+    private fb: FormBuilder,
+  ) {
+    this.form = this.fb.group({
+      fecha: [null],
+    });
+  }
   agregarmembresia() {
     this.router.navigate(['/membresia/registro']);
   }
@@ -28,10 +35,16 @@ export class MembresiaComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerAgendamientos();
     this.obtenerMembresias();
+
+
+    this.form.get('fecha')?.valueChanges.subscribe((value) => {
+      this.obtenerAgendamientos(value as Date)
+    });
   }
 
-  obtenerAgendamientos() {
-    this.serviceAgendamiento.obtenerAgendamientos().subscribe((data) => {
+  obtenerAgendamientos(fecha: Date = new Date()) {
+    const user = this.authService.getUserData();
+    this.serviceAgendamiento.obtenerAgendamientosPorUsuario(user.id, fecha).subscribe((data) => {
       this.agendamientosInasistidos = [];
       this.agendamientosPendientes = [];
       data.map((agendamiento: any) => {
@@ -42,8 +55,6 @@ export class MembresiaComponent implements OnInit {
           this.agendamientosInasistidos.push(agendamiento);
         }
       });
-      console.log(this.agendamientosPendientes);
-      console.log(this.agendamientosInasistidos);
     });
   }
 
@@ -53,7 +64,6 @@ export class MembresiaComponent implements OnInit {
       .obtenerMembresiaPorUsuario(user.id, new Date())
       .subscribe({
         next: (data) => {
-          console.log(data && data.length > 0 ? true : false);
           this.isMembresia = data && data.length > 0 ? true : false;
         },
         error: (error) => {

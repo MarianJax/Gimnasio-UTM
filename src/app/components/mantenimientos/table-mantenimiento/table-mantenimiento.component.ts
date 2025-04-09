@@ -134,7 +134,7 @@ export class TableMantenimientoComponent implements OnInit {
               fecha_mantenimiento: null,
               observaciones: null,
             });
-            this.messageService.add({ severity: 'success', summary: 'Ejercicio actualizado', detail: 'Ejercicio actualizado con éxito' });
+            this.messageService.add({ severity: 'success', summary: 'Mantenimiento', detail: 'Mantenimiento con éxito' });
             this.loadMantenimientos();
             this.hideDialog();
           },

@@ -52,12 +52,12 @@ export class TableValidacionesComponent implements OnInit {
     this.validatePagoService.actualizarValidacion(id, { estado: estado as EstadoPago }).subscribe({
       next: (data: any) => {
         console.log(data);
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Pago Validado con éxito', life: 3000 });
         this.loadAgendamientos();
       },
       error: (error) => {
         console.error('Error updating product:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to update product', life: 3000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo validar el Pago', life: 3000 });
       }
     });
     console.log(`Producto ID: ${id}, Asistencia: ${estado} `);
@@ -123,5 +123,4 @@ export class TableValidacionesComponent implements OnInit {
       this.dt.clear();  // Limpia los filtros de la tabla
     }
   }
-
 }

@@ -7,12 +7,10 @@
   </div>
 
   <section>
-    <p-calendar
-      [yearNavigator]="false"
-      class="max-w-full"
-      [(ngModel)]="date"
-      [inline]="true"
-    />
+    <form [formGroup]="form">
+      <p-calendar formControlName="fecha" [yearNavigator]="false" class="max-w-full"
+        [inline]="true" />
+    </form>
     <div>
       <div class="content">
         <header>
@@ -20,20 +18,15 @@
           Lista de Reservas
         </header>
         <div class="flex gap-1 flex-column">
-          <article
-            class="flex"
-            *ngFor="let agendamiento of agendamientosPendientes"
-          >
-            <mage-icon
-              color="black"
-              name="arrow-right-01"
-              class="upload-icon"
-              size="18px"
-            />
+          <article class="flex" *ngFor="let agendamiento of agendamientosPendientes">
+            <mage-icon color="black" name="arrow-right-01" class="upload-icon" size="18px" />
             <span>{{ agendamiento.fecha | date : "dd/mm/yyyy" }}</span>
             <span style="margin: 0 auto">{{ agendamiento.hora_inicio }}</span>
             <span>{{ agendamiento.hora_fin }}</span>
           </article>
+          <p *ngIf="agendamientosPendientes.length === 0" class="text-gray-500 text-base text-center">
+            No hay agendamientos pendientes
+          </p>
         </div>
       </div>
       <div class="content">
@@ -42,21 +35,16 @@
           Agendamientos
         </header>
         <div class="flex gap-1 flex-column">
-          <article
-            class="flex"
-            *ngFor="let agendamiento of agendamientosInasistidos"
-          >
-            <mage-icon
-              color="black"
-              name="arrow-right-01"
-              class="upload-icon"
-              size="18px"
-            />
+          <article class="flex" *ngFor="let agendamiento of agendamientosInasistidos">
+            <mage-icon color="black" name="arrow-right-01" class="upload-icon" size="18px" />
             <span>{{ agendamiento.fecha | date : "dd/mm/yyyy" }}</span>
             <span style="margin: 0 auto">{{ agendamiento.hora_inicio }}</span>
             <span style="margin: 0 auto">{{ agendamiento.hora_fin }}</span>
             <span>{{ agendamiento.asistio === false ? 'No asistió' : '' }}</span>
           </article>
+          <p *ngIf="agendamientosInasistidos.length === 0" class="text-gray-500 text-base text-center">
+            No hay agendamientos inasistidos
+          </p>
         </div>
       </div>
     </div>
@@ -64,9 +52,7 @@
 </div>
 
 <ng-template #noMembresia>
-  <div
-    class="flex justify-content-center align-items-center text-black-alpha-90"
-  >
+  <div class="flex justify-content-center align-items-center text-black-alpha-90">
     <span>No tienes una membresia</span>
   </div>
 </ng-template>
