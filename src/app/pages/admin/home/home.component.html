@@ -10,28 +10,28 @@
         <span id="icon" style="--bg-color: #BEDAFE; --text-color: #3B83F7;">
             <mage-icon name="chart-central" size="24px" strokeWidth="2px"></mage-icon>
         </span>
-        <span id="number">150</span>
+        <span id="number">{{ resumenAgendamientos ? resumenAgendamientos.users : 0 }}</span>
         <p>Total de Personas</p>
     </article>
     <article>
         <span id="icon" style="--bg-color: #FDE68A; --text-color: #F49F0B;">
             <mage-icon name="box-3d" size="24px" strokeWidth="2px"></mage-icon>
         </span>
-        <span id="number">150</span>
+        <span id="number">{{ resumenAgendamientos ? resumenAgendamientos.maquinas: 0 }}</span>
         <p>Total de Maquinas</p>
     </article>
     <article>
         <span id="icon" style="--bg-color: var(--primary-color);  --text-color: var(--surface-overlay);">
             <mage-icon name="dollar" size="24px" strokeWidth="2px"></mage-icon>
         </span>
-        <span id="number">$ 150</span>
+        <span id="number">{{ (resumenAgendamientos ? resumenAgendamientos.pagos : 0) | currency: "USD" }}</span>
         <p>Total de Pagos</p>
     </article>
     <article>
         <span id="icon" style="--bg-color: var(--primary-color); --text-color: var(--surface-overlay);">
             <mage-icon name="dollar" size="24px" strokeWidth="2px"></mage-icon>
         </span>
-        <span id="number">$ 150</span>
+        <span id="number">{{ (resumenAgendamientos ? resumenAgendamientos.mantenimientos : 0) | currency: "USD" }}</span>
         <p>Total de Mantenimiento</p>
     </article>
 </section>
