@@ -1,47 +1,67 @@
 <div class="flex w-full align-content-center mb-3">
-  <button (click)="Regresar()" pButton pRiple>
-    <mage-icon size="20px" name="arrow-left"></mage-icon> Regresar
-  </button>
+  <button (click)="Regresar()" pButton pRiple>Regresar</button>
 </div>
 
-<form (ngSubmit)="onSubmit(myForm)" #myForm="ngForm">
-  <div class="content-inputs">
+<form [formGroup]="membresiaForm">
     <div style="width: calc(50% - 10px)">
-      <label for="email1" class="block text-900 text-xl font-medium mb-2">Fecha de Inicio</label>
-      <p-calendar [(ngModel)]="startDate" [showButtonBar]="true" name="startDate" />
+      <label for="fecha" class="block text-900 text-xl font-medium mb-2">Fecha de Inicio</label>
+      <p-calendar formControlName="fecha" [showButtonBar]="true" name="fecha" />
     </div>
     <div style="width: calc(50% - 10px)">
-      <label for="endDate" class="block text-900 text-xl font-medium mb-2">Fecha de Fin</label>
-      <p-calendar [(ngModel)]="endDate" [showButtonBar]="true" name="endDate" />
+      <label for="jornada" class="block text-900 text-xl font-medium mb-2">Tipo</label>
+      <p-dropdown formControlName="jornada" name="jornada" [options]="tipos" appendTo="body" optionLabel="name"
+        placeholder="Seleccionar una jornada" />
     </div>
-    <div style="width: 100%">
-      <label for="email1" class="block text-900 text-xl font-medium mb-2">Tipo</label>
-      <p-dropdown name="selectedtipo" [options]="tipos" [(ngModel)]="selectedtipo" optionLabel="name"
-        placeholder="Seleccionar dia de semanana" />
-    </div>
-  </div>
-  <div class="content-button">
-    <button type="submit" pButton pRipple class="submit-button">
-      Guardar
-    </button>
-  </div>
 </form>
 
 <div class="card">
-  <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+  <p-table rowGroupMode="subheader" 
+  groupRowsBy="jornada"  [value]="horarios">
     <ng-template pTemplate="header" let-columns>
       <tr>
-        <th *ngFor="let col of columns">
-          {{ col.header }}
+        <th>
+          Hora de ingreso
+        </th>
+        <th>
+          Hora de salida
+        </th>
+        <th>
+          Estado
+        </th>
+        <th>
+          Accion
         </th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <ng-template pTemplate="groupheader" let-horario>
+      <tr pRowGroupHeader>
+          <td colspan="4">
+              <span class="font-bold ml-2">{{horario.jornada}}</span>
+          </td>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-horarios let-rowIndex="rowIndex">
       <tr>
-        <td *ngFor="let col of columns">
-          {{ rowData[col.field] }}
+        <td>
+          {{ horarios.hora_inicio }}
+        </td>
+        <td>
+          {{ horarios.hora_fin }}
+        </td>
+        <td>
+          {{ horarios.estado }}
+        </td>
+        <td>
+          <p-button *ngIf=" horarios.estado !== 'Ocupado'" [outlined]="true" size="small" severity="primary" class="w-min">
+            <mage-icon name="bookmark-plus" color="#059669" size="16px"></mage-icon>&nbsp;Agendar
+          </p-button>
         </td>
       </tr>
     </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+          <td colspan="4">No hay horarios disponibles.</td>
+      </tr>
+  </ng-template>
   </p-table>
 </div>

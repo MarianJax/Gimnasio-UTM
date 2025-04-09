@@ -1,24 +1,72 @@
-<div class="contain-header">
+<div *ngIf="isMembresia; else noMembresia">
+  <div class="contain-header">
     <button (click)="agregarmembresia()" pButton pRipple>
-        <mage-icon name="bookmark-plus" size="20px" ></mage-icon>
-        Registrar Agendamiento</button>
+      <mage-icon name="bookmark-plus" size="20px"></mage-icon>
+      Registrar Agendamiento
+    </button>
+  </div>
+
+  <section>
+    <p-calendar
+      [yearNavigator]="false"
+      class="max-w-full"
+      [(ngModel)]="date"
+      [inline]="true"
+    />
+    <div>
+      <div class="content">
+        <header>
+          <mage-icon name="arrow-list" size="20px"></mage-icon>
+          Lista de Reservas
+        </header>
+        <div class="flex gap-1 flex-column">
+          <article
+            class="flex"
+            *ngFor="let agendamiento of agendamientosPendientes"
+          >
+            <mage-icon
+              color="black"
+              name="arrow-right-01"
+              class="upload-icon"
+              size="18px"
+            />
+            <span>{{ agendamiento.fecha | date : "dd/mm/yyyy" }}</span>
+            <span style="margin: 0 auto">{{ agendamiento.hora_inicio }}</span>
+            <span>{{ agendamiento.hora_fin }}</span>
+          </article>
+        </div>
+      </div>
+      <div class="content">
+        <header>
+          <mage-icon name="arrow-list" size="20px"></mage-icon>
+          Agendamientos
+        </header>
+        <div class="flex gap-1 flex-column">
+          <article
+            class="flex"
+            *ngFor="let agendamiento of agendamientosInasistidos"
+          >
+            <mage-icon
+              color="black"
+              name="arrow-right-01"
+              class="upload-icon"
+              size="18px"
+            />
+            <span>{{ agendamiento.fecha | date : "dd/mm/yyyy" }}</span>
+            <span style="margin: 0 auto">{{ agendamiento.hora_inicio }}</span>
+            <span style="margin: 0 auto">{{ agendamiento.hora_fin }}</span>
+            <span>{{ agendamiento.asistio === false ? 'No asistió' : '' }}</span>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
-<section>
-    <p-calendar [yearNavigator]="false" class="max-w-full" [(ngModel)]="date" [inline]="true" />
-    <div>
-        <div >
-            <header >
-                <mage-icon name="arrow-list" size="20px"></mage-icon>
-                Lista de Reservas
-            </header>
-        </div>
-        <div>
-            <header >
-                <mage-icon name="arrow-list" size="20px"></mage-icon>
-                Agendamientos
-            </header>
-        </div>
-    </div>
-</section>
-
+<ng-template #noMembresia>
+  <div
+    class="flex justify-content-center align-items-center text-black-alpha-90"
+  >
+    <span>No tienes una membresia</span>
+  </div>
+</ng-template>

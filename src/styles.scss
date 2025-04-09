@@ -70,3 +70,13 @@ $gutter: 1rem; //for primeflex grid system
 html {
   overflow: hidden;
 }
+
+app-membresia {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  min-height: -webkit-fill-available;
+  max-height: -webkit-fill-available;
+  height: -webkit-fill-available;
+}

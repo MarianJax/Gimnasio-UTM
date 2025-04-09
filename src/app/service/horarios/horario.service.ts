@@ -33,4 +33,8 @@ private apiUrl = 'http://localhost:3000/horario';
     return this.http.get(`${this.apiUrl}/rol/${rol}/${dia}`)
   }
 
+  obtenerHorariosPorFechaYJornada(fecha: Date, jornada?: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/membresia?fecha=${fecha.toISOString()}&jornada=${jornada ? jornada : ''}`);
+  }
+
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RegistroRoutingModule } from './registro-routing.module';
 import { RegistroComponent } from './registro.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { IconModule } from '../../../components/icons/icons.module';
@@ -15,11 +15,11 @@ import { RippleModule } from 'primeng/ripple';
 @NgModule({
   declarations: [RegistroComponent],
   imports: [
+    CommonModule,
     RegistroRoutingModule,
-    FormsModule,
+    ReactiveFormsModule,
     DropdownModule,
     TableModule,
-    CommonModule,
     IconModule,
     CalendarModule,
     InputTextModule,

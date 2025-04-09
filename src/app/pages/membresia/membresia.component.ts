@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MembresiaService } from './service/membresia.service';
+import { AgendamientosService } from '../../service/agendamiento/agendamientos.service';
+import { MembresiaService } from '../../service/membresias/membresia.service';
+import { AuthService } from '../login/auth.service';
 
 @Component({
   selector: 'app-membresia',
@@ -9,32 +10,55 @@ import { MembresiaService } from './service/membresia.service';
   styleUrls: ['./membresia.component.scss'],
 })
 export class MembresiaComponent implements OnInit {
-  datos: any;
+  isMembresia!: boolean;
   date: Date[] | undefined;
+  agendamientosPendientes!: any[];
+  agendamientosInasistidos!: any[];
 
   constructor(
     private router: Router,
-    private serviceMembresia: MembresiaService
+    private serviceMembresia: MembresiaService,
+    private authService: AuthService,
+    private serviceAgendamiento: AgendamientosService
   ) {}
   agregarmembresia() {
     this.router.navigate(['/membresia/registro']);
   }
 
   ngOnInit(): void {
+    this.obtenerAgendamientos();
     this.obtenerMembresias();
-    console.log('Datos despues del llamado', this.datos);
+  }
+
+  obtenerAgendamientos() {
+    this.serviceAgendamiento.obtenerAgendamientos().subscribe((data) => {
+      this.agendamientosInasistidos = [];
+      this.agendamientosPendientes = [];
+      data.map((agendamiento: any) => {
+        if (agendamiento.asistio === null) {
+          this.agendamientosPendientes.push(agendamiento);
+        }
+        if (agendamiento.asistio === false) {
+          this.agendamientosInasistidos.push(agendamiento);
+        }
+      });
+      console.log(this.agendamientosPendientes);
+      console.log(this.agendamientosInasistidos);
+    });
   }
 
   obtenerMembresias() {
-    this.serviceMembresia.obtenerDatos().subscribe(
-      (data) => {
-        console.log(data);
-        this.datos = data;
-      },
-      (error) => {
-        console.error('Error al obtener membresías:', error);
-      }
-    );
+    const user = this.authService.getUserData();
+    this.serviceMembresia
+      .obtenerMembresiaPorUsuario(user.id, new Date())
+      .subscribe({
+        next: (data) => {
+          console.log(data && data.length > 0 ? true : false);
+          this.isMembresia = data && data.length > 0 ? true : false;
+        },
+        error: (error) => {
+          console.error('Error al obtener membresías:', error);
+        },
+      });
   }
-
 }
