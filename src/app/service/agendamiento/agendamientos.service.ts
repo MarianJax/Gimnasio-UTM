@@ -29,6 +29,13 @@ export class AgendamientosService {
     return this.http.post(this.apiUrl, agendamiento);
   }
 
+  obtenerAgendamientosPorFecha(fecha: Date): Observable<any> {
+    return this.http.get(`${this.apiUrl}/for-date?_fecha=${fecha.toISOString()}`);
+  }
+
+  agregarAgendamientoMembresia(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/membresia`, data);
+  }
 
 }
 

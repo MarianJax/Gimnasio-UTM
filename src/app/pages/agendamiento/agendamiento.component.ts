@@ -4,9 +4,9 @@ import { ValidationErrors } from '@angular/forms';
 import { Validator } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { AgendamientoService } from './service/agendamiento.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
+import { AgendamientosService } from '../../service/agendamiento/agendamientos.service';
 
 @Component({
   selector: 'app-agendamiento',
@@ -21,7 +21,7 @@ export class AgendamientoComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private agendamientoService: AgendamientoService
+    private agendamientoService: AgendamientosService
   ) {
     this.agendamiento = this.fb.group({
       date: ['', Validators.required],
@@ -53,23 +53,6 @@ export class AgendamientoComponent {
   }
 
   private handleError(error: HttpErrorResponse) { return throwError(() => new Error('Ocurrió un error; intente nuevamente más tarde.')); }
-
-  createReserva(data: any) {
-    this.agendamientoService
-      .createAgendamiento({})
-      .pipe(catchError(this.handleError))
-      .subscribe(
-        (response) => {
-          console.log('Reserva creada con éxito:', response);
-        },
-        (error) => {
-          console.error('Error al crear la reserva:', error);
-          if (error.status === 400) {
-            alert('Número máximo de reservas alcanzado.');
-          }
-        }
-      );
-  }
 
   goToRutinas() {
     this.router.navigate(['/']);

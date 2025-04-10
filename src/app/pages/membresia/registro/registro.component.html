@@ -2,12 +2,12 @@
   <button (click)="Regresar()" pButton pRiple>Regresar</button>
 </div>
 
-<form [formGroup]="membresiaForm">
-  <div style="width: calc(50% - 10px)">
+<form [formGroup]="membresiaForm" class="flex sm:flex-row flex-column gap-3" >
+  <div >
     <label for="fecha" class="block text-900 text-xl font-medium mb-2">Fecha de Inicio</label>
     <p-calendar formControlName="fecha" [showButtonBar]="true" name="fecha" />
   </div>
-  <div style="width: calc(50% - 10px)">
+  <div>
     <label for="jornada" class="block text-900 text-xl font-medium mb-2">Tipo</label>
     <p-dropdown formControlName="jornada" name="jornada" [options]="tipos" appendTo="body" optionLabel="name"
       placeholder="Seleccionar una jornada" />
@@ -19,10 +19,7 @@
     <ng-template pTemplate="header" let-columns>
       <tr>
         <th>
-          Hora de ingreso
-        </th>
-        <th>
-          Hora de salida
+          Horas
         </th>
         <th>
           Estado
@@ -34,24 +31,21 @@
     </ng-template>
     <ng-template pTemplate="groupheader" let-horario>
       <tr pRowGroupHeader>
-        <td colspan="4">
+        <td colspan="3">
           <span class="font-bold ml-2">{{horario.jornada}}</span>
         </td>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-horarios let-rowIndex="rowIndex">
+    <ng-template pTemplate="body" let-horario let-rowIndex="rowIndex">
       <tr>
-        <td>
-          {{ horarios.hora_inicio }}
+        <td style="min-width: 130px;">
+          {{ horario.hora_inicio }} - {{ horario.hora_fin }}
         </td>
         <td>
-          {{ horarios.hora_fin }}
+          {{ horario.estado }}
         </td>
         <td>
-          {{ horarios.estado }}
-        </td>
-        <td>
-          <p-button *ngIf=" horarios.estado !== 'Ocupado'" [outlined]="true" size="small" severity="primary"
+          <p-button *ngIf=" horario.estado !== 'Ocupado'" (onClick)="agendar(horario)" [outlined]="true" size="small" severity="primary"
             class="w-min">
             <mage-icon name="bookmark-plus" color="var(--primary-color)" size="16px"></mage-icon>&nbsp;Agendar
           </p-button>

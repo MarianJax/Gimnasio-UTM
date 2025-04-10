@@ -4,6 +4,7 @@ import { AgendamientosService } from '../../service/agendamiento/agendamientos.s
 import { MembresiaService } from '../../service/membresias/membresia.service';
 import { AuthService } from '../login/auth.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { SharedService } from '../../service/shared.service';
 
 @Component({
   selector: 'app-membresia',
@@ -23,6 +24,7 @@ export class MembresiaComponent implements OnInit {
     private authService: AuthService,
     private serviceAgendamiento: AgendamientosService,
     private fb: FormBuilder,
+    private sharedService: SharedService
   ) {
     this.form = this.fb.group({
       fecha: [null],
@@ -64,6 +66,7 @@ export class MembresiaComponent implements OnInit {
       .obtenerMembresiaPorUsuario(user.id, new Date())
       .subscribe({
         next: (data) => {
+          this.sharedService.setParametro(data[0].id);
           this.isMembresia = data && data.length > 0 ? true : false;
         },
         error: (error) => {

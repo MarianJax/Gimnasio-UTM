@@ -1,6 +1,6 @@
 // Definir los tipos para Jornada y Estado
 type Jornada = 'Matutina' | 'Vespertina' | 'Nocturna'; // Añade más jornadas si las necesitas
-type Estado = 'disponible'; // Otros estados pueden ser añadidos más adelante si es necesario
+type Estado = 'Disponible' | 'Ocupado'; // Otros estados pueden ser añadidos más adelante si es necesario
 
 // Definir la estructura de los horarios
 export interface Horario {
@@ -16,4 +16,9 @@ export interface Intervalo {
   hora_inicio: string; // Formato HH:MM
   hora_fin: string; // Formato HH:MM
   estado: Estado;
+}
+
+export interface Reserva {
+  hora_inicio: string;
+  hora_fin: string;
 }

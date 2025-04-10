@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormService } from '../../../../service/agendamiento/form-service.service';
-import { AgendamientoService } from '../../../../pages/agendamiento/service/agendamiento.service';
 
 @Component({
   selector: 'app-confirm',

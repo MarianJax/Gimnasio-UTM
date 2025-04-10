@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { imageToArrayBuffer } from '../../../../core/utiils/convertImage';
 import { RolesService } from '../../../../service/roles/roles.service';
+import { AuthService } from '../../../../pages/login/auth.service';
 
 @Component({
   selector: 'app-pago-form',
@@ -46,7 +47,7 @@ export class PagoFormComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder, private rolService: RolesService) {
+  constructor(private fb: FormBuilder, private rolService: RolesService, private authService: AuthService) {
     this.pagoForm = this.fb.group({
       evidencia_pago: new FormControl<string | null>(null, [
         Validators.required,
@@ -59,6 +60,7 @@ export class PagoFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    const user = this.authService.getUserData();
     this.pagoForm.get('metodo_pago')?.valueChanges.subscribe((val) => {
       let monto = 0.0;
       this.rolService.obtenerRolPorNombre(this.usuario.roles).subscribe(
@@ -67,15 +69,11 @@ export class PagoFormComponent implements OnInit {
             monto = Number(rol.monto_pago) * 1;
           }
           if (val.value === 'mensual') {
-            const fechaActual = new Date();
-            const fecha = new Date(fechaActual); // Create a copy of fechaActual
-            fecha.setMonth(fechaActual.getMonth() + 1);
-            const fechaFin = new Date(fecha);
-            const diasRestantes = Math.ceil(
-              (fechaFin.getTime() - fechaActual.getTime()) /
-              (1000 * 60 * 60 * 24)
-            );
-            monto = (Number(rol.monto_pago) * diasRestantes) / 2;
+            if (user.roles === 'Estudiante') {
+              monto = Number(25.00);
+            } else {
+              monto = Number(30.00);
+            }
           }
           this.pagoForm.patchValue({ monto: monto });
         },

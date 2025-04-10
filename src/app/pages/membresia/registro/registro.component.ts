@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AgendamientosService } from '../../../service/agendamiento/agendamientos.service';
 import { HorarioService } from '../../../service/horarios/horario.service';
-import { Horario, Intervalo } from './type';
+import { SharedService } from '../../../service/shared.service';
+import { AuthService } from '../../login/auth.service';
+import { Horario, Intervalo, Reserva } from './type';
 
 @Component({
   selector: 'app-registro',
@@ -18,7 +21,10 @@ export class RegistroComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private horarioService: HorarioService
+    private horarioService: HorarioService,
+    private agendamientosService: AgendamientosService,
+    private sharedService: SharedService,
+    private authService: AuthService
   ) {
     this.membresiaForm = this.fb.group({
       fecha: new FormControl(''),
@@ -47,51 +53,81 @@ export class RegistroComponent implements OnInit {
       this.horarioService
         .obtenerHorariosPorFechaYJornada(fecha, jornada)
         .subscribe((data: Horario[]) => {
-          console.log(data);
-          this.horarios = this.transformarHorarios(data);
-          console.log(this.horarios);
+          this.agendamientosService.obtenerAgendamientosPorFecha(fecha).subscribe((agendamientos) => {
+            console.log(agendamientos);
+            this.horarios = this.transformarHorarios(data, agendamientos);
+          });
         });
     }
   }
 
-  transformarHorarios(horarios: Horario[]): Intervalo[] {
-    // Variable para almacenar los horarios transformados
+  transformarHorarios(horarios: Horario[], reservas: Reserva[]): Intervalo[] {
     const horariosTransformados: Intervalo[] = [];
-  
-    // Iterar sobre cada horario
+
+    // Normalizamos las reservas a formato HH:mm (quitamos segundos)
+    const reservasNormalizadas = reservas.map(reserva => ({
+      hora_inicio: reserva.hora_inicio.slice(0, 5), // "09:00:00" -> "09:00"
+      hora_fin: reserva.hora_fin.slice(0, 5),       // "11:00:00" -> "11:00"
+    }));
+
     horarios.forEach(horario => {
       const jornada = horario.jornada;
-      let horaInicio = horario.hora_inicio;
-      let horaFin = horario.hora_fin;
-  
-      // Convertimos las horas a números para facilitar la comparación y división
-      const [inicioHora, inicioMinuto] = horaInicio.split(':').map(num => parseInt(num));
-      const [finHora, finMinuto] = horaFin.split(':').map(num => parseInt(num));
-  
-      let currentHour = inicioHora;
-      let currentMinute = inicioMinuto;
-  
-      // Mientras la hora de inicio sea menor a la hora de fin
-      while (currentHour < finHora || (currentHour === finHora && currentMinute < finMinuto)) {
-        // Formateamos las horas en formato HH:mm
-        const nextHour = (currentMinute + 60 >= 60) ? currentHour + 1 : currentHour;
-        const nextMinute = (currentMinute + 60) % 60;
-  
-        // Crear el nuevo intervalo
+      let [inicioHora, inicioMinuto] = horario.hora_inicio.split(':').map(Number);
+      const [finHora, finMinuto] = horario.hora_fin.split(':').map(Number);
+
+      while (inicioHora < finHora || (inicioHora === finHora && inicioMinuto < finMinuto)) {
+        const nextHour = inicioMinuto + 60 >= 60 ? inicioHora + 1 : inicioHora;
+        const nextMinute = (inicioMinuto + 60) % 60;
+
+        const horaInicioStr = `${String(inicioHora).padStart(2, '0')}:${String(inicioMinuto).padStart(2, '0')}`;
+        const horaFinStr = `${String(nextHour).padStart(2, '0')}:${String(nextMinute).padStart(2, '0')}`;
+
+        // Verificamos si el intervalo está ocupado
+        const ocupado = reservasNormalizadas.some(
+          r => r.hora_inicio === horaInicioStr && r.hora_fin === horaFinStr
+        );
+
         horariosTransformados.push({
           jornada,
-          hora_inicio: `${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')}`,
-          hora_fin: `${String(nextHour).padStart(2, '0')}:${String(nextMinute).padStart(2, '0')}`,
-          estado: 'disponible', // El estado inicial siempre es disponible
+          hora_inicio: horaInicioStr,
+          hora_fin: horaFinStr,
+          estado: ocupado ? 'Ocupado' : 'Disponible',
         });
-  
-        // Actualizar la hora y minuto para el siguiente ciclo
-        currentHour = nextHour;
-        currentMinute = nextMinute;
+
+        inicioHora = nextHour;
+        inicioMinuto = nextMinute;
       }
     });
-  
+
     return horariosTransformados;
+  }
+
+  agendar({ hora_fin, hora_inicio }: any) {
+    let membresia = this.sharedService.getParametro();
+
+    if (membresia && this.selectedFecha) {
+      console.log({
+        fecha: this.selectedFecha,
+        membresia, hora_fin,
+        hora_inicio,
+        usuario_id: this.authService.getUserData().id,
+      });
+
+      this.agendamientosService.agregarAgendamientoMembresia({
+        fecha: this.selectedFecha,
+        membresia, hora_fin,
+        hora_inicio,
+        usuario_id: this.authService.getUserData().id,
+      }).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.router.navigate(['/membresia']);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      })
+    }
   }
 
   Regresar() {
