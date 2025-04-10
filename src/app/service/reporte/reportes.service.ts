@@ -12,4 +12,8 @@ export class ReportesService {
   obtenerResumenAgendamientos(): Observable<any> {
     return this.http.get(`${this.apiUrl}`);
   }
+
+  obtenerDatosAgendamientosGraficos(facultad?: string, carrera?: string, tipoPago?: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/graphics?_facultad=${facultad ? facultad : ''}&_carrera=${carrera ? carrera : ''}&_tipoPago=${tipoPago ? tipoPago : ''}`);
+  }
 }
