@@ -6,12 +6,12 @@
     </button>
   </div>
 
-  <section>
+  <section class="flex md:flex-row flex-column gap-4">
     <form [formGroup]="form">
       <p-calendar formControlName="fecha" [yearNavigator]="false" class="max-w-full"
         [inline]="true" />
     </form>
-    <div>
+    <div class="cont__sections">
       <div class="content">
         <header>
           <mage-icon name="arrow-list" size="20px"></mage-icon>

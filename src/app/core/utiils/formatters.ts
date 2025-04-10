@@ -73,6 +73,33 @@ export const filterHoursForSalida = (selectedTime: string, ingreso: SelectItemGr
 
 
 
+export function generarRangoHoras(horaInicio: string, horaFin: string): { label: string; value: string }[] {
+    const [hInicio, mInicio] = horaInicio.split(':').map(Number);
+    const [hFin, mFin] = horaFin.split(':').map(Number);
+
+    const inicio = new Date();
+    inicio.setHours(hInicio, mInicio, 0, 0);
+
+    const fin = new Date();
+    fin.setHours(hFin, mFin, 0, 0);
+
+    const rangos: { label: string; value: string }[] = [];
+
+    while (inicio < fin) {
+        const siguiente = new Date(inicio);
+        siguiente.setHours(inicio.getHours() + 1);
+
+        const horaDesde = inicio.toTimeString().slice(0, 5);
+        const horaHasta = siguiente.toTimeString().slice(0, 5);
+
+        rangos.push({ label: `${horaDesde} - ${horaHasta}`, value: `${horaDesde} - ${horaHasta}` });
+
+        inicio.setHours(inicio.getHours() + 1);
+    }
+
+    return rangos;
+}
+
 export const formatForChart = (input: { rol: string; total: number }[]): { roles: string[]; data: number[] } => {
     const roles = Array.from(new Set(input.map(item => item.rol)));
 

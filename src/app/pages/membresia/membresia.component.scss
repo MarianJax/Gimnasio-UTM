@@ -19,7 +19,7 @@ section {
     gap: 20px;
     justify-content: space-around;
 
-    div {
+    .cont__sections {
         display: flex;
         flex-direction: column;
         gap: 15px;
@@ -117,5 +117,40 @@ section {
             }
         }
 
+    }
+
+
+    @media screen and (max-width: 768px) {
+        .p-calendar {
+            width: 100% !important;
+
+            .p-datepicker {
+                padding: 0;
+                width: -webkit-fit-content !important;
+                height: fit-content !important;
+
+                .p-datepicker-month {
+                    font-size: 18px !important;
+                }
+
+                .p-datepicker-calendar {
+
+                    th>span,
+                    td>span {
+                        font-size: 12px !important;
+                        width: 2.5rem !important;
+                        height: 2.5rem !important;
+                    }
+                }
+            }
+        }
+
+        section {
+        
+            .cont__sections {
+                max-width: 100% !important;
+                width: 100%;
+            }
+        }
     }
 }

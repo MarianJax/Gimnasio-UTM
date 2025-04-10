@@ -3,20 +3,19 @@
 </div>
 
 <form [formGroup]="membresiaForm">
-    <div style="width: calc(50% - 10px)">
-      <label for="fecha" class="block text-900 text-xl font-medium mb-2">Fecha de Inicio</label>
-      <p-calendar formControlName="fecha" [showButtonBar]="true" name="fecha" />
-    </div>
-    <div style="width: calc(50% - 10px)">
-      <label for="jornada" class="block text-900 text-xl font-medium mb-2">Tipo</label>
-      <p-dropdown formControlName="jornada" name="jornada" [options]="tipos" appendTo="body" optionLabel="name"
-        placeholder="Seleccionar una jornada" />
-    </div>
+  <div style="width: calc(50% - 10px)">
+    <label for="fecha" class="block text-900 text-xl font-medium mb-2">Fecha de Inicio</label>
+    <p-calendar formControlName="fecha" [showButtonBar]="true" name="fecha" />
+  </div>
+  <div style="width: calc(50% - 10px)">
+    <label for="jornada" class="block text-900 text-xl font-medium mb-2">Tipo</label>
+    <p-dropdown formControlName="jornada" name="jornada" [options]="tipos" appendTo="body" optionLabel="name"
+      placeholder="Seleccionar una jornada" />
+  </div>
 </form>
 
 <div class="card">
-  <p-table rowGroupMode="subheader" 
-  groupRowsBy="jornada"  [value]="horarios">
+  <p-table rowGroupMode="subheader" groupRowsBy="jornada" [value]="horarios">
     <ng-template pTemplate="header" let-columns>
       <tr>
         <th>
@@ -35,12 +34,12 @@
     </ng-template>
     <ng-template pTemplate="groupheader" let-horario>
       <tr pRowGroupHeader>
-          <td colspan="4">
-              <span class="font-bold ml-2">{{horario.jornada}}</span>
-          </td>
+        <td colspan="4">
+          <span class="font-bold ml-2">{{horario.jornada}}</span>
+        </td>
       </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-horarios let-rowIndex="rowIndex">
+    </ng-template>
+    <ng-template pTemplate="body" let-horarios let-rowIndex="rowIndex">
       <tr>
         <td>
           {{ horarios.hora_inicio }}
@@ -52,16 +51,17 @@
           {{ horarios.estado }}
         </td>
         <td>
-          <p-button *ngIf=" horarios.estado !== 'Ocupado'" [outlined]="true" size="small" severity="primary" class="w-min">
-            <mage-icon name="bookmark-plus" color="#059669" size="16px"></mage-icon>&nbsp;Agendar
+          <p-button *ngIf=" horarios.estado !== 'Ocupado'" [outlined]="true" size="small" severity="primary"
+            class="w-min">
+            <mage-icon name="bookmark-plus" color="var(--primary-color)" size="16px"></mage-icon>&nbsp;Agendar
           </p-button>
         </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
       <tr>
-          <td colspan="4">No hay horarios disponibles.</td>
+        <td colspan="4">No hay horarios disponibles.</td>
       </tr>
-  </ng-template>
+    </ng-template>
   </p-table>
 </div>
