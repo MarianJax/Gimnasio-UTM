@@ -183,7 +183,7 @@ $shadow-color: rgba(0, 0, 0, 0.1);
         }
 
         .card-icon {
-            background-color: #059669 !important;
+            background-color: var(--primary-color) !important;
             color: white !important;
 
             .icon {

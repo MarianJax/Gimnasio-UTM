@@ -2,7 +2,7 @@
 $color-primary: #64748b;
 $color-primary-hover: #0f172a;
 $color-badge-bg: #ecfdf5;
-$color-badge-text: #059669;
+$color-badge-text: var(--primary-color);
 
 /* Header */
 .header-top {
@@ -226,7 +226,7 @@ $color-badge-text: #059669;
 
       &:hover {
         background-color: #d1fae5;
-        color: #059669;
+        color: var(--primary-color);
       }
     }
   }

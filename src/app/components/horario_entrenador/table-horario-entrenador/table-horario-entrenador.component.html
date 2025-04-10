@@ -19,11 +19,15 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="dia_semana">Días <app-sort-icon [field]="'dia_semana'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
+            <th pSortableColumn="dia_semana">Días <app-sort-icon [field]="'dia_semana'" [sortField]="dt.sortField"
+                    [sortOrder]="dt.sortOrder" /></th>
             <th pSortableColumn="rol.nombre">
-                Roles <app-sort-icon [field]="'rol.nombre'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
-            <th pSortableColumn="franja_hora_inicio">Horas <app-sort-icon [field]="'franja_hora_inicio'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
-            <th pSortableColumn="fecha">Fecha <app-sort-icon [field]="'fecha'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
+                Roles <app-sort-icon [field]="'rol.nombre'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
+            </th>
+            <th pSortableColumn="franja_hora_inicio">Horas <app-sort-icon [field]="'franja_hora_inicio'"
+                    [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
+            <th pSortableColumn="fecha">Fecha <app-sort-icon [field]="'fecha'" [sortField]="dt.sortField"
+                    [sortOrder]="dt.sortOrder" /></th>
             <th class="text-center">Acciones</th>
         </tr>
     </ng-template>
@@ -36,7 +40,7 @@
             <td>
                 <div class="flex gap-3 w-full justify-content-center">
                     <p-button [outlined]="true" size="small" severity="primary" (click)="showDialog(horario.id)"
-                        class="w-min"><mage-icon name="edit" color="#059669"
+                        class="w-min"><mage-icon name="edit" color="var(--primary-color)"
                             size="16px"></mage-icon>&nbsp;Editar</p-button>
                     <p-button [outlined]="true" (onClick)="deleteHorarioEntrenador(horario.id)" size="small"
                         severity="danger" class="w-min"><mage-icon name="delete" stroke="#D32F2F"

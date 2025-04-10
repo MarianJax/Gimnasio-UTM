@@ -21,10 +21,14 @@
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="nombre">
-                    Ejercicio<app-sort-icon [field]="'nombre'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
-                <th pSortableColumn="maquinas.nombre">Maquina<app-sort-icon [field]="'maquinas.nombre'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
-                <th pSortableColumn="series">Series<app-sort-icon [field]="'series'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
-                <th pSortableColumn="repeticiones">Repeticiones<app-sort-icon [field]="'repeticiones'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
+                    Ejercicio<app-sort-icon [field]="'nombre'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
+                </th>
+                <th pSortableColumn="maquinas.nombre">Maquina<app-sort-icon [field]="'maquinas.nombre'"
+                        [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
+                <th pSortableColumn="series">Series<app-sort-icon [field]="'series'" [sortField]="dt.sortField"
+                        [sortOrder]="dt.sortOrder" /></th>
+                <th pSortableColumn="repeticiones">Repeticiones<app-sort-icon [field]="'repeticiones'"
+                        [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" /></th>
                 <th class="text-center">Acciones</th>
             </tr>
         </ng-template>
@@ -42,7 +46,7 @@
                 <td>
                     <div class="flex gap-3 w-full justify-content-center">
                         <p-button [outlined]="true" size="small" severity="primary" class="w-min"
-                            (click)="showDialog(maquina.id)"><mage-icon name="edit" color="#059669"
+                            (click)="showDialog(maquina.id)"><mage-icon name="edit" color="var(--primary-color)"
                                 size="16px"></mage-icon>&nbsp;Editar</p-button>
                         <p-button [outlined]="true" size="small" severity="danger" class="w-min"
                             (click)="confirm(maquina.id)"><mage-icon name="delete" stroke="#D32F2F"

@@ -1,4 +1,3 @@
-
 <p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" [paginator]="true"
     currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
     [showFirstLastIcon]="false" [value]="usuarios" dataKey="maquinas-registradas"
@@ -16,10 +15,11 @@
                 <!-- <i class="pi pi-search"></i> -->
                 <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar..." />
             </span>
-          <p-button [outlined]="true" severity="success" (click)="goToRoles()" class="mr-2 ml-auto"><mage-icon name="user-lock" size="16px"></mage-icon>&nbsp;Roles</p-button>
-  
+            <p-button [outlined]="true" severity="success" (click)="goToRoles()" class="mr-2 ml-auto"><mage-icon
+                    name="user-lock" size="16px"></mage-icon>&nbsp;Roles</p-button>
+
         </div>
-      </ng-template>
+    </ng-template>
     <ng-template pTemplate="header">
         <tr>
             <th>Nombre</th>
@@ -40,7 +40,7 @@
             <td>{{ maquina.correo }}</td>
             <td>
                 <p-button [outlined]="true" size="small" severity="primary" class="w-min"
-                    (click)="showDialog(maquina.id)"><mage-icon name="edit" color="#059669"
+                    (click)="showDialog(maquina.id)"><mage-icon name="edit" color="var(--primary-color)"
                         size="16px"></mage-icon>&nbsp;Editar</p-button>
             </td>
         </tr>
