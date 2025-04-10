@@ -1,0 +1,72 @@
+<header>
+    <span>
+        <mage-icon name="analytics" size="24px"></mage-icon>
+    </span>
+    <h2>Reporte de Agendamientos</h2>
+</header>
+
+<section class="section-breadcrumb">
+    <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
+        <ng-template pTemplate="item" let-item>
+            <ng-container *ngIf="item.route; else elseBlock">
+                <a [routerLink]="item.route" class="p-menuitem-link">
+                    <ng-container *ngIf="item.icon">
+                        <mage-icon size="20px" [name]="item.icon"></mage-icon>
+                    </ng-container>
+                    <span class="text-primary font-semibold">{{ item.label }}</span>
+                </a>
+            </ng-container>
+            <ng-template #elseBlock>
+                <a [href]="item.url">
+                    <span class="text-color">{{ item.label }}</span>
+                </a>
+            </ng-template>
+        </ng-template>
+        <ng-template pTemplate="separator"> &nbsp;/&nbsp; </ng-template>
+    </p-breadcrumb>
+</section>
+
+<div class="flex gap-5 flex-wrap justify-content-between px-3">
+    <div class="w-full flex gap-3">
+        <p-dropdown [options]="facultades" (onChange)="onFacultadChange($event)" selectedOption="name" optionLabel="name"
+            [filter]="true" filterBy="name" [showClear]="true" placeholder="Seleccione una Facultad" appendTo="body">
+            <ng-template pTemplate="selectedItem" let-selectedOption>
+                <div class="flex align-items-center gap-2">
+                    <div>{{ selectedOption?.name }}</div>
+                </div>
+            </ng-template>
+            <ng-template let-facultad pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                    <div>{{ facultad.name }}</div>
+                </div>
+            </ng-template>
+        </p-dropdown>
+        <p-dropdown [disabled]="disabled" [options]="carreras" (onChange)="onCarreraChange($event)" selectedOption="name" optionLabel="name"
+            [filter]="true" filterBy="name" [showClear]="true" placeholder="Seleccione una Carrera" appendTo="body">
+            <ng-template pTemplate="selectedItem" let-selectedOption>
+                <div class="flex align-items-center gap-2">
+                    <div>{{ selectedOption?.name }}</div>
+                </div>
+            </ng-template>
+            <ng-template let-country pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                    <div>{{ country.name }}</div>
+                </div>
+            </ng-template>
+        </p-dropdown>
+
+        <p-dropdown appendTo="body" (onChange)="onTipoChange($event)" [options]="TipoPago" optionLabel="name" placeholder="Seleccione un tipo de pago" />
+    </div>
+    <article>
+        <p-chart aria-label="doughnut" type="doughnut" [data]="data" [options]="options" />
+    </article>
+    <article>
+        <p-chart aria-label="bar" type="bar" [data]="dataBar" [options]="optionsBar" />
+    </article>
+    <article>
+        <p-chart aria-label="line" type="line" [data]="dataLine" [options]="optionsLine" />
+    </article>
+    <article>
+        <p-chart aria-label="pie" type="pie" [data]="dataPie" [options]="optionsPie" />
+    </article>
+</div>

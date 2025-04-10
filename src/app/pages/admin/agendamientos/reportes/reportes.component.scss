@@ -1,0 +1,103 @@
+header {
+    width: -webkit-fill-available;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+
+    h2 {
+        font-size: 26px;
+        font-weight: 800;
+        margin: 0;
+        width: -webkit-fill-available;
+    }
+
+    span {
+        display: flex;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: var(--primary-color);
+        color: var(--surface-overlay)
+    }
+
+}
+
+:host ::ng-deep {
+
+    .section-breadcrumb {
+        display: flex;
+        justify-content: space-between;
+        margin: 25px 0;
+    }
+
+    .p-breadcrumb-list {
+        gap: 1rem;
+        color: var(--text-color);
+        font-size: 16px;
+
+        a {
+            gap: 0.5rem;
+        }
+    }
+
+    .p-breadcrumb {
+        border: transparent;
+        background: transparent;
+        padding: 5px 10px;
+    }
+}
+
+:host ::ng-deep {
+
+    p-chart[aria-label="bar"],
+    p-chart[aria-label="line"] {
+        height: 280px;
+        width: -webkit-fill-available !important;
+        display: flex;
+
+        div {
+            width: -webkit-fill-available !important;
+
+            canvas {
+                width: -webkit-fill-available !important;
+                margin: 0 auto;
+            }
+        }
+    }
+
+    p-chart[aria-label="pie"],
+    p-chart[aria-label="doughnut"] {
+        height: 280px;
+        display: flex;
+    }
+}
+
+:host ::ng-deep p-dropdown {
+    width: calc(33% - 1rem);
+
+    .p-dropdown {
+        width: 100%;
+
+        div.ng-star-inserted {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .p-inputtext {
+            padding: 10px 14px;
+            outline: none
+        }
+    }
+}
+
+article {
+    width: calc(50% - 1rem);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+
+    padding: 15px;
+    border-radius: 10px;
+    background: white;
+}

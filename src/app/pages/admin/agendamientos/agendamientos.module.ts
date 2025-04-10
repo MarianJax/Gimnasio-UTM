@@ -13,7 +13,7 @@ import { SharedModule } from '../../../components/shared/shared.module';
 
 @NgModule({
   declarations: [
-    AgendamientosComponent
+    AgendamientosComponent,
   ],
   imports: [
     CommonModule,
