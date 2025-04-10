@@ -75,7 +75,7 @@ export class PagoFormComponent implements OnInit {
               (fechaFin.getTime() - fechaActual.getTime()) /
               (1000 * 60 * 60 * 24)
             );
-            monto = Number(rol.monto_pago) * diasRestantes;
+            monto = (Number(rol.monto_pago) * diasRestantes) / 2;
           }
           this.pagoForm.patchValue({ monto: monto });
         },

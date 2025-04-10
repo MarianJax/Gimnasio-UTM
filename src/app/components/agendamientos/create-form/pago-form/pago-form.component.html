@@ -1,28 +1,30 @@
-<form class="step-content" [formGroup]="pagoForm">
-    <div class="card m-0 text-black-alpha-90" style="width: 100%;">
-        <strong >Cuenta de Ahorros </strong>
-        <h4><img src="assets/icons/logo-banco.svg" style="height: 30px; width: auto; " alt=""></h4>
+<form class="step-content flex flex-column sm:flex-row" [formGroup]="pagoForm">
+
+
+    <div class="card m-0 text-black-alpha-90 min-w-full max-w-full">
+        <strong>Cuenta de Ahorros </strong>
+        <h4 class="sm:mt-3 mt-1"><img src="assets/icons/logo-banco.svg" class="sm:h-2rem h-auto w-auto" alt=""></h4>
         <div class="grid nested-grid w-full m-0" style="gap: 10px;">
             <table style="width: 100%; color: #000;">
-                <tr style="height: 29px;">
-                    <th style="width: 250px; text-align: start;">Numero de cuenta:</th>
-                    <td>2100090912</td>
+                <tr class="sm:table-row sm:flex-nowrap flex flex-wrap sm:h-2rem h-auto sm:text-base text-sm">
+                    <th class="sm:w-18rem text-left">Numero de cuenta:</th>
+                    <td style="width: -webkit-fill-available;">2100090912</td>
                 </tr>
-                <tr style="height: 29px;">
-                    <th style="width: 250px; text-align: start;">Numero de RUC:</th>
-                    <td>1360084120001</td>
+                <tr class="sm:table-row sm:flex-nowrap flex flex-wrap sm:h-2rem h-auto sm:text-base text-sm">
+                    <th class="sm:w-18rem text-left">Numero de RUC:</th>
+                    <td style="width: -webkit-fill-available;">1360084120001</td>
                 </tr>
-                <tr style="height: 29px;">
-                    <th style="width: 250px; text-align: start;">Nombre de Beneficiario:</th>
-                    <td>Empresa Pública de Servicio Generales UTM</td>
+                <tr class="sm:table-row sm:flex-nowrap flex flex-wrap sm:h-2rem h-auto sm:text-base text-sm">
+                    <th class="sm:w-18rem text-left">Nombre de Beneficiario:</th>
+                    <td style="width: -webkit-fill-available;">Empresa Pública de Servicio Generales UTM</td>
                 </tr>
-                <tr style="height: 60px;">
-                    <th style="width: 250px; text-align: start; display: inline;">Correo Electrónico:</th>
-                    <td>
-                        <ul class="m-0" style="padding: 0 0 0 1rem;">
-                            <li>emserutm&#64;gmail.com</li>
-                            <li>facturacionemserving&#64;gmail.com</li>
-                            <li>tics.emservingutm&#64;gmail.com</li>
+                <tr class="sm:table-row flex sm:flex-nowrap flex-wrap sm:h-5rem h-auto sm:text-base text-sm">
+                    <th class="sm:w-18rem text-left inline">Correo Electrónico:</th>
+                    <td style="width: -webkit-fill-available;">
+                        <ul class="m-0" style="padding: 0 0 0 1rem; width: -webkit-fill-available;">
+                            <li style="width: -webkit-fill-available;">emserutm&#64;gmail.com</li>
+                            <li style="width: -webkit-fill-available;">facturacionemserving&#64;gmail.com</li>
+                            <li style="width: -webkit-fill-available;">tics.emservingutm&#64;gmail.com</li>
                         </ul>
                     </td>
                 </tr>
@@ -31,7 +33,7 @@
     </div>
     <h3 class="font-bold">Formulario de Pago</h3>
 
-    <div style="width: calc(50% - 10px)">
+    <div>
         <label for="metodo_pago" class="">Método de Pago</label>
         <p-dropdown formControlName="metodo_pago" optionLabel="name" [options]="metodoOpt"
             placeholder="Seleccione el metodo de pago" [ngClass]="{
@@ -41,7 +43,7 @@
             {{ pagoForm.getError("metodo_pago") }}
         </small>
     </div>
-    <div style="width: calc(50% - 10px)">
+    <div>
         <label for="monto">Costo</label>
         <p-inputNumber inputId="monto" [ngClass]="{'ng-dirty ng-invalid': pagoForm.getError('monto')}"
             formControlName="monto" mode="currency" currency="USD" locale="en-US" [min]="0.10" [ngClass]="{
@@ -55,8 +57,8 @@
         <label for="evidencia_pago">Evidencia de pago
             <span style="position: relative;" [ngClass]="{'ng-dirty ng-invalid': pagoForm.getError('evidencia_pago')}"
                 for="file-upload" class="file-upload-label">
-                <input type="file" (change)="onFileSelected($event)" id="file-upload"
-                    class="file-upload-input" accept="image/*">
+                <input type="file" (change)="onFileSelected($event)" id="file-upload" class="file-upload-input"
+                    accept="image/*">
                 <mage-icon color="#808080" name="image-upload" class="upload-icon" size="30px" />
                 <span class="file-name" id="file-name"> {{ selectedImage ? selectedImage : 'Selecciona una imagen'
                     }}</span>

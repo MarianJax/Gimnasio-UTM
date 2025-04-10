@@ -1,5 +1,5 @@
 <div class="step-content">
-  <h3 class="mb-1">Información de Agendamiento</h3>
+  <h3 class="mb-1 sm:text-3xl text-xl">Información de Agendamiento</h3>
 
   <p-timeline [value]="data" class="w-full md:w-20rem" align="left">
     <ng-template pTemplate="marker" let-event>
@@ -11,33 +11,33 @@
       </span>
     </ng-template>
     <ng-template pTemplate="content" let-event>
-      <p-card>
-        <h4 class="font-bold">{{ event.title }}</h4>
+      <p-card style="width: -webkit-fill-available;">
+        <h4 class="font-bold sm:text-2xl text-lg">{{ event.title }}</h4>
         <div *ngIf="event.title == 'Agendamiento'; else pagoTemplate">
-          <p>
+          <p class="mb-1">
             <strong>Fecha: </strong>{{ event.data.fecha | date : "dd/MM/yyyy" }}
           </p>
-          <div class="flex gap-5">
-            <p><strong>Hora Ingeso: </strong>{{ event.data.ingreso }}</p>
-            <p><strong>Hora Salida: </strong>{{ event.data.salida }}</p>
+          <div class="flex sm:flex-row flex-column sm:gap-5 gap-0">
+            <p class="mb-1"><strong>Hora Ingeso: </strong>{{ event.data.ingreso }}</p>
+            <p class="mb-1"><strong>Hora Salida: </strong>{{ event.data.salida }}</p>
           </div>
         </div>
         <ng-template #pagoTemplate>
-          <div class="flex gap-5">
-            <p>
+          <div class="flex sm:flex-row flex-column sm:gap-5 gap-0">
+            <p class="mb-1">
               <strong>Método de Pago: </strong>{{ event.data.metodo_pago.name }}
             </p>
-            <p>
+            <p class="mb-1">
               <strong>Monto: </strong>{{ event.data.monto | currency : "USD" }}
             </p>
           </div>
-          <p><strong>Evidencia: </strong>{{ event.data.evidencia_pago }}</p>
+          <p class="mb-1 text-overflow-ellipsis"><strong>Evidencia: </strong>{{ event.data.evidencia_pago.length > 0 ? 'Evidencia subida' : 'Sin evidencia' }}</p>
         </ng-template>
       </p-card>
     </ng-template>
   </p-timeline>
   <div class="confirmation-message">
-    <p>
+    <p class="mb-1">
       Por favor, revise que todos los datos sean correctos antes de finalizar.
     </p>
   </div>

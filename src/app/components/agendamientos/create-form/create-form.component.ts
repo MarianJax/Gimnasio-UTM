@@ -83,6 +83,10 @@ export class CreateFormComponent implements AfterViewInit {
   }
 
   validateCurrentStep(): boolean {
+    const horas = this.agendamientoComponent.agendarForm
+      .get('hora')
+      ?.getRawValue();
+    const [hora_inicio, hora_fin] = horas ? horas.split(' - ') : ['', ''];
     // Validación específica para cada paso
     switch (this.activeIndex) {
       case 0: // Agendamiento
@@ -109,10 +113,12 @@ export class CreateFormComponent implements AfterViewInit {
             title: 'Agendamiento',
             icon: 'calendar',
             data: {
-              ...this.agendamientoComponent.agendarForm.value,
+              ingreso: hora_inicio,
+              salida: hora_fin,
               fecha: this.agendamientoComponent.agendarForm
                 .get('fecha')
                 ?.getRawValue(),
+
             },
           },
           {
@@ -140,12 +146,8 @@ export class CreateFormComponent implements AfterViewInit {
               .get('fecha')
               ?.getRawValue()
               .toISOString(),
-            hora_inicio: this.agendamientoComponent.agendarForm
-              .get('ingreso')
-              ?.getRawValue(),
-            hora_fin: this.agendamientoComponent.agendarForm
-              .get('salida')
-              ?.getRawValue(),
+            hora_inicio,
+            hora_fin,
             rol: user.roles,
             tipo: this.pagoComponent.pagoForm.get('tipo')?.getRawValue(),
             usuario_id: user.id,

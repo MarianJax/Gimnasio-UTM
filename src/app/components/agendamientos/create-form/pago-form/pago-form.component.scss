@@ -141,3 +141,20 @@ form {
         outline: none
     }
 }
+
+
+@media screen and (min-width: 576px) {
+    form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        div {
+            flex: 1 1 calc(50% - 10px);
+            /* Ajusta el ancho según tus necesidades */
+            width: 100%;
+            min-width: 300px;
+            /* Ancho mínimo para pantallas pequeñas */
+        }
+    }
+}

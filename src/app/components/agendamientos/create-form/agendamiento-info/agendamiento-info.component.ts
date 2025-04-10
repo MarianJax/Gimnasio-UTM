@@ -11,6 +11,7 @@ import {
   filterHoursForSalida,
   formatDate,
   formatTime,
+  generarRangoHoras,
   getAvailableHours,
 } from '../../../../core/utiils/formatters';
 import { HorarioService } from '../../../../service/horarios/horario.service';
@@ -29,9 +30,7 @@ export interface Estados {
 export class AgendamientoInfoComponent implements OnInit {
   agendarForm: FormGroup;
 
-  ingresoOpt!: SelectItemGroup[];
-
-  salidaOpt: SelectItemGroup[] = [];
+  horas!: SelectItemGroup[];
 
   fechaAgendamiento: string = '';
 
@@ -45,26 +44,25 @@ export class AgendamientoInfoComponent implements OnInit {
       fecha: new FormControl<Date | null>({ value: date, disabled: false }, [
         Validators.required,
       ]),
-      ingreso: new FormControl<Estados | null>(null, [Validators.required]),
-      salida: new FormControl<Estados | null>(null, [Validators.required]),
+      hora: new FormControl<Estados | null>(null, [Validators.required]),
     });
   }
 
   obtenerHorarios(rol: string, fecha: string) {
     this.horarioService.obtenerHorarioPorRolYDia(rol, fecha).subscribe({
       next: (value) => {
-        this.ingresoOpt = [];
+        this.horas = [];
         value.forEach((horario: any) => {
+          if (!horario.hora_inicio || !horario.hora_fin) return;
           const label = horario.jornada === 'Matutina' ? 'Mañana' : 'Tarde';
-          this.ingresoOpt.push({
+          this.horas.push({
             label,
-            items: getAvailableHours(
+            items: generarRangoHoras(
               formatTime(horario.hora_inicio as string),
               formatTime(horario.hora_fin as string)
             ),
           });
         });
-        // this.ingresoOpt = filterHoursGreaterThanCurrentTime(this.ingresoOpt).map(group => { return { label: group.label, items: group.items.slice(0, -1) } });
       },
       error: (err) => {
         console.log(err);
@@ -77,10 +75,6 @@ export class AgendamientoInfoComponent implements OnInit {
       this.fechaAgendamiento = capitalizeFirstLetter(formatDate(val));
       this.obtenerHorarios(this.authService.getUserData().roles, this.fechaAgendamiento);
     });
-    this.agendarForm.get('ingreso')?.valueChanges.subscribe((val) => {
-      this.salidaOpt = [];
-      this.salidaOpt = filterHoursForSalida(val, this.ingresoOpt);
-    });
   }
 
   // Método para validar el formulario (puede ser llamado desde el componente padre)
@@ -92,17 +86,11 @@ export class AgendamientoInfoComponent implements OnInit {
         if (key === 'fecha' && control?.errors && control?.errors['required']) {
           errors[key] = 'La fecha es requerida';
         } else if (
-          key === 'ingreso' &&
+          key === 'hora' &&
           control?.errors &&
           control?.errors['required']
         ) {
-          errors[key] = 'La hora de ingreso es requerida';
-        } else if (
-          key === 'salida' &&
-          control?.errors &&
-          control?.errors['required']
-        ) {
-          errors[key] = 'La hora de salida es requerida';
+          errors[key] = 'La hora es requerida';
         }
         this.agendarForm.setErrors(errors);
       });
