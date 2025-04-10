@@ -8,6 +8,7 @@ import { ChartModule } from 'primeng/chart';
 import { ReportesComponent } from './reportes.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     IconModule,
     BreadcrumbModule,
     ChartModule,
+    ButtonModule,
 
     FormsModule,
     DropdownModule

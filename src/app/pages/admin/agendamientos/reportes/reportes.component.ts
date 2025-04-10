@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { formatAgendamientoData, formatDataByDia, formatForChart, transformAsistioData } from '../../../../core/utiils/formatters';
 import { CarreraService } from '../../../../service/institucion/carrera.service';
 import { FacultadService } from '../../../../service/institucion/facultad.service';
 import { ReportesService } from '../../../../service/reporte/reportes.service';
@@ -14,6 +15,8 @@ interface Options { name: string; code: string; }
 export class ReportesComponent implements OnInit {
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
+
+  selected!: Options;
 
   facultades: Options[] = [];
   facultadsSelected!: string;
@@ -69,13 +72,17 @@ export class ReportesComponent implements OnInit {
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-    this.reporteService.obtenerDatosAgendamientosGraficos(facultad, carrera, tipoPago).subscribe((data: any) => {
-      if (data.reservasRol) {
+    this.reporteService.obtenerDatosAgendamientosGraficos(facultad, carrera, tipoPago).subscribe(({ reservasRol, reservasPorRolesYDias, reservasPorDias, reservasPorEstados }: any) => {
+      const reservasRolFormatter = formatForChart(reservasRol)
+      const reservasPorRolesYDiasFormatter = formatDataByDia(reservasPorRolesYDias)
+      const reservasPorDiasFormatter = formatAgendamientoData(reservasPorDias)
+      const reservasPorEstadosFormatter = transformAsistioData(reservasPorEstados)
+      if (reservasRolFormatter) {
         this.data = {
-          labels: data.reservasRol.roles,
+          labels: reservasRolFormatter.roles,
           datasets: [
             {
-              data: data.reservasRol.data,
+              data: reservasRolFormatter.data,
               backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--green-500')],
               hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--green-400')]
             }
@@ -93,13 +100,14 @@ export class ReportesComponent implements OnInit {
           }
         };
       }
-      if (data.reservasPorDias) {
+      if (reservasPorDiasFormatter) {
+        console.log(reservasPorDiasFormatter);
         this.dataLine = {
-          labels: data.reservasPorDias.labels.map((label: string) => this.convertDayToSpanish(label)),
+          labels: reservasPorDiasFormatter.labels,
           datasets: [
             {
               label: 'Agendamientos',
-              data: [93, 107, 120, 100, 142],
+              data: reservasPorDiasFormatter.data[0].data,
               fill: false,
               borderColor: documentStyle.getPropertyValue('--teal-500'),
               tension: 0.4
@@ -139,18 +147,20 @@ export class ReportesComponent implements OnInit {
           }
         };
       }
-      if (data.reservasPorRolesYDias) {
-        const datasets = data.reservasPorRolesYDias.datas.map((data: any) => {
+      if (reservasPorRolesYDiasFormatter) {
+        const colors = [documentStyle.getPropertyValue('--pink-500'), documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--green-500')];
+        const hoverColors = [documentStyle.getPropertyValue('--pink-400'), documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--green-400')];
+        const datasets = reservasPorRolesYDiasFormatter.datas.map((data: any, index: number) => {
           return {
             label: data.label,
-            backgroundColor: documentStyle.getPropertyValue('--blue-500'),
-            borderColor: documentStyle.getPropertyValue('--blue-500'),
+            backgroundColor: colors[index],
+            borderColor: colors[index],
             data: data.data
           };
         })
 
         this.dataBar = {
-          labels: data.reservasPorRolesYDias.dias.map((label: string) => this.convertDayToSpanish(label)),
+          labels: reservasPorRolesYDiasFormatter.dias,
           datasets
         };
 
@@ -190,13 +200,12 @@ export class ReportesComponent implements OnInit {
           }
         };
       }
-      if (data.reservasPorEstados) {
-
+      if (reservasPorEstadosFormatter) {
         this.dataPie = {
-          labels: data.reservasPorEstados.labels,
+          labels: reservasPorEstadosFormatter.labels,
           datasets: [
             {
-              data: data.reservasPorEstados.data,
+              data: reservasPorEstadosFormatter.data,
               backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--orange-500'), documentStyle.getPropertyValue('--green-500')],
               hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--orange-400'), documentStyle.getPropertyValue('--green-400')]
             }
@@ -228,7 +237,6 @@ export class ReportesComponent implements OnInit {
 
   onFacultadChange(event: any) {
     if (event.value) {
-      console.log('Facultad seleccionada:', event.value.code);
       this.carreraService.obtenerCarrerasPorFacultad(event.value.code).subscribe((data: any) => {
         this.carreras = [];
         data.forEach((carrera: any) => {
@@ -239,7 +247,7 @@ export class ReportesComponent implements OnInit {
 
         this.ObtenerDatosGraficos(event.value.code)
       });
-    } else {    
+    } else {
       this.ObtenerDatosGraficos()
       this.facultadsSelected = '';
       this.disabled = true;
@@ -248,7 +256,6 @@ export class ReportesComponent implements OnInit {
   }
 
   onCarreraChange(event: any) {
-    console.log('Carrera seleccionada:', event.value);
     if (event.value) {
       this.ObtenerDatosGraficos(this.facultadsSelected, event.value.code)
       this.carreraSelected = event.value.code;
@@ -258,12 +265,21 @@ export class ReportesComponent implements OnInit {
     }
   }
 
-  onTipoChange(event: any) { 
+  onTipoChange(event: any) {
     if (event.value) {
       this.ObtenerDatosGraficos(this.facultadsSelected, this.carreraSelected, event.value.code)
     } else {
       this.ObtenerDatosGraficos(this.facultadsSelected, this.carreraSelected)
     }
+  }
+
+  clearFilter() {
+    this.selected = { name: '', code: '' };
+    this.facultadsSelected = '';
+    this.carreraSelected = '';
+    this.disabled = true;
+    this.carreras = [];
+    this.ObtenerDatosGraficos()
   }
 
 }

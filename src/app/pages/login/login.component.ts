@@ -69,7 +69,11 @@ export class LoginComponent implements OnInit {
           next: (response) => {
             if (response.state === 'success') {
               sessionStorage.setItem('session-usuario', JSON.stringify(response.user));
-              this.router.navigate(['/']);
+              if (response.user.roles === 'Administrador') {
+                this.router.navigate(['/admin']);
+              } else {
+                this.router.navigate(['/']);
+              }
             }
           },
           error: (err) => {

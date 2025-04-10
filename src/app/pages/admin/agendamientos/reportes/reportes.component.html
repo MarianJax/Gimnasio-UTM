@@ -28,8 +28,9 @@
 
 <div class="flex gap-5 flex-wrap justify-content-between px-3">
     <div class="w-full flex gap-3">
-        <p-dropdown [options]="facultades" (onChange)="onFacultadChange($event)" selectedOption="name" optionLabel="name"
-            [filter]="true" filterBy="name" [showClear]="true" placeholder="Seleccione una Facultad" appendTo="body">
+        <p-dropdown [options]="facultades" (onChange)="onFacultadChange($event)" selectedOption="name"
+            optionLabel="name" [filter]="true" filterBy="name" [(ngModel)]="facultadsSelected" [showClear]="true" placeholder="Seleccione una Facultad"
+            appendTo="body">
             <ng-template pTemplate="selectedItem" let-selectedOption>
                 <div class="flex align-items-center gap-2">
                     <div>{{ selectedOption?.name }}</div>
@@ -41,8 +42,9 @@
                 </div>
             </ng-template>
         </p-dropdown>
-        <p-dropdown [disabled]="disabled" [options]="carreras" (onChange)="onCarreraChange($event)" selectedOption="name" optionLabel="name"
-            [filter]="true" filterBy="name" [showClear]="true" placeholder="Seleccione una Carrera" appendTo="body">
+        <p-dropdown [disabled]="disabled" [(ngModel)]="carreraSelected" [options]="carreras" (onChange)="onCarreraChange($event)"
+            selectedOption="name" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+            placeholder="Seleccione una Carrera" appendTo="body">
             <ng-template pTemplate="selectedItem" let-selectedOption>
                 <div class="flex align-items-center gap-2">
                     <div>{{ selectedOption?.name }}</div>
@@ -55,7 +57,9 @@
             </ng-template>
         </p-dropdown>
 
-        <p-dropdown appendTo="body" (onChange)="onTipoChange($event)" [options]="TipoPago" optionLabel="name" placeholder="Seleccione un tipo de pago" />
+        <p-dropdown appendTo="body" [(ngModel)]="selected" (onChange)="onTipoChange($event)" [options]="TipoPago"
+            optionLabel="name" placeholder="Seleccione un tipo de pago" />
+        <p-button size="small" (onClick)="clearFilter()" class="my-auto" [outlined]="true"><mage-icon  name="filter-remove" size="18px" fill="currentColor"></mage-icon></p-button>
     </div>
     <article>
         <p-chart aria-label="doughnut" type="doughnut" [data]="data" [options]="options" />
