@@ -9,6 +9,7 @@ export class CarreraService {
   private apiUrl = 'http://localhost:3000/carrera';
 
   constructor(private http: HttpClient) { }
+
   obtenerCarreras(): Observable<any> {
     return this.http.get(this.apiUrl);
   }

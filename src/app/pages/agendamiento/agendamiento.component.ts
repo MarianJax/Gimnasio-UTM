@@ -1,58 +1,142 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ValidationErrors } from '@angular/forms';
-import { Validator } from '@angular/forms';
-import { Validators } from '@angular/forms';
-import { FormBuilder } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
-import { AgendamientosService } from '../../service/agendamiento/agendamientos.service';
+import { CarreraService } from '../../service/institucion/carrera.service';
+import { FacultadService } from '../../service/institucion/facultad.service';
+import { UsuariosService } from '../../service/usuarios/usuarios.service';
+import { AuthService } from '../login/auth.service';
+
+interface Options { name: string; code: string; }
 
 @Component({
   selector: 'app-agendamiento',
   templateUrl: './agendamiento.component.html',
   styleUrls: ['./agendamiento.component.scss'],
 })
-export class AgendamientoComponent {
-  date: Date[] | undefined;
-  agendamiento: any;
-  Agendamiento: any;
+export class AgendamientoComponent implements OnInit, AfterViewInit {
+  agendamiento: FormGroup;
+  visible: boolean = false;
+  isEstudiante: boolean = true;
+
+  facultades: Options[] = [];
+  carreras: Options[] = [];
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private agendamientoService: AgendamientosService
+    private facultadService: FacultadService,
+    private carreraService: CarreraService,
+    private auhtService: AuthService,
+    private usuarioService: UsuariosService
   ) {
+    const user = this.auhtService.getUserData();
+    this.verifyRolInstitucion(user.id, user.roles);
+
+    console.log(this.isEstudiante);
+
     this.agendamiento = this.fb.group({
-      date: ['', Validators.required],
-      nombre: ['', [Validators.required]],
-      apellido: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      cardNumber: ['', [Validators.required, Validators.pattern(/^\d{16}$/)]],
-      cvc: ['', [Validators.required, Validators.pattern(/^\d{3,4}$/)]],
-      expiry: [
-        '',
-        [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/\d{4}$/)],
-      ],
-      cardHolder: ['', [Validators.required]],
-      pais: ['', [Validators.required]],
-      ciudad: ['', [Validators.required]],
-      callePrincipal: ['', [Validators.required]],
-      calleSecundaria: [''],
-      codigoPostal: ['', [Validators.required]],
-      planType: ['daily', [Validators.required]],
+      facultad: [null],
+      carrera: [null],
+    });
+  }
+
+  ngOnInit() {
+    this.loadFacultades();
+    this.loadCarreras();
+    // Método para validar el formulario (puede ser llamado desde el componente padre)
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      if (this.isEstudiante) {
+        this.agendamiento.get('carrera')?.setValidators([Validators.required]);
+        this.agendamiento.get('carrera')?.updateValueAndValidity();
+
+        this.agendamiento.get('facultad')?.clearValidators();
+        this.agendamiento.get('facultad')?.updateValueAndValidity();
+      } else {
+        this.agendamiento.get('facultad')?.setValidators([Validators.required]);
+        this.agendamiento.get('facultad')?.updateValueAndValidity();
+
+        this.agendamiento.get('carrera')?.clearValidators();
+        this.agendamiento.get('carrera')?.updateValueAndValidity();
+      }
+      this.validar();
+    }, 500);
+  }
+
+  verifyRolInstitucion(id: string, rol: string) {
+    this.usuarioService.obtenerUsuario(id).subscribe((data: any) => {
+      if (rol === 'Estudiante' && data.carrera === null) {
+        this.isEstudiante = true;
+        this.visible = true;
+      } else if (rol !== 'Estudiante' && data.facultad === null) {
+        this.isEstudiante = false;
+        this.visible = true;
+      } else if ((data.facultad !== null && rol !== 'Estudiante') || (data.carrera !== null && rol === 'Estudiante')) {
+        this.visible = false;
+      }
+    });
+  }
+
+  validar() {
+    if (this.agendamiento.invalid) {
+      const errors: { [key: string]: string } = {};
+      Object.keys(this.agendamiento.controls).forEach((key) => {
+        const control = this.agendamiento.get(key);
+        if (key === 'facultad' && control?.errors && control?.errors['required']) {
+          errors[key] = 'La Facultad es requerida';
+        } else if (
+          key === 'carrera' &&
+          control?.errors &&
+          control?.errors['required']
+        ) {
+          errors[key] = 'La Carrera es requerida';
+        }
+        this.agendamiento.setErrors(errors);
+      });
+    }
+  }
+
+  loadFacultades() {
+    this.facultadService.obtenerFacultades().subscribe((data: any) => {
+      this.facultades = [];
+      data.forEach((facultad: any) => {
+        this.facultades.push({ name: facultad.nombre, code: facultad.id });
+      });
+    });
+  }
+
+  loadCarreras() {
+    this.carreraService.obtenerCarreras().subscribe((data: any) => {
+      this.carreras = [];
+      data.forEach((carrera: any) => {
+        this.carreras.push({ name: carrera.nombre, code: carrera.id });
+      });
     });
   }
 
   onSubmit() {
-    if (this.Agendamiento.valid) {
-      // Lógica para manejar el envío del formulario
-      console.log('Formulario enviado', this.Agendamiento.value);
-      this.router.navigate(['/ruta-destino']); // Cambia '/ruta-destino' por la ruta deseada
+    const user = this.auhtService.getUserData();
+    if (this.agendamiento.valid) {
+      this.usuarioService.actualizarUsuario({
+        id: this.auhtService.getUserData().id,
+        facultad: this.agendamiento.value.facultad ? this.agendamiento.value.facultad.code : null,
+        carrera: this.agendamiento.value.carrera ? this.agendamiento.value.carrera.code : null,
+      }).subscribe({
+        next: () => {
+          this.verifyRolInstitucion(user.id, user.roles);
+        },
+        error: (error) => {
+          console.log('Error al enviar los datos', error);
+        },
+      })
     }
-  }
 
-  private handleError(error: HttpErrorResponse) { return throwError(() => new Error('Ocurrió un error; intente nuevamente más tarde.')); }
+    console.log('Formulario enviado', this.agendamiento.errors);
+    // Lógica para manejar el envío del formulario
+    console.log('Formulario enviado', this.agendamiento.value);
+  }
 
   goToRutinas() {
     this.router.navigate(['/']);

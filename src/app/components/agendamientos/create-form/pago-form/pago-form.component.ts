@@ -60,20 +60,15 @@ export class PagoFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    const user = this.authService.getUserData();
     this.pagoForm.get('metodo_pago')?.valueChanges.subscribe((val) => {
       let monto = 0.0;
       this.rolService.obtenerRolPorNombre(this.usuario.roles).subscribe(
         (rol) => {
           if (val.value === 'diario') {
-            monto = Number(rol.monto_pago) * 1;
+            monto = Number(rol.pago_diario);
           }
           if (val.value === 'mensual') {
-            if (user.roles === 'Estudiante') {
-              monto = Number(25.00);
-            } else {
-              monto = Number(30.00);
-            }
+            monto = Number(rol.pago_mensual);
           }
           this.pagoForm.patchValue({ monto: monto });
         },

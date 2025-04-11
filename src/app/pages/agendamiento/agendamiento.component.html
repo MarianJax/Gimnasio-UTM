@@ -1,1 +1,63 @@
 <app-create-form></app-create-form>
+
+<p-dialog header="Registro de usuario" [(visible)]="visible" [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '40vw' }" [draggable]="false"
+    [resizable]="false">
+    <ng-template pTemplate="header">
+        <div class="inline-flex align-items-center justify-content-center gap-2">
+            <span class="font-bold white-space-nowrap">
+                Actualizar {{ !isEstudiante ? 'Facultad': 'Carrera' }} de usuario
+            </span>
+        </div>
+    </ng-template>
+    <form [formGroup]="agendamiento">
+        <div *ngIf="!isEstudiante ; else carreraTemplate" class="w-full">
+            <label for="facultad">Facultad</label>
+            <p-dropdown [options]="facultades" selectedOption="name" formControlName="facultad" optionLabel="name"
+                [filter]="true" filterBy="name" [showClear]="true" [ngClass]="{
+                'ng-dirty ng-invalid': agendamiento.getError('facultad')
+              }" placeholder="Seleccione una Facultad" appendTo="body">
+                <ng-template pTemplate="selectedItem" let-selectedOption>
+                    <div class="flex align-items-center gap-2">
+                        <div>{{ selectedOption?.name }}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-facultad pTemplate="item">
+                    <div class="flex align-items-center gap-2">
+                        <div>{{ facultad.name }}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+            <small *ngIf="agendamiento.getError('facultad')" class="ng-invalid text-red-600">
+                {{ agendamiento.getError("facultad") }}
+            </small>
+        </div>
+
+        <ng-template #carreraTemplate>
+            <div class="w-full">
+                <label for="carrera">Carreras</label>
+                <p-dropdown [options]="carreras" selectedOption="name" optionLabel="name" [filter]="true"
+                    formControlName="carrera" [ngClass]="{
+                'ng-dirty ng-invalid': agendamiento.getError('carrera')
+              }" filterBy="name" [showClear]="true" placeholder="Seleccione una Carrera" appendTo="body">
+                    <ng-template pTemplate="selectedItem" let-selectedOption>
+                        <div class="flex align-items-center gap-2">
+                            <div>{{ selectedOption?.name }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-carrera pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <div>{{ carrera.name }}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+                <small *ngIf="agendamiento.getError('carrera')" class="ng-invalid text-red-600">
+                    {{ agendamiento.getError("carrera") }}
+                </small>
+            </div>
+        </ng-template>
+    </form>
+    <ng-template pTemplate="footer">
+        <p-button (onClick)="onSubmit()" [disabled]="agendamiento.invalid" [outlined]="true" severity="contrast">Actualizar</p-button>
+    </ng-template>
+</p-dialog>
