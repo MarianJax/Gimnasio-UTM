@@ -20,7 +20,7 @@
         <tr>
             <th>Nombre</th>
             <th>Tiempo</th>
-            <th>Costo</th>
+            <th colspan="2">Costo</th>
             <th>Cupos</th>
             <th class="text-center">Acciones</th>
         </tr>
@@ -29,7 +29,8 @@
         <tr>
             <td> {{ rol.nombre }} </td>
             <td>{{ rol.tiempo }}</td>
-            <td>{{ rol.monto_pago | currency : "USD" }}</td>
+            <td>{{ rol.pago_diario | currency : "USD" }}</td>
+            <td>{{ rol.pago_mensual | currency : "USD" }}</td>
             <td>{{ rol.cupo }}</td>
             <td>
                 <div class="flex gap-3 w-full justify-content-center">
@@ -69,24 +70,33 @@
             </small>
         </div>
         <div style="width: calc(50% - 10px)">
-            <label for="monto_pago" class="">Monto pago</label>
-            <p-inputNumber inputId="monto_pago" placeholder=""
-                [ngClass]="{'ng-dirty ng-invalid': upRolForm.getError('monto_pago')}" formControlName="monto_pago"
+            <label for="pago_diario" class="">Pago diario</label>
+            <p-inputNumber inputId="pago_diario" placeholder=""
+                [ngClass]="{'ng-dirty ng-invalid': upRolForm.getError('pago_diario')}" formControlName="pago_diario"
                 mode="currency" currency="USD" locale="en-US" [min]="0.10" />
-            <small *ngIf="upRolForm.getError('monto_pago')" class="ng-invalid text-red-600">
-                {{ upRolForm.getError('monto_pago') }}
+            <small *ngIf="upRolForm.getError('pago_diario')" class="ng-invalid text-red-600">
+                {{ upRolForm.getError('pago_diario') }}
+            </small>
+        </div>
+        <div style="width: calc(50% - 10px)">
+            <label for="pago_mensual" class="">Pago mensual</label>
+            <p-inputNumber inputId="pago_mensual" placeholder=""
+                [ngClass]="{'ng-dirty ng-invalid': upRolForm.getError('pago_mensual')}" formControlName="pago_mensual"
+                mode="currency" currency="USD" locale="en-US" [min]="0.10" />
+            <small *ngIf="upRolForm.getError('pago_mensual')" class="ng-invalid text-red-600">
+                {{ upRolForm.getError('pago_mensual') }}
             </small>
         </div>
         <div style="width: calc(50% - 10px)">
             <label for="tiempo" class="">Tiempo</label>
             <p-inputNumber inputId="tiempo" placeholder=""
-                [ngClass]="{'ng-dirty ng-invalid': upRolForm.getError('tiempo')}" formControlName="tiempo"
-                mode="decimal" [min]="0" [useGrouping]="false" />
+                [ngClass]="{'ng-dirty ng-invalid': upRolForm.getError('tiempo')}" formControlName="tiempo" mode="decimal"
+                [min]="0" [useGrouping]="false" />
             <small *ngIf="upRolForm.getError('tiempo')" class="ng-invalid text-red-600">
                 {{ upRolForm.getError('tiempo') }}
             </small>
         </div>
-        <div style="width: calc(50% - 10px)">
+        <div style="width: 100%">
             <label for="cupo" class="">Cupo</label>
             <p-inputNumber inputId="cupo" placeholder="" [ngClass]="{'ng-dirty ng-invalid': upRolForm.getError('cupo')}"
                 formControlName="cupo" mode="decimal" [min]="0" [useGrouping]="false" />

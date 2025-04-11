@@ -22,12 +22,21 @@
             </small>
         </div>
         <div style="width: calc(50% - 10px)">
-            <label for="monto_pago" class="">Monto pago</label>
-            <p-inputNumber inputId="monto_pago" placeholder=""
-                [ngClass]="{'ng-dirty ng-invalid': rolForm.getError('monto_pago')}" formControlName="monto_pago"
+            <label for="pago_diario" class="">Pago diario</label>
+            <p-inputNumber inputId="pago_diario" placeholder=""
+                [ngClass]="{'ng-dirty ng-invalid': rolForm.getError('pago_diario')}" formControlName="pago_diario"
                 mode="currency" currency="USD" locale="en-US" [min]="0.10" />
-            <small *ngIf="rolForm.getError('monto_pago')" class="ng-invalid text-red-600">
-                {{ rolForm.getError('monto_pago') }}
+            <small *ngIf="rolForm.getError('pago_diario')" class="ng-invalid text-red-600">
+                {{ rolForm.getError('pago_diario') }}
+            </small>
+        </div>
+        <div style="width: calc(50% - 10px)">
+            <label for="pago_mensual" class="">Pago mensual</label>
+            <p-inputNumber inputId="pago_mensual" placeholder=""
+                [ngClass]="{'ng-dirty ng-invalid': rolForm.getError('pago_mensual')}" formControlName="pago_mensual"
+                mode="currency" currency="USD" locale="en-US" [min]="0.10" />
+            <small *ngIf="rolForm.getError('pago_mensual')" class="ng-invalid text-red-600">
+                {{ rolForm.getError('pago_mensual') }}
             </small>
         </div>
         <div style="width: calc(50% - 10px)">
@@ -39,7 +48,7 @@
                 {{ rolForm.getError('tiempo') }}
             </small>
         </div>
-        <div style="width: calc(50% - 10px)">
+        <div style="width: 100%">
             <label for="cupo" class="">Cupo</label>
             <p-inputNumber inputId="cupo" placeholder="" [ngClass]="{'ng-dirty ng-invalid': rolForm.getError('cupo')}"
                 formControlName="cupo" mode="decimal" [min]="0" [useGrouping]="false" />

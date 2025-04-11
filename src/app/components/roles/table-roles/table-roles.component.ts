@@ -50,7 +50,8 @@ export class TableRolesComponent implements OnInit {
     this.upRolForm = this.fb.group({
       id: new FormControl<string | null>(null),
       nombre: new FormControl<string | null>(null),
-      monto_pago: new FormControl<number | null>(null),
+      pago_diario: new FormControl<number | null>(null),
+      pago_mensual: new FormControl<number | null>(null),
       tiempo: new FormControl<number | null>(null),
       cupo: new FormControl<number | null>(null),
     });

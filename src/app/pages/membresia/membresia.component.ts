@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AgendamientosService } from '../../service/agendamiento/agendamientos.service';
 import { MembresiaService } from '../../service/membresias/membresia.service';
-import { AuthService } from '../login/auth.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { SharedService } from '../../service/shared.service';
+import { AuthService } from '../login/auth.service';
 
 @Component({
   selector: 'app-membresia',
@@ -66,8 +66,10 @@ export class MembresiaComponent implements OnInit {
       .obtenerMembresiaPorUsuario(user.id, new Date())
       .subscribe({
         next: (data) => {
-          this.sharedService.setParametro(data[0].id);
-          this.isMembresia = data && data.length > 0 ? true : false;
+          if (data.length > 0) {
+            this.sharedService.setParametro(data[0].id);
+            this.isMembresia = data && data.length > 0 ? true : false;
+          }
         },
         error: (error) => {
           console.error('Error al obtener membresías:', error);

@@ -31,7 +31,8 @@ export class CreateRolesComponent implements OnInit {
   constructor(private fb: FormBuilder, private rolesService: RolesService) {
     this.rolForm = this.fb.group({
       nombre: new FormControl<string | null>(null),
-      monto_pago: new FormControl<number | null>(null),
+      pago_diario: new FormControl<number | null>(null),
+      pago_mensual: new FormControl<number | null>(null),
       tiempo: new FormControl<number | null>(null),
       cupo: new FormControl<number | null>(null),
     });
@@ -42,7 +43,6 @@ export class CreateRolesComponent implements OnInit {
   addRol() {
     try {
       const rol = this.rolForm.value;
-      console.log(rol);
       this.rolesService.agregarRol(rol)
         .subscribe({
           next: () => {
