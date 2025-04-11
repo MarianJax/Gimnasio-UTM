@@ -159,13 +159,12 @@ export class CreateFormComponent implements AfterViewInit {
           })
           .subscribe({
             next: (data: any) => {
-              console.log(data);
               this.dataAction = data;
               ret = true;
               return ret;
             },
             error: (err) => {
-              console.log(err);
+              console.error(err);
               ret = false;
               this.dataAction = err;
               return ret;

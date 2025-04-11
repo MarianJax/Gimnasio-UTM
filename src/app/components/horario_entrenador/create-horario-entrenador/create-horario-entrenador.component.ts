@@ -72,7 +72,6 @@ export class CreateHorarioEntrenadorComponent implements OnInit {
 
   onSubmit() {
     const horario = this.horarioForm.value;
-    console.log(horario);
     this.horarioEntrenadorService.agregarHorario({
       fecha: horario.fecha && new Date(horario.fecha).toISOString(),
       franja_hora_inicio: horario.franja_hora_inicio && horario.franja_hora_inicio.value,

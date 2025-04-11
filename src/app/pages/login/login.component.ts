@@ -63,7 +63,6 @@ export class LoginComponent implements OnInit {
   AutenticarDatos() {
     if (this.usuarioForm.valid) {
       const usuario = this.usuarioForm.value;
-      //console.log('Desde el obSubmit ->',usuario);
       this.authService.autenticar(usuario)
         .subscribe({
           next: (response) => {
@@ -80,7 +79,6 @@ export class LoginComponent implements OnInit {
             if (err.error.state === 'error') {
               if (err.error.response.match(/El usuario \[<b>(.*?)<\/b>\],No existe!/)) {
                 const match = err.error.response.match(/El usuario \[<b>(.*?)<\/b>\],No existe!/);
-                console.log(`El usuario ${match[1]}, No existe!`);
 
                 this.usuarioForm.setErrors({
                   correo: `El usuario ${match[1]}, No existe!`,
@@ -89,15 +87,13 @@ export class LoginComponent implements OnInit {
                 this.usuarioForm.setErrors({ contrasena: 'La contraseña es incorrecta' });
               }
 
-              console.log('Error al enviar los datos', err.error.response);
               return;
             }
             this.usuarioForm.setErrors(err.error.errors);
-            console.log('Error al enviar los datos', err);
+            console.error('Error al enviar los datos', err);
           },
         });
     } else {
-      console.log('Form is invalid');
     }
   }
 }

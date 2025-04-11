@@ -73,7 +73,7 @@ export class PagoFormComponent implements OnInit {
           this.pagoForm.patchValue({ monto: monto });
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
       monto = 0.0;

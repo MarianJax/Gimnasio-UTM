@@ -65,7 +65,7 @@ export class AgendamientoInfoComponent implements OnInit {
         });
       },
       error: (err) => {
-        console.log(err);
+        console.error(err);
       },
     });
   }
