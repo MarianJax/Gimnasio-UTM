@@ -31,51 +31,46 @@ export class LoginComponent implements OnInit {
 
   AutenticarDatos() {
     this.cargar = true;
-    if (this.usuarioForm.valid) {
-      const usuario = this.usuarioForm.value;
-      this.authService.autenticar(usuario).subscribe({
-        next: (response) => {
-          if (response.state === 'success') {
-            sessionStorage.setItem(
-              'session-usuario',
-              JSON.stringify(response.user)
-            );
-            this.cargar = false;
-            if (response.user.roles === 'Administrador') {
-              this.router.navigate(['/admin']);
-            } else {
-              this.router.navigate(['/']);
-            }
-          }
-        },
-        error: (err) => {
+    const usuario = this.usuarioForm.value;
+    this.authService.autenticar(usuario).subscribe({
+      next: (response) => {
+        if (response.state === 'success') {
+          sessionStorage.setItem(
+            'session-usuario',
+            JSON.stringify(response.user)
+          );
           this.cargar = false;
-          if (err.error.state === 'error') {
-            if (
-              err.error.response.match(
-                /El usuario \[<b>(.*?)<\/b>\],No existe!/
-              )
-            ) {
-              const match = err.error.response.match(
-                /El usuario \[<b>(.*?)<\/b>\],No existe!/
-              );
-
-              this.usuarioForm.setErrors({
-                correo: `El usuario ${match[1]}, No existe!`,
-              });
-            } else {
-              this.usuarioForm.setErrors({
-                contrasena: 'La contraseña es incorrecta',
-              });
-            }
-
-            return;
+          if (response.user.roles === 'Administrador') {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/']);
           }
-          this.usuarioForm.setErrors(err.error.errors);
-          console.error('Error al enviar los datos', err);
-        },
-      });
-    } else {
-    }
+        }
+      },
+      error: (err) => {
+        this.cargar = false;
+        if (err.error.state === 'error') {
+          if (
+            err.error.response.match(/El usuario \[<b>(.*?)<\/b>\],No existe!/)
+          ) {
+            const match = err.error.response.match(
+              /El usuario \[<b>(.*?)<\/b>\],No existe!/
+            );
+
+            this.usuarioForm.setErrors({
+              correo: `El usuario ${match[1]}, No existe!`,
+            });
+          } else {
+            this.usuarioForm.setErrors({
+              contrasena: 'La contraseña es incorrecta',
+            });
+          }
+
+          return;
+        }
+        this.usuarioForm.setErrors(err.error.errors);
+        console.error('Error al enviar los datos', err);
+      },
+    });
   }
 }
