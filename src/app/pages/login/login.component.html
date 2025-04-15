@@ -1,6 +1,14 @@
+<!-- componente loading -->
+<div class="container-loading" *ngIf="cargar">
+  <div class="transparent-div-loading"></div>
+  <div class="centered-div-loading">
+      <img src="../../../assets/images/loading.gif" alt="" style="width: 550px; height: 300px;">
+  </div>
+</div>
+
 <div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
   <div class="flex flex-column align-items-center justify-content-center  gap-3 ">
-    <img src="/assets/images/logo_horizontal_footer.png" alt="Logo UTM" class="mb-6 w-8rem flex-shrink-0" />
+    <img src="/assets/images/logo_horizontal_footer.png" alt="Logo UTM" class="mb-6 w-6rem sm:w-8rem flex-shrink-0" />
     <div style="
         border-radius: 56px;
         padding: 0.3rem;
@@ -12,7 +20,7 @@
       ">
       <div class="w-full relative surface-card py-4 px-5 sm:px-8" style="border-radius: 53px">
         <div class="text-900 text-center mb-5" style="margin-top: -5.5rem;">
-          <span class="w-full text-5xl font-bold inline-block uppercase">gimnasio</span>
+          <span class="w-full sm:text-5xl text-4xl font-bold inline-block uppercase">gimnasio</span>
           <div class="title">
             <span>UTM</span>
             <h5>Unidos</h5>

@@ -1,333 +1,327 @@
 :host ::ng-deep .p-menu-list {
-
-    background-color: red;
+  background-color: red;
 }
 
 .conte-rutinas {
-    display: grid;
-    padding: 1.5rem;
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    gap: 1.25rem;
+  display: grid;
+  padding: 1.5rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.25rem;
 
-    @media (min-width: 550px) {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  @media (min-width: 550px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 
-    @media (min-width: 1024px) {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 // Variables de color para mantener consistencia
-$emerald-light: #ECFDF5;
-$emerald-dark: #065F46;
-$emerald-primary: #34D399;
-$emerald-hover: #10B981;
-$emerald-text: #047857;
+$emerald-light: #ecfdf5;
+$emerald-dark: #065f46;
+$emerald-primary: #34d399;
+$emerald-hover: #10b981;
+$emerald-text: #009933;
 $white: #ffffff;
 $shadow-color: rgba(0, 0, 0, 0.1);
 
 // Card Container
 .card-rutina {
-    border-radius: 8px;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgba(52, 211, 153, 0.5);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(52, 211, 153, 0.5);
+  transition: all 0.3s ease-in-out;
+  transform: translateY(0);
+
+  &:hover {
+    box-shadow: 0 10px 15px $shadow-color;
+    transform: translateY(-4px);
+  }
+
+  // Highlight Effect
+  .card-highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: $emerald-primary;
+    opacity: 0.2;
     transition: all 0.3s ease-in-out;
-    transform: translateY(0);
+  }
 
-    &:hover {
-        box-shadow: 0 10px 15px $shadow-color;
-        transform: translateY(-4px);
+  &:hover .card-highlight {
+    width: 100%;
+    height: 100%;
+  }
+
+  // Card Content
+  .card-content {
+    padding: 20px;
+    background-color: $white;
+
+    body.dark-mode & {
+      background-color: $emerald-dark;
     }
+  }
 
-    // Highlight Effect
-    .card-highlight {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 4px;
-        height: 100%;
-        background-color: $emerald-primary;
-        opacity: 0.2;
-        transition: all 0.3s ease-in-out;
+  // Header
+  .card-header {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0px;
+      color: black;
+      transition: color 0.3s;
     }
+  }
 
-    &:hover .card-highlight {
-        width: 100%;
-        height: 100%;
-    }
+  // Stats
+  .card-stats {
+    position: relative;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
 
-    // Card Content
-    .card-content {
-        padding: 20px;
-        background-color: $white;
+    .card-stat {
+      background-color: rgba(236, 253, 245, 0.5);
+      border-radius: 8px;
+      padding: 8px;
 
-        body.dark-mode & {
-            background-color: $emerald-dark;
-        }
-    }
+      body.dark-mode & {
+        background-color: rgba(4, 120, 87, 0.3);
+      }
 
-    // Header
-    .card-header {
-        position: relative;
-        z-index: 5;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 16px;
-
-        .card-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin: 0px;
-            color: black;
-            transition: color 0.3s;
-        }
-    }
-
-    // Stats
-    .card-stats {
-        position: relative;
-        z-index: 5;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        margin-bottom: 16px;
-
-        .card-stat {
-            background-color: rgba(236, 253, 245, 0.5);
-            border-radius: 8px;
-            padding: 8px;
-
-            body.dark-mode & {
-                background-color: rgba(4, 120, 87, 0.3);
-            }
-
-            .stat-label {
-                font-size: 12px;
-                color: black;
-                margin-bottom: 4px;
-            }
-
-            .stat-value {
-                font-size: 13px;
-                font-weight: 500;
-                color: $emerald-dark;
-            }
-        }
-    }
-
-    // Action Button
-    .card-button {
-        display: flex;
-        justify-content: flex-start;
-        width: 100%;
-        background-color: rgba(236, 253, 245, 0.5);
+      .stat-label {
+        font-size: 12px;
         color: black;
-        font-size: 14px;
-        border: none;
-        padding: 8px 12px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 0.3s;
+        margin-bottom: 4px;
+      }
 
-        .button-icon {
-            width: 16px;
-            height: 16px;
-            opacity: 0;
-            transition: all 0.3s;
-            transform: translateX(0);
-        }
+      .stat-value {
+        font-size: 13px;
+        font-weight: 500;
+        color: $emerald-dark;
+      }
+    }
+  }
+
+  // Action Button
+  .card-button {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    background-color: rgba(236, 253, 245, 0.5);
+    color: black;
+    font-size: 14px;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+
+    .button-icon {
+      width: 16px;
+      height: 16px;
+      opacity: 0;
+      transition: all 0.3s;
+      transform: translateX(0);
+    }
+  }
+
+  &:hover {
+    .card-title {
+      color: $emerald-text;
     }
 
-
-    &:hover {
-        .card-title {
-            color: $emerald-text;
-        }
-
-        .card-button {
-            background-color: $emerald-hover;
-            text-align: center;
-            color: black;
-        }
+    .card-button {
+      background-color: $emerald-hover;
+      text-align: center;
+      color: black;
     }
+  }
 }
 
 .text-danger {
-    color: #ef4444;
+  color: #ef4444;
 }
 
 :host ::ng-deep {
-    .p-dialog-mask.p-component-overlay.p-component-overlay-enter.p-dialog-mask-scrollblocker.ng-star-inserted {
-        backdrop-filter: blur(5px);
+  .p-dialog-mask.p-component-overlay.p-component-overlay-enter.p-dialog-mask-scrollblocker.ng-star-inserted {
+    backdrop-filter: blur(5px);
 
-        .p-dialog {
-            border-radius: 12px !important;
-            overflow: hidden;
-            background: linear-gradient(to bottom right, #cfe4da, #fff);
+    .p-dialog {
+      border-radius: 12px !important;
+      overflow: hidden;
+      background: linear-gradient(to bottom right, #cfe4da, #fff);
 
-            .p-dialog-header {
-                background: transparent;
-                color: black;
-                font-weight: 800;
-                padding: 24px 30px;
-                font-size: 20px;
+      .p-dialog-header {
+        background: transparent;
+        color: black;
+        font-weight: 800;
+        padding: 24px 30px;
+        font-size: 20px;
 
-                .p-dialog-header-close-icon {
-                    color: black;
-                }
-
-            }
-
-            .p-dialog-content {
-                padding: 10px 50px 30px 50px;
-                background: transparent;
-
-                form {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 20px;
-
-                    div {
-                        label {
-                            // display: block;
-                            color: black;
-                            // font-size: 16px;
-                        }
-
-                        input:not(.p-multiselect-filter) {
-                            margin-top: 8px;
-                            width: 100%;
-                            padding: 10px 14px;
-                            border-radius: 8px;
-                            font-size: 13px;
-                            height: 41px;
-                        }
-
-                        textarea {
-                            margin-top: 4px;
-                            width: 100%;
-                            padding: 10px 14px;
-                            border-radius: 8px;
-                            font-size: 13px;
-                        }
-
-                        .p-multiselect {
-                            margin-top: 4px;
-                            width: 100%;
-
-                            .p-multiselect-label-container {
-                                padding: 10px 14px;
-                                outline: none;
-
-                                .p-multiselect-label {
-                                    padding: 0;
-                                }
-                            }
-                        }
-
-                        .p-dropdown {
-                            margin-top: 8px;
-                            width: 100%;
-                            border-radius: 6px;
-
-                            .p-inputtext {
-                                padding: 10px 14px;
-                                outline: none
-                            }
-                        }
-
-                        .p-calendar {
-                            width: 100%;
-
-                            .p-inputtext {
-                                margin-top: 8px;
-                                padding: 1rem;
-                            }
-
-                            .p-datepicker {
-                                min-width: fit-content;
-                            }
-                        }
-
-                    }
-
-                    .p-button {
-                        border-radius: 8px !important;
-                        padding: 7px 20px;
-                    }
-                }
-            }
-
-            .p-dialog-footer {
-                background: transparent;
-                display: flex;
-                justify-content: flex-end;
-                gap: 15px;
-
-                p-button {
-                    margin: 0;
-
-                    .p-button.p-button-outlined {
-                        font-size: 14px;
-                        padding: 7px 30px;
-                        border-radius: 10px;
-                        font-weight: 700;
-
-                        &:not(.p-button-secondary) {
-                            color: black;
-                            border: solid 2px;
-
-                            &:hover,
-                            &:not(:disabled):hover,
-                            &:not(:disabled):active,
-                            &:active {
-                                border: solid 2px;
-                            }
-                        }
-                    }
-                }
-            }
+        .p-dialog-header-close-icon {
+          color: black;
         }
-    }
+      }
 
-    .p-paginator {
-        .p-paginator-current.ng-star-inserted {
-            margin-right: auto;
-            order: -2;
-        }
+      .p-dialog-content {
+        padding: 10px 50px 30px 50px;
+        background: transparent;
 
+        form {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 20px;
 
-        .p-element.p-inputwrapper.ng-star-inserted.p-inputwrapper-filled.ng-dirty {
-            order: -1;
-            margin: 0px 20px;
-
-            &::before {
-                margin-left: 25px;
-                content: 'Registros por página';
+          div {
+            label {
+              // display: block;
+              color: black;
+              // font-size: 16px;
             }
-        }
 
-        .p-dropdown-label {
-            padding: 7px;
-            width: 31px;
-            justify-content: center;
-            display: flex;
-            align-items: center;
+            input:not(.p-multiselect-filter) {
+              margin-top: 8px;
+              width: 100%;
+              padding: 10px 14px;
+              border-radius: 8px;
+              font-size: 13px;
+              height: 41px;
+            }
 
-            &:focus,
-            &:focus-visible,
-            &:focus-within {
+            textarea {
+              margin-top: 4px;
+              width: 100%;
+              padding: 10px 14px;
+              border-radius: 8px;
+              font-size: 13px;
+            }
+
+            .p-multiselect {
+              margin-top: 4px;
+              width: 100%;
+
+              .p-multiselect-label-container {
+                padding: 10px 14px;
                 outline: none;
+
+                .p-multiselect-label {
+                  padding: 0;
+                }
+              }
             }
+
+            .p-dropdown {
+              margin-top: 8px;
+              width: 100%;
+              border-radius: 6px;
+
+              .p-inputtext {
+                padding: 10px 14px;
+                outline: none;
+              }
+            }
+
+            .p-calendar {
+              width: 100%;
+
+              .p-inputtext {
+                margin-top: 8px;
+                padding: 1rem;
+              }
+
+              .p-datepicker {
+                min-width: fit-content;
+              }
+            }
+          }
+
+          .p-button {
+            border-radius: 8px !important;
+            padding: 7px 20px;
+          }
         }
+      }
+
+      .p-dialog-footer {
+        background: transparent;
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+
+        p-button {
+          margin: 0;
+
+          .p-button.p-button-outlined {
+            font-size: 14px;
+            padding: 7px 30px;
+            border-radius: 10px;
+            font-weight: 700;
+
+            &:not(.p-button-secondary) {
+              color: black;
+              border: solid 2px;
+
+              &:hover,
+              &:not(:disabled):hover,
+              &:not(:disabled):active,
+              &:active {
+                border: solid 2px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .p-paginator {
+    .p-paginator-current.ng-star-inserted {
+      margin-right: auto;
+      order: -2;
     }
 
-    .p-tag {
-        padding: 5px 10px;
-        border-radius: 99px;
+    .p-element.p-inputwrapper.ng-star-inserted.p-inputwrapper-filled.ng-dirty {
+      order: -1;
+      margin: 0px 20px;
 
+      &::before {
+        margin-left: 25px;
+        content: "Registros por página";
+      }
     }
+
+    .p-dropdown-label {
+      padding: 7px;
+      width: 31px;
+      justify-content: center;
+      display: flex;
+      align-items: center;
+
+      &:focus,
+      &:focus-visible,
+      &:focus-within {
+        outline: none;
+      }
+    }
+  }
+
+  .p-tag {
+    padding: 5px 10px;
+    border-radius: 99px;
+  }
 }

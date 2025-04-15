@@ -94,3 +94,15 @@ a.disabled {
     font-family: "Amertha";
   }
 }
+@media screen and (max-width: 768px) {
+  .title {
+    span {
+      font-size: 18px;
+      margin-left: 18px;
+    }
+
+    h5 {
+      font-size: 45px;
+    }
+  }
+}
