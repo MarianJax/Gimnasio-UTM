@@ -121,7 +121,6 @@ export class TableHorariosComponent implements OnInit {
 
   async showDialog(id: string) {
     const horario = await this.horarioService.obtenerhorario(id).toPromise();
-    console.log(horario);
     this.horarioForm.patchValue({
       id: horario.id,
       rol_id: this.roles.find((rol) => rol.code === horario.rol.id),
@@ -157,7 +156,7 @@ export class TableHorariosComponent implements OnInit {
           this.obtenerDatos();
         },
         error: (error) => {
-          console.log('Error al enviar los datos', error);
+          console.error('Error al enviar los datos', error);
           this.horarioForm.setErrors(error.error.errors);
         },
       });

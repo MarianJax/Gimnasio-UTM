@@ -13,7 +13,6 @@ $gutter: 1rem; //for primeflex grid system
 @import "assets/demo/styles/badges.scss";
 @import "assets/demo/styles/code.scss";
 
-
 @font-face {
   font-family: "Monserrat";
   src: url("assets/fonts/Montserrat-ExtraBold.otf");
@@ -85,4 +84,15 @@ app-membresia {
   min-height: -webkit-fill-available;
   max-height: -webkit-fill-available;
   height: -webkit-fill-available;
+}
+
+:host ::ng-deep {
+  @media screen and (max-width: 768px) {
+    .p-overlay.p-component.ng-star-inserted {
+      width: 100% !important;
+      .p-overlay-content {
+        width: 100% !important;
+      }
+    }
+  }
 }

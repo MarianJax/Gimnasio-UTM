@@ -53,7 +53,6 @@ export class TableAgendamientosComponent implements OnInit {
   onSelectionChange(id: string, asistio: boolean) {
     this.agendamientoService.actualizarAgendamiento(id, { asistio }).subscribe({
       next: (data: any) => {
-        console.log(data);
         this.messageService.add({ severity: 'success', summary: 'Agendamiento actualizado', detail: 'Agendamiento actualizado con éxito', life: 3000 });
         this.loadAgendamientos();
       },

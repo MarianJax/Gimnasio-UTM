@@ -1,6 +1,6 @@
 <header>
     <span>
-        <mage-icon name="analytics" size="24px"></mage-icon>
+        <mage-icon color="#000" name="analytics" size="24px"></mage-icon>
     </span>
     <h2>Reporte de Agendamientos</h2>
 </header>
@@ -42,9 +42,9 @@
                 </div>
             </ng-template>
         </p-dropdown>
-        <p-dropdown [disabled]="disabled" [(ngModel)]="carreraSelected" [options]="carreras" (onChange)="onCarreraChange($event)"
+        <p-dropdown [(ngModel)]="carreraSelected" [options]="carreras" (onChange)="onCarreraChange($event)"
             selectedOption="name" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
-            placeholder="Seleccione una Carrera" appendTo="body">
+            placeholder="Seleccione una Carrera" appendTo="body" [disabled]="disabled">
             <ng-template pTemplate="selectedItem" let-selectedOption>
                 <div class="flex align-items-center gap-2">
                     <div>{{ selectedOption?.name }}</div>
@@ -62,15 +62,35 @@
         <p-button size="small" (onClick)="clearFilter()" class="my-auto" [outlined]="true"><mage-icon  name="filter-remove" size="18px" fill="currentColor"></mage-icon></p-button>
     </div>
     <article>
-        <p-chart aria-label="doughnut" type="doughnut" [data]="data" [options]="options" />
+        <div *ngIf="data?.labels?.length === 0; else chartDoughnut" class="flex flex-column align-items-center justify-content-center gap-2 text-900">
+            No hay datos para mostrar
+        </div>
+        <ng-template #chartDoughnut>
+            <p-chart aria-label="doughnut" type="doughnut" [data]="data" [options]="options" />
+        </ng-template>
     </article>
     <article>
+        <div *ngIf="dataBar?.labels?.length === 0; else chartBar" class="flex flex-column align-items-center justify-content-center gap-2 text-900">
+            No hay datos para mostrar
+        </div>
+        <ng-template #chartBar>
         <p-chart aria-label="bar" type="bar" [data]="dataBar" [options]="optionsBar" />
+    </ng-template>
     </article>
     <article>
-        <p-chart aria-label="line" type="line" [data]="dataLine" [options]="optionsLine" />
+        <div *ngIf="dataLine?.labels?.length === 0; else chartLine" class="flex flex-column align-items-center justify-content-center gap-2 text-900">
+            No hay datos para mostrar
+        </div>
+        <ng-template #chartLine>
+            <p-chart aria-label="line" type="line" [data]="dataLine" [options]="optionsLine" />
+    </ng-template>
     </article>
     <article>
-        <p-chart aria-label="pie" type="pie" [data]="dataPie" [options]="optionsPie" />
+        <div *ngIf="dataPie?.labels?.length === 0; else charPie" class="flex flex-column align-items-center justify-content-center gap-2 text-900">
+            No hay datos para mostrar
+        </div>
+        <ng-template #charPie>
+            <p-chart aria-label="pie" type="pie" [data]="dataPie" [options]="optionsPie" />
+    </ng-template>
     </article>
 </div>

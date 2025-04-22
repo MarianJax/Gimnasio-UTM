@@ -14,7 +14,7 @@
     <div class="cont__sections">
       <div class="content">
         <header>
-          <mage-icon name="arrow-list" size="20px"></mage-icon>
+          <mage-icon  name="arrow-list" size="20px"></mage-icon>
           Lista de Reservas
         </header>
         <div class="flex gap-1 flex-column">
@@ -53,6 +53,6 @@
 
 <ng-template #noMembresia>
   <div class="flex justify-content-center align-items-center text-black-alpha-90">
-    <span>No tienes una membresia</span>
+    <span>{{ mensajeEstadoMembresia }}</span>
   </div>
 </ng-template>

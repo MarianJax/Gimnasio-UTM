@@ -12,8 +12,11 @@ export class HomeComponent {
   constructor(private reportesService: ReportesService) {}
 
   ngOnInit() {
-    this.reportesService.obtenerResumenAgendamientos().subscribe(data => {
+    this.reportesService.obtenerResumenAgendamientos().subscribe({next: (data) => {
       this.resumenAgendamientos = data;
-    });
+    },
+    error: (error) => {
+      console.error('Error al obtener el resumen de agendamientos:', error);
+    }});
   }
 }

@@ -32,8 +32,6 @@ export class AgendamientoComponent implements OnInit, AfterViewInit {
     const user = this.auhtService.getUserData();
     this.verifyRolInstitucion(user.id, user.roles);
 
-    console.log(this.isEstudiante);
-
     this.agendamiento = this.fb.group({
       facultad: [null],
       carrera: [null],
@@ -128,14 +126,10 @@ export class AgendamientoComponent implements OnInit, AfterViewInit {
           this.verifyRolInstitucion(user.id, user.roles);
         },
         error: (error) => {
-          console.log('Error al enviar los datos', error);
+          console.error('Error al enviar los datos', error);
         },
       })
     }
-
-    console.log('Formulario enviado', this.agendamiento.errors);
-    // Lógica para manejar el envío del formulario
-    console.log('Formulario enviado', this.agendamiento.value);
   }
 
   goToRutinas() {

@@ -22,7 +22,6 @@ export class CreateFormEjercicioComponent implements OnInit {
   @Output() addedEjercicio = new EventEmitter<void>();
 
   showDialog() {
-    console.log('Abre dialogo');
     this.visible = true;
   }
 
@@ -135,12 +134,12 @@ export class CreateFormEjercicioComponent implements OnInit {
           this.visible = false;
         },
         error: (err) => {
-          console.log('Error al enviar los datos', err.error.errors);
+          console.error('Error al enviar los datos', err);
           this.ejercicioForm.setErrors(err.error.errors);
         },
       });
     } catch (error) {
-      console.log('Error al enviar los datos', error);
+      console.error('Error al enviar los datos', error);
     }
   }
 }

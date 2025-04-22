@@ -109,7 +109,7 @@ export class CreateFormHorarioComponent implements OnInit {
             this.horarioForm.reset(formInit);
           },
           error: (error) => {
-            console.log('Error al enviar los datos', error, error.error.errors);
+            console.error('Error al enviar los datos', error, error.error.errors);
             this.horarioForm.setErrors(error.error.errors);
           },
         });

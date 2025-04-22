@@ -127,12 +127,12 @@ export class TableEjerciciosComponent implements OnInit {
           this.visible = false;
         },
         error: (err) => {
-          console.log('Error al enviar los datos', err, err.error.errors);
+          console.error('Error al enviar los datos', err, err.error.errors);
           this.updatedEjercicioForm.setErrors(err.error.errors);
         },
       });
     } catch (error) {
-      console.log('Error al enviar los datos', error);
+      console.error('Error al enviar los datos', error);
     }
   }
 

@@ -54,7 +54,6 @@ export class RegistroComponent implements OnInit {
         .obtenerHorariosPorFechaYJornada(fecha, jornada)
         .subscribe((data: Horario[]) => {
           this.agendamientosService.obtenerAgendamientosPorFecha(fecha).subscribe((agendamientos) => {
-            console.log(agendamientos);
             this.horarios = this.transformarHorarios(data, agendamientos);
           });
         });
@@ -106,12 +105,6 @@ export class RegistroComponent implements OnInit {
     let membresia = this.sharedService.getParametro();
 
     if (membresia && this.selectedFecha) {
-      console.log({
-        fecha: this.selectedFecha,
-        membresia, hora_fin,
-        hora_inicio,
-        usuario_id: this.authService.getUserData().id,
-      });
 
       this.agendamientosService.agregarAgendamientoMembresia({
         fecha: this.selectedFecha,
@@ -120,11 +113,10 @@ export class RegistroComponent implements OnInit {
         usuario_id: this.authService.getUserData().id,
       }).subscribe({
         next: (data) => {
-          console.log(data);
           this.router.navigate(['/membresia']);
         },
         error: (err) => {
-          console.log(err);
+          console.error(err);
         },
       })
     }

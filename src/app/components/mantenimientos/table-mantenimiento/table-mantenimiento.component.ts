@@ -81,7 +81,6 @@ export class TableMantenimientoComponent implements OnInit {
     this.mantenimientoService.obtenerMantenimiento(id)
       .subscribe({
         next: (data: Mantenimiento) => {
-          console.log(data);
           this.mantenimientoForm.patchValue({
             id: data.id,
             costo: Number(data.costo),
@@ -93,7 +92,7 @@ export class TableMantenimientoComponent implements OnInit {
           this.visible = true;
         },
         error: (error) => {
-          console.log('Error al obtener los datos', error);
+          console.error('Error al obtener los datos', error);
         },
       });
   }

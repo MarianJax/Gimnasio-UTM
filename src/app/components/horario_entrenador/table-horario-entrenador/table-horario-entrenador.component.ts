@@ -91,7 +91,6 @@ export class TableHorarioEntrenadorComponent implements OnInit {
 
   obtenerDatos() {
     this.horarioEntrenadorService.obtenerHorarios().subscribe((data) => {
-      console.log(data);
       this.horarios = data;
     });
   }
@@ -146,7 +145,6 @@ export class TableHorarioEntrenadorComponent implements OnInit {
     const horario = await this.horarioEntrenadorService
       .obtenerhorario(id)
       .toPromise();
-    console.log(horario);
     this.horarioForm.patchValue({
       id: horario.id,
       franja_hora_inicio: this.horas.find(

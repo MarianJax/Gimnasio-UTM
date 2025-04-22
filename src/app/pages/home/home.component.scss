@@ -1,199 +1,198 @@
 :host ::ng-deep .p-progressbar {
-    height: 1.1rem;
-    border-radius: 0.5rem;
+  height: 1.1rem;
+  border-radius: 0.5rem;
 }
 
 h5 {
-    text-align: center;
-    text-wrap: unset
+  text-align: center;
+  text-wrap: unset;
 }
 
 .container-disponibility {
-    background-color: var(--surface-overlay);
-    padding: 20px;
-    border-radius: 12px;
-    height: 90px;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    flex-direction: column;
+  background-color: var(--surface-overlay);
+  padding: 20px;
+  border-radius: 12px;
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: column;
 
-    span {
-        font-size: 20px;
-        height: fit-content;
-        font-weight: 800;
-    }
+  span {
+    font-size: 20px;
+    height: fit-content;
+    font-weight: 800;
+  }
 }
 
 .conte-rutinas {
-    display: grid;
-    padding: 1.5rem;
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    gap: 1.25rem;
+  display: grid;
+  padding: 1.5rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.25rem;
 
-    @media (min-width: 550px) {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  @media (min-width: 550px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 
-    @media (min-width: 1024px) {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 // Variables de color para mantener consistencia
-$emerald-light: #ECFDF5;
-$emerald-dark: #065F46;
-$emerald-primary: #34D399;
-$emerald-hover: #10B981;
-$emerald-text: #047857;
+$emerald-light: #ecfdf5;
+$emerald-dark: #065f46;
+$emerald-primary: #34d399;
+$emerald-hover: #10b981;
+$emerald-text: #009933;
 $white: #ffffff;
 $shadow-color: rgba(0, 0, 0, 0.1);
 
 // Card Container
 .card-rutina {
-    border-radius: 8px;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgba(52, 211, 153, 0.5);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(52, 211, 153, 0.5);
+  transition: all 0.3s ease-in-out;
+  transform: translateY(0);
+
+  &:hover {
+    box-shadow: 0 10px 15px $shadow-color;
+    transform: translateY(-4px);
+  }
+
+  // Highlight Effect
+  .card-highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: $emerald-primary;
+    opacity: 0.2;
     transition: all 0.3s ease-in-out;
-    transform: translateY(0);
+  }
 
-    &:hover {
-        box-shadow: 0 10px 15px $shadow-color;
-        transform: translateY(-4px);
+  &:hover .card-highlight {
+    width: 100%;
+    height: 100%;
+  }
+
+  // Card Content
+  .card-content {
+    padding: 20px;
+    background-color: $white;
+
+    body.dark-mode & {
+      background-color: $emerald-dark;
+    }
+  }
+
+  // Header
+  .card-header {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+
+    .card-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: $emerald-dark;
+      transition: color 0.3s;
     }
 
-    // Highlight Effect
-    .card-highlight {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 4px;
-        height: 100%;
-        background-color: $emerald-primary;
-        opacity: 0.2;
-        transition: all 0.3s ease-in-out;
-    }
+    .card-icon {
+      height: 36px;
+      width: 36px;
+      background-color: $emerald-light;
+      padding: 8px;
+      border-radius: 50%;
+      transition: background-color 0.3s;
 
-    &:hover .card-highlight {
-        width: 100%;
-        height: 100%;
-    }
-
-    // Card Content
-    .card-content {
-        padding: 20px;
-        background-color: $white;
-
-        body.dark-mode & {
-            background-color: $emerald-dark;
-        }
-    }
-
-    // Header
-    .card-header {
-        position: relative;
-        z-index: 5;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 16px;
-
-        .card-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: $emerald-dark;
-            transition: color 0.3s;
-        }
-
-        .card-icon {
-            height: 36px;
-            width: 36px;
-            background-color: $emerald-light;
-            padding: 8px;
-            border-radius: 50%;
-            transition: background-color 0.3s;
-
-            .icon {
-                width: 20px;
-                height: 20px;
-                color: $emerald-text;
-                transition: color 0.3s;
-            }
-        }
-    }
-
-    // Stats
-    .card-stats {
-        position: relative;
-        z-index: 5;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        margin-bottom: 16px;
-
-        .card-stat {
-            background-color: rgba(236, 253, 245, 0.5);
-            border-radius: 8px;
-            padding: 8px;
-
-            body.dark-mode & {
-                background-color: rgba(4, 120, 87, 0.3);
-            }
-
-            .stat-label {
-                font-size: 0.75rem;
-                color: rgba(4, 120, 87, 0.7);
-                margin-bottom: 4px;
-            }
-
-            .stat-value {
-                font-size: 0.875rem;
-                font-weight: 500;
-                color: $emerald-dark;
-            }
-        }
-    }
-
-    // Action Button
-    .card-button {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        background-color: rgba(236, 253, 245, 0.5);
+      .icon {
+        width: 20px;
+        height: 20px;
         color: $emerald-text;
-        border: none;
-        padding: 8px 12px;
-        cursor: pointer;
-        transition: all 0.3s;
+        transition: color 0.3s;
+      }
+    }
+  }
 
-        .button-icon {
-            width: 16px;
-            height: 16px;
-            opacity: 0;
-            transition: all 0.3s;
-            transform: translateX(0);
-        }
+  // Stats
+  .card-stats {
+    position: relative;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+
+    .card-stat {
+      background-color: rgba(236, 253, 245, 0.5);
+      border-radius: 8px;
+      padding: 8px;
+
+      body.dark-mode & {
+        background-color: rgba(4, 120, 87, 0.3);
+      }
+
+      .stat-label {
+        font-size: 0.75rem;
+        color: rgba(4, 120, 87, 0.7);
+        margin-bottom: 4px;
+      }
+
+      .stat-value {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: $emerald-dark;
+      }
+    }
+  }
+
+  // Action Button
+  .card-button {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: rgba(236, 253, 245, 0.5);
+    color: $emerald-text;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    .button-icon {
+      width: 16px;
+      height: 16px;
+      opacity: 0;
+      transition: all 0.3s;
+      transform: translateX(0);
+    }
+  }
+
+  &:hover {
+    .card-title {
+      color: $emerald-text;
     }
 
+    .card-icon {
+      background-color: var(--primary-color) !important;
+      color: white !important;
 
-    &:hover {
-        .card-title {
-            color: $emerald-text;
-        }
-
-        .card-icon {
-            background-color: var(--primary-color) !important;
-            color: white !important;
-
-            .icon {
-                color: white !important;
-            }
-        }
-
-        .card-button {
-            background-color: $emerald-hover;
-            color: $white;
-        }
+      .icon {
+        color: white !important;
+      }
     }
+
+    .card-button {
+      background-color: $emerald-hover;
+      color: $white;
+    }
+  }
 }

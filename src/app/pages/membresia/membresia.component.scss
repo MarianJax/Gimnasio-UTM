@@ -1,156 +1,149 @@
 .contain-header {
-    width: 100%;
-    justify-content: end;
-    margin-bottom: 1.5rem;
+  width: 100%;
+  justify-content: end;
+  margin-bottom: 1.5rem;
 
-    button {
-        display: flex;
-        gap: 5px;
-        margin-left: auto;
-        background: transparent;
-        border: transparent;
-        color: var(--surface-900);
-    }
+  button {
+    display: flex;
+    gap: 5px;
+    margin-left: auto;
+    background: transparent;
+    border: transparent;
+    color: var(--surface-900);
+  }
 }
 
 section {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  justify-content: space-around;
+
+  .cont__sections {
     display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 500px;
     width: 100%;
-    gap: 20px;
-    justify-content: space-around;
 
-    .cont__sections {
+    .content {
+      color: black;
+      width: 100%;
+      border: 3px solid var(--primary-color);
+      border-radius: 22px;
+      padding: 25px 40px;
+      /* Rectangle 59 */
+
+      box-sizing: border-box;
+
+      // position: absolute;
+
+      min-height: 150px;
+      left: 890px;
+      top: 319px;
+
+      border: 3px solid #009933;
+      border-radius: 26px;
+
+      header {
         display: flex;
-        flex-direction: column;
-        gap: 15px;
-        max-width: 500px;
-        width: 100%;
+        gap: 0.5rem;
+      }
 
-        .content {
-            color: black;
-            width: 100%;
-            border: 3px solid var(--primary-color);
-            border-radius: 22px;
-            padding: 25px 40px;
-            /* Rectangle 59 */
-
-            box-sizing: border-box;
-
-            // position: absolute;
-
-            min-height: 150px;
-            left: 890px;
-            top: 319px;
-
-            border: 3px solid #4CAF50;
-            border-radius: 26px;
-
-            header {
-                display: flex;
-                gap: 0.5rem;
-            }
-
-
-            article {
-                padding: 15px 10px;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.747);
-            }
-        }
+      article {
+        padding: 15px 10px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.747);
+      }
     }
+  }
 }
 
 :host ::ng-deep {
-    .p-datepicker {
+  .p-datepicker {
+    padding: 0;
+    //width: 400px !important;
+    //height: 400px !important;
+    background: transparent !important;
+    border: none !important;
+
+    .p-monthpicker {
+      padding: 0.5rem;
+
+      .p-monthpicker-month:not(.p-disabled):focus {
+        outline: 0 none;
+        outline-offset: 0;
+        box-shadow: none;
+      }
+    }
+
+    .p-datepicker-header {
+      background: transparent !important;
+      border: none !important;
+      padding: 0.5rem;
+    }
+
+    .p-datepicker-year {
+      display: none;
+    }
+
+    .p-datepicker-month {
+      font-size: 24px;
+      font-family: Monserrat;
+      font-weight: 500 !important;
+    }
+
+    .p-datepicker-calendar {
+      th > span,
+      td > span {
+        font-size: 16px;
+        border-radius: 5px;
+        width: 3.5rem;
+        height: 3.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      tr {
+        th:first-child,
+        td:first-child,
+        th:last-child,
+        td:last-child {
+          color: var(--primary-color);
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .p-calendar {
+      width: 100% !important;
+
+      .p-datepicker {
         padding: 0;
-        width: 400px !important;
-        height: 400px !important;
-        background: transparent !important;
-        border: none !important;
-
-        .p-monthpicker {
-            padding: 0.5rem;
-
-            .p-monthpicker-month:not(.p-disabled):focus {
-                outline: 0 none;
-                outline-offset: 0;
-                box-shadow: none;
-            }
-        }
-
-        .p-datepicker-header {
-            background: transparent !important;
-            border: none !important;
-            padding: 0.5rem;
-        }
-
-        .p-datepicker-year {
-            display: none;
-        }
+        width: -webkit-fit-content !important;
+        height: fit-content !important;
 
         .p-datepicker-month {
-            font-size: 24px;
-            font-family: Monserrat;
-            font-weight: 500 !important;
+          font-size: 18px !important;
         }
 
         .p-datepicker-calendar {
-
-            th>span,
-            td>span {
-                font-size: 16px;
-                border-radius: 5px;
-                width: 3.5rem;
-                height: 3.5rem;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            tr {
-
-                th:first-child,
-                td:first-child,
-                th:last-child,
-                td:last-child {
-                    color: var(--primary-color);
-                }
-            }
+          th > span,
+          td > span {
+            font-size: 12px !important;
+            width: 2.5rem !important;
+            height: 2.5rem !important;
+          }
         }
-
+      }
     }
 
-
-    @media screen and (max-width: 768px) {
-        .p-calendar {
-            width: 100% !important;
-
-            .p-datepicker {
-                padding: 0;
-                width: -webkit-fit-content !important;
-                height: fit-content !important;
-
-                .p-datepicker-month {
-                    font-size: 18px !important;
-                }
-
-                .p-datepicker-calendar {
-
-                    th>span,
-                    td>span {
-                        font-size: 12px !important;
-                        width: 2.5rem !important;
-                        height: 2.5rem !important;
-                    }
-                }
-            }
-        }
-
-        section {
-        
-            .cont__sections {
-                max-width: 100% !important;
-                width: 100%;
-            }
-        }
+    section {
+      .cont__sections {
+        max-width: 100% !important;
+        width: 100%;
+      }
     }
+  }
 }

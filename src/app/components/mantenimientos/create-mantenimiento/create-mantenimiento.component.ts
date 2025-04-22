@@ -102,7 +102,6 @@ export class CreateMantenimientoComponent implements OnInit {
   addMantenimiento() {
     try {
       const newMaquina = this.mantenimientoForm.value;
-      console.log(newMaquina);
       this.mantenimientoService
         .agregarMantenimiento({
           costo: newMaquina.costo,
@@ -127,13 +126,13 @@ export class CreateMantenimientoComponent implements OnInit {
             this.hideDialog();
           },
           error: (error: any) => {
-            console.log('Error al enviar los datos', error.error.errors);
+            console.error('Error al enviar los datos', error.error.errors);
             this.mantenimientoForm.setErrors(error.error.errors);
           },
         });
     } catch (error) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo guardar el registro' });
-      console.log('Error al enviar los datos', error);
+      console.error('Error al enviar los datos', error);
     }
   }
 }

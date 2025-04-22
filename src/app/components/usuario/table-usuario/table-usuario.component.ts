@@ -166,7 +166,7 @@ export class TableUsuarioComponent implements OnInit {
           this.visible = false;
         },
         error: (error) => {
-          console.log('Error al enviar los datos', error);
+          console.error('Error al enviar los datos', error);
           this.usuarioUpdatedForm.setErrors(error.error.errors);
         }
       });

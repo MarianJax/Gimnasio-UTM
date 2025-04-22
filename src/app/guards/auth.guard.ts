@@ -11,7 +11,6 @@ export const authGuard: CanActivateFn = (route, state) => {
 const redirectToLogin = () => {
   const router = inject(Router);
   // Logic to redirect to the login page
-  console.log('Redirecting to login page...');
   router.navigate(['/auth/login']);
   return false; // Prevent navigation
 }

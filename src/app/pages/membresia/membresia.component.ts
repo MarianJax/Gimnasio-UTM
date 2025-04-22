@@ -13,6 +13,7 @@ import { AuthService } from '../login/auth.service';
 })
 export class MembresiaComponent implements OnInit {
   form: FormGroup;
+  mensajeEstadoMembresia!: string;
   isMembresia!: boolean;
   date: Date[] | undefined;
   agendamientosPendientes!: any[];
@@ -38,26 +39,27 @@ export class MembresiaComponent implements OnInit {
     this.obtenerAgendamientos();
     this.obtenerMembresias();
 
-
     this.form.get('fecha')?.valueChanges.subscribe((value) => {
-      this.obtenerAgendamientos(value as Date)
+      this.obtenerAgendamientos(value as Date);
     });
   }
 
   obtenerAgendamientos(fecha: Date = new Date()) {
     const user = this.authService.getUserData();
-    this.serviceAgendamiento.obtenerAgendamientosPorUsuario(user.id, fecha).subscribe((data) => {
-      this.agendamientosInasistidos = [];
-      this.agendamientosPendientes = [];
-      data.map((agendamiento: any) => {
-        if (agendamiento.asistio === null) {
-          this.agendamientosPendientes.push(agendamiento);
-        }
-        if (agendamiento.asistio === false) {
-          this.agendamientosInasistidos.push(agendamiento);
-        }
+    this.serviceAgendamiento
+      .obtenerAgendamientosPorUsuario(user.id, fecha)
+      .subscribe((data) => {
+        this.agendamientosInasistidos = [];
+        this.agendamientosPendientes = [];
+        data.map((agendamiento: any) => {
+          if (agendamiento.asistio === null) {
+            this.agendamientosPendientes.push(agendamiento);
+          }
+          if (agendamiento.asistio === false) {
+            this.agendamientosInasistidos.push(agendamiento);
+          }
+        });
       });
-    });
   }
 
   obtenerMembresias() {
@@ -66,9 +68,19 @@ export class MembresiaComponent implements OnInit {
       .obtenerMembresiaPorUsuario(user.id, new Date())
       .subscribe({
         next: (data) => {
-          if (data.length > 0) {
-            this.sharedService.setParametro(data[0].id);
-            this.isMembresia = data && data.length > 0 ? true : false;
+          if (data) {
+            if (data.pagos.validacion_pago[0].estado === 'Pendiente') {
+              this.mensajeEstadoMembresia =
+                'Se está validando el pago de su membresia';
+            } else if (data.pagos.validacion_pago[0].estado === 'Rechazado') {
+              this.mensajeEstadoMembresia =
+                'El pago de su membresia ha sido rechazado';
+            } else {
+              this.sharedService.setParametro(data.id);
+              this.isMembresia = data.id ? true : false;
+            }
+          } else {
+            this.mensajeEstadoMembresia = 'No ha adquierido una membresia';
           }
         },
         error: (error) => {

@@ -22,7 +22,6 @@ export class AppComponent implements OnInit {
       .get<{ version: string }>("/assets/config.json")
       .subscribe(config => {
         this.config = config;
-        console.log(this.config.version);
       });
 
     const headers = new HttpHeaders()
