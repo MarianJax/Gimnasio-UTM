@@ -37,10 +37,10 @@ export class LoginComponent implements OnInit {
         if (response.state === 'success') {
           sessionStorage.setItem(
             'session-usuario',
-            JSON.stringify(response.user)
+            JSON.stringify(response.persona)
           );
           this.cargar = false;
-          if (response.user.roles === 'Administrador') {
+          if (response.persona.roles === 'Administrador') {
             this.router.navigate(['/admin']);
           } else {
             this.router.navigate(['/']);
