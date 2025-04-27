@@ -9,6 +9,7 @@ export class HorarioService {
 private apiUrl = 'http://localhost:3000/horario';
 
   constructor(private http: HttpClient) { }
+  
   obtenerHorarios(): Observable<any>{
     return this.http.get(this.apiUrl);
   }

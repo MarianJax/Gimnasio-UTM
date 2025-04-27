@@ -8,23 +8,6 @@ h5 {
   text-wrap: unset;
 }
 
-.container-disponibility {
-  background-color: var(--surface-overlay);
-  padding: 20px;
-  border-radius: 12px;
-  height: 90px;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  flex-direction: column;
-
-  span {
-    font-size: 20px;
-    height: fit-content;
-    font-weight: 800;
-  }
-}
-
 .conte-rutinas {
   display: grid;
   padding: 1.5rem;
@@ -54,7 +37,7 @@ $shadow-color: rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(52, 211, 153, 0.5);
+  border: 1px solid rgb(0 153 51 / 50%);
   transition: all 0.3s ease-in-out;
   transform: translateY(0);
 
@@ -191,7 +174,7 @@ $shadow-color: rgba(0, 0, 0, 0.1);
     }
 
     .card-button {
-      background-color: $emerald-hover;
+      background-color: var(--primary-color);
       color: $white;
     }
   }

@@ -66,7 +66,7 @@ export class TopbarComponent {
     const session = sessionStorage.getItem('session-usuario');
     if (session) {
       const usuario = JSON.parse(session);
-      usuario.roles = id;
+      usuario.rol = id;
       sessionStorage.setItem('session-usuario', JSON.stringify(usuario));
       this.getPagebyRol(id);
     }

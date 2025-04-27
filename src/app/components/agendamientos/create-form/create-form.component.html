@@ -41,7 +41,7 @@
     >
       <div class="flex flex-column" *ngIf="dataAction">
         <mage-icon
-          name="checkmark-fill"
+          [name]="dataAction.status === 'success' ? 'checkmark-fill' : 'cancel-circle-fill'"
           size="60px"
           [color]="dataAction.status === 'success' ? 'white': '#FF0C10'"
           [fill]="dataAction.status === 'success' ? '#299607': 'none'"

@@ -3,7 +3,7 @@ export interface Pagos {
     monto: string
     fecha_pago: string
     metodo_pago: string
-    user: User | null
+    usuario_id: string
 }
 
 interface User {

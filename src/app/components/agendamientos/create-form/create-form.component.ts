@@ -148,7 +148,7 @@ export class CreateFormComponent implements AfterViewInit {
               .toISOString(),
             hora_inicio,
             hora_fin,
-            rol: user.roles,
+            distribucion: user.rol,
             tipo: this.pagoComponent.pagoForm.get('tipo')?.getRawValue(),
             usuario_id: user.id,
             metodo_pago: (this.pagoComponent.pagoForm

@@ -8,6 +8,7 @@ import { RutinasService } from '../../service/rutinas/rutinas.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  porcentaje = 0;
 
   constructor(private router: Router, private rutinasService: RutinasService) {}
 

@@ -62,11 +62,11 @@
     </ng-template>
     <form (ngSubmit)="updateRol()" [formGroup]="upRolForm">
         <div style="width: calc(50% - 10px)">
-            <label for="nombre" class="">Nombre del rol</label>
-            <input id="nombre" type="text" placeholder=""
-                [ngClass]="{'ng-dirty ng-invalid': upRolForm.getError('nombre')}" formControlName="nombre" pInputText />
-            <small *ngIf="upRolForm.getError('nombre')" class="ng-invalid text-red-600">
-                {{ upRolForm.getError('nombre') }}
+            <label for="rol_id" class="">Nombre del rol</label>
+            <input id="rol_id" type="text" placeholder=""
+                [ngClass]="{'ng-dirty ng-invalid': upRolForm.getError('rol_id')}" formControlName="rol_id" pInputText />
+            <small *ngIf="upRolForm.getError('rol_id')" class="ng-invalid text-red-600">
+                {{ upRolForm.getError('rol_id') }}
             </small>
         </div>
         <div style="width: calc(50% - 10px)">

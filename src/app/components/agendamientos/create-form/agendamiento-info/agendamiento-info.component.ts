@@ -38,7 +38,7 @@ export class AgendamientoInfoComponent implements OnInit {
     const date = new Date();
     this.fechaAgendamiento = capitalizeFirstLetter(formatDate(date));
 
-    this.obtenerHorarios(this.authService.getUserData().roles, this.fechaAgendamiento);
+    this.obtenerHorarios(this.authService.getUserData().rol, this.fechaAgendamiento);
 
     this.agendarForm = this.fb.group({
       fecha: new FormControl<Date | null>({ value: date, disabled: false }, [
@@ -73,7 +73,7 @@ export class AgendamientoInfoComponent implements OnInit {
   ngOnInit() {
     this.agendarForm.get('fecha')?.valueChanges.subscribe((val) => {
       this.fechaAgendamiento = capitalizeFirstLetter(formatDate(val));
-      this.obtenerHorarios(this.authService.getUserData().roles, this.fechaAgendamiento);
+      this.obtenerHorarios(this.authService.getUserData().rol, this.fechaAgendamiento);
     });
   }
 

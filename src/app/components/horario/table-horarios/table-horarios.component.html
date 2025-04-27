@@ -2,7 +2,7 @@
     currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
     [showFirstLastIcon]="false" [value]="horarios" dataKey="maquinas-registradas"
     [tableStyle]="{ 'min-width': '50rem' }"
-    [globalFilterFields]="['rol.nombre', 'jornada', 'hora_inicio', 'dia_semana', 'horario.hora_fin']">
+    [globalFilterFields]="['distribucion.rol_id', 'jornada', 'hora_inicio', 'dia_semana', 'horario.hora_fin']">
     <ng-template pTemplate="caption">
         <div class="flex gap-3">
             <p-button [outlined]="true" (onClick)="clearFilter(globalFilter)">
@@ -19,8 +19,8 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="rol.nombre">
-                Roles <app-sort-icon [field]="'rol.nombre'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
+            <th pSortableColumn="distribucion.rol_id">
+                Roles <app-sort-icon [field]="'distribucion.rol_id'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
             <th pSortableColumn="jornada">Jornada<app-sort-icon [field]="'jornada'" [sortField]="dt.sortField"
                     [sortOrder]="dt.sortOrder" /></th>
@@ -33,7 +33,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-horario>
         <tr>
-            <td>{{ horario.rol.nombre }}</td>
+            <td>{{ horario.distribucion.rol_id }}</td>
             <td>{{ horario.jornada }}</td>
             <td>{{ horario.hora_inicio | slice:0:5 }} - {{ horario.hora_fin | slice:0:5 }}</td>
             <td>{{ horario.dia_semana }}</td>

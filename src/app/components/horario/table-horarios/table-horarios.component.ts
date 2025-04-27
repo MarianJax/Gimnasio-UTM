@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { HorarioService } from '../../../service/horarios/horario.service';
+import { TarifasService } from '../../../service/tarifas/tarifas.service';
 import { Estados } from '../../agendamientos/create-form/agendamiento-info/agendamiento-info.component';
 
 const formInit = {
@@ -57,6 +58,7 @@ export class TableHorariosComponent implements OnInit {
     private horarioService: HorarioService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
+    private tarifaService: TarifasService
   ) {
     this.horarioForm = this.fb.group(formInit);
   }
@@ -78,13 +80,13 @@ export class TableHorariosComponent implements OnInit {
       }
     });
 
-    /*this.rolesService.obtenerRoles().subscribe((roles) => {
+    this.tarifaService.obtenerTarifas().subscribe((roles) => {
       roles.map((rol: any) => {
         if (rol.nombre !== 'Entrenador' && rol.nombre !== 'Administrador') {
           this.roles.push({ name: rol.nombre, code: rol.id });
         }
       });
-    });*/
+    });
     this.obtenerDatos();
   }
 
@@ -97,9 +99,10 @@ export class TableHorariosComponent implements OnInit {
   }
 
   obtenerDatos() {
-    this.horarioService
-      .obtenerHorarios()
-      .subscribe((data) => (this.horarios = data));
+    this.horarioService.obtenerHorarios().subscribe((data) => {
+      console.log('horarios', data);
+      this.horarios = data;
+    });
   }
 
   deleteHorario(id: string) {

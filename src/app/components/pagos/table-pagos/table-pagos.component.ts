@@ -15,19 +15,16 @@ export class TablePagosComponent implements OnInit {
   constructor(private pagoService: PagoService) { }
 
   loadPagos() {
-    this.pagoService.obtenerPagos().subscribe((data: any[]) => this.pagos = data.map(item => ({
+    this.pagoService.obtenerPagos().subscribe((data: any[]) => this.pagos = data.map(item => {
+    /// fetch() 
+    return {
       id: item.id,
       monto: item.monto,
       fecha_pago: item.fecha_pago,
       metodo_pago: item.metodo_pago,
-      user: item.validacion_pago[0]?.users ? {
-        id: item.validacion_pago[0].users.id,
-        nombre: item.validacion_pago[0].users.nombre,
-        apellido: item.validacion_pago[0].users.apellido,
-        cedula: item.validacion_pago[0].users.cedula,
-        rol: item.validacion_pago[0].users.roles[0]?.nombre // Extraemos el primer rol
-      } : null
-    })));
+      usuario_id: item.usuario_id,
+    }
+    }));
   }
 
 }

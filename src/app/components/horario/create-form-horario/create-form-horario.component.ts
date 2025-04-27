@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { HorarioService } from '../../../service/horarios/horario.service';
 import { Estados } from '../../agendamientos/create-form/agendamiento-info/agendamiento-info.component';
+import { TarifasService } from '../../../service/tarifas/tarifas.service';
 
 const formInit = {
   id: null,
@@ -39,6 +40,8 @@ export class CreateFormHorarioComponent implements OnInit {
     { name: 'Miércoles', value: 'Miercoles' },
     { name: 'Jueves', value: 'Jueves' },
     { name: 'Viernes', value: 'Viernes' },
+    { name: 'Sábado', value: 'Sabado' },
+    { name: 'Domingo', value: 'Domingo' },
   ];
 
   jornada = [
@@ -57,6 +60,7 @@ export class CreateFormHorarioComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private horarioService: HorarioService,
+    private tartifaService: TarifasService
   ) {
     this.horarioForm = this.fb.group({
       rol_id: new FormControl<Estados[] | null>([]),
@@ -80,14 +84,14 @@ export class CreateFormHorarioComponent implements OnInit {
         this.horasSalida = [...this.horas];
       }
     });
-/*
-    this.rolesService.obtenerRoles().subscribe((roles) => {
+
+    this.tartifaService.obtenerTarifas().subscribe((roles) => {
       roles.map((rol: any) => {
         if (rol.nombre !== 'Entrenador' && rol.nombre !== 'Administrador') {
-          this.roles.push({ name: rol.nombre, code: rol.id });
+          this.roles.push({ name: rol.rol_id, code: rol.id });
         }
       });
-    });*/
+    });
   }
 
   addHorario() {

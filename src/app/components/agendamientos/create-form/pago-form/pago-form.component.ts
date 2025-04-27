@@ -66,7 +66,7 @@ export class PagoFormComponent implements OnInit {
   ngOnInit() {
     this.pagoForm.get('metodo_pago')?.valueChanges.subscribe((val) => {
       let monto = 0.0;
-      this.tarifaService.obtenerRolPorNombre(this.usuario.roles).subscribe(
+      this.tarifaService.obtenerRolPorNombre(this.usuario.rol).subscribe(
         (rol: any) => {
           if (val.value === 'diario') {
             monto = Number(rol.pago_diario);
