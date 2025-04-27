@@ -2,10 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { HorarioService } from '../../../service/horarios/horario.service';
-import { RolesService } from '../../../service/roles/roles.service';
-import { Estados } from '../../agendamientos/create-form/agendamiento-info/agendamiento-info.component';
 import { Table } from 'primeng/table';
+import { HorarioService } from '../../../service/horarios/horario.service';
+import { Estados } from '../../agendamientos/create-form/agendamiento-info/agendamiento-info.component';
 
 const formInit = {
   id: new FormControl<string | null>(null),
@@ -58,7 +57,7 @@ export class TableHorariosComponent implements OnInit {
     private horarioService: HorarioService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private rolesService: RolesService) {
+  ) {
     this.horarioForm = this.fb.group(formInit);
   }
 
@@ -79,13 +78,13 @@ export class TableHorariosComponent implements OnInit {
       }
     });
 
-    this.rolesService.obtenerRoles().subscribe((roles) => {
+    /*this.rolesService.obtenerRoles().subscribe((roles) => {
       roles.map((rol: any) => {
         if (rol.nombre !== 'Entrenador' && rol.nombre !== 'Administrador') {
           this.roles.push({ name: rol.nombre, code: rol.id });
         }
       });
-    });
+    });*/
     this.obtenerDatos();
   }
 
@@ -111,11 +110,15 @@ export class TableHorariosComponent implements OnInit {
         this.horarioService.eliminarHorario(id).subscribe({
           next: () => {
             this.obtenerDatos();
-            this.messageService.add({ severity: 'success', summary: 'Ejercicio eliminado', detail: 'Ejercicio eliminado con éxito' });
-          }
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Ejercicio eliminado',
+              detail: 'Ejercicio eliminado con éxito',
+            });
+          },
         });
       },
-      reject: () => { }
+      reject: () => {},
     });
   }
 
@@ -124,10 +127,16 @@ export class TableHorariosComponent implements OnInit {
     this.horarioForm.patchValue({
       id: horario.id,
       rol_id: this.roles.find((rol) => rol.code === horario.rol.id),
-      hora_inicio: this.horas.find((hora) => hora.value === horario.hora_inicio.slice(0, 5)),
-      hora_fin: this.horas.find((hora) => hora.value === horario.hora_fin.slice(0, 5)),
+      hora_inicio: this.horas.find(
+        (hora) => hora.value === horario.hora_inicio.slice(0, 5)
+      ),
+      hora_fin: this.horas.find(
+        (hora) => hora.value === horario.hora_fin.slice(0, 5)
+      ),
       dia_semana: this.dias.find((dia) => dia.value === horario.dia_semana),
-      jornada: this.jornada.find((jornada) => jornada.value === horario.jornada),
+      jornada: this.jornada.find(
+        (jornada) => jornada.value === horario.jornada
+      ),
     });
     this.visible = true;
   }
@@ -168,9 +177,9 @@ export class TableHorariosComponent implements OnInit {
   }
 
   clearFilter(inputElement: HTMLInputElement) {
-    inputElement.value = '';  // Limpia el input
+    inputElement.value = ''; // Limpia el input
     if (this.dt) {
-      this.dt.clear();  // Limpia los filtros de la tabla
+      this.dt.clear(); // Limpia los filtros de la tabla
     }
   }
 }

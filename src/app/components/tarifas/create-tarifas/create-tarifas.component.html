@@ -1,5 +1,5 @@
 <p-button [outlined]="true" styleClass="botton-header" severity="contrast" class="border-2" (onClick)="showDialog()">
-    <mage-icon name="plus" size="17px"></mage-icon>&nbsp; Agregar Rol
+    <mage-icon name="plus" size="17px"></mage-icon>&nbsp; Agregar Tarifa
 </p-button>
 
 <p-dialog header="Registro de usuario" [(visible)]="visible" [modal]="true"
@@ -14,11 +14,11 @@
     </ng-template>
     <form (ngSubmit)="addRol()" [formGroup]="rolForm">
         <div style="width: calc(50% - 10px)">
-            <label for="nombre" class="">Nombre del rol</label>
-            <input id="nombre" type="text" placeholder=""
-                [ngClass]="{'ng-dirty ng-invalid': rolForm.getError('nombre')}" formControlName="nombre" pInputText />
-            <small *ngIf="rolForm.getError('nombre')" class="ng-invalid text-red-600">
-                {{ rolForm.getError('nombre') }}
+            <label for="rol_id" class="">Nombre del rol</label>
+            <input id="rol_id" type="text" placeholder=""
+                [ngClass]="{'ng-dirty ng-invalid': rolForm.getError('rol_id')}" formControlName="rol_id" pInputText />
+            <small *ngIf="rolForm.getError('rol_id')" class="ng-invalid text-red-600">
+                {{ rolForm.getError('rol_id') }}
             </small>
         </div>
         <div style="width: calc(50% - 10px)">

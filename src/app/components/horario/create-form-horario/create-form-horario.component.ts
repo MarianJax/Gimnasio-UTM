@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { HorarioService } from '../../../service/horarios/horario.service';
-import { RolesService } from '../../../service/roles/roles.service';
 import { Estados } from '../../agendamientos/create-form/agendamiento-info/agendamiento-info.component';
 
 const formInit = {
@@ -58,7 +57,6 @@ export class CreateFormHorarioComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private horarioService: HorarioService,
-    private rolesService: RolesService
   ) {
     this.horarioForm = this.fb.group({
       rol_id: new FormControl<Estados[] | null>([]),
@@ -82,14 +80,14 @@ export class CreateFormHorarioComponent implements OnInit {
         this.horasSalida = [...this.horas];
       }
     });
-
+/*
     this.rolesService.obtenerRoles().subscribe((roles) => {
       roles.map((rol: any) => {
         if (rol.nombre !== 'Entrenador' && rol.nombre !== 'Administrador') {
           this.roles.push({ name: rol.nombre, code: rol.id });
         }
       });
-    });
+    });*/
   }
 
   addHorario() {
@@ -109,7 +107,11 @@ export class CreateFormHorarioComponent implements OnInit {
             this.horarioForm.reset(formInit);
           },
           error: (error) => {
-            console.error('Error al enviar los datos', error, error.error.errors);
+            console.error(
+              'Error al enviar los datos',
+              error,
+              error.error.errors
+            );
             this.horarioForm.setErrors(error.error.errors);
           },
         });

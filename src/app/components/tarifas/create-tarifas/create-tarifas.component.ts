@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { RolesService } from '../../../service/roles/roles.service';
+import { TarifasService } from '../../../service/tarifas/tarifas.service';
 
 export const FormInit = {
   nombre: null,
@@ -10,11 +10,11 @@ export const FormInit = {
 }
 
 @Component({
-  selector: 'app-create-roles',
-  templateUrl: './create-roles.component.html',
-  styleUrls: ['./create-roles.component.scss']
+  selector: 'app-create-tarifas',
+  templateUrl: './create-tarifas.component.html',
+  styleUrls: ['./create-tarifas.component.scss']
 })
-export class CreateRolesComponent implements OnInit {
+export class CreateTarifasComponent implements OnInit {
   rolForm: FormGroup;
   visible: boolean = false;
   @Output() addedRol = new EventEmitter<void>();
@@ -28,9 +28,9 @@ export class CreateRolesComponent implements OnInit {
     this.visible = false;
   }
 
-  constructor(private fb: FormBuilder, private rolesService: RolesService) {
+  constructor(private fb: FormBuilder, private tarifasService: TarifasService) {
     this.rolForm = this.fb.group({
-      nombre: new FormControl<string | null>(null),
+      rol_id: new FormControl<string | null>(null),
       pago_diario: new FormControl<number | null>(null),
       pago_mensual: new FormControl<number | null>(null),
       tiempo: new FormControl<number | null>(null),
@@ -43,14 +43,14 @@ export class CreateRolesComponent implements OnInit {
   addRol() {
     try {
       const rol = this.rolForm.value;
-      this.rolesService.agregarRol(rol)
+      this.tarifasService.agregarRol(rol)
         .subscribe({
           next: () => {
             this.addedRol.emit();
             this.visible = false;
             this.rolForm.reset(FormInit);
           },
-          error: (error) => {
+          error: (error: any) => {
             console.log('Error al enviar los datos', error.error.errors);
             this.rolForm.setErrors(error.error.errors);
           }

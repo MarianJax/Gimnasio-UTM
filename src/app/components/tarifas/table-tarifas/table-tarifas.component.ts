@@ -1,8 +1,14 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { RolesService } from '../../../service/roles/roles.service';
+import { TarifasService } from '../../../service/tarifas/tarifas.service';
 
 const FormInit = {
   id: null,
@@ -10,30 +16,28 @@ const FormInit = {
   monto_pago: null,
   tiempo: null,
   cupo: null,
-}
+};
 
 type InitType = typeof FormInit;
 
 @Component({
-  selector: 'app-table-roles',
-  templateUrl: './table-roles.component.html',
-  styleUrls: ['./table-roles.component.scss']
+  selector: 'app-table-tarifas',
+  templateUrl: './table-tarifas.component.html',
+  styleUrls: ['./table-tarifas.component.scss'],
 })
-export class TableRolesComponent implements OnInit {
+export class TableTarifasComponent implements OnInit {
   @ViewChild('dt') dt!: Table;
   upRolForm: FormGroup;
-  roles: InitType[] = [];
+  tarifas: InitType[] = [];
   visible: boolean = false;
   @Output() usuarioAgregado = new EventEmitter<void>();
-
   showDialog(id: string) {
-    this.rolesService.obtenerRol(id)
-      .subscribe({
-        next: (value) => {
-          this.upRolForm.patchValue(value);
-          this.visible = true;
-        },
-      })
+    this.tarifaService.obtenerRol(id).subscribe({
+      next: (value) => {
+        this.upRolForm.patchValue(value);
+        this.visible = true;
+      },
+    });
   }
 
   closedDialog() {
@@ -43,7 +47,7 @@ export class TableRolesComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private rolesService: RolesService,
+    private tarifaService: TarifasService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {
@@ -57,26 +61,26 @@ export class TableRolesComponent implements OnInit {
     });
   }
 
-  ngOnInit() { this.loadRoles(); }
+  ngOnInit() {
+    this.loadRoles();
+  }
 
   updateRol() {
     try {
       const rol = this.upRolForm.value;
       console.log(rol);
-      this.rolesService.actualizarRol(rol)
-        .subscribe({
-          next: () => {
-            this.usuarioAgregado.emit();
-            this.loadRoles();
-            this.visible = false;
-            this.upRolForm.reset(FormInit);
-          },
-          error: (error) => {
-            console.log('Error al enviar los datos', error.error.errors);
-            this.upRolForm.setErrors(error.error.errors);
-          }
-        })
-
+      this.tarifaService.actualizarRol(rol).subscribe({
+        next: () => {
+          this.usuarioAgregado.emit();
+          this.loadRoles();
+          this.visible = false;
+          this.upRolForm.reset(FormInit);
+        },
+        error: (error) => {
+          console.log('Error al enviar los datos', error.error.errors);
+          this.upRolForm.setErrors(error.error.errors);
+        },
+      });
     } catch (error) {
       console.log('Error al enviar los datos', error);
     }
@@ -90,27 +94,30 @@ export class TableRolesComponent implements OnInit {
       // rejectIcon: "none",
       acceptLabel: 'Eliminar',
       rejectLabel: 'Cancelar',
-      rejectButtonStyleClass: "p-button-success mr-4 p-button-outlined",
-      acceptButtonStyleClass: "p-button-danger p-button-outlined",
+      rejectButtonStyleClass: 'p-button-success mr-4 p-button-outlined',
+      acceptButtonStyleClass: 'p-button-danger p-button-outlined',
       accept: () => {
-        this.rolesService.eliminarHorario(id).subscribe({
+        this.tarifaService.eliminarHorario(id).subscribe({
           next: () => {
             this.loadRoles(); // Changed from obtenerDatos() to loadRoles()
-            this.messageService.add({ severity: 'success', summary: 'Ejercicio eliminado', detail: 'Ejercicio eliminado con éxito' });
-          }
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Ejercicio eliminado',
+              detail: 'Ejercicio eliminado con éxito',
+            });
+          },
         });
       },
-      reject: () => { }
+      reject: () => {},
     });
   }
 
   loadRoles() {
-    this.rolesService.obtenerRoles()
-      .subscribe({
-        next: (value) => {
-          this.roles = value;
-        },
-      })
+    this.tarifaService.obtenerTarifas().subscribe({
+      next: (value) => {
+        this.tarifas = value;
+      },
+    });
   }
 
   applyFilter(event: Event) {
@@ -119,10 +126,9 @@ export class TableRolesComponent implements OnInit {
   }
 
   clearFilter(inputElement: HTMLInputElement) {
-    inputElement.value = '';  // Limpia el input
+    inputElement.value = ''; // Limpia el input
     if (this.dt) {
-      this.dt.clear();  // Limpia los filtros de la tabla
+      this.dt.clear(); // Limpia los filtros de la tabla
     }
   }
-
 }

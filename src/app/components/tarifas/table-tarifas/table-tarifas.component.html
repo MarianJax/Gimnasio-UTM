@@ -1,7 +1,7 @@
 <p-table #dt [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" [paginator]="true"
     currentPageReportTemplate="{first} - {last} de {totalRecords}" [filterDelay]="0" [showCurrentPageReport]="true"
-    [scrollable]="true" scrollHeight="400px" [showFirstLastIcon]="false" [value]="roles" dataKey="roles-registradas"
-    [tableStyle]="{ 'min-width': '50rem' }" [globalFilterFields]="['nombre', 'tiempo', 'monto_pago', 'cupo']">
+    [scrollable]="true" scrollHeight="400px" [showFirstLastIcon]="false" [value]="tarifas" dataKey="roles-registradas"
+    [tableStyle]="{ 'min-width': '50rem' }" [globalFilterFields]="['rol_id', 'tiempo', 'monto_pago', 'cupo']">
     <ng-template pTemplate="caption">
         <div class="flex justify-content-start gap-3">
             <p-button [outlined]="true" (onClick)="clearFilter(globalFilter)">
@@ -27,7 +27,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-rol>
         <tr>
-            <td> {{ rol.nombre }} </td>
+            <td> {{ rol.rol_id }} </td>
             <td>{{ rol.tiempo }}</td>
             <td>{{ rol.pago_diario | currency : "USD" }}</td>
             <td>{{ rol.pago_mensual | currency : "USD" }}</td>
@@ -45,7 +45,7 @@
     </ng-template>
     <ng-template pTemplate="emptymessage">
         <tr>
-            <td colspan="4" rowspan="3" [style]="{ width: '100%', textAlign: 'center' }">No hay roles disponibles</td>
+            <td colspan="4" rowspan="5" [style]="{ width: '100%', textAlign: 'center' }">No hay roles disponibles</td>
         </tr>
     </ng-template>
 </p-table>

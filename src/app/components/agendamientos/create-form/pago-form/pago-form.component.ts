@@ -6,8 +6,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { imageToArrayBuffer } from '../../../../core/utiils/convertImage';
-import { RolesService } from '../../../../service/roles/roles.service';
 import { AuthService } from '../../../../pages/login/auth.service';
+import { TarifasService } from '../../../../service/tarifas/tarifas.service';
 
 @Component({
   selector: 'app-pago-form',
@@ -47,7 +47,11 @@ export class PagoFormComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder, private rolService: RolesService, private authService: AuthService) {
+  constructor(
+    private fb: FormBuilder,
+    private tarifaService: TarifasService,
+    private authService: AuthService
+  ) {
     this.pagoForm = this.fb.group({
       evidencia_pago: new FormControl<string | null>(null, [
         Validators.required,
@@ -62,8 +66,8 @@ export class PagoFormComponent implements OnInit {
   ngOnInit() {
     this.pagoForm.get('metodo_pago')?.valueChanges.subscribe((val) => {
       let monto = 0.0;
-      this.rolService.obtenerRolPorNombre(this.usuario.roles).subscribe(
-        (rol) => {
+      this.tarifaService.obtenerRolPorNombre(this.usuario.roles).subscribe(
+        (rol: any) => {
           if (val.value === 'diario') {
             monto = Number(rol.pago_diario);
           }
@@ -72,7 +76,7 @@ export class PagoFormComponent implements OnInit {
           }
           this.pagoForm.patchValue({ monto: monto });
         },
-        (error) => {
+        (error: any) => {
           console.error(error);
         }
       );
