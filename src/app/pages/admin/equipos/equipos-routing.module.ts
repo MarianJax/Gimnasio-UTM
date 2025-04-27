@@ -22,7 +22,7 @@ const routes: Routes = [
     canActivate: [hasRolesGuard],
     canLoad: [hasRolesGuard],
     data: {
-      expectedRole: ['Administrador']
+      expectedRole: ['ESTUDIANTE']
     },
     path: 'registrar',
     loadChildren: () => import('./registros/registros.module').then(m => m.RegistrosModule)

@@ -1,8 +1,8 @@
 <header>
     <i id="icon">
-        <mage-icon color="#000"  name="user-lock" size="24px"></mage-icon>
+        <mage-icon color="#000"  name="money" size="24px"></mage-icon>
     </i>
-    <h2>Roles</h2>
+    <h2>Tarifas</h2>
 </header>
 <section class="section-breadcrumb">
     <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
@@ -24,7 +24,7 @@
         <ng-template pTemplate="separator"> &nbsp;/&nbsp; </ng-template>
     </p-breadcrumb>
 
-    <app-create-roles (addedRol)="obtenerDatos()"></app-create-roles>
+    <app-create-tarifas (addedRol)="obtenerDatos()"></app-create-tarifas>
 </section>
 <p-toast position="bottom-right" />
 <p-confirmDialog #cd>
@@ -48,4 +48,4 @@
     </ng-template>
 </p-confirmDialog>
 
-<app-table-roles></app-table-roles>
+<app-table-tarifas></app-table-tarifas>

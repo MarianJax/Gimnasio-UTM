@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AgendamientoComponent } from './agendamiento.component';
-import { RegistroComponent } from '../membresia/registro/registro.component';
-import { HomeComponent } from '../home/home.component';
 import { hasRolesGuard } from '../../guards/has-roles.guard';
+import { AgendamientoComponent } from './agendamiento.component';
 
 const routes: Routes = [
   {
-
     canActivate: [hasRolesGuard],
     canLoad: [hasRolesGuard],
     data: {
-      expectedRole: ['Estudiante', 'Funcionario', 'Docente']
+      expectedRole: ['DOCENTE', 'DOCENTE TIPO 2', 'ESTUDIANTE'],
     },
     path: '',
     component: AgendamientoComponent,

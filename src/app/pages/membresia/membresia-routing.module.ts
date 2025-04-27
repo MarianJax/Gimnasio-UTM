@@ -9,7 +9,7 @@ const routes: Routes = [
     canActivate: [hasRolesGuard],
     canLoad: [hasRolesGuard],
     data: {
-      expectedRole: ['Estudiante', 'Funcionario', 'Docente']
+      expectedRole: ['DOCENTE', 'DOCENTE TIPO 2', 'ESTUDIANTE'],
     },
     path: '',
     children: [
@@ -27,6 +27,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class MembresiaRoutingModule { }
+export class MembresiaRoutingModule {}

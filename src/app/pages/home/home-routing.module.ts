@@ -5,11 +5,10 @@ import { HomeComponent } from './home.component';
 
 const routes: Routes = [
   {
-
     canActivate: [hasRolesGuard],
     canLoad: [hasRolesGuard],
     data: {
-      expectedRole: ['Estudiante', 'Funcionario', 'Docente']
+      expectedRole: ['DOCENTE', 'DOCENTE TIPO 2', 'ESTUDIANTE'],
     },
     path: '',
     component: HomeComponent,
@@ -18,15 +17,18 @@ const routes: Routes = [
     canActivate: [hasRolesGuard],
     canLoad: [hasRolesGuard],
     data: {
-      expectedRole: ['Estudiante', 'Funcionario', 'Docente']
+      expectedRole: ['DOCENTE', 'DOCENTE TIPO 2', 'ESTUDIANTE'],
     },
     path: 'rutina/:slug',
-    loadChildren: () => import('./rutina-detail/rutina-detail.module').then(m => m.RutinaDetailModule)
+    loadChildren: () =>
+      import('./rutina-detail/rutina-detail.module').then(
+        (m) => m.RutinaDetailModule
+      ),
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class HomeRoutingModule { }
+export class HomeRoutingModule {}
