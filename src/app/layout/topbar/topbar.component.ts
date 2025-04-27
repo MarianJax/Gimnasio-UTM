@@ -1,8 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { RolesService } from '../../service/roles/roles.service';
 import { LayoutService } from '../service/layout.service';
 
 interface Rol {
@@ -12,7 +10,7 @@ interface Rol {
 
 @Component({
   selector: 'app-topbar',
-  templateUrl: './topbar.component.html'
+  templateUrl: './topbar.component.html',
 })
 export class TopbarComponent {
   changeRol: boolean = false;
@@ -32,12 +30,11 @@ export class TopbarComponent {
   constructor(
     public layoutService: LayoutService,
     private router: Router,
-    private rolService: RolesService
   ) {
     let session = sessionStorage.getItem('session-usuario');
     let usuario = session ? JSON.parse(session) : null;
 
-    this.nombre_usuario = usuario ? (usuario.nombres.split(' ')[0] + ' ' + usuario.apellidos.split(' ')[0]) : 'No hay';
+    this.nombre_usuario = usuario ? usuario.nombres : 'No hay';
 
     this.cerrar_sesion = [
       {
@@ -45,35 +42,27 @@ export class TopbarComponent {
         items: [
           {
             label: 'Ver Perfil',
-            icon: 'pi pi-user'
+            icon: 'pi pi-user',
           },
           {
             label: 'Cerrar Sesión',
             icon: 'pi pi-sign-out',
             command: () => {
               this.cerrarSesion();
-            }
-          }
-        ]
-      }
-    ]
-
-    this.rolService.obtenerRolUsuario(usuario.id).subscribe({
-      next: (data) => {
-        this.roles = data.map((rol: any) => ({
-          label: rol.nombre,
-          action: () => this.cambiarRol(rol.nombre)
-        }));
-        this.changeRol = true;
+            },
+          },
+        ],
       },
-      error: (error) => {
-        console.error('Error al obtener los roles del usuario', error);
-      }
-    });
+    ];
 
+    this.roles = usuario.roles_array.map((rol: string) => ({
+      label: rol.split('|')[1],
+      action: () => this.cambiarRol(rol.split('|')[1]),
+    }));
+    this.changeRol = true;
   }
 
-  cambiarRol(id: string) { 
+  cambiarRol(id: string) {
     const session = sessionStorage.getItem('session-usuario');
     if (session) {
       const usuario = JSON.parse(session);
@@ -88,7 +77,7 @@ export class TopbarComponent {
     this.router.navigate(['/auth/login']);
   }
 
-  getPagebyRol(rol: string) { 
+  getPagebyRol(rol: string) {
     switch (rol) {
       case 'Administrador':
       case 'Entrenador':

@@ -139,9 +139,9 @@ export class MenuComponent implements OnInit {
             //   visible: true
             // },
             {
-              label: 'Usuarios',
-              icon: 'users',
-              routerLink: ['/admin/usuarios'],
+              label: 'Tarifas y Cupos',
+              icon: 'money',
+              routerLink: ['/admin/tarifas'],
               visible: true
             }
           ]
