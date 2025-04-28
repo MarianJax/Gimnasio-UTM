@@ -63,8 +63,8 @@
     <form (ngSubmit)="updateRol()" [formGroup]="upRolForm">
         <div style="width: calc(50% - 10px)">
             <label for="rol_id" class="">Nombre del rol</label>
-            <input id="rol_id" type="text" placeholder=""
-                [ngClass]="{'ng-dirty ng-invalid': upRolForm.getError('rol_id')}" formControlName="rol_id" pInputText />
+            <p-dropdown id="rol_id" formControlName="rol_id" optionLabel="name" [options]="Roles"
+                placeholder="Seleccione un rol" [ngClass]="{'ng-dirty ng-invalid': upRolForm.getError('rol_id')}" />
             <small *ngIf="upRolForm.getError('rol_id')" class="ng-invalid text-red-600">
                 {{ upRolForm.getError('rol_id') }}
             </small>

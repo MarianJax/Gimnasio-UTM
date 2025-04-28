@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { TarifasService } from '../../../service/tarifas/tarifas.service';
 
 export const FormInit = {
@@ -17,10 +17,20 @@ export const FormInit = {
 export class CreateTarifasComponent implements OnInit {
   rolForm: FormGroup;
   visible: boolean = false;
+  Roles: any[] = [];
   @Output() addedRol = new EventEmitter<void>();
 
   showDialog() {
+    this.fetchRoles().then((data) => {
+      this.Roles = data;
+    });    
     this.visible = true;
+  }
+
+  async fetchRoles() {
+    const response = await fetch('http://ms.utm.edu.ec:8000/gfgfg');
+    const data = await response.json();
+    return data;      
   }
 
   closedDialog() {
@@ -55,7 +65,7 @@ export class CreateTarifasComponent implements OnInit {
             this.rolForm.setErrors(error.error.errors);
           }
         })
-        
+
     } catch (error) {
       console.log('Error al enviar los datos', error);
     }

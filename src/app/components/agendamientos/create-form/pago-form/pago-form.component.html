@@ -38,7 +38,7 @@
         <p-dropdown formControlName="metodo_pago" optionLabel="name" [options]="metodoOpt"
             placeholder="Seleccione el metodo de pago" [ngClass]="{
                 'ng-dirty ng-invalid': pagoForm.getError('metodo_pago')
-              }" />
+              }" appendTo="body" />
         <small *ngIf="pagoForm.getError('metodo_pago')" class="ng-invalid text-red-600">
             {{ pagoForm.getError("metodo_pago") }}
         </small>

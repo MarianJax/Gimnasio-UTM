@@ -87,6 +87,7 @@
 
     button[label="Siguiente"],
     button[label="Agendar"] {
+        max-width: min-content;
         background: transparent;
         border: 2px solid var(--primary-color);
         color: var(--primary-color);
@@ -102,6 +103,7 @@
     }
 
     button[label="Regresar"] {
+        max-width: min-content;
         background: transparent;
         border: 2px solid #F8D13C;
         color: black;
@@ -117,6 +119,13 @@
     }
 
     @media screen and (max-width: 576px) {
+
+        button[label="Siguiente"],
+        button[label="Agendar"],
+        button[label="Regresar"] {
+            padding: 7px 14px;
+            font-size: 12px;
+        }
 
         .p-steps>ul>.p-steps-item {
             position: relative !important;

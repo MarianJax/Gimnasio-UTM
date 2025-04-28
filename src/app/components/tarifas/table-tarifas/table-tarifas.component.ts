@@ -29,9 +29,21 @@ export class TableTarifasComponent implements OnInit {
   @ViewChild('dt') dt!: Table;
   upRolForm: FormGroup;
   tarifas: InitType[] = [];
+  Roles: any[] = [];  
   visible: boolean = false;
   @Output() usuarioAgregado = new EventEmitter<void>();
+
   showDialog(id: string) {
+    this.fetchRoles().then((data) => {
+      data.map((rol: any) => { 
+        this.Roles.push({
+          value: rol.id,
+          name: rol.nombre,
+        })
+      })
+      this.Roles = data;
+    });
+
     this.tarifaService.obtenerRol(id).subscribe({
       next: (value) => {
         this.upRolForm.patchValue(value);
@@ -53,7 +65,7 @@ export class TableTarifasComponent implements OnInit {
   ) {
     this.upRolForm = this.fb.group({
       id: new FormControl<string | null>(null),
-      nombre: new FormControl<string | null>(null),
+      rol_id: new FormControl<string | null>(null),
       pago_diario: new FormControl<number | null>(null),
       pago_mensual: new FormControl<number | null>(null),
       tiempo: new FormControl<number | null>(null),
@@ -65,11 +77,24 @@ export class TableTarifasComponent implements OnInit {
     this.loadRoles();
   }
 
+
+  async fetchRoles() {
+    const response = await fetch('http://ms.utm.edu.ec:8000/gfgfg'); // GET
+    /**
+     * [ { id: gjjg, nombre: fjdkf }, { ... } ]
+     */
+    const data = await response.json();
+    return data;      
+  }
+
   updateRol() {
     try {
-      const rol = this.upRolForm.value;
-      console.log(rol);
-      this.tarifaService.actualizarRol(rol).subscribe({
+      const { pago_diario, pago_mensual,...rol } = this.upRolForm.value;
+      this.tarifaService.actualizarRol({
+        ...rol,
+        pago_diario: Number(pago_diario),
+        pago_mensual: Number(pago_mensual),
+      }).subscribe({
         next: () => {
           this.usuarioAgregado.emit();
           this.loadRoles();

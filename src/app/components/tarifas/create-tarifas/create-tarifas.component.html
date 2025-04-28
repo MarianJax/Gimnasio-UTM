@@ -13,10 +13,10 @@
         </div>
     </ng-template>
     <form (ngSubmit)="addRol()" [formGroup]="rolForm">
-        <div style="width: calc(50% - 10px)">
-            <label for="rol_id" class="">Nombre del rol</label>
-            <input id="rol_id" type="text" placeholder=""
-                [ngClass]="{'ng-dirty ng-invalid': rolForm.getError('rol_id')}" formControlName="rol_id" pInputText />
+        <div style="width: calc(50% - 12px)">
+            <label for="rol_id" class="">Nombre</label>
+            <p-dropdown id="rol_id" formControlName="rol_id" optionLabel="name" [options]="Roles"
+                placeholder="Seleccione un rol" [ngClass]="{'ng-dirty ng-invalid': rolForm.getError('rol_id')}" />
             <small *ngIf="rolForm.getError('rol_id')" class="ng-invalid text-red-600">
                 {{ rolForm.getError('rol_id') }}
             </small>
