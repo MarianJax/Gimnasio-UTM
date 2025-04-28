@@ -269,11 +269,16 @@ export class ReportesComponent implements OnInit {
       );
   }
 
+  //#region Cargar los datos de la Facultad y departaemnto de la api
   ObtenerFacultades() {
+    // Accede al Service/Institucion/FacultadService.ts
+    // y alli caMBIA LA URL
     this.facultadService.obtenerFacultades().subscribe((data: any) => {
       this.facultades = [];
       data.forEach((facultad: any) => {
-        this.facultades.push({ name: facultad.nombre, code: facultad.id });
+        // En el caso del uso de trimp() sirve para eliminar espacios en blanco al inicio y al final de la cadena
+        // de texto, en este caso el nombre de la facultad.
+        this.facultades.push({ name: facultad.nombre.trim(), code: facultad.idfacultad });
       });
     });
   }
