@@ -270,7 +270,7 @@ export class ReportesComponent implements OnInit {
   }
 
   //#region Cargar los datos de la Facultad y departaemnto de la api
-  ObtenerFacultades() {
+  ObtenerFacultades() { 
     // Accede al Service/Institucion/FacultadService.ts
     // y alli caMBIA LA URL
     this.facultadService.obtenerFacultades().subscribe((data: any) => {
