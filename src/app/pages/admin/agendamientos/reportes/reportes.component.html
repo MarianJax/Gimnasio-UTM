@@ -28,6 +28,21 @@
 
 <div class="flex gap-5 flex-wrap justify-content-between px-3">
     <div class="w-full flex gap-3">
+        <p-dropdown [options]="departamentos" (onChange)="onFacultadChange($event)" selectedOption="name"
+            optionLabel="name" [filter]="true" filterBy="name" [(ngModel)]="departamentoSelected" [showClear]="true" placeholder="Seleccione un Departamento"
+            appendTo="body">
+            <ng-template pTemplate="selectedItem" let-selectedOption>
+                <div class="flex align-items-center gap-2">
+                    <div>{{ selectedOption?.name }}</div>
+                </div>
+            </ng-template>
+            <ng-template let-departamento pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                    <div>{{ departamento.name }}</div>
+                </div>
+            </ng-template>
+        </p-dropdown>
+
         <p-dropdown [options]="facultades" (onChange)="onFacultadChange($event)" selectedOption="name"
             optionLabel="name" [filter]="true" filterBy="name" [(ngModel)]="facultadsSelected" [showClear]="true" placeholder="Seleccione una Facultad"
             appendTo="body">
@@ -42,6 +57,7 @@
                 </div>
             </ng-template>
         </p-dropdown>
+    
         <p-dropdown [(ngModel)]="carreraSelected" [options]="carreras" (onChange)="onCarreraChange($event)"
             selectedOption="name" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
             placeholder="Seleccione una Carrera" appendTo="body" [disabled]="disabled">

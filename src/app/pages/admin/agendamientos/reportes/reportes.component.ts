@@ -31,6 +31,9 @@ export class ReportesComponent implements OnInit {
   carreras: Options[] = [];
   carreraSelected!: Options;
 
+  departamentos: Options[] = [];
+  departamentoSelected!: Options;
+
   disabled: boolean = true;
 
   TipoPago!: Options[];
@@ -275,6 +278,15 @@ export class ReportesComponent implements OnInit {
     });
   }
 
+  ObtenerDepartamentos() { 
+    fetch('url')
+    .then((response) => response.json())
+    .then((data) => {
+      this.departamentos = data.map((item: any) => {
+        return { name: item.nombre, code: item.id };
+      });
+    });
+  }
   onFacultadChange(event: any) {
     if (event.value) {
       this.carreraService
