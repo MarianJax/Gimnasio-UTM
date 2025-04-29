@@ -36,12 +36,13 @@
             </td>
             <td>
                 <div class="flex flex-column">
-                    Nombre
-                    <!-- <span class="caption">{{ agendamiento.usuario_id }}</span> -->
+                    <!-- <span class="subtitle">{{ agendamiento.user.nombre | lowercase | titlecase }} {{
+                        agendamiento.user.apellido | lowercase | titlecase }}</span> -->
+                    <span class="caption">{{ agendamiento.usuario_id }}</span>
                 </div>
             </td>
             <td>
-                <!-- {{ agendamiento.distribucion_id }} -->
+                {{ agendamiento.rol | lowercase | titlecase }}
             </td>
             <td>
                 <p-tag

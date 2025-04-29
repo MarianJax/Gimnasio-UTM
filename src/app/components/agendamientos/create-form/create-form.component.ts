@@ -135,7 +135,6 @@ export class CreateFormComponent implements AfterViewInit {
 
       case 3: // Finalizar
         const user = this.authService.getUserData();
-        console.log(this.agendamientoComponent.agendarForm.value)
         let ret: boolean = false;
         const uint8Array = new Uint8Array(this.pagoComponent.pagoForm
           .get('evidencia_pago_buffer')
@@ -158,25 +157,34 @@ export class CreateFormComponent implements AfterViewInit {
             monto: this.pagoComponent.pagoForm.get('monto')?.getRawValue(),
             evidencia_pago: array,
             facu_id: this.agendamientoComponent.agendarForm
-            .get('facultad')
-            ?.getRawValue() && (this.agendamientoComponent.agendarForm
               .get('facultad')
-              ?.getRawValue()).code,
+              ?.getRawValue() && (this.agendamientoComponent.agendarForm
+                .get('facultad')
+                ?.getRawValue()).code,
             carr_id: this.agendamientoComponent.agendarForm.get('carrera')?.getRawValue() && (this.agendamientoComponent.agendarForm.get('carrera')?.getRawValue()).code,
             dep_id: this.agendamientoComponent.agendarForm
-            .get('departamento')
-            ?.getRawValue() && (this.agendamientoComponent.agendarForm
               .get('departamento')
-              ?.getRawValue()).code,
+              ?.getRawValue() && (this.agendamientoComponent.agendarForm
+                .get('departamento')
+                ?.getRawValue()).code,
           })
           .subscribe({
             next: (data: any) => {
-              this.dataAction = data;
+              if (data.status === 'error') {
+                this.dataAction = {
+                  status: data.status,
+                  message: data.message.message,
+                };
+
+              } else {
+                this.dataAction = data;
+
+              }
               ret = true;
               return ret;
             },
             error: (err) => {
-              console.error(err);
+              console.log(err);
               ret = false;
               this.dataAction = err;
               return ret;

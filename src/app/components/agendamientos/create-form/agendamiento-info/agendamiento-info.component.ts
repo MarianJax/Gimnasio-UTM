@@ -77,14 +77,11 @@ export class AgendamientoInfoComponent implements OnInit {
               code: carrera.idescuela,
             });
           });
-          console.log(this.carreras);
-
           this.agendarForm.patchValue({
             facultad: this.facultades.find((f) => f.code == localStorage.getItem('facultad')),
             carrera: this.carreras.find((f) => f.code == localStorage.getItem('carrera')),
           });
 
-          console.log(this.carreras.find((f) => f.code == localStorage.getItem('carrera')))
         }
       });
 

@@ -26,7 +26,11 @@ export class TableAgendamientosComponent implements OnInit {
 
   loadAgendamientos() {
     this.agendamientoService.obtenerAgendamientos().subscribe((data: any[]) => {
-      this.agendamientos = data
+      console.log(data);
+      this.agendamientos = data.map(item => ({
+        ...item,
+        rol: item.distribucion.rol_id,  // Solo el nombre del primer rol
+      }));
     });
   }
 

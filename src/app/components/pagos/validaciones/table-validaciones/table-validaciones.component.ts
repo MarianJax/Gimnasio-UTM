@@ -48,7 +48,6 @@ export class TableValidacionesComponent implements OnInit {
         rol: item.distribucion.rol_id,  // Solo el nombre del primer rol
 
       }));
-      console.log(data);
     });
   }
 
