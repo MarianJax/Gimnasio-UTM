@@ -5,11 +5,11 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class FacultadService {
-private apiUrl = 'http://localhost:3000/facultad';
+export class InstitucionService {
+  private apiUrl = 'http://localhost:3000/institucion';
 
   constructor(private http: HttpClient) { }
-  obtenerFacultades(): Observable<any> {
+  obtenerDatosInstitucion(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
 }

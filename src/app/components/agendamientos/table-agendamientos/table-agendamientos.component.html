@@ -1,7 +1,7 @@
 <p-toast />
 <p-table #dt [value]="agendamientos"
 [paginator]="true"
-    [globalFilterFields]="['user.nombre', 'user.apellido', 'user.cedula', 'user.rol', 'agendamiento.asistio']"
+    [globalFilterFields]="['agendamiento.asistio']"
     [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" currentPageReportTemplate="{first} - {last} de {totalRecords}"
     [filterDelay]="0" [showCurrentPageReport]="true" [showFirstLastIcon]="false" [showCurrentPageReport]="true"
     dataKey="products-registradas" [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true" scrollHeight="365px">
@@ -36,13 +36,12 @@
             </td>
             <td>
                 <div class="flex flex-column">
-                    <span class="subtitle">{{ agendamiento.user.nombre | lowercase | titlecase }} {{
-                        agendamiento.user.apellido | lowercase | titlecase }}</span>
-                    <span class="caption">{{ agendamiento.user.cedula }}</span>
+                    Nombre
+                    <!-- <span class="caption">{{ agendamiento.usuario_id }}</span> -->
                 </div>
             </td>
             <td>
-                {{ agendamiento.user.rol }}
+                <!-- {{ agendamiento.distribucion_id }} -->
             </td>
             <td>
                 <p-tag

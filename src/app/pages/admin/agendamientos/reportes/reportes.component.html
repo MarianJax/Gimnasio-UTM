@@ -27,8 +27,8 @@
 </section>
 
 <div class="flex gap-5 flex-wrap justify-content-between px-3">
-    <div class="w-full flex gap-3">
-        <p-dropdown [options]="departamentos" (onChange)="onFacultadChange($event)" selectedOption="name"
+    <div class="w-full flex gap-3 flex-wrap">
+        <p-dropdown [options]="departamentos" [disabled]="disabledDepartamento" (onChange)="onDepartamentoChange($event)" selectedOption="name"
             optionLabel="name" [filter]="true" filterBy="name" [(ngModel)]="departamentoSelected" [showClear]="true" placeholder="Seleccione un Departamento"
             appendTo="body">
             <ng-template pTemplate="selectedItem" let-selectedOption>
@@ -43,7 +43,7 @@
             </ng-template>
         </p-dropdown>
 
-        <p-dropdown [options]="facultades" (onChange)="onFacultadChange($event)" selectedOption="name"
+        <p-dropdown [options]="facultades" [disabled]="disabledFacultad" (onChange)="onFacultadChange($event)" selectedOption="name"
             optionLabel="name" [filter]="true" filterBy="name" [(ngModel)]="facultadsSelected" [showClear]="true" placeholder="Seleccione una Facultad"
             appendTo="body">
             <ng-template pTemplate="selectedItem" let-selectedOption>

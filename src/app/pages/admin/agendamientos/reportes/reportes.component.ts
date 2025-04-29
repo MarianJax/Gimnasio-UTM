@@ -6,8 +6,7 @@ import {
   formatForChart,
   transformAsistioData,
 } from '../../../../core/utiils/formatters';
-import { CarreraService } from '../../../../service/institucion/carrera.service';
-import { FacultadService } from '../../../../service/institucion/facultad.service';
+import { InstitucionService } from '../../../../service/institucion/institucion.service';
 import { ReportesService } from '../../../../service/reporte/reportes.service';
 
 interface Options {
@@ -23,6 +22,7 @@ interface Options {
 export class ReportesComponent implements OnInit {
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
+  INIT_DATA: any[] = []
 
   selected!: Options;
 
@@ -35,6 +35,8 @@ export class ReportesComponent implements OnInit {
   departamentoSelected!: Options;
 
   disabled: boolean = true;
+  disabledFacultad: boolean = false;
+  disabledDepartamento: boolean = false;
 
   TipoPago!: Options[];
 
@@ -50,10 +52,9 @@ export class ReportesComponent implements OnInit {
   selectedCountry!: { name: string; code: string };
 
   constructor(
-    private facultadService: FacultadService,
-    private carreraService: CarreraService,
+    private institucionService: InstitucionService,
     private reporteService: ReportesService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.items = [
@@ -66,7 +67,7 @@ export class ReportesComponent implements OnInit {
       { name: 'Diario', code: 'Diario' },
       { name: 'Mensual', code: 'Mensual' },
     ];
-    this.ObtenerFacultades();
+    this.ObtenerDatosInstitucion();
     this.ObtenerDatosGraficos();
   }
 
@@ -269,47 +270,51 @@ export class ReportesComponent implements OnInit {
       );
   }
 
-  //#region Cargar los datos de la Facultad y departaemnto de la api
-  ObtenerFacultades() { 
-    // Accede al Service/Institucion/FacultadService.ts
-    // y alli caMBIA LA URL
-    this.facultadService.obtenerFacultades().subscribe((data: any) => {
+  ObtenerDatosInstitucion() {
+    this.institucionService.obtenerDatosInstitucion().subscribe((data: any) => {
+      this.INIT_DATA = data.value;
       this.facultades = [];
-      data.forEach((facultad: any) => {
-        // En el caso del uso de trimp() sirve para eliminar espacios en blanco al inicio y al final de la cadena
-        // de texto, en este caso el nombre de la facultad.
-        this.facultades.push({ name: facultad.nombre.trim(), code: facultad.idfacultad });
+      data.value.forEach((facultad: any) => {
+        if (facultad.tipo === 'ACADEMICO') {
+          this.facultades.push({ name: facultad.nombre.trim(), code: facultad.idfacultad });
+        } else {
+          this.departamentos.push({ name: facultad.nombre.trim(), code: facultad.idfacultad });
+        }
       });
     });
+  }
+  onDepartamentoChange(event: any) {
+    if (event.value) {
+      this.departamentoSelected = event.value;
+      this.disabledFacultad = true;
+      this.ObtenerDatosGraficos(event.value.code);
+    } else {
+      this.ObtenerDatosGraficos();
+      this.disabledFacultad = false;
+    }
   }
 
-  ObtenerDepartamentos() { 
-    fetch('url')
-    .then((response) => response.json())
-    .then((data) => {
-      this.departamentos = data.map((item: any) => {
-        return { name: item.nombre, code: item.id };
-      });
-    });
-  }
   onFacultadChange(event: any) {
     if (event.value) {
-      this.carreraService
-        .obtenerCarrerasPorFacultad(event.value.code)
-        .subscribe((data: any) => {
-          this.carreras = [];
-          data.forEach((carrera: any) => {
-            this.carreras.push({ name: carrera.nombre, code: carrera.id });
+      console.log(this.INIT_DATA);
+      this.INIT_DATA.forEach((facultad: any) => {
+        if (facultad.idfacultad === event.value.code) {
+          const carers = JSON.parse(facultad.carrera);
+          console.log(carers);
+          carers.forEach((carrera: any) => {
+            this.carreras.push({ name: carrera.carrera.trim(), code: carrera.idescuela });
           });
           this.facultadsSelected = event.value;
           this.disabled = false;
-
+          this.disabledDepartamento = true;
           this.ObtenerDatosGraficos(event.value.code);
-        });
+        }
+      });
     } else {
       this.ObtenerDatosGraficos();
       this.facultadsSelected = event.value;
       this.disabled = true;
+      this.disabledDepartamento = false;
       this.carreras = [];
     }
   }

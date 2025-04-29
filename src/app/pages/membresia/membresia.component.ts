@@ -80,7 +80,7 @@ export class MembresiaComponent implements OnInit {
               this.isMembresia = data.id ? true : false;
             }
           } else {
-            this.mensajeEstadoMembresia = 'No ha adquierido una membresia';
+            this.mensajeEstadoMembresia = 'No ha adquirido una membresia';
           }
         },
         error: (error) => {

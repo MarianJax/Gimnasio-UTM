@@ -1,5 +1,8 @@
 export interface AgendamientoType {
     id: string
+    distribucion: {
+        rol_id: string
+    }
     fecha: string
     hora_inicio: string
     hora_fin: string

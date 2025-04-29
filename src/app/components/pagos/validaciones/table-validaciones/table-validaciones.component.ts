@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { bufferToImage } from '../../../../core/utiils/convertImage';
 import { AgendamientosService } from '../../../../service/agendamiento/agendamientos.service';
@@ -43,7 +43,11 @@ export class TableValidacionesComponent implements OnInit {
   loadAgendamientos() {
 
     this.agendamientoService.obtenerAgendamientosWithPendingValidation(!this.verReporte ? 5 : undefined, !this.verReporte).subscribe((data: AgendamientoType[]) => {
-      this.agendamientos = data;
+      this.agendamientos = data.map(item => ({
+        ...item,
+        rol: item.distribucion.rol_id,  // Solo el nombre del primer rol
+
+      }));
       console.log(data);
     });
   }

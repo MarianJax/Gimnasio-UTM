@@ -8,14 +8,13 @@ import {
 import { SelectItemGroup } from 'primeng/api';
 import {
   capitalizeFirstLetter,
-  filterHoursForSalida,
   formatDate,
   formatTime,
-  generarRangoHoras,
-  getAvailableHours,
+  generarRangoHoras
 } from '../../../../core/utiils/formatters';
-import { HorarioService } from '../../../../service/horarios/horario.service';
 import { AuthService } from '../../../../pages/login/auth.service';
+import { HorarioService } from '../../../../service/horarios/horario.service';
+import { InstitucionService } from '../../../../service/institucion/institucion.service';
 
 export interface Estados {
   name: string;
@@ -29,12 +28,17 @@ export interface Estados {
 })
 export class AgendamientoInfoComponent implements OnInit {
   agendarForm: FormGroup;
+  INIT_DATA: any[] = [];
+  facultades: Estados[] = [];
+  departamentos: Estados[] = [];
+  carreras: Estados[] = [];
+  EsP_Administrativo: boolean = false;
 
   horas!: SelectItemGroup[];
 
   fechaAgendamiento: string = '';
 
-  constructor(private fb: FormBuilder, private horarioService: HorarioService, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private horarioService: HorarioService, private authService: AuthService, private institucionService: InstitucionService) {
     const date = new Date();
     this.fechaAgendamiento = capitalizeFirstLetter(formatDate(date));
 
@@ -45,6 +49,49 @@ export class AgendamientoInfoComponent implements OnInit {
         Validators.required,
       ]),
       hora: new FormControl<Estados | null>(null, [Validators.required]),
+      facultad: new FormControl<Estados | null>(null),
+      departamento: new FormControl<Estados | null>(null),
+      carrera: new FormControl<Estados | null>(null),
+    });
+  }
+
+  ObtenerDatosInstitucion() {
+    this.institucionService.obtenerDatosInstitucion().subscribe((data: any) => {
+      this.INIT_DATA = data.value;
+      data.value.forEach((facultad: any) => {
+        if (facultad.tipo === 'ACADEMICO') {
+
+          this.facultades.push({ name: facultad.nombre.trim(), code: facultad.idfacultad });
+        } else {
+          this.departamentos.push({ name: facultad.nombre.trim(), code: facultad.idfacultad });
+        }
+      });
+
+      this.INIT_DATA.forEach((facultad: any) => {
+        if (facultad.idfacultad === localStorage.getItem('facultad')) {
+          this.carreras = [];
+          const carrera = JSON.parse(facultad.carrera);
+          carrera.forEach((carrera: any) => {
+            this.carreras.push({
+              name: carrera.carrera.trim(),
+              code: carrera.idescuela,
+            });
+          });
+          console.log(this.carreras);
+
+          this.agendarForm.patchValue({
+            facultad: this.facultades.find((f) => f.code == localStorage.getItem('facultad')),
+            carrera: this.carreras.find((f) => f.code == localStorage.getItem('carrera')),
+          });
+
+          console.log(this.carreras.find((f) => f.code == localStorage.getItem('carrera')))
+        }
+      });
+
+      this.agendarForm.patchValue({
+        departamento: this.facultades.find((f) => f.code === localStorage.getItem('departamento')),
+      })
+
     });
   }
 
@@ -75,6 +122,28 @@ export class AgendamientoInfoComponent implements OnInit {
       this.fechaAgendamiento = capitalizeFirstLetter(formatDate(val));
       this.obtenerHorarios(this.authService.getUserData().rol, this.fechaAgendamiento);
     });
+
+    this.agendarForm.get('facultad')?.valueChanges.subscribe((val) => {
+      this.INIT_DATA.forEach((facultad: any) => {
+        if (facultad.idfacultad === val.code) {
+          this.carreras = [];
+          const carrera = JSON.parse(facultad.carrera);
+          carrera.forEach((carrera: any) => {
+            this.carreras.push({
+              name: carrera.carrera.trim(),
+              code: carrera.idescuela,
+            });
+          });
+        }
+      });
+    });
+
+    this.agendarForm.get('carrera')?.valueChanges.subscribe((val) => {
+      localStorage.setItem('carrera', val.code);
+      localStorage.setItem('facultad', this.agendarForm.get('facultad')?.value.code);
+    });
+
+    this.ObtenerDatosInstitucion();
   }
 
   // Método para validar el formulario (puede ser llamado desde el componente padre)
