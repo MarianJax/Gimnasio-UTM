@@ -24,6 +24,7 @@ export class ValidacionesPagosService {
   }
 
   actualizarValidacion(id: string, validacion: any): Observable<any> {
+    console.log(validacion);
     return this.http.patch(`${this.apiUrl}/${id}`, validacion);
   }
 }
