@@ -55,10 +55,12 @@ export class TopbarComponent {
       },
     ];
 
-    this.roles = usuario.roles_array.map((rol: string) => ({
-      label: rol.split('|')[1],
-      action: () => this.cambiarRol(rol.split('|')[1]),
-    }));
+    if (usuario.roles_array) {
+      this.roles = usuario.roles_array.map((rol: string) => ({
+        label: rol.split('|')[1],
+        action: () => this.cambiarRol(rol.split('|')[1]),
+      }));
+    }
     this.changeRol = true;
   }
 

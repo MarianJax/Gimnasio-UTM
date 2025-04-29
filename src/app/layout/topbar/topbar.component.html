@@ -26,7 +26,7 @@
             </ng-template>
         </p-menu>
 
-        <button class="p-link layout-topbar-button" (click)="menu.toggle($event)">
+        <button [style]="{ 'display': roles.length === 0 ? 'none': '' }" class="p-link layout-topbar-button" (click)="menu.toggle($event)">
             <mage-icon name="user-switch"></mage-icon>
             <span>Cambiar Rol</span>
         </button>
