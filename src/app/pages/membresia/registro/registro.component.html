@@ -2,10 +2,12 @@
   <button (click)="Regresar()" pButton pRiple>Regresar</button>
 </div>
 
+<p-toast position="top-right" />
+
 <form [formGroup]="membresiaForm" class="flex sm:flex-row flex-column gap-3" >
   <div >
     <label for="fecha" class="block text-900 text-xl font-medium mb-2">Fecha de Inicio</label>
-    <p-calendar formControlName="fecha" [showButtonBar]="true" name="fecha" />
+    <p-calendar appendTo="body" formControlName="fecha" [showButtonBar]="true" name="fecha" />
   </div>
   <div>
     <label for="jornada" class="block text-900 text-xl font-medium mb-2">Tipo</label>

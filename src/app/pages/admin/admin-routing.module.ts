@@ -9,11 +9,11 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
-        //canActivate: [hasRolesGuard],
-        //canLoad: [hasRolesGuard],
-       // data: {
-        //  expectedRole: ['Administrador', 'Entrenador']
-        //},
+        canActivate: [hasRolesGuard],
+        canLoad: [hasRolesGuard],
+       data: {
+         expectedRole: ['ADMINISTRADOR GYM', 'ENTRENADOR']
+        },
         path: '',
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
       },

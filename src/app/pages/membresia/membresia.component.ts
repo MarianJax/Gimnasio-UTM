@@ -53,9 +53,11 @@ export class MembresiaComponent implements OnInit {
         this.agendamientosPendientes = [];
         data.map((agendamiento: any) => {
           if (agendamiento.asistio === null) {
+            console.log('Inasistidos', agendamiento);
             this.agendamientosPendientes.push(agendamiento);
           }
-          if (agendamiento.asistio === false) {
+          if (agendamiento.asistio === false) {            
+            console.log('Assitidos',agendamiento);
             this.agendamientosInasistidos.push(agendamiento);
           }
         });

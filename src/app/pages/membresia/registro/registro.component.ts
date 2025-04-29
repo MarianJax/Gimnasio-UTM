@@ -6,6 +6,7 @@ import { HorarioService } from '../../../service/horarios/horario.service';
 import { SharedService } from '../../../service/shared.service';
 import { AuthService } from '../../login/auth.service';
 import { Horario, Intervalo, Reserva } from './type';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-registro',
@@ -24,7 +25,8 @@ export class RegistroComponent implements OnInit {
     private horarioService: HorarioService,
     private agendamientosService: AgendamientosService,
     private sharedService: SharedService,
-    private authService: AuthService
+    private authService: AuthService,
+    private messageService: MessageService
   ) {
     this.membresiaForm = this.fb.group({
       fecha: new FormControl(''),
@@ -105,17 +107,20 @@ export class RegistroComponent implements OnInit {
     let membresia = this.sharedService.getParametro();
 
     if (membresia && this.selectedFecha) {
-
+      console.log();
       this.agendamientosService.agregarAgendamientoMembresia({
         fecha: this.selectedFecha,
         membresia, hora_fin,
         hora_inicio,
         usuario_id: this.authService.getUserData().id,
+        distribucion: this.authService.getUserData().rol,
       }).subscribe({
         next: (data) => {
+          console.log(data);
           this.router.navigate(['/membresia']);
         },
         error: (err) => {
+          this.messageService.add({ severity: 'warn', summary: 'Aviso', detail: err.error.message, life: 3000 });
           console.error(err);
         },
       })

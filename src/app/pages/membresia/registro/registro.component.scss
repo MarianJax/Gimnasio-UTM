@@ -41,6 +41,7 @@ form {
 }
 
 button {
+  max-width: min-content;
   background-color: transparent;
   border: 3px solid var(--primary-color);
   color: var(--surface-900);
