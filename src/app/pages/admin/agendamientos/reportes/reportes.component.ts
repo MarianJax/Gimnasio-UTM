@@ -299,6 +299,7 @@ export class ReportesComponent implements OnInit {
       console.log(this.INIT_DATA);
       this.INIT_DATA.forEach((facultad: any) => {
         if (facultad.idfacultad === event.value.code) {
+          this.carreras = [];
           const carers = JSON.parse(facultad.carrera);
           console.log(carers);
           carers.forEach((carrera: any) => {
