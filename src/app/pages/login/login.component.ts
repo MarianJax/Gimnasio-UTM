@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
           );
           this.cargar = false;
           console.log('Usuario autenticado', response);
-          if (response.user.rol === 'ADMINISTRADOR') {
+          if (response.user.rol === 'ADMINISTRADOR GYM') {
             this.router.navigate(['/admin']);
           } else {
             this.router.navigate(['/']);

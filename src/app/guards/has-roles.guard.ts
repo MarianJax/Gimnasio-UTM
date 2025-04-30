@@ -9,5 +9,3 @@ export const hasRolesGuard: CanActivateFn = (route, state) => {
   const userRoles = authService.getUserData().rol;
   return expectedRole.some((role) => userRoles.includes(role));
 };
-
-['DOCENTE', 'DOCENTE TIPO 2', 'ESTUDIANTE'];
