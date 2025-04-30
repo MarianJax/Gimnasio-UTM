@@ -27,10 +27,7 @@ export class TopbarComponent {
 
   @ViewChild('topbarmenu') menu!: ElementRef;
 
-  constructor(
-    public layoutService: LayoutService,
-    private router: Router,
-  ) {
+  constructor(public layoutService: LayoutService, private router: Router) {
     let session = sessionStorage.getItem('session-usuario');
     let usuario = session ? JSON.parse(session) : null;
 
@@ -57,8 +54,8 @@ export class TopbarComponent {
 
     if (usuario.roles_array) {
       this.roles = usuario.roles_array.map((rol: string) => ({
-        label: rol.split('|')[1],
-        action: () => this.cambiarRol(rol.split('|')[1]),
+        label: rol,
+        action: () => this.cambiarRol(rol),
       }));
     }
     this.changeRol = true;
@@ -70,24 +67,16 @@ export class TopbarComponent {
       const usuario = JSON.parse(session);
       usuario.rol = id;
       sessionStorage.setItem('session-usuario', JSON.stringify(usuario));
-      this.getPagebyRol(id);
+      if (id === 'ADMINISTRADOR GYM' || id === 'ENTRENADOR') {
+        this.router.navigate(['/admin']);
+      } else {
+        this.router.navigate(['/']);
+      }
     }
   }
 
   cerrarSesion() {
     sessionStorage.removeItem('session-usuario');
     this.router.navigate(['/auth/login']);
-  }
-
-  getPagebyRol(rol: string) {
-    switch (rol) {
-      case 'Administrador':
-      case 'Entrenador':
-        this.router.navigate(['/admin']);
-        break;
-      default:
-        this.router.navigate(['/']);
-        break;
-    }
   }
 }

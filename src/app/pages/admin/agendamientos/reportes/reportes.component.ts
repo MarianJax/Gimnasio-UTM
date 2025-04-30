@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import {
-  formatAgendamientoData,
-  formatDataByDia,
-  formatForChart,
-  transformAsistioData,
+import {formatAgendamientoData, formatDataByDia, formatForChart, transformAsistioData,
 } from '../../../../core/utiils/formatters';
 import { InstitucionService } from '../../../../service/institucion/institucion.service';
 import { ReportesService } from '../../../../service/reporte/reportes.service';
