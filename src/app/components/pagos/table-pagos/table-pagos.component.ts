@@ -16,13 +16,14 @@ export class TablePagosComponent implements OnInit {
 
   loadPagos() {
     this.pagoService.obtenerPagos().subscribe((data: any[]) => this.pagos = data.map(item => {
-    /// fetch() 
+      
     return {
       id: item.id,
       monto: item.monto,
       fecha_pago: item.fecha_pago,
       metodo_pago: item.metodo_pago,
-      usuario_id: item.usuario_id,
+      usuario_id: item.validacion_pago[0].usuario_id,
+      rol: item.agendamiento.length > 0 ? item.agendamiento[0].distribucion.rol_id : item.membresia[0].agendamientos[0].distribucion.rol_id,
     }
     }));
   }

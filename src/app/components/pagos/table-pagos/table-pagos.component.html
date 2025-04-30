@@ -11,7 +11,8 @@
                 Rol <app-sort-icon [field]="'user.rol'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
             </th>
             <th pSortableColumn="metodo_pago" style="width:15rem">
-                tipo de Pago <app-sort-icon [field]="'metodo_pago'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
+                tipo de Pago <app-sort-icon [field]="'metodo_pago'" [sortField]="dt.sortField"
+                    [sortOrder]="dt.sortOrder" />
             </th>
             <th pSortableColumn="fecha_pago" style="width:8rem">
                 fecha <app-sort-icon [field]="'fecha_pago'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
@@ -25,12 +26,12 @@
         <tr>
             <td>
                 <div class="flex flex-column gap-1">
-                    <span style="color: black;">{{ pago.user?.nombre | lowercase | titlecase  }} {{ pago.user?.apellido | lowercase | titlecase }}</span>
-                    <span style="font-size: 12px; color: #687182; ">{{ pago.user?.cedula }}</span>
+                    <!-- <span style="color: black;">{{ pago.user?.nombre | lowercase | titlecase  }} {{ pago.user?.apellido | lowercase | titlecase }}</span> -->
+                    <span style="font-size: 12px; color: #687182; ">{{ pago.usuario_id }}</span>
                 </div>
             </td>
             <td>
-                {{ pago.user?.rol }}
+                {{ pago.rol | lowercase | titlecase }}
             </td>
             <td>
                 {{ pago.metodo_pago }}
