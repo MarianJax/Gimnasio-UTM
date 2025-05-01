@@ -38,6 +38,7 @@ export class CreateTarifasComponent implements OnInit {
       rol_id: new FormControl<string | null>(null),
       pago_diario: new FormControl<number | null>(null),
       pago_mensual: new FormControl<number | null>(null),
+      pago_semanal: new FormControl<number | null>(null),
       tiempo: new FormControl<number | null>(null),
       cupo: new FormControl<number | null>(null),
     });

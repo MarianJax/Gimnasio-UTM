@@ -21,7 +21,9 @@ export class PagoFormComponent implements OnInit {
 
   metodoOpt = [
     { name: 'Diario', value: 'diario' },
+    { name: 'Semanal', value: 'semanal' },
     { name: 'Mensual', value: 'mensual' },
+   
   ];
 
   cuentaAhorros = '';
@@ -70,6 +72,9 @@ export class PagoFormComponent implements OnInit {
         (rol: any) => {
           if (val.value === 'diario') {
             monto = Number(rol.pago_diario);
+          }
+          if (val.value === 'semanal') {
+            monto = Number(rol.pago_semanal);
           }
           if (val.value === 'mensual') {
             monto = Number(rol.pago_mensual);

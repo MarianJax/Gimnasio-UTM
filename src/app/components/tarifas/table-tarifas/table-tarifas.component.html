@@ -30,6 +30,7 @@
             <td> {{ rol.rol_id }} </td>
             <td>{{ rol.tiempo }}</td>
             <td>{{ rol.pago_diario | currency : "USD" }}</td>
+            <td>{{ rol.pago_semanal | currency : "USD" }}</td>
             <td>{{ rol.pago_mensual | currency : "USD" }}</td>
             <td>{{ rol.cupo }}</td>
             <td>
@@ -76,6 +77,15 @@
                 mode="currency" currency="USD" locale="en-US" [min]="0.10" />
             <small *ngIf="upRolForm.getError('pago_diario')" class="ng-invalid text-red-600">
                 {{ upRolForm.getError('pago_diario') }}
+            </small>
+        </div>
+        <div style="width: calc(50% - 10px)">
+            <label for="pago_semanal" class="">Pago semanal</label>
+            <p-inputNumber inputId="pago_semanal" placeholder=""
+                [ngClass]="{'ng-dirty ng-invalid': upRolForm.getError('pago_semanal')}" formControlName="pago_semanal"
+                mode="currency" currency="USD" locale="en-US" [min]="0.10" />
+            <small *ngIf="upRolForm.getError('pago_semanal')" class="ng-invalid text-red-600">
+                {{ upRolForm.getError('pago_semanal') }}
             </small>
         </div>
         <div style="width: calc(50% - 10px)">
