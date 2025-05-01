@@ -9,11 +9,11 @@ const routes: Routes = [
     component: EquiposComponent
   },
   {
-    /*canActivate: [hasRolesGuard],
+    canActivate: [hasRolesGuard],
     canLoad: [hasRolesGuard],
     data: {
       expectedRole: ['Administrador', 'Entrenador']
-    },*/
+    },
     path: 'mantenimiento',
     loadChildren: () => import('./mantenimiento/mantenimiento.module').then(m => m.MantenimientoModule)
   },
@@ -22,7 +22,7 @@ const routes: Routes = [
     canActivate: [hasRolesGuard],
     canLoad: [hasRolesGuard],
     data: {
-      expectedRole: ['ESTUDIANTE']
+      expectedRole: ['ESTUDIANTE', ]
     },
     path: 'registrar',
     loadChildren: () => import('./registros/registros.module').then(m => m.RegistrosModule)
