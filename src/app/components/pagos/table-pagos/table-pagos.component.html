@@ -23,7 +23,8 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-pago>
-        <tr>
+        <tr [style]="{ 'color': pago.estado ==='Rechazado' ? 'red' : '#000000' }"> 
+            
             <td>
                 <div class="flex flex-column gap-1">
                     <!-- <span style="color: black;">{{ pago.user?.nombre | lowercase | titlecase  }} {{ pago.user?.apellido | lowercase | titlecase }}</span> -->

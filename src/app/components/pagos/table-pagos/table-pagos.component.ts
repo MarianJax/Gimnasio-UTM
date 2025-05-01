@@ -19,6 +19,7 @@ export class TablePagosComponent implements OnInit {
       
     return {
       id: item.id,
+      estado: item.validacion_pago[0].estado,
       monto: item.monto,
       fecha_pago: item.fecha_pago,
       metodo_pago: item.metodo_pago,
