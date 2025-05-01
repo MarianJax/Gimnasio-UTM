@@ -8,7 +8,7 @@ const routes: Routes = [
     canActivate: [hasRolesGuard],
     canLoad: [hasRolesGuard],
     data: {
-      expectedRole: ['DOCENTE', 'ESTUDIANTE'],
+      expectedRole: ['DOCENTE', 'ESTUDIANTE', ],
     },
     path: '',
     component: HomeComponent,

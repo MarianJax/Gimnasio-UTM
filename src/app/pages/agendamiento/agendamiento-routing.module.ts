@@ -8,7 +8,7 @@ const routes: Routes = [
     canActivate: [hasRolesGuard],
     canLoad: [hasRolesGuard],
     data: {
-      expectedRole: ['DOCENTE', 'DOCENTE TIPO 2', 'ESTUDIANTE'],
+      expectedRole: ['DOCENTE', 'DOCENTE TIPO 2', 'ESTUDIANTE',],
     },
     path: '',
     component: AgendamientoComponent,

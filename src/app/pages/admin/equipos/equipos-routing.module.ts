@@ -12,7 +12,7 @@ const routes: Routes = [
     canActivate: [hasRolesGuard],
     canLoad: [hasRolesGuard],
     data: {
-      expectedRole: ['Administrador', 'Entrenador']
+      expectedRole: ['ADMINISTRADOR GYM', 'ENTRENADOR']
     },
     path: 'mantenimiento',
     loadChildren: () => import('./mantenimiento/mantenimiento.module').then(m => m.MantenimientoModule)
@@ -22,7 +22,7 @@ const routes: Routes = [
     canActivate: [hasRolesGuard],
     canLoad: [hasRolesGuard],
     data: {
-      expectedRole: ['ESTUDIANTE', ]
+      expectedRole:['ADMINISTRADOR GYM', 'ENTRENADOR']
     },
     path: 'registrar',
     loadChildren: () => import('./registros/registros.module').then(m => m.RegistrosModule)
@@ -34,7 +34,7 @@ const routes: Routes = [
         canActivate: [hasRolesGuard],
         canLoad: [hasRolesGuard],
         data: {
-          expectedRole: ['Administrador', 'Entrenador']
+          expectedRole: ['ADMINISTRADOR GYM', 'ENTRENADOR']
         },
         path: 'historial',  // Subruta :id/historial
         loadChildren: () => import('./historial/historial.module').then(m => m.HistorialModule)

@@ -7,30 +7,25 @@ export const FormInit = {
   monto_pago: null,
   tiempo: null,
   cupo: null,
-}
+};
 
 @Component({
   selector: 'app-create-tarifas',
   templateUrl: './create-tarifas.component.html',
-  styleUrls: ['./create-tarifas.component.scss']
+  styleUrls: ['./create-tarifas.component.scss'],
 })
 export class CreateTarifasComponent implements OnInit {
   rolForm: FormGroup;
   visible: boolean = false;
-  Roles: any[] = [];
+  Roles: any[] = [
+    { code: 'FUNCIONARIO', name: 'Funcionario' },
+    { code: 'DOCENTE', name: 'Docente' },
+    { code: 'ESTUDIANTE', name: 'Estudiante' },
+  ];
   @Output() addedRol = new EventEmitter<void>();
 
   showDialog() {
-    this.fetchRoles().then((data) => {
-      this.Roles = data;
-    });    
     this.visible = true;
-  }
-
-  async fetchRoles() {
-    const response = await fetch('http://ms.utm.edu.ec:8000/gfgfg');
-    const data = await response.json();
-    return data;      
   }
 
   closedDialog() {
@@ -48,12 +43,13 @@ export class CreateTarifasComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   addRol() {
     try {
-      const rol = this.rolForm.value;
-      this.tarifasService.agregarRol(rol)
+      const { rol_id, ...rol } = this.rolForm.value;
+      this.tarifasService
+        .agregarRol({ rol_id: rol_id && rol_id.code, ...rol })
         .subscribe({
           next: () => {
             this.addedRol.emit();
@@ -63,12 +59,10 @@ export class CreateTarifasComponent implements OnInit {
           error: (error: any) => {
             console.log('Error al enviar los datos', error.error.errors);
             this.rolForm.setErrors(error.error.errors);
-          }
-        })
-
+          },
+        });
     } catch (error) {
       console.log('Error al enviar los datos', error);
     }
   }
 }
-

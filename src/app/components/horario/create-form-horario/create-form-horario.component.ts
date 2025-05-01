@@ -87,7 +87,7 @@ export class CreateFormHorarioComponent implements OnInit {
 
     this.tartifaService.obtenerTarifas().subscribe((roles) => {
       roles.map((rol: any) => {
-        if (rol.nombre !== 'Entrenador' && rol.nombre !== 'Administrador') {
+        if (rol.nombre !== 'ENTRENADOR' && rol.nombre !== 'ADMINITRADOR GYM') {
           this.roles.push({ name: rol.rol_id, code: rol.id });
         }
       });

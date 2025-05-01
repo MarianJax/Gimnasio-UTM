@@ -82,8 +82,9 @@ export class TableHorariosComponent implements OnInit {
 
     this.tarifaService.obtenerTarifas().subscribe((roles) => {
       roles.map((rol: any) => {
-        if (rol.nombre !== 'Entrenador' && rol.nombre !== 'Administrador') {
-          this.roles.push({ name: rol.nombre, code: rol.id });
+        if (rol.nombre !== 'ENTRENADOR' && rol.nombre !== 'ADMINITRADOR GYM') {
+          this.roles.push({ name: rol.rol_id, code: rol.id });
+          console.log('rol',rol);
         }
       });
     });
@@ -126,10 +127,13 @@ export class TableHorariosComponent implements OnInit {
   }
 
   async showDialog(id: string) {
+    console.log('id', id);
     const horario = await this.horarioService.obtenerhorario(id).toPromise();
+    console.log('horario', horario);
     this.horarioForm.patchValue({
+    
       id: horario.id,
-      rol_id: this.roles.find((rol) => rol.code === horario.rol.id),
+      rol_id: this.roles.find((rol) => rol.code === horario.distribucion.id),
       hora_inicio: this.horas.find(
         (hora) => hora.value === horario.hora_inicio.slice(0, 5)
       ),

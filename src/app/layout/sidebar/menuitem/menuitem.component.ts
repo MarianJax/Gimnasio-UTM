@@ -43,7 +43,7 @@ export class MenuitemComponent implements OnInit, OnDestroy {
   constructor(public layoutService: LayoutService, private cd: ChangeDetectorRef, public router: Router, private menuService: MenuService) {
     const session = sessionStorage.getItem('session-usuario');
     const usr = session ? JSON.parse(session) : null;
-    this.user = usr !== null && (usr.roles === 'Administrador' || usr.roles === 'Entrenador');
+    this.user = usr !== null && (usr.roles === 'ADMINISTRADOR GYM' || usr.roles === 'ENTRENADOR');
     this.rol = usr ? usr.roles : '';
 
     this.menuSourceSubscription = this.menuService.menuSource$.subscribe(value => {
