@@ -127,18 +127,6 @@ export class MenuComponent implements OnInit {
               visible: !['Entrenador'].includes(usuario.roles)
             },
             {
-              label: 'Rutinas',
-              icon: 'dumbbell',
-              routerLink: ['/admin/rutinas'],
-              visible: true
-            },
-            // {
-            //   label: 'Ejercicios',
-            //   icon: 'time-clock',
-            //   routerLink: ['/admin/ejercicios'],
-            //   visible: true
-            // },
-            {
               label: 'Tarifas y Cupos',
               icon: 'money',
               routerLink: ['/admin/tarifas'],
@@ -153,15 +141,9 @@ export class MenuComponent implements OnInit {
         {
           items: [
             {
-              label: 'Rutinas',
-              icon: 'home',
-              routerLink: ['/'],
-              visible: true
-            },
-            {
               label: 'Agendamiento',
               icon: 'calendar',
-              routerLink: ['/agendamiento'],
+              routerLink: ['/'],
               visible: true
             },
             {
