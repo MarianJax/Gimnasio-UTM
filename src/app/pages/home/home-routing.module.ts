@@ -12,19 +12,7 @@ const routes: Routes = [
     },
     path: '',
     component: HomeComponent,
-  },
-  {
-    canActivate: [hasRolesGuard],
-    canLoad: [hasRolesGuard],
-    data: {
-      expectedRole: ['DOCENTE', 'ESTUDIANTE'],
-    },
-    path: 'rutina/:slug',
-    loadChildren: () =>
-      import('./rutina-detail/rutina-detail.module').then(
-        (m) => m.RutinaDetailModule
-      ),
-  },
+  }
 ];
 
 @NgModule({

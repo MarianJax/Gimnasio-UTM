@@ -8,62 +8,11 @@ import { RutinasService } from '../../service/rutinas/rutinas.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  porcentaje = 0;
+  constructor(private router: Router) {}
 
-  constructor(private router: Router, private rutinasService: RutinasService) {}
+  ngOnInit() {}
 
-  rutinas!: {
-    id: string;
-    nombre: string;
-    intensidad: string;
-    cantidad_ejercicios: number;
-  }[];
-  //   = [
-  //   {
-  //     nombre: 'Pecho / Triceps',
-  //     intensidad: 'Normal',
-  //     ejercicios: 5,
-  //     slug: 'pecho-triceps'
-  //   },
-  //   {
-  //     nombre: 'Brazos',
-  //     intensidad: 'Alta',
-  //     ejercicios: 3,
-  //     slug: 'brazos'
-  //   },
-  //   {
-  //     nombre: 'Pierna',
-  //     intensidad: 'Normal',
-  //     ejercicios: 4,
-  //     slug: 'pierna'
-  //   },
-  //   {
-  //     nombre: 'Espalda y Bíceps',
-  //     intensidad: 'Normal',
-  //     ejercicios: 5,
-  //     slug: 'espalda-biceps'
-  //   },
-  //   {
-  //     nombre: 'Gluteo',
-  //     intensidad: 'Baja',
-  //     ejercicios: 8,
-  //     slug: 'gluteo'
-  //   },
-  //   {
-  //     nombre: 'Hombros / Abdomen',
-  //     intensidad: 'Alta',
-  //     ejercicios: 7,
-  //     slug: 'hombros-abdomen'
-  //   }
-  // ];
-
-  ngOnInit() {
-    this.rutinasService.obtenerRutinas().subscribe(data => {
-      this.rutinas = data;
-    });
-  }
-
-  goToRutinaDetail(id: string) {
-    this.router.navigate(['/rutina', id]);
+  goToRutinas() {
+    this.router.navigate(['/']);
   }
 }

@@ -26,14 +26,6 @@ const routes: Routes = [
         loadChildren: () => import('./pagos/pagos.module').then(m => m.PagosModule)
       },
       {
-        path: 'rutinas',
-        loadChildren: () => import('./rutinas/rutinas.module').then(m => m.RutinasModule)
-      },
-      {
-        path: 'ejercicios',
-        loadChildren: () => import('./ejercicios/ejercicios.module').then(m => m.EjerciciosModule)
-      },
-      {
         path: 'horarios',
         loadChildren: () => import('./horarios/horarios.module').then(m => m.HorariosModule)
       },

@@ -21,10 +21,6 @@ const routes: Routes = [
         loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)
       },
       {
-        path: 'agendamiento',
-        loadChildren: () => import('./pages/agendamiento/agendamiento.module').then(m => m.AgendamientoModule)
-      },
-      {
         path: 'membresia',
         loadChildren: () => import('./pages/membresia/membresia.module').then(m => m.MembresiaModule)
       },

@@ -1,181 +1,131 @@
-:host ::ng-deep .p-progressbar {
-  height: 1.1rem;
-  border-radius: 0.5rem;
-}
+:host ::ng-deep {
+  .p-dialog-mask.p-component-overlay.p-component-overlay-enter.p-dialog-mask-scrollblocker.ng-star-inserted {
+    backdrop-filter: blur(5px);
 
-h5 {
-  text-align: center;
-  text-wrap: unset;
-}
+    .p-dialog {
+      border-radius: 12px !important;
+      overflow: hidden;
+      background: linear-gradient(to bottom right, #cfe4da, #fff);
 
-.conte-rutinas {
-  display: grid;
-  padding: 1.5rem;
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-  gap: 1.25rem;
+      .p-dialog-header {
+        background: transparent;
+        color: black;
+        font-weight: 800;
+        padding: 24px 30px;
+        font-size: 20px;
 
-  @media (min-width: 550px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+        .p-dialog-header-icons {
+          display: none;
+        }
+      }
 
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
+      .p-dialog-content {
+        padding: 10px 50px 30px 50px;
+        background: transparent;
 
-// Variables de color para mantener consistencia
-$emerald-light: #ecfdf5;
-$emerald-dark: #065f46;
-$emerald-primary: #34d399;
-$emerald-hover: #10b981;
-$emerald-text: #009933;
-$white: #ffffff;
-$shadow-color: rgba(0, 0, 0, 0.1);
+        form {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 20px;
 
-// Card Container
-.card-rutina {
-  border-radius: 8px;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgb(0 153 51 / 50%);
-  transition: all 0.3s ease-in-out;
-  transform: translateY(0);
+          div {
+            label {
+              // display: block;
+              color: black;
+              // font-size: 16px;
+            }
 
-  &:hover {
-    box-shadow: 0 10px 15px $shadow-color;
-    transform: translateY(-4px);
-  }
+            input:not(.p-multiselect-filter) {
+              margin-top: 4px;
+              width: 100%;
+              padding: 10px 14px;
+              border-radius: 8px;
+              font-size: 13px;
+              height: 41px;
+            }
 
-  // Highlight Effect
-  .card-highlight {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background-color: $emerald-primary;
-    opacity: 0.2;
-    transition: all 0.3s ease-in-out;
-  }
+            .p-inputwrapper {
+              width: 100%;
+              .p-inputnumber {
+                width: 100%;
+              }
+            }
 
-  &:hover .card-highlight {
-    width: 100%;
-    height: 100%;
-  }
+            textarea {
+              margin-top: 4px;
+              width: 100%;
+              padding: 10px 14px;
+              border-radius: 8px;
+              font-size: 13px;
+            }
 
-  // Card Content
-  .card-content {
-    padding: 20px;
-    background-color: $white;
+            .p-multiselect {
+              margin-top: 4px;
+              width: 100%;
+              border-radius: 8px;
 
-    body.dark-mode & {
-      background-color: $emerald-dark;
-    }
-  }
+              .p-multiselect-label-container {
+                padding: 10px 14px;
+                outline: none;
 
-  // Header
-  .card-header {
-    position: relative;
-    z-index: 5;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
+                .p-multiselect-label {
+                  padding: 0;
+                }
+              }
+            }
 
-    .card-title {
-      font-size: 1.125rem;
-      font-weight: 600;
-      color: $emerald-dark;
-      transition: color 0.3s;
-    }
+            .p-dropdown {
+              margin-top: 8px;
+              width: 100%;
+              border-radius: 6px;
 
-    .card-icon {
-      height: 36px;
-      width: 36px;
-      background-color: $emerald-light;
-      padding: 8px;
-      border-radius: 50%;
-      transition: background-color 0.3s;
+              .p-inputtext {
+                font-family: 'Montserrat', sans-serif;
+                padding: 10px 14px;
+                outline: none;
+              }
+            }
 
-      .icon {
-        width: 20px;
-        height: 20px;
-        color: $emerald-text;
-        transition: color 0.3s;
+            .p-calendar {
+              width: 100%;
+
+              .p-inputtext {
+                font-family: 'Montserrat', sans-serif;
+                margin-top: 8px;
+                padding: 1rem;
+              }
+
+              .p-datepicker {
+                min-width: fit-content;
+              }
+            }
+          }
+
+          .p-button {
+            border-radius: 8px !important;
+            padding: 7px 20px;
+          }
+        }
+      }
+
+      .p-dialog-footer {
+        background: transparent;
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+
+        p-button {
+          margin: 0;
+
+          .p-button.p-button-outlined {
+            font-size: 14px;
+            padding: 7px 30px;
+            border-radius: 10px;
+          }
+        }
       }
     }
   }
 
-  // Stats
-  .card-stats {
-    position: relative;
-    z-index: 5;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin-bottom: 16px;
-
-    .card-stat {
-      background-color: rgba(236, 253, 245, 0.5);
-      border-radius: 8px;
-      padding: 8px;
-
-      body.dark-mode & {
-        background-color: rgba(4, 120, 87, 0.3);
-      }
-
-      .stat-label {
-        font-size: 0.75rem;
-        color: rgba(4, 120, 87, 0.7);
-        margin-bottom: 4px;
-      }
-
-      .stat-value {
-        font-size: 0.875rem;
-        font-weight: 500;
-        color: $emerald-dark;
-      }
-    }
-  }
-
-  // Action Button
-  .card-button {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    background-color: rgba(236, 253, 245, 0.5);
-    color: $emerald-text;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    transition: all 0.3s;
-
-    .button-icon {
-      width: 16px;
-      height: 16px;
-      opacity: 0;
-      transition: all 0.3s;
-      transform: translateX(0);
-    }
-  }
-
-  &:hover {
-    .card-title {
-      color: $emerald-text;
-    }
-
-    .card-icon {
-      background-color: var(--primary-color) !important;
-      color: white !important;
-
-      .icon {
-        color: white !important;
-      }
-    }
-
-    .card-button {
-      background-color: var(--primary-color);
-      color: $white;
-    }
-  }
+  
 }
