@@ -11,9 +11,10 @@
   </div>
   <div style="width: calc(50% - 10px)">
     <label for="dia_semana" class="">Dias de semana</label>
-    <p-dropdown formControlName="dia_semana" optionLabel="name" [options]="dias"
-      placeholder="Seleccione un dia de semana"
-      [ngClass]="{ 'ng-dirty ng-invalid': horarioForm.getError('dia_semana') }" />
+    <p-multiSelect formControlName="dia_semana" optionLabel="name" placeholder="Seleccione las maquinas"
+                [showEmptyMessage]="true" emptyMessage="No hay maquinas disponibles"
+                [ngClass]="{'ng-dirty ng-invalid': horarioForm.getError('dia_semana')}" [options]="dias"
+                />
     <small *ngIf="horarioForm.getError('dia_semana')" class="ng-invalid text-red-600">
       {{ horarioForm.getError("dia_semana") }}
     </small>

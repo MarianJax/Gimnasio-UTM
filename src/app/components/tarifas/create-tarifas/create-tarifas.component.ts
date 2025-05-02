@@ -36,9 +36,9 @@ export class CreateTarifasComponent implements OnInit {
   constructor(private fb: FormBuilder, private tarifasService: TarifasService) {
     this.rolForm = this.fb.group({
       rol_id: new FormControl<string | null>(null),
-      pago_diario: new FormControl<number | null>(null),
-      pago_mensual: new FormControl<number | null>(null),
-      pago_semanal: new FormControl<number | null>(null),
+      pago_diario: new FormControl<number | null>(0.10),
+      pago_mensual: new FormControl<number | null>(0.10),
+      pago_semanal: new FormControl<number | null>(0.10),
       tiempo: new FormControl<number | null>(null),
       cupo: new FormControl<number | null>(null),
     });

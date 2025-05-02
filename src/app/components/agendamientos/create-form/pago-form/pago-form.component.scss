@@ -123,6 +123,7 @@ form {
 
         .p-inputtext {
             margin-top: 4px;
+            font-family: 'Montserrat', sans-serif;
             padding: 10px 14px;
         }
 
@@ -134,9 +135,11 @@ form {
 
 :host ::ng-deep .p-dropdown {
     margin-top: 4px;
+    font-family: 'Montserrat', sans-serif;
     width: 100%;
 
     .p-inputtext {
+        font-family: 'Montserrat', sans-serif;
         padding: 10px 14px;
         outline: none
     }

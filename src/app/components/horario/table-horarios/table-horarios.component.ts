@@ -126,31 +126,40 @@ export class TableHorariosComponent implements OnInit {
     });
   }
 
-  async showDialog(id: string) {
-    console.log('id', id);
-    const horario = await this.horarioService.obtenerhorario(id).toPromise();
-    console.log('horario', horario);
-    this.horarioForm.patchValue({
-    
-      id: horario.id,
-      rol_id: this.roles.find((rol) => rol.code === horario.distribucion.id),
-      hora_inicio: this.horas.find(
-        (hora) => hora.value === horario.hora_inicio.slice(0, 5)
-      ),
-      hora_fin: this.horas.find(
-        (hora) => hora.value === horario.hora_fin.slice(0, 5)
-      ),
-      dia_semana: this.dias.find((dia) => dia.value === horario.dia_semana),
-      jornada: this.jornada.find(
-        (jornada) => jornada.value === horario.jornada
-      ),
-    });
+  showDialog(id: string) {
+    this.horarioService.obtenerhorario(id).subscribe({
+      next: (horario) => {
+        console.log('horario', horario);
+        this.horarioForm.patchValue({
+          id: horario.id,
+          rol_id: this.roles.find((rol) => rol.code === horario.distribucion.id),
+          hora_inicio: this.horas.find(
+            (hora) => hora.value === horario.hora_inicio.slice(0, 5)
+          ),
+          hora_fin: this.horas.find(
+            (hora) => hora.value === horario.hora_fin.slice(0, 5)
+          ),
+          dia_semana: this.dias.filter(dia => horario.dia_semana.includes(dia.value)),
+          jornada: this.jornada.find(
+            (jornada) => jornada.value === horario.jornada
+          ),
+        });
     this.visible = true;
+      },
+      error: (error) => {
+        console.error('Error al obtener el horario', error);
+    } });
   }
 
   closedDialog() {
     this.visible = false;
-    this.horarioForm.reset(formInit);
+    this.horarioForm.reset({
+      rol_id: null,
+      hora_inicio: null,
+      hora_fin: null,
+      dia_semana: null,
+      jornada: null,
+    });
   }
 
   onSubmit() {
@@ -162,7 +171,7 @@ export class TableHorariosComponent implements OnInit {
         rol_id: horario.rol_id.code,
         hora_inicio: horario.hora_inicio.value,
         hora_fin: horario.hora_fin.value,
-        dia_semana: horario.dia_semana.value,
+        dia_semana: horario.dia_semana.map((dia: any) => dia.value),
         jornada: horario.jornada.value,
       })
       .subscribe({
@@ -176,6 +185,11 @@ export class TableHorariosComponent implements OnInit {
           this.horarioForm.setErrors(error.error.errors);
         },
       });
+  }
+
+  getDias(array_dia: string[]) {
+    const dias = array_dia.map((dia) => dia).join(', ');
+    return dias;
   }
 
   applyFilter(event: Event) {

@@ -20,13 +20,13 @@ form {
         }
 
         input {
-            margin-top: 8px;
+            margin-top: 4px;
             width: 100%;
             padding: 10px 14px;
         }
 
         textarea {
-            margin-top: 8px;
+            margin-top: 4px;
             width: 100%;
             padding: 10px 14px;
         }
@@ -35,18 +35,19 @@ form {
 }
 
 :host ::ng-deep .p-dropdown {
-    margin-top: 8px;
+    margin-top: 4px;
+    font-family: 'Montserrat', sans-serif;
     width: 100%;
 
     .p-inputtext {
         padding: 10px 14px;
+        font-family: 'Montserrat', sans-serif;
         outline: none
     }
 }
 
 :host ::ng-deep .p-multiselect {
-    margin-top: 8px;
-    min-height: 49px;
+    margin-top: 4px;
     width: 100%;
 
     .p-multiselect-label-container {

@@ -40,8 +40,6 @@ export class CreateFormHorarioComponent implements OnInit {
     { name: 'Miércoles', value: 'Miercoles' },
     { name: 'Jueves', value: 'Jueves' },
     { name: 'Viernes', value: 'Viernes' },
-    { name: 'Sábado', value: 'Sabado' },
-    { name: 'Domingo', value: 'Domingo' },
   ];
 
   jornada = [
@@ -66,7 +64,7 @@ export class CreateFormHorarioComponent implements OnInit {
       rol_id: new FormControl<Estados[] | null>([]),
       hora_inicio: new FormControl<Estados | null>(null),
       hora_fin: new FormControl<Estados | null>(null),
-      dia_semana: new FormControl<Estados | null>(null),
+      dia_semana: new FormControl<Estados[] | null>([]),
       jornada: new FormControl<Estados | null>(null),
     });
   }
@@ -102,7 +100,7 @@ export class CreateFormHorarioComponent implements OnInit {
           rol_id: horario.rol_id && horario.rol_id.code,
           hora_inicio: horario.hora_inicio && horario.hora_inicio.value,
           hora_fin: horario.hora_fin && horario.hora_fin.value,
-          dia_semana: horario.dia_semana && horario.dia_semana.value,
+          dia_semana: horario.dia_semana.map((dia: any) => dia.value),
           jornada: horario.jornada && horario.jornada.value,
         })
         .subscribe({

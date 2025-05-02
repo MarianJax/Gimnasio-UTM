@@ -20,7 +20,8 @@
     <ng-template pTemplate="header">
         <tr>
             <th pSortableColumn="distribucion.rol_id">
-                Roles <app-sort-icon [field]="'distribucion.rol_id'" [sortField]="dt.sortField" [sortOrder]="dt.sortOrder" />
+                Roles <app-sort-icon [field]="'distribucion.rol_id'" [sortField]="dt.sortField"
+                    [sortOrder]="dt.sortOrder" />
             </th>
             <th pSortableColumn="jornada">Jornada<app-sort-icon [field]="'jornada'" [sortField]="dt.sortField"
                     [sortOrder]="dt.sortOrder" /></th>
@@ -33,10 +34,10 @@
     </ng-template>
     <ng-template pTemplate="body" let-horario>
         <tr>
-            <td>{{ horario.distribucion.rol_id }}</td>
+            <td>{{ horario.distribucion.rol_id | lowercase | titlecase  }}</td>
             <td>{{ horario.jornada }}</td>
             <td>{{ horario.hora_inicio | slice:0:5 }} - {{ horario.hora_fin | slice:0:5 }}</td>
-            <td>{{ horario.dia_semana }}</td>
+            <td>{{ getDias(horario.dia_semana) }}</td>
             <td>
                 <div class="flex gap-3 w-full justify-content-center">
                     <p-button [outlined]="true" size="small" severity="primary" (click)="showDialog(horario.id)"
@@ -73,9 +74,9 @@
         </div>
         <div style="width: calc(50% - 10px)">
             <label for="dia_semana" class="">Dias de semana</label>
-            <p-dropdown appendTo="body" formControlName="dia_semana" optionLabel="name" [options]="dias"
-                placeholder="Seleccione un dia de semana"
-                [ngClass]="{ 'ng-dirty ng-invalid': horarioForm.getError('dia_semana') }" />
+            <p-multiSelect appendTo="body" formControlName="dia_semana" optionLabel="name" placeholder="Seleccione las maquinas"
+                [showEmptyMessage]="true" emptyMessage="No hay maquinas disponibles"
+                [ngClass]="{'ng-dirty ng-invalid': horarioForm.getError('dia_semana')}" [options]="dias" />
             <small *ngIf="horarioForm.getError('dia_semana')" class="ng-invalid text-red-600">
                 {{ horarioForm.getError("dia_semana") }}
             </small>

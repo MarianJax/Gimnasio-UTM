@@ -38,10 +38,9 @@ export class TableTarifasComponent implements OnInit {
   @Output() usuarioAgregado = new EventEmitter<void>();
 
   showDialog(id: string) {
- 
-
     this.tarifaService.obtenerRol(id).subscribe({
-      next: ({rol_id,...value}) => {
+      next: ({ rol_id, ...value }) => {
+        console.log(value);
         this.upRolForm.patchValue({rol_id:this.Roles.find((r)=>r.code===rol_id),...value});
         this.visible = true;
       },
@@ -49,7 +48,15 @@ export class TableTarifasComponent implements OnInit {
   }
 
   closedDialog() {
-    this.upRolForm.reset(FormInit);
+    this.upRolForm.reset({
+      id: null,
+      rol_id: null,
+      pago_diario: null,
+      pago_semanal: null,
+      pago_mensual: null,
+      tiempo: null,
+      cupo: null,
+    });
     this.visible = false;
   }
 
@@ -63,6 +70,7 @@ export class TableTarifasComponent implements OnInit {
       id: new FormControl<string | null>(null),
       rol_id: new FormControl<string | null>(null),
       pago_diario: new FormControl<number | null>(null),
+      pago_semanal: new FormControl<number | null>(0.10),
       pago_mensual: new FormControl<number | null>(null),
       tiempo: new FormControl<number | null>(null),
       cupo: new FormControl<number | null>(null),
@@ -71,10 +79,7 @@ export class TableTarifasComponent implements OnInit {
 
   ngOnInit() {
     this.loadRoles();
-  }
-
-
- 
+  } 
 
   updateRol() {
     try {
@@ -83,6 +88,7 @@ export class TableTarifasComponent implements OnInit {
         ...rol,
         rol_id: rol_id && rol_id.code,
         pago_diario: Number(pago_diario),
+        pago_semanal: Number(rol.pago_semanal),
         pago_mensual: Number(pago_mensual),
       }).subscribe({
         next: () => {

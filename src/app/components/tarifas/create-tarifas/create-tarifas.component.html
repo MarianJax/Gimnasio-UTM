@@ -38,7 +38,9 @@
             <small *ngIf="rolForm.getError('pago_semanal')" class="ng-invalid text-red-600">
                 {{ rolForm.getError('pago_semanal') }}
             </small>
-        <label for="pago_mensual" class="">Pago mensual</label>
+        </div>
+        <div style="width: calc(50% - 10px)">
+            <label for="pago_mensual" class="">Pago mensual</label>
             <p-inputNumber inputId="pago_mensual" placeholder=""
                 [ngClass]="{'ng-dirty ng-invalid': rolForm.getError('pago_mensual')}" formControlName="pago_mensual"
                 mode="currency" currency="USD" locale="en-US" [min]="0.10" />
@@ -56,7 +58,7 @@
                 {{ rolForm.getError('tiempo') }}
             </small>
         </div>
-        <div style="width: 100%">
+        <div style="width: calc(50% - 10px)">
             <label for="cupo" class="">Cupo</label>
             <p-inputNumber inputId="cupo" placeholder="" [ngClass]="{'ng-dirty ng-invalid': rolForm.getError('cupo')}"
                 formControlName="cupo" mode="decimal" [min]="0" [useGrouping]="false" />
