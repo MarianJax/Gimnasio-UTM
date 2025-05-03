@@ -108,16 +108,16 @@ export class TableHorariosComponent implements OnInit {
 
   deleteHorario(id: string) {
     this.confirmationService.confirm({
-      header: 'Eliminar Ejercicio',
-      message: 'El ejercicio se eliminará de forma permanente',
+      header: 'Eliminar Horario',
+      message: 'El Horario se eliminará de forma permanente',
       accept: () => {
         this.horarioService.eliminarHorario(id).subscribe({
           next: () => {
             this.obtenerDatos();
             this.messageService.add({
               severity: 'success',
-              summary: 'Ejercicio eliminado',
-              detail: 'Ejercicio eliminado con éxito',
+              summary: 'Horario eliminado',
+              detail: 'horario eliminado con éxito',
             });
           },
         });
