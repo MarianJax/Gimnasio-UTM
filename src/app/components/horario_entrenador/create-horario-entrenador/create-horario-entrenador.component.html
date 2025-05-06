@@ -1,7 +1,16 @@
 <h3>Registro de Horario entrenador</h3>
 
 <form [formGroup]="horarioForm" (ngSubmit)="onSubmit()">
-    <div style="width: calc(50% - 10px)">
+    <div style="width: calc(33.33% - 13px)">
+        <label for="usuario_id" class="">Cedula Usuario</label>
+        <input id="usuario_id" type="text" placeholder="cédula"
+            [ngClass]="{'ng-dirty ng-invalid': horarioForm.getError('usuario_id')}" formControlName="usuario_id"
+            pInputText />
+        <small *ngIf="horarioForm.getError('usuario_id')" class="ng-invalid text-red-600">
+            {{ horarioForm.getError('usuario_id') }}
+        </small>
+    </div>
+    <div style="width: calc(33.33% - 14px)">
         <label for="fecha">Fecha</label>
         <p-calendar styleClass="calendar" appendTo="body" id="fecha" dateFormat="dd-mm-yy" formControlName="fecha"
             [ngClass]="{'ng-dirty ng-invalid': horarioForm.getError('fecha')}" [showButtonBar]="true"
@@ -10,11 +19,11 @@
             {{ horarioForm.getError('fecha') }}
         </small>
     </div>
-    <div style="width: calc(50% - 10px)">
+    <div style="width: calc(33.33% - 13px)">
         <label for="dia_semana">Dia Semana</label>
-        <p-dropdown formControlName="dia_semana" optionLabel="name" [options]="dias"
-            placeholder="Seleccione un dia de semana"
-            [ngClass]="{'ng-dirty ng-invalid': horarioForm.getError('dia_semana')}" />
+        <p-multiSelect formControlName="dia_semana" optionLabel="name" placeholder="Seleccione los días"
+            [showEmptyMessage]="true" emptyMessage="No hay días disponibles"
+            [ngClass]="{'ng-dirty ng-invalid': horarioForm.getError('dia_semana')}" [options]="dias" />
         <small *ngIf="horarioForm.getError('dia_semana')" class="ng-invalid text-red-600">
             {{ horarioForm.getError('dia_semana') }}
         </small>

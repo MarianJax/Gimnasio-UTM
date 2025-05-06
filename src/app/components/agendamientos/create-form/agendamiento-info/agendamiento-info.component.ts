@@ -60,10 +60,9 @@ export class AgendamientoInfoComponent implements OnInit {
       this.INIT_DATA = data.value;
       data.value.forEach((facultad: any) => {
         if (facultad.tipo === 'ACADEMICO') {
-
-          this.facultades.push({ name: facultad.nombre.trim(), code: facultad.idfacultad });
+          this.facultades.push({ name: capitalizeFirstLetter(facultad.nombre.trim()), code: facultad.idfacultad });
         } else {
-          this.departamentos.push({ name: facultad.nombre.trim(), code: facultad.idfacultad });
+          this.departamentos.push({ name: capitalizeFirstLetter(facultad.nombre.trim()), code: facultad.idfacultad });
         }
       });
 
@@ -73,7 +72,7 @@ export class AgendamientoInfoComponent implements OnInit {
           const carrera = JSON.parse(facultad.carrera);
           carrera.forEach((carrera: any) => {
             this.carreras.push({
-              name: carrera.carrera.trim(),
+              name: capitalizeFirstLetter(carrera.carrera.trim()),
               code: carrera.idescuela,
             });
           });
@@ -94,18 +93,18 @@ export class AgendamientoInfoComponent implements OnInit {
 
   obtenerHorarios(rol: string, fecha: string) {
     this.horarioService.obtenerHorarioPorRolYDia(rol, fecha).subscribe({
-      next: (value) => {
+      next: (horario) => {
+        console.log(horario);
         this.horas = [];
-        value.forEach((horario: any) => {
-          if (!horario.hora_inicio || !horario.hora_fin) return;
-          const label = horario.jornada === 'Matutina' ? 'Mañana' : 'Tarde';
-          this.horas.push({
-            label,
-            items: generarRangoHoras(
-              formatTime(horario.hora_inicio as string),
-              formatTime(horario.hora_fin as string)
-            ),
-          });
+        if (!horario.hora_inicio || !horario.hora_fin) return;
+        const label = horario.jornada === 'Matutina' ? 'Mañana' : 'Tarde';
+        this.horas.push({
+          label,
+          items: generarRangoHoras(
+            formatTime(horario.hora_inicio as string),
+            formatTime(horario.hora_fin as string),
+            Number(horario.distribucion.tiempo)
+          ),
         });
       },
       error: (err) => {
@@ -127,7 +126,7 @@ export class AgendamientoInfoComponent implements OnInit {
           const carrera = JSON.parse(facultad.carrera);
           carrera.forEach((carrera: any) => {
             this.carreras.push({
-              name: carrera.carrera.trim(),
+              name: capitalizeFirstLetter(carrera.carrera.trim()),
               code: carrera.idescuela,
             });
           });

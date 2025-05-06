@@ -6,14 +6,6 @@ import { Table } from 'primeng/table';
 import { HorariosEntrenadoresService } from '../../../service/horariosEntrenadores/horarios-entrenadores.service';
 import { Estados } from '../../agendamientos/create-form/agendamiento-info/agendamiento-info.component';
 
-const formInit = {
-  id: new FormControl<string | null>(null),
-  fecha: new FormControl<Date | null>(null),
-  franja_hora_inicio: new FormControl<Estados | null>(null),
-  franja_hora_fin: new FormControl<Estados | null>(null),
-  dia_semana: new FormControl<Estados | null>(null),
-};
-
 @Component({
   selector: 'app-table-horario-entrenador',
   templateUrl: './table-horario-entrenador.component.html',
@@ -57,7 +49,13 @@ export class TableHorarioEntrenadorComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {
-    this.horarioForm = this.fb.group(formInit);
+    this.horarioForm = this.fb.group({
+      id: new FormControl<string | null>(null),
+      fecha: new FormControl<Date | null>(null),
+      franja_hora_inicio: new FormControl<Estados | null>(null),
+      franja_hora_fin: new FormControl<Estados | null>(null),
+      dia_semana: new FormControl<Estados | null>(null),
+    });
   }
 
   horarios: any = [];
@@ -91,22 +89,34 @@ export class TableHorarioEntrenadorComponent implements OnInit {
 
   obtenerDatos() {
     this.horarioEntrenadorService.obtenerHorarios().subscribe((data) => {
+      console.log('horarios', data);
       this.horarios = data;
     });
   }
 
+  getDias(array_dia: string[]) {
+    const dias = array_dia.map((dia) => dia).join(', ');
+    return dias;
+  }
+
   deleteHorarioEntrenador(id: string) {
     this.confirmationService.confirm({
-      header: 'Eliminar Ejercicio',
-      message: 'El ejercicio se eliminará de forma permanente',
+      header: 'Eliminar Horario',
+      message: 'El horario se eliminará de forma permanente',
+      // acceptIcon: "none",
+      // rejectIcon: "none",
+      acceptLabel: 'Eliminar',
+      rejectLabel: 'Cancelar',
+      rejectButtonStyleClass: 'p-button-success mr-4 p-button-outlined',
+      acceptButtonStyleClass: 'p-button-danger p-button-outlined',
       accept: () => {
         this.horarioEntrenadorService.eliminarHorario(id).subscribe({
           next: () => {
             this.obtenerDatos();
             this.messageService.add({
               severity: 'success',
-              summary: 'Ejercicio eliminado',
-              detail: 'Ejercicio eliminado con éxito',
+              summary: 'Horario de Entrenador eliminado',
+              detail: 'Horario de Entrenador eliminado con éxito',
             });
           },
         });
@@ -125,12 +135,18 @@ export class TableHorarioEntrenadorComponent implements OnInit {
           horario.franja_hora_inicio && horario.franja_hora_inicio.value,
         franja_hora_fin:
           horario.franja_hora_fin && horario.franja_hora_fin.value,
-        dia_semana: horario.dia_semana && horario.dia_semana.value,
+        dia_semana: horario.dia_semana.map((dia: any) => dia.value),
       })
       .subscribe({
         next: (data) => {
           // this.addedHorarioEntrenador.emit();
-          this.horarioForm.reset(formInit);
+          this.horarioForm.reset({
+            id: null,
+            fecha: null,
+            franja_hora_inicio: null,
+            franja_hora_fin: null,
+            dia_semana: null,
+          });
           this.obtenerDatos();
           this.visible = false;
         },
@@ -153,7 +169,7 @@ export class TableHorarioEntrenadorComponent implements OnInit {
       franja_hora_fin: this.horas.find(
         (hora) => hora.value === horario.franja_hora_fin.slice(0, 5)
       ),
-      dia_semana: this.dias.find((dia) => dia.value === horario.dia_semana),
+      dia_semana: this.dias.filter(dia => horario.dia_semana.includes(dia.value)),
       fecha: new Date(horario.fecha),
     });
     this.visible = true;
@@ -161,7 +177,13 @@ export class TableHorarioEntrenadorComponent implements OnInit {
 
   closedDialog() {
     this.visible = false;
-    this.horarioForm.reset(formInit);
+    this.horarioForm.reset({
+      id: null,
+      fecha: null,
+      franja_hora_inicio: null,
+      franja_hora_fin: null,
+      dia_semana: null,
+    });
   }
 
   applyFilter(event: Event) {

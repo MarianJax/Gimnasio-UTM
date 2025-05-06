@@ -56,7 +56,7 @@ export class CreateFormComponent implements AfterViewInit {
     setTimeout(() => {
       // Validar el paso inicial
       this.validateCurrentStep();
-    });
+    }, 500);
   }
 
   next() {
@@ -242,31 +242,6 @@ export class CreateFormComponent implements AfterViewInit {
         'Por favor complete todos los pasos anteriores correctamente antes de finalizar.'
       );
       return;
-    }
-
-    // Verificar el paso actual
-    if (this.validateCurrentStep()) {
-      // this.isSubmitting = true
-
-      // Obtener todos los datos del formulario
-      const allFormData = this.formDataService.getAllFormData();
-
-      // Enviar datos al backend
-      // this.submissionService.submitFormData(allFormData).subscribe({
-      //   next: (response) => {
-      //     this.isSubmitting = false
-      //     alert("Proceso finalizado con éxito")
-      //     this.formDataService.clearAllData() // Limpiar datos después de enviar
-      //     // Aquí puedes redirigir o mostrar un mensaje de éxito
-      //   },
-      //   error: (error) => {
-      //     this.isSubmitting = false
-      //     console.error("Error al enviar datos:", error)
-      //     alert("Error al finalizar el proceso. Por favor, intente nuevamente.")
-      //   },
-      // })
-    } else {
-      this.showValidationError();
     }
   }
 }

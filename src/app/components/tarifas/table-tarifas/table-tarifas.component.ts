@@ -109,8 +109,8 @@ export class TableTarifasComponent implements OnInit {
 
   deleteHorario(id: string) {
     this.confirmationService.confirm({
-      header: 'Eliminar Ejercicio',
-      message: 'El ejercicio se eliminará de forma permanente',
+      header: 'Eliminar Distribución',
+      message: 'La distribución se eliminará de forma permanente',
       // acceptIcon: "none",
       // rejectIcon: "none",
       acceptLabel: 'Eliminar',
@@ -123,8 +123,8 @@ export class TableTarifasComponent implements OnInit {
             this.loadRoles(); // Changed from obtenerDatos() to loadRoles()
             this.messageService.add({
               severity: 'success',
-              summary: 'Ejercicio eliminado',
-              detail: 'Ejercicio eliminado con éxito',
+              summary: 'Distribución eliminado',
+              detail: 'Distribución eliminado con éxito',
             });
           },
         });

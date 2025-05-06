@@ -52,7 +52,13 @@ export class CreateHorarioEntrenadorComponent implements OnInit {
   horaFin: string = '';
 
   constructor(private fb: FormBuilder, private horarioEntrenadorService: HorariosEntrenadoresService) {
-    this.horarioForm = this.fb.group(formInit);
+    this.horarioForm = this.fb.group({
+      usuario_id: new FormControl<string | null>(null),
+      fecha: new FormControl<Date | null>(null),
+      franja_hora_inicio: new FormControl<Estados | null>(null),
+      franja_hora_fin: new FormControl<Estados | null>(null),
+      dia_semana: new FormControl<Estados[] | null>(null),
+    });
   }
 
   ngOnInit() {
@@ -73,10 +79,11 @@ export class CreateHorarioEntrenadorComponent implements OnInit {
   onSubmit() {
     const horario = this.horarioForm.value;
     this.horarioEntrenadorService.agregarHorario({
+      usuario_id: horario.usuario_id,
       fecha: horario.fecha && new Date(horario.fecha).toISOString(),
       franja_hora_inicio: horario.franja_hora_inicio && horario.franja_hora_inicio.value,
       franja_hora_fin: horario.franja_hora_fin && horario.franja_hora_fin.value,
-      dia_semana: horario.dia_semana && horario.dia_semana.value
+      dia_semana: horario.dia_semana.map((dia: any) => dia.value)
     }).subscribe({
       next: (data) => {
         this.addedHorarioEntrenador.emit();
