@@ -24,4 +24,8 @@ export class PagoService {
     Observable<any> {
     return this.http.patch(`${this.apiUrl}/${pago.id}`, pago);
   }
+
+  eliminarPago(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }
