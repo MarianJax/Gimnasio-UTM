@@ -47,57 +47,39 @@ export const filterHoursGreaterThanCurrentTime = (hours: SelectItemGroup[]): { l
         .filter(group => group !== null) as { label: string; items: { label: string; value: string }[] }[]; // Filtramos los `null`
 }
 
-export const filterHoursForSalida = (selectedTime: string, ingreso: SelectItemGroup[]): { label: string; items: { label: string; value: string }[] }[] => {
-    // Convertir la hora seleccionada a minutos para facilitar la comparación
-    const [selectedHour, selectedMinute] = selectedTime.split(":").map(Number);
-    const selectedTimeInMinutes = selectedHour * 60 + selectedMinute;
+export function generarRangoHoras(horaInicio: string, horaFin: string,
+    rangoEnHoras: number // valor por defecto de 1 hora
+  ): { label: string; value: string }[] {
+    const [hInicio, mInicio] = horaInicio.split(":").map(Number);
+  const [hFin, mFin] = horaFin.split(":").map(Number);
 
-    // Filtrar las horas disponibles en ingresoOpt (recorremos ingresoOpt)
-    return ingreso.map(group => {
-        const filteredItems = group.items.filter((item) => {
-            const [itemHour, itemMinute] = item.value.split(":").map(Number);
-            const itemTimeInMinutes = itemHour * 60 + itemMinute;
+  const inicio = new Date();
+  inicio.setHours(hInicio, mInicio, 0, 0);
 
-            return itemTimeInMinutes > selectedTimeInMinutes; // Solo horas mayores
-        }).map(item => ({
-            label: item.label ?? "", // Fallback to an empty string if label is undefined
-            value: item.value
-        }));
+  const fin = new Date();
+  fin.setHours(hFin, mFin, 0, 0);
 
-        return {
-            label: group.label,
-            items: filteredItems
-        };
-    }).filter(group => group.items.length > 0);
-}
+  const rangos: { label: string; value: string }[] = [];
 
+  const minutosPorRango = rangoEnHoras * 60;
 
+  while (inicio < fin) {
+    const siguiente = new Date(inicio);
+    siguiente.setMinutes(inicio.getMinutes() + minutosPorRango);
 
-export function generarRangoHoras(horaInicio: string, horaFin: string): { label: string; value: string }[] {
-    const [hInicio, mInicio] = horaInicio.split(':').map(Number);
-    const [hFin, mFin] = horaFin.split(':').map(Number);
+    // Evita incluir rangos que sobrepasen la hora de fin
+    if (siguiente > fin) break;
 
-    const inicio = new Date();
-    inicio.setHours(hInicio, mInicio, 0, 0);
+    const horaDesde = inicio.toTimeString().slice(0, 5);
+    const horaHasta = siguiente.toTimeString().slice(0, 5);
 
-    const fin = new Date();
-    fin.setHours(hFin, mFin, 0, 0);
+    const rangoTexto = `${horaDesde} - ${horaHasta}`;
+    rangos.push({ label: rangoTexto, value: rangoTexto });
 
-    const rangos: { label: string; value: string }[] = [];
+    inicio.setMinutes(inicio.getMinutes() + minutosPorRango);
+  }
 
-    while (inicio < fin) {
-        const siguiente = new Date(inicio);
-        siguiente.setHours(inicio.getHours() + 1);
-
-        const horaDesde = inicio.toTimeString().slice(0, 5);
-        const horaHasta = siguiente.toTimeString().slice(0, 5);
-
-        rangos.push({ label: `${horaDesde} - ${horaHasta}`, value: `${horaDesde} - ${horaHasta}` });
-
-        inicio.setHours(inicio.getHours() + 1);
-    }
-
-    return rangos;
+  return rangos;
 }
 
 export const formatForChart = (input: { rol: string; total: number }[]): { roles: string[]; data: number[] } => {
