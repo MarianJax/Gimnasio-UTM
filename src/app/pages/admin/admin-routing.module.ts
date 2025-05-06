@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
-import { hasRolesGuard } from '../../guards/has-roles.guard';
 
 const routes: Routes = [
   {
@@ -9,11 +8,11 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
-       canActivate: [hasRolesGuard],
-        canLoad: [hasRolesGuard],
-       data: {
-       expectedRole: ['ADMINISTRADOR GYM', 'ENTRENADOR']
-        },
+        //  canActivate: [hasRolesGuard],
+        //   canLoad: [hasRolesGuard],
+        //  data: {
+        //  expectedRole: ['ADMINISTRADOR GYM', 'ENTRENADOR']
+        //   },
         path: '',
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
       },

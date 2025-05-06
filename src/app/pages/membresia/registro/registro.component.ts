@@ -40,6 +40,11 @@ export class RegistroComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+
+    if (!this.sharedService.getParametro()) {
+      this.router.navigate(['/membresia']);
+    }
+
     this.membresiaForm.get('fecha')?.valueChanges.subscribe((value: Date) => {
       this.selectedFecha = value;
       this.consultarHorarios(value, this.selectedJornada as string);
@@ -51,10 +56,12 @@ export class RegistroComponent implements OnInit {
   }
 
   consultarHorarios(fecha: Date, jornada?: string) {
+    const usuario = this.authService.getUserData();
     if (fecha) {
       this.horarioService
-        .obtenerHorariosPorFechaYJornada(fecha, jornada)
+        .obtenerHorariosPorFechaYJornada(fecha, usuario.id, jornada)
         .subscribe((data: Horario[]) => {
+          console.log('horarios', data);
           this.agendamientosService.obtenerAgendamientosPorFecha(fecha).subscribe((agendamientos) => {
             this.horarios = this.transformarHorarios(data, agendamientos);
           });
@@ -105,9 +112,11 @@ export class RegistroComponent implements OnInit {
 
   agendar({ hora_fin, hora_inicio }: any) {
     let membresia = this.sharedService.getParametro();
+    console.log('membresia', membresia, hora_fin, hora_inicio);
+    return;
 
     if (membresia && this.selectedFecha) {
-      console.log();
+      console.log('membresia', membresia, hora_fin, hora_inicio);
       this.agendamientosService.agregarAgendamientoMembresia({
         fecha: this.selectedFecha,
         membresia, hora_fin,
