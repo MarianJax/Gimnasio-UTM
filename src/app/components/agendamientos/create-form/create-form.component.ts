@@ -72,11 +72,7 @@ export class CreateFormComponent implements AfterViewInit {
     }
   }
 
-  goToRutinas() {
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/']);
-    });
-  }
+  
 
   prev() {
     if (this.activeIndex > 0) {
