@@ -86,6 +86,8 @@
     }
 
     button[label="Siguiente"],
+    button[label="Finalizar"],
+
     button[label="Agendar"] {
         max-width: min-content;
         background: transparent;
@@ -122,6 +124,7 @@
 
         button[label="Siguiente"],
         button[label="Agendar"],
+        button[label="Finalizar"],
         button[label="Regresar"] {
             padding: 7px 14px;
             font-size: 12px;

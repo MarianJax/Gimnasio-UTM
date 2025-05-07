@@ -144,6 +144,12 @@ section {
       .cont__sections {
         max-width: 100% !important;
         width: 100%;
+        .content {
+          padding: 25px 30px !important;
+          article {
+            padding: 10px 5px !important;
+          }
+        }
       }
     }
   }

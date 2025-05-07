@@ -113,7 +113,7 @@ export class RegistroComponent implements OnInit {
   agendar({ hora_fin, hora_inicio }: any) {
     let membresia = this.sharedService.getParametro();
     console.log('membresia', membresia, hora_fin, hora_inicio);
-    return;
+  
 
     if (membresia && this.selectedFecha) {
       console.log('membresia', membresia, hora_fin, hora_inicio);

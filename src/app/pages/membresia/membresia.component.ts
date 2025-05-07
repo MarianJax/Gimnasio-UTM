@@ -51,14 +51,20 @@ export class MembresiaComponent implements OnInit {
       .subscribe((data) => {
         this.agendamientosInasistidos = [];
         this.agendamientosPendientes = [];
-        data.map((agendamiento: any) => {
-          if (agendamiento.asistio === null) {
-            console.log('Inasistidos', agendamiento);
-            this.agendamientosPendientes.push(agendamiento);
+        data.map(({ asistio, hora_inicio, hora_fin, fecha }: any) => {
+          if (asistio === null) {
+            this.agendamientosPendientes.push({
+              hora_inicio: hora_inicio.slice(0, 5),
+              hora_fin: hora_fin.slice(0, 5),
+              fecha: fecha as Date,
+            });
           }
-          if (agendamiento.asistio === false) {            
-            console.log('Assitidos',agendamiento);
-            this.agendamientosInasistidos.push(agendamiento);
+          if (asistio === false) {
+            this.agendamientosInasistidos.push({
+              hora_inicio: hora_inicio.slice(0, 5),
+              hora_fin: hora_fin.slice(0, 5),
+              fecha: fecha as Date,
+            });
           }
         });
       });
