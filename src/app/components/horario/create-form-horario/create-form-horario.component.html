@@ -5,7 +5,7 @@
     <label for="rol_id" class="">Roles</label>
     <p-dropdown formControlName="rol_id" optionLabel="name" [options]="roles" placeholder="Seleccione un rol"
       [ngClass]="{ 'ng-dirty ng-invalid': horarioForm.getError('rol_id') }" />
-    <small *ngIf="horarioForm.getError('rol_id')" class="ng-invalid text-red-600">
+    <small *ngIf="horarioForm.getError('rol_id')" class="ng-invalid text-red-600 block">
       {{ horarioForm.getError("rol_id") }}
     </small>
   </div>
@@ -14,7 +14,7 @@
     <p-multiSelect formControlName="dia_semana" optionLabel="name" placeholder="Seleccione los días"
       [showEmptyMessage]="true" emptyMessage="No hay días disponibles"
       [ngClass]="{'ng-dirty ng-invalid': horarioForm.getError('dia_semana')}" [options]="dias" />
-    <small *ngIf="horarioForm.getError('dia_semana')" class="ng-invalid text-red-600">
+    <small *ngIf="horarioForm.getError('dia_semana')" class="ng-invalid text-red-600 block">
       {{ horarioForm.getError("dia_semana") }}
     </small>
   </div>
@@ -22,7 +22,7 @@
     <label for="hora_inicio" class="">Hora de ingreso</label>
     <p-dropdown formControlName="hora_inicio" optionLabel="name" [options]="horas" placeholder="Seleccione una hora"
       [ngClass]="{ 'ng-dirty ng-invalid': horarioForm.getError('hora_inicio') }" />
-    <small *ngIf="horarioForm.getError('hora_inicio')" class="ng-invalid text-red-600">
+    <small *ngIf="horarioForm.getError('hora_inicio')" class="ng-invalid text-red-600 block">
       {{ horarioForm.getError("hora_inicio") }}
     </small>
   </div>
@@ -30,7 +30,7 @@
     <label for="hora_fin" class="">Hora de salida</label>
     <p-dropdown formControlName="hora_fin" optionLabel="name" [options]="horasSalida" placeholder="Seleccione una hora"
       [ngClass]="{ 'ng-dirty ng-invalid': horarioForm.getError('hora_fin') }" />
-    <small *ngIf="horarioForm.getError('hora_fin')" class="ng-invalid text-red-600">
+    <small *ngIf="horarioForm.getError('hora_fin')" class="ng-invalid text-red-600 block">
       {{ horarioForm.getError("hora_fin") }}
     </small>
   </div>
@@ -38,7 +38,7 @@
     <label for="jornada" class="">Jornada</label>
     <p-dropdown formControlName="jornada" optionLabel="name" [options]="jornada" placeholder="Seleccione una hora"
       [ngClass]="{ 'ng-dirty ng-invalid': horarioForm.getError('jornada') }" />
-    <small *ngIf="horarioForm.getError('jornada')" class="ng-invalid text-red-600">
+    <small *ngIf="horarioForm.getError('jornada')" class="ng-invalid text-red-600 block">
       {{ horarioForm.getError("jornada") }}
     </small>
   </div>

@@ -81,7 +81,7 @@
             <label for="rol_id" class="">Nombre del rol</label>
             <p-dropdown id="rol_id" formControlName="rol_id" optionLabel="name" [options]="Roles"
                 placeholder="Seleccione un rol" [ngClass]="{'ng-dirty ng-invalid': upRolForm.getError('rol_id')}" />
-            <small *ngIf="upRolForm.getError('rol_id')" class="ng-invalid text-red-600">
+            <small *ngIf="upRolForm.getError('rol_id')" class="ng-invalid text-red-600 block">
                 {{ upRolForm.getError('rol_id') }}
             </small>
         </div>
@@ -90,7 +90,7 @@
             <p-inputNumber inputId="pago_diario" placeholder=""
                 [ngClass]="{'ng-dirty ng-invalid': upRolForm.getError('pago_diario')}" formControlName="pago_diario"
                 mode="currency" currency="USD" locale="en-US" [min]="0.10" />
-            <small *ngIf="upRolForm.getError('pago_diario')" class="ng-invalid text-red-600">
+            <small *ngIf="upRolForm.getError('pago_diario')" class="ng-invalid text-red-600 block">
                 {{ upRolForm.getError('pago_diario') }}
             </small>
         </div>
@@ -99,7 +99,7 @@
             <p-inputNumber inputId="pago_semanal" placeholder=""
                 [ngClass]="{'ng-dirty ng-invalid': upRolForm.getError('pago_semanal')}" formControlName="pago_semanal"
                 mode="currency" currency="USD" locale="en-US" [min]="0.10" />
-            <small *ngIf="upRolForm.getError('pago_semanal')" class="ng-invalid text-red-600">
+            <small *ngIf="upRolForm.getError('pago_semanal')" class="ng-invalid text-red-600 block">
                 {{ upRolForm.getError('pago_semanal') }}
             </small>
         </div>
@@ -108,7 +108,7 @@
             <p-inputNumber inputId="pago_mensual" placeholder=""
                 [ngClass]="{'ng-dirty ng-invalid': upRolForm.getError('pago_mensual')}" formControlName="pago_mensual"
                 mode="currency" currency="USD" locale="en-US" [min]="0.10" />
-            <small *ngIf="upRolForm.getError('pago_mensual')" class="ng-invalid text-red-600">
+            <small *ngIf="upRolForm.getError('pago_mensual')" class="ng-invalid text-red-600 block">
                 {{ upRolForm.getError('pago_mensual') }}
             </small>
         </div>
@@ -117,7 +117,7 @@
             <p-inputNumber inputId="tiempo" placeholder=""
                 [ngClass]="{'ng-dirty ng-invalid': upRolForm.getError('tiempo')}" formControlName="tiempo"
                 mode="decimal" [min]="0" [useGrouping]="false" />
-            <small *ngIf="upRolForm.getError('tiempo')" class="ng-invalid text-red-600">
+            <small *ngIf="upRolForm.getError('tiempo')" class="ng-invalid text-red-600 block">
                 {{ upRolForm.getError('tiempo') }}
             </small>
         </div>
@@ -125,7 +125,7 @@
             <label for="cupo" class="">Cupo</label>
             <p-inputNumber inputId="cupo" placeholder="" [ngClass]="{'ng-dirty ng-invalid': upRolForm.getError('cupo')}"
                 formControlName="cupo" mode="decimal" [min]="0" [useGrouping]="false" />
-            <small *ngIf="upRolForm.getError('cupo')" class="ng-invalid text-red-600">
+            <small *ngIf="upRolForm.getError('cupo')" class="ng-invalid text-red-600 block">
                 {{ upRolForm.getError('cupo') }}
             </small>
         </div>

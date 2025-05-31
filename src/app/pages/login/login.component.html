@@ -2,7 +2,7 @@
 <div class="container-loading" *ngIf="cargar">
   <div class="transparent-div-loading"></div>
   <div class="centered-div-loading">
-      <img src="../../../assets/images/loading.gif" alt="" style="width: 550px; height: 300px;">
+    <img src="../../../assets/images/loading.gif" alt="" style="width: 550px; height: 300px;">
   </div>
 </div>
 
@@ -35,7 +35,7 @@
                 style="width:100%; padding: 10px 14px;" formControlName="correo" [ngClass]="{
                     'ng-dirty ng-invalid': usuarioForm.getError('correo')
                   }" />
-              <small *ngIf="usuarioForm.getError('correo')" class="ng-invalid text-red-600">
+              <small *ngIf="usuarioForm.getError('correo')" class="ng-invalid text-red-600 block">
                 {{ usuarioForm.getError('correo') }}
               </small>
             </div>
@@ -46,7 +46,7 @@
                 inputStyleClass="w-full" formControlName="contrasena" [ngClass]="{
                   'ng-dirty ng-invalid': usuarioForm.getError('contrasena')
                 }"></p-password>
-              <small *ngIf="usuarioForm.getError('contrasena')" class="ng-invalid text-red-600">
+              <small *ngIf="usuarioForm.getError('contrasena')" class="ng-invalid text-red-600 block">
                 {{ usuarioForm.getError('contrasena') }}
               </small>
             </div>

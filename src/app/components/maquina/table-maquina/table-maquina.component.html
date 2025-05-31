@@ -17,8 +17,8 @@
             <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar..." />
           </span>
         </div>
-        <p-button *ngIf="authorize" [outlined]="true" severity="success" (click)="goToRegistrar()" label="Agregar máquina"
-          icon="pi pi-plus" class="mr-2 ml-auto" />
+        <p-button *ngIf="authorize" [outlined]="true" severity="success" (click)="goToRegistrar()"
+          label="Agregar máquina" icon="pi pi-plus" class="mr-2 ml-auto" />
 
       </div>
     </ng-template>
@@ -103,7 +103,7 @@
       <label for="cantidad" class="">Cantidad</label>
       <input id="cantidad" formControlName="cantidad" type="number" placeholder=""
         [ngClass]="{'ng-dirty ng-invalid': maquinaForm.getError('cantidad')}" pInputText />
-      <small *ngIf="maquinaForm.getError('cantidad')" class="ng-invalid text-red-600">
+      <small *ngIf="maquinaForm.getError('cantidad')" class="ng-invalid text-red-600 block">
         {{ maquinaForm.getError('cantidad') }}
       </small>
     </div>
@@ -111,7 +111,7 @@
       <label for="nombre" class="">Nombre maquina</label>
       <input id="nombre" type="text" placeholder="" [ngClass]="{'ng-dirty ng-invalid': maquinaForm.getError('nombre')}"
         formControlName="nombre" pInputText />
-      <small *ngIf="maquinaForm.getError('nombre')" class="ng-invalid text-red-600">
+      <small *ngIf="maquinaForm.getError('nombre')" class="ng-invalid text-red-600 block">
         {{ maquinaForm.getError('nombre') }}
       </small>
     </div>
@@ -119,7 +119,7 @@
       <label for="estado" class="">Estado</label>
       <p-dropdown formControlName="estado" optionLabel="name" [options]="estadosOpt" placeholder="Seleccione el estado"
         [ngModel]="estadosOpt[0]" [ngClass]="{'ng-dirty ng-invalid': maquinaForm.getError('estado')}" />
-      <small *ngIf="maquinaForm.getError('estado')" class="ng-invalid text-red-600">
+      <small *ngIf="maquinaForm.getError('estado')" class="ng-invalid text-red-600 block">
         {{ maquinaForm.getError('estado') }}
       </small>
     </div>
@@ -127,7 +127,7 @@
       <label for="fecha_compra" class="">Fecha Registro</label>
       <p-calendar appendTo="body" id="fecha_compra" dateFormat="dd-mm-yy" formControlName="fecha_compra"
         [ngClass]="{'ng-dirty ng-invalid': maquinaForm.getError('fecha_compra')}" />
-      <small *ngIf="maquinaForm.getError('fecha_compra')" class="ng-invalid text-red-600">
+      <small *ngIf="maquinaForm.getError('fecha_compra')" class="ng-invalid text-red-600 block">
         {{ maquinaForm.getError('fecha_compra') }}
       </small>
     </div>
@@ -135,7 +135,7 @@
       <label for="descripcion" class="">Descripción</label>
       <textarea id="descripcion" pInputTextarea [autoResize]="true" formControlName="descripcion" rows="3"
         [ngClass]="{'ng-dirty ng-invalid': maquinaForm.getError('descripcion')}"></textarea>
-      <small *ngIf="maquinaForm.getError('descripcion')" class="ng-invalid text-red-600">
+      <small *ngIf="maquinaForm.getError('descripcion')" class="ng-invalid text-red-600 block">
         {{ maquinaForm.getError('descripcion') }}
       </small>
     </div>
