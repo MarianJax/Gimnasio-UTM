@@ -145,6 +145,13 @@ form {
     }
 }
 
+.email__required::after {
+    content: '* Campo requerido';
+    display: block;
+    color: red;
+    font-size: 12px;
+}
+
 
 @media screen and (min-width: 576px) {
     form {

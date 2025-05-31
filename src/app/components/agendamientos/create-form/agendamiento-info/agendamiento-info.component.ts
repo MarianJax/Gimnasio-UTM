@@ -21,6 +21,21 @@ export interface Estados {
   code: string;
 }
 
+interface HorarioType {
+  distribucion: DistribucionType
+  hora_fin: string
+  hora_inicio: string
+  jornada: string
+}
+
+interface DistribucionType {
+  cupo: number
+  pago_diario: string
+  pago_mensual: string
+  pago_semanal: string
+  tiempo: number
+}
+
 @Component({
   selector: 'app-agendamiento-info',
   templateUrl: './agendamiento-info.component.html',
@@ -36,13 +51,10 @@ export class AgendamientoInfoComponent implements OnInit {
 
   horas!: SelectItemGroup[];
 
-  fechaAgendamiento: string = '';
-
   constructor(private fb: FormBuilder, private horarioService: HorarioService, private authService: AuthService, private institucionService: InstitucionService) {
     const date = new Date();
-    this.fechaAgendamiento = capitalizeFirstLetter(formatDate(date));
 
-    this.obtenerHorarios(this.authService.getUserData().rol, this.fechaAgendamiento);
+    this.obtenerHorarios(this.authService.getUserData().rol, date);
 
     this.agendarForm = this.fb.group({
       fecha: new FormControl<Date | null>({ value: date, disabled: false }, [
@@ -91,21 +103,30 @@ export class AgendamientoInfoComponent implements OnInit {
     });
   }
 
-  obtenerHorarios(rol: string, fecha: string) {
-    this.horarioService.obtenerHorarioPorRolYDia(rol, fecha).subscribe({
-      next: (horario) => {
-        console.log(horario);
+  obtenerHorarios(rol: string, fecha: Date) {
+    const getDay = capitalizeFirstLetter(formatDate(fecha));
+    this.horarioService.obtenerHorarioPorRolYDia(rol, getDay, fecha.toISOString()).subscribe({
+      next: ({ horarios, agendamientos }: {
+        horarios: HorarioType[];
+        agendamientos: { agendamiento_hora_inicio: string, total: string }[];
+      }) => {
         this.horas = [];
-        if (!horario.hora_inicio || !horario.hora_fin) return;
-        const label = horario.jornada === 'Matutina' ? 'Mañana' : 'Tarde';
-        this.horas.push({
-          label,
-          items: generarRangoHoras(
-            formatTime(horario.hora_inicio as string),
-            formatTime(horario.hora_fin as string),
-            Number(horario.distribucion.tiempo)
-          ),
-        });
+        console.log(agendamientos, 'agendamientos')
+        if (horarios.length < 1) return;
+        horarios.forEach((horario: HorarioType) => {
+          console.log(horario);
+          const label = horario.jornada === 'Matutina' ? 'Mañana' : 'Tarde';
+          this.horas.push({
+            label,
+            items: generarRangoHoras(
+              formatTime(horario.hora_inicio as string),
+              formatTime(horario.hora_fin as string),
+              Number(horario.distribucion.tiempo),
+              agendamientos,
+              horario.distribucion.cupo
+            ),
+          });
+        })
       },
       error: (err) => {
         console.error(err);
@@ -115,8 +136,7 @@ export class AgendamientoInfoComponent implements OnInit {
 
   ngOnInit() {
     this.agendarForm.get('fecha')?.valueChanges.subscribe((val) => {
-      this.fechaAgendamiento = capitalizeFirstLetter(formatDate(val));
-      this.obtenerHorarios(this.authService.getUserData().rol, this.fechaAgendamiento);
+      this.obtenerHorarios(this.authService.getUserData().rol, val as Date);
     });
 
     this.agendarForm.get('facultad')?.valueChanges.subscribe((val) => {

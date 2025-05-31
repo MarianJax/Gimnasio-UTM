@@ -6,26 +6,27 @@
         <h4 class="sm:mt-3 mt-1"><img src="assets/icons/logo-banco.svg" class="sm:h-2rem h-auto w-auto" alt=""></h4>
         <div class="grid nested-grid w-full m-0" style="gap: 10px;">
             <table style="width: 100%; color: #000;">
-                <tr class="sm:table-row sm:flex-nowrap flex flex-wrap sm:h-2rem h-auto sm:text-base text-sm">
+                <tr class="sm:table-row sm:flex-nowrap flex flex-wrap mb-1 h-auto sm:text-base text-sm">
                     <th class="sm:w-18rem text-left">Numero de cuenta:</th>
                     <td style="width: -webkit-fill-available;">2100090912</td>
                 </tr>
-                <tr class="sm:table-row sm:flex-nowrap flex flex-wrap sm:h-2rem h-auto sm:text-base text-sm">
+                <tr class="sm:table-row sm:flex-nowrap flex flex-wrap mb-1 h-auto sm:text-base text-sm">
                     <th class="sm:w-18rem text-left">Numero de RUC:</th>
                     <td style="width: -webkit-fill-available;">1360084120001</td>
                 </tr>
-                <tr class="sm:table-row sm:flex-nowrap flex flex-wrap sm:h-2rem h-auto sm:text-base text-sm">
+                <tr class="sm:table-row sm:flex-nowrap flex flex-wrap mb-1 h-auto sm:text-base text-sm">
                     <th class="sm:w-18rem text-left">Nombre de Beneficiario:</th>
                     <td style="width: -webkit-fill-available;">Empresa Pública de Servicio Generales UTM</td>
                 </tr>
-                <tr class="sm:table-row flex sm:flex-nowrap flex-wrap sm:h-5rem h-auto sm:text-base text-sm">
-                    <th class="sm:w-18rem text-left inline">Correo Electrónico:</th>
-                    <td style="width: -webkit-fill-available;">
-                        <ul class="m-0" style="padding: 0 0 0 1rem; width: -webkit-fill-available;">
-                            <li style="width: -webkit-fill-available;">emserutm&#64;gmail.com</li>
-                            <li style="width: -webkit-fill-available;">facturacionemserving&#64;gmail.com</li>
+                <tr class="sm:table-row flex sm:flex-nowrap flex-wrap mb-1 h-auto sm:text-base text-sm">
+                    <th class="sm:w-18rem text-left">Correo Electrónico:</th>
+                    <td class="email__required" style="width: -webkit-fill-available;">emserutm&#64;gmail.com
+                        <!-- <ul class="m-0" style="padding: 0 0 0 1rem; width: -webkit-fill-available;">
+                            <li class="email__required" style="width: -webkit-fill-available;">
+                            </li>
+                             <li style="width: -webkit-fill-available;">facturacionemserving&#64;gmail.com</li>
                             <li style="width: -webkit-fill-available;">tics.emservingutm&#64;gmail.com</li>
-                        </ul>
+                        </ul> -->
                     </td>
                 </tr>
             </table>
@@ -39,7 +40,7 @@
             placeholder="Seleccione el metodo de pago" [ngClass]="{
                 'ng-dirty ng-invalid': pagoForm.getError('metodo_pago')
               }" appendTo="body" />
-        <small *ngIf="pagoForm.getError('metodo_pago')" class="ng-invalid text-red-600">
+        <small *ngIf="pagoForm.getError('metodo_pago')" class="ng-invalid text-red-600 block">
             {{ pagoForm.getError("metodo_pago") }}
         </small>
     </div>
@@ -49,7 +50,7 @@
             formControlName="monto" mode="currency" currency="USD" locale="en-US" [min]="0.10" [ngClass]="{
                     'ng-dirty ng-invalid': pagoForm.getError('monto')
                   }" />
-        <small *ngIf="pagoForm.getError('monto')" class="ng-invalid text-red-600">
+        <small *ngIf="pagoForm.getError('monto')" class="ng-invalid text-red-600 block">
             {{ pagoForm.getError("monto") }}
         </small>
     </div>
@@ -64,7 +65,7 @@
                     }}</span>
             </span>
         </label>
-        <small *ngIf="pagoForm.getError('evidencia_pago')" class="ng-invalid text-red-600">
+        <small *ngIf="pagoForm.getError('evidencia_pago')" class="ng-invalid text-red-600 block">
             {{ pagoForm.getError('evidencia_pago') }}
         </small>
 

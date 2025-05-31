@@ -6,7 +6,7 @@
             placeholder="Seleccione el departamento" [ngClass]="{
                 'ng-dirty ng-invalid': agendarForm.getError('departamento')
               }" appendTo="body" />
-        <small *ngIf="agendarForm.getError('departamento')" class="ng-invalid text-red-600">
+        <small *ngIf="agendarForm.getError('departamento')" class="ng-invalid text-red-600 block">
             {{ agendarForm.getError("departamento") }}
         </small>
     </div>
@@ -17,7 +17,7 @@
                 placeholder="Seleccione la facultad" [ngClass]="{
                     'ng-dirty ng-invalid': agendarForm.getError('facultad')
                   }" appendTo="body" />
-            <small *ngIf="agendarForm.getError('facultad')" class="ng-invalid text-red-600">
+            <small *ngIf="agendarForm.getError('facultad')" class="ng-invalid text-red-600 block">
                 {{ agendarForm.getError("facultad") }}
             </small>
         </div>
@@ -27,7 +27,7 @@
                 placeholder="Seleccione la carrera" [ngClass]="{
                     'ng-dirty ng-invalid': agendarForm.getError('carrera')
                   }" appendTo="body" />
-            <small *ngIf="agendarForm.getError('carrera')" class="ng-invalid text-red-600">
+            <small *ngIf="agendarForm.getError('carrera')" class="ng-invalid text-red-600 block">
                 {{ agendarForm.getError("carrera") }}
             </small>
         </div>
@@ -36,7 +36,7 @@
         <label for="fecha" class="">Fecha Registro {{ agendarForm.getError('fecha') }}</label>
         <p-calendar appendTo="body" id="fecha" dateFormat="dd-mm-yy" formControlName="fecha"
             [ngClass]="{'ng-dirty ng-invalid': agendarForm.getError('fecha')}" />
-        <small *ngIf="agendarForm.getError('fecha')" class="ng-invalid text-red-600">
+        <small *ngIf="agendarForm.getError('fecha')" class="ng-invalid text-red-600 block">
             {{ agendarForm.getError('fecha') }}
         </small>
     </div>
@@ -49,8 +49,14 @@
                     <span>{{ group.label }}</span>
                 </div>
             </ng-template>
+            <ng-template let-item pTemplate="item">
+                <div class="flex flex-column">
+                    <span style="color: #000;">{{ item.label }}</span>
+                    <span style="font-size: 12px; color: #535353;">{{ item.title }}</span>
+                </div>
+            </ng-template>
         </p-dropdown>
-        <small *ngIf="agendarForm.getError('hora')" class="ng-invalid text-red-600">
+        <small *ngIf="agendarForm.getError('hora')" class="ng-invalid text-red-600 block">
             {{ agendarForm.getError('hora') }}
         </small>
     </div>
