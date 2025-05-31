@@ -1,4 +1,4 @@
-import { SelectItemGroup } from "primeng/api";
+import { SelectItem, SelectItemGroup } from "primeng/api";
 
 export const formatDate = (date: Date): string => {
     const weekday = new Intl.DateTimeFormat('es-ec', { weekday: "long" }).format(date);
@@ -48,38 +48,40 @@ export const filterHoursGreaterThanCurrentTime = (hours: SelectItemGroup[]): { l
 }
 
 export function generarRangoHoras(horaInicio: string, horaFin: string,
-    rangoEnHoras: number // valor por defecto de 1 hora
-  ): { label: string; value: string }[] {
+    rangoEnHoras: number, agendamientos: { agendamiento_hora_inicio: string, total: string }[], cupos: number
+): SelectItem[] {
     const [hInicio, mInicio] = horaInicio.split(":").map(Number);
-  const [hFin, mFin] = horaFin.split(":").map(Number);
+    const [hFin, mFin] = horaFin.split(":").map(Number);
 
-  const inicio = new Date();
-  inicio.setHours(hInicio, mInicio, 0, 0);
+    const inicio = new Date();
+    inicio.setHours(hInicio, mInicio, 0, 0);
 
-  const fin = new Date();
-  fin.setHours(hFin, mFin, 0, 0);
+    const fin = new Date();
+    fin.setHours(hFin, mFin, 0, 0);
 
-  const rangos: { label: string; value: string }[] = [];
+    const rangos: SelectItem[] = [];
 
-  const minutosPorRango = rangoEnHoras * 60;
+    const minutosPorRango = rangoEnHoras * 60;
 
-  while (inicio < fin) {
-    const siguiente = new Date(inicio);
-    siguiente.setMinutes(inicio.getMinutes() + minutosPorRango);
+    while (inicio < fin) {
+        const siguiente = new Date(inicio);
+        siguiente.setMinutes(inicio.getMinutes() + minutosPorRango);
 
-    // Evita incluir rangos que sobrepasen la hora de fin
-    if (siguiente > fin) break;
+        // Evita incluir rangos que sobrepasen la hora de fin
+        if (siguiente > fin) break;
 
-    const horaDesde = inicio.toTimeString().slice(0, 5);
-    const horaHasta = siguiente.toTimeString().slice(0, 5);
+        const horaDesde = inicio.toTimeString().slice(0, 5);
+        const horaHasta = siguiente.toTimeString().slice(0, 5);
 
-    const rangoTexto = `${horaDesde} - ${horaHasta}`;
-    rangos.push({ label: rangoTexto, value: rangoTexto });
+        const rangoTexto = `${horaDesde} - ${horaHasta}`;
+        const disponibilidad = cupos - Number(agendamientos?.find(a => a.agendamiento_hora_inicio === `${horaDesde}:00`)?.total ?? 0)
+        if (disponibilidad >= 1) {
+            rangos.push({ label: rangoTexto, value: rangoTexto, title: `${disponibilidad} cupos disponibles` });
+        }
+        inicio.setMinutes(inicio.getMinutes() + minutosPorRango);
+    }
 
-    inicio.setMinutes(inicio.getMinutes() + minutosPorRango);
-  }
-
-  return rangos;
+    return rangos;
 }
 
 export const formatForChart = (input: { rol: string; total: number }[]): { roles: string[]; data: number[] } => {
