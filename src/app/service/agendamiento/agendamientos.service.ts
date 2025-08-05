@@ -36,6 +36,5 @@ export class AgendamientosService {
   agregarAgendamientoMembresia(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/membresia`, data);
   }
-
 }
 

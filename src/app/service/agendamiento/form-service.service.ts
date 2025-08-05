@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -8,7 +7,6 @@ export class FormService {
   // Datos de agendamiento
   private agendamientoData = new BehaviorSubject<any>({})
   agendamientoData$ = this.agendamientoData.asObservable()
-
   // Datos de pago
   private pagoData = new BehaviorSubject<any>({})
   pagoData$ = this.pagoData.asObservable()
