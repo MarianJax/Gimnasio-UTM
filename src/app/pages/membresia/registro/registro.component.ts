@@ -55,11 +55,11 @@ export class RegistroComponent implements OnInit {
     });
   }
 
-  consultarHorarios(fecha: Date, jornada?: string) {
+  consultarHorarios(fecha: Date, jornada?: string,) {
     const usuario = this.authService.getUserData();
     if (fecha) {
       this.horarioService
-        .obtenerHorariosPorFechaYJornada(fecha, usuario.id, jornada)
+        .obtenerHorariosPorFechaYJornada(fecha, usuario.id, usuario.rol ,jornada)
         .subscribe((data: Horario[]) => {
           console.log('horarios', data);
           this.agendamientosService.obtenerAgendamientosPorFecha(fecha).subscribe((agendamientos) => {

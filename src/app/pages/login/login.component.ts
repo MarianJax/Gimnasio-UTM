@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
       contrasena: [''],
     });
   }
-
   AutenticarDatos() {
     this.cargar = true;
     const usuario = this.usuarioForm.value;
@@ -57,7 +56,6 @@ export class LoginComponent implements OnInit {
             const match = err.error.response.match(
               /El usuario \[<b>(.*?)<\/b>\],No existe!/
             );
-
             this.usuarioForm.setErrors({
               correo: `El usuario ${match[1]}, No existe!`,
             });
@@ -66,7 +64,6 @@ export class LoginComponent implements OnInit {
               contrasena: 'La contraseña es incorrecta',
             });
           }
-
           return;
         }
         this.usuarioForm.setErrors(err.error.errors);
