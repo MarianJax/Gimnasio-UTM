@@ -68,7 +68,7 @@ export function generarRangoHoras(horaInicio: string, horaFin: string,
         siguiente.setMinutes(inicio.getMinutes() + minutosPorRango);
 
         // Evita incluir rangos que sobrepasen la hora de fin
-        if (siguiente > fin) break;
+        if (siguiente > fin || inicio.getHours() < (new Date()).getHours() ) break;
 
         const horaDesde = inicio.toTimeString().slice(0, 5);
         const horaHasta = siguiente.toTimeString().slice(0, 5);
