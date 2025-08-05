@@ -111,7 +111,7 @@ export class AgendamientoInfoComponent implements OnInit {
         agendamientos: { agendamiento_hora_inicio: string, total: string }[];
       }) => {
         this.horas = [];
-        console.log(agendamientos, 'agendamientos')
+        console.log(agendamientos, 'agendamientos') 
         if (horarios.length < 1) return;
         horarios.forEach((horario: HorarioType) => {
           console.log(horario);
