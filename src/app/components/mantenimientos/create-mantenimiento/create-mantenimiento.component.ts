@@ -122,7 +122,7 @@ export class CreateMantenimientoComponent implements OnInit {
               observaciones: null,
             });
             this.addedMantenimiento.emit();
-            this.messageService.add({ severity: 'success', summary: 'Ejercicio registrado', detail: 'Ejercicio registrado con éxito' });
+            this.messageService.add({ severity: 'success', summary: 'Equipo Registrado', detail: 'Equipo Registrado ' });
             this.hideDialog();
           },
           error: (error: any) => {

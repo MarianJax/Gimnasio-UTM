@@ -15,6 +15,7 @@ import {
 import { AuthService } from '../../../../pages/login/auth.service';
 import { HorarioService } from '../../../../service/horarios/horario.service';
 import { InstitucionService } from '../../../../service/institucion/institucion.service';
+import { MembresiaService } from '../../../../service/membresias/membresia.service';
 
 export interface Estados {
   name: string;
@@ -36,12 +37,17 @@ interface DistribucionType {
   tiempo: number
 }
 
+const FECHA_ACTUAL = new Date();
+
 @Component({
   selector: 'app-agendamiento-info',
   templateUrl: './agendamiento-info.component.html',
   styleUrls: ['./agendamiento-info.component.scss'],
 })
+
 export class AgendamientoInfoComponent implements OnInit {
+  minDate: Date = new Date();
+  maxDate: Date = FECHA_ACTUAL;
   agendarForm: FormGroup;
   INIT_DATA: any[] = [];
   facultades: Estados[] = [];
@@ -51,7 +57,7 @@ export class AgendamientoInfoComponent implements OnInit {
 
   horas!: SelectItemGroup[];
 
-  constructor(private fb: FormBuilder, private horarioService: HorarioService, private authService: AuthService, private institucionService: InstitucionService) {
+  constructor(private fb: FormBuilder, private serviceMembresia: MembresiaService, private horarioService: HorarioService, private authService: AuthService, private institucionService: InstitucionService) {
     const date = new Date();
 
     this.obtenerHorarios(this.authService.getUserData().rol, date);
@@ -123,7 +129,8 @@ export class AgendamientoInfoComponent implements OnInit {
               formatTime(horario.hora_fin as string),
               Number(horario.distribucion.tiempo),
               agendamientos,
-              horario.distribucion.cupo
+              horario.distribucion.cupo,
+              fecha
             ),
           });
         })
@@ -135,6 +142,30 @@ export class AgendamientoInfoComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    const user = this.authService.getUserData();
+    this.serviceMembresia
+      .obtenerMembresiaPorUsuario(user.id, new Date())
+      .subscribe({
+        next: (data) => {
+          this.minDate = new Date(FECHA_ACTUAL);
+          if (data) {
+            if (data.pagos.validacion_pago[0].estado === 'Pendiente') {
+              
+            } else if (data.pagos.validacion_pago[0].estado === 'Rechazado') {
+              
+            } else {
+              
+            }
+          } else {
+            this.maxDate = new Date();
+          }
+        },
+        error: (error) => {
+          console.error('Error al obtener membresías:', error);
+        },
+      });
+
     this.agendarForm.get('fecha')?.valueChanges.subscribe((val) => {
       this.obtenerHorarios(this.authService.getUserData().rol, val as Date);
     });
