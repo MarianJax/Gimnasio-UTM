@@ -149,14 +149,8 @@ export class AgendamientoInfoComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.minDate = new Date(FECHA_ACTUAL);
-          if (data) {
-            if (data.pagos.validacion_pago[0].estado === 'Pendiente') {
-              
-            } else if (data.pagos.validacion_pago[0].estado === 'Rechazado') {
-              
-            } else {
-              
-            }
+          if (data && data.pagos && data.pagos.validacion_pago && data.pagos.validacion_pago[0].estado==='Aprobado') {
+            this.maxDate = new Date(data.fecha_fin);            
           } else {
             this.maxDate = new Date();
           }

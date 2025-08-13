@@ -75,31 +75,25 @@ export function generarRangoHoras(
   fin.setHours(hFin, mFin, 0, 0);
 
   const rangos: SelectItem[] = [];
-
   const minutosPorRango = rangoEnHoras * 60;
 
   while (inicio < fin) {
     const siguiente = new Date(inicio);
-    siguiente.setMinutes(inicio.getMinutes() + minutosPorRango);
+    siguiente.setMinutes(inicio.getMinutes() + minutosPorRango); // Evita incluir rangos que sobrepasen la hora de fin
 
-    console.log(
-      fechaSelected.toDateString(),
-      'Fecha Seleccionada',
-      fecha_actual.toDateString(),
-      'actual',
-      fechaSelected.toDateString() > fecha_actual.toDateString(),
-      'fecha mayor'
-    );
-
-    // Evita incluir rangos que sobrepasen la hora de fin
-    if (siguiente > fin) break;
-
-    // Evita incluir rangos anteriores si la fecha seleccionada es menor a la actual
-    if (fechaSelected.toDateString() < fecha_actual.toDateString()) {
+    if (siguiente > fin) {
       break;
-    } else if (fechaSelected.toDateString() === fecha_actual.toDateString()) {
-      // Evita incluir rangos que sobrepasen la hora de fin del dia actual
-      if (inicio.getHours() < fecha_actual.getHours()) break;
+    } // Comprobación para horas en el mismo día
+
+    if (fechaSelected.toDateString() === fecha_actual.toDateString()) {
+      const inicioRango = new Date(fechaSelected);
+      inicioRango.setHours(inicio.getHours(), inicio.getMinutes(), 0, 0);
+
+      // Ahora, la condición verifica si el *final* del rango es en el pasado
+      if (siguiente < fecha_actual) {
+        inicio.setMinutes(inicio.getMinutes() + minutosPorRango);
+        continue;
+      }
     }
 
     const horaDesde = inicio.toTimeString().slice(0, 5);
@@ -113,6 +107,7 @@ export function generarRangoHoras(
           (a) => a.agendamiento_hora_inicio === `${horaDesde}:00`
         )?.total ?? 0
       );
+
     if (disponibilidad >= 1) {
       rangos.push({
         label: rangoTexto,
@@ -120,6 +115,7 @@ export function generarRangoHoras(
         title: `${disponibilidad} cupos disponibles`,
       });
     }
+
     inicio.setMinutes(inicio.getMinutes() + minutosPorRango);
   }
 
