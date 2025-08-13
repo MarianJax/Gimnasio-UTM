@@ -142,8 +142,7 @@ export class CreateFormComponent implements AfterViewInit {
           .crearAgendamiento({
             fecha: this.agendamientoComponent.agendarForm
               .get('fecha')
-              ?.getRawValue()
-              .toISOString(),
+              ?.getRawValue(),
             hora_inicio,
             hora_fin,
             distribucion: user.rol,

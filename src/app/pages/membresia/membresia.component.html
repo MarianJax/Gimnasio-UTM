@@ -15,7 +15,7 @@
       <div class="content">
         <header>
           <mage-icon  name="arrow-list" size="20px"></mage-icon>
-          Lista de Reservas
+          Lista de Reservas pendientes
         </header>
         <div class="flex gap-1 flex-column">
           <article class="flex" *ngFor="let agendamiento of agendamientosPendientes">
@@ -32,12 +32,12 @@
       <div class="content">
         <header>
           <mage-icon name="arrow-list" size="20px"></mage-icon>
-          Agendamientos
+          Agendamientos inasistidos
         </header>
         <div class="flex gap-1 flex-column">
           <article class="flex" *ngFor="let agendamiento of agendamientosInasistidos">
             <mage-icon color="black" name="arrow-right-01" class="upload-icon" size="18px" />
-            <span>{{ agendamiento.fecha | date : "dd/mm/yyyy" }}</span>
+            <span>{{ agendamiento.fecha | date : "dd/MM/yyyy" }}</span>
             <span style="margin: 0 auto">{{ agendamiento.hora_inicio }}</span>
             <span style="margin: 0 auto">{{ agendamiento.hora_fin }}</span>
             <span>{{ agendamiento.asistio === false ? 'No asistió' : '' }}</span>

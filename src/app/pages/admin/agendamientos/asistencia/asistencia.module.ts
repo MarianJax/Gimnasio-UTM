@@ -14,13 +14,10 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { TableAgendamientosComponent } from '../../../../components/agendamientos/table-agendamientos/table-agendamientos.component';
-
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
-  declarations: [
-    AsistenciaComponent,
-    TableAgendamientosComponent
-  ],
+  declarations: [AsistenciaComponent, TableAgendamientosComponent],
   imports: [
     CommonModule,
     IconModule,
@@ -32,10 +29,11 @@ import { TableAgendamientosComponent } from '../../../../components/agendamiento
     TableModule,
     RippleModule,
     ButtonModule,
-    ToastModule, 
+    ToastModule,
     DialogModule,
+    CalendarModule,
     InputTextModule,
-    TagModule
-  ]
+    TagModule,
+  ],
 })
-export class AsistenciaModule { }
+export class AsistenciaModule {}

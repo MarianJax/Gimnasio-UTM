@@ -60,7 +60,7 @@ export function generarRangoHoras(
   horaInicio: string,
   horaFin: string,
   rangoEnHoras: number,
-  agendamientos: { agendamiento_hora_inicio: string; total: string }[],
+  agendamientos: { hora_inicio: string; total: string }[],
   cupos: number,
   fechaSelected: Date
 ): SelectItem[] {
@@ -104,7 +104,7 @@ export function generarRangoHoras(
       cupos -
       Number(
         agendamientos?.find(
-          (a) => a.agendamiento_hora_inicio === `${horaDesde}:00`
+          (a) => a.hora_inicio === `${horaDesde}:00`
         )?.total ?? 0
       );
 

@@ -114,7 +114,7 @@ export class AgendamientoInfoComponent implements OnInit {
     this.horarioService.obtenerHorarioPorRolYDia(rol, getDay, fecha.toISOString()).subscribe({
       next: ({ horarios, agendamientos }: {
         horarios: HorarioType[];
-        agendamientos: { agendamiento_hora_inicio: string, total: string }[];
+        agendamientos: { hora_inicio: string, total: string }[];
       }) => {
         this.horas = [];
         console.log(agendamientos, 'agendamientos') 

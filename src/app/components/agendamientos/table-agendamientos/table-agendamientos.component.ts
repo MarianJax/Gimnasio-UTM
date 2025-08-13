@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { AgendamientosService } from '../../../service/agendamiento/agendamientos.service';
@@ -7,10 +8,11 @@ import { AgendamientoType } from './type';
 @Component({
   selector: 'app-table-agendamientos',
   templateUrl: './table-agendamientos.component.html',
-  styleUrls: ['./table-agendamientos.component.scss']
+  styleUrls: ['./table-agendamientos.component.scss'],
 })
 export class TableAgendamientosComponent implements OnInit {
   @ViewChild('dt') dt!: Table;
+  formGroup: FormGroup;
 
   categories: any[] = [
     { name: 'Si', key: 'si' },
@@ -19,19 +21,35 @@ export class TableAgendamientosComponent implements OnInit {
 
   agendamientos!: AgendamientoType[];
 
-  constructor(private messageService: MessageService, private agendamientoService: AgendamientosService) {
+  constructor(
+    private messageService: MessageService,
+    private agendamientoService: AgendamientosService
+  ) {
+    this.formGroup = new FormGroup({
+      date: new FormControl<Date | null>(null),
+    });
   }
 
-  ngOnInit() { this.loadAgendamientos(); }
-
-  loadAgendamientos() {
-    this.agendamientoService.obtenerAgendamientos().subscribe((data: any[]) => {
-      console.log(data);
-      this.agendamientos = data.map(item => ({
-        ...item,
-        rol: item.distribucion.rol_id,  // Solo el nombre del primer rol
-      }));
+  ngOnInit() {
+    this.loadAgendamientos();
+    this.formGroup.get('date')?.valueChanges.subscribe((value: Date) => {
+      if (value) {
+        const fecha = value.toISOString().split('T')[0];
+        this.loadAgendamientos(fecha);
+      }
     });
+  }
+
+  loadAgendamientos(fecha?: string) {
+    this.agendamientoService
+      .obtenerAgendamientos(fecha)
+      .subscribe((data: any[]) => {
+        console.log('Agendamientos obtenidos:', data);
+        this.agendamientos = data.map((item) => ({
+          ...item,
+          rol: item.distribucion.rol_id, // Solo el nombre del primer rol
+        }));
+      });
   }
 
   getSeverity(status: boolean) {
@@ -50,13 +68,23 @@ export class TableAgendamientosComponent implements OnInit {
   onSelectionChange(id: string, asistio: boolean) {
     this.agendamientoService.actualizarAgendamiento(id, { asistio }).subscribe({
       next: (data: any) => {
-        this.messageService.add({ severity: 'success', summary: 'Agendamiento actualizado', detail: 'Agendamiento actualizado con éxito', life: 3000 });
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Agendamiento actualizado',
+          detail: 'Agendamiento actualizado con éxito',
+          life: 3000,
+        });
         this.loadAgendamientos();
       },
       error: (error) => {
         console.error('Error updating product:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar el agendamiento', life: 3000 });
-      }
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'No se pudo actualizar el agendamiento',
+          life: 3000,
+        });
+      },
     });
   }
 
@@ -66,10 +94,9 @@ export class TableAgendamientosComponent implements OnInit {
   }
 
   clearFilter(inputElement: HTMLInputElement) {
-    inputElement.value = '';  // Limpia el input
+    inputElement.value = ''; // Limpia el input
     if (this.dt) {
-      this.dt.clear();  // Limpia los filtros de la tabla
+      this.dt.clear(); // Limpia los filtros de la tabla
     }
   }
-
 }

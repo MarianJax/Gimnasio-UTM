@@ -13,8 +13,8 @@ export class AgendamientosService {
     return this.http.get(`${this.apiUrl}/with-pending-validation?${take ? `_limit=${take}` : ''}${skip ? `&_all=${skip}` : false}`);
   }
 
-  obtenerAgendamientos(): Observable<any> {
-    return this.http.get(this.apiUrl);
+  obtenerAgendamientos(fecha?: string): Observable<any> {
+    return this.http.get(this.apiUrl + (fecha ? `?_fecha=${fecha}` : ''));
   }
 
   actualizarAgendamiento(id: string, agendamiento: any): Observable<any> {

@@ -21,4 +21,5 @@ export interface Intervalo {
 export interface Reserva {
   hora_inicio: string;
   hora_fin: string;
+  usuario_id: string
 }

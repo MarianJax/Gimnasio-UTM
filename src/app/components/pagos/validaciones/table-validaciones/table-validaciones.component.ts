@@ -43,7 +43,8 @@ export class TableValidacionesComponent implements OnInit {
   loadAgendamientos() {
 
     this.agendamientoService.obtenerAgendamientosWithPendingValidation(!this.verReporte ? 5 : undefined, !this.verReporte).subscribe((data: AgendamientoType[]) => {
-      this.agendamientos = data.map(item => ({
+
+console.log(data);     this.agendamientos = data.map(item => ({
         ...item,
         rol: item.distribucion.rol_id,  // Solo el nombre del primer rol
 

@@ -1,64 +1,118 @@
 <p-toast />
-<p-table #dt [value]="agendamientos"
-[paginator]="true"
-    [globalFilterFields]="['agendamiento.asistio']"
-    [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" currentPageReportTemplate="{first} - {last} de {totalRecords}"
-    [filterDelay]="0" [showCurrentPageReport]="true" [showFirstLastIcon]="false" [showCurrentPageReport]="true"
-    dataKey="products-registradas" [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true" scrollHeight="365px">
-    <ng-template pTemplate="caption">
-        <div class="flex justify-content-between gap-3">
-            <div>
-                <p-button [outlined]="true" (onClick)="clearFilter(globalFilter)">
-                    <mage-icon name="filter-remove" fill="currentColor" size="18px" />
-                </p-button>
-                <span class="p-input-icon-left ml-3" style="min-width: 320px;">
-                    <mage-icon name="search" class="pi"
-                        style="left: 0.6rem; position: absolute;top: 50%;margin-top: -0.5rem;" fill="#868FA0"
-                        size="14px"></mage-icon>
-                    <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar..." />
-                </span>
-            </div>
-        </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-        <tr>
-            <th>#</th>
-            <th>Nombres</th>
-            <th>Rol</th>
-            <th>Estado</th>
-            <th class="text-center"> Asistencia </th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-agendamiento let-i="rowIndex">
-        <tr>
-            <td>
-                {{ i + 1 }}
-            </td>
-            <td>
-                <div class="flex flex-column">
-                    <!-- <span class="subtitle">{{ agendamiento.user.nombre | lowercase | titlecase }} {{
+<p-table
+  #dt
+  [value]="agendamientos"
+  [paginator]="true"
+  [globalFilterFields]="['agendamiento.asistio']"
+  [rowsPerPageOptions]="[5, 10, 25, 50]"
+  [rows]="5"
+  currentPageReportTemplate="{first} - {last} de {totalRecords}"
+  [filterDelay]="0"
+  [showCurrentPageReport]="true"
+  [showFirstLastIcon]="false"
+  [showCurrentPageReport]="true"
+  dataKey="products-registradas"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  [scrollable]="true"
+  scrollHeight="365px"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex justify-content-between gap-3">
+      <div>
+        <p-button [outlined]="true" (onClick)="clearFilter(globalFilter)">
+          <mage-icon name="filter-remove" fill="currentColor" size="18px" />
+        </p-button>
+        <span class="p-input-icon-left ml-3" style="min-width: 320px">
+          <mage-icon
+            name="search"
+            class="pi"
+            style="
+              left: 0.6rem;
+              position: absolute;
+              top: 50%;
+              margin-top: -0.5rem;
+            "
+            fill="#868FA0"
+            size="14px"
+          ></mage-icon>
+          <input
+            #globalFilter
+            pInputText
+            type="text"
+            (input)="applyFilter($event)"
+            placeholder="Buscar..."
+          />
+        </span>
+      </div>
+      <form [formGroup]="formGroup">
+        <p-calendar appendTo="body" dateFormat="dd-mm-yy" formControlName="date" />
+      </form>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>#</th>
+      <th>Nombres</th>
+      <th>Rol</th>
+      <th>Fecha</th>
+      <th>Estado</th>
+      <th class="text-center">Asistencia</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-agendamiento let-i="rowIndex">
+    <tr>
+      <td>
+        {{ i + 1 }}
+      </td>
+      <td>
+        <div class="flex flex-column">
+          <!-- <span class="subtitle">{{ agendamiento.user.nombre | lowercase | titlecase }} {{
                         agendamiento.user.apellido | lowercase | titlecase }}</span> -->
-                    <span class="caption">{{ agendamiento.usuario_id }}</span>
-                </div>
-            </td>
-            <td>
-                {{ agendamiento.rol | lowercase | titlecase }}
-            </td>
-            <td>
-                <p-tag
-                    [value]="agendamiento.asistio === null ? 'Pendiente': agendamiento.asistio ? 'Asistió' : 'No asistió'"
-                    [severity]="getSeverity(agendamiento.asistio)" />
-            </td>
-            <td>
-                <div class="flex gap-3 w-full justify-content-center">
-                    <p-button *ngIf="agendamiento.asistio === null" [outlined]="true" [text]="true" size="small" severity="primary" class="w-min"
-                        (click)="onSelectionChange(agendamiento.id, true)"><mage-icon
-                            name="check" size="18px"></mage-icon>&nbsp;Si</p-button>
-                    <p-button *ngIf="agendamiento.asistio === null" [outlined]="true" [text]="true" size="small" severity="danger" class="w-min"
-                        (click)="onSelectionChange(agendamiento.id, false)"><mage-icon
-                            name="cancel" size="18px"></mage-icon>&nbsp;No</p-button>
-                </div>
-            </td>
-        </tr>
-    </ng-template>
+          <span class="caption">{{ agendamiento.usuario_id }}</span>
+        </div>
+      </td>
+      <td>
+        {{ agendamiento.rol | lowercase | titlecase }}
+      </td>
+      <td>
+        {{ agendamiento.fecha | date : "dd/MM/yyyy" }}
+      </td>
+      <td>
+        <p-tag
+          [value]="
+            agendamiento.asistio === null
+              ? 'Pendiente'
+              : agendamiento.asistio
+              ? 'Asistió'
+              : 'No asistió'
+          "
+          [severity]="getSeverity(agendamiento.asistio)"
+        />
+      </td>
+      <td>
+        <div class="flex gap-3 w-full justify-content-center">
+          <p-button
+            *ngIf="agendamiento.asistio === null"
+            [outlined]="true"
+            [text]="true"
+            size="small"
+            severity="primary"
+            class="w-min"
+            (click)="onSelectionChange(agendamiento.id, true)"
+            ><mage-icon name="check" size="18px"></mage-icon>&nbsp;Si</p-button
+          >
+          <p-button
+            *ngIf="agendamiento.asistio === null"
+            [outlined]="true"
+            [text]="true"
+            size="small"
+            severity="danger"
+            class="w-min"
+            (click)="onSelectionChange(agendamiento.id, false)"
+            ><mage-icon name="cancel" size="18px"></mage-icon>&nbsp;No</p-button
+          >
+        </div>
+      </td>
+    </tr>
+  </ng-template>
 </p-table>
