@@ -18,6 +18,8 @@ export class RegistroComponent implements OnInit {
   horarios!: Intervalo[];
   selectedFecha: Date | null = null;
   selectedJornada: string | null = null;
+  maxDate: Date = new Date();
+  minDate: Date = new Date();
 
   constructor(
     private router: Router,
@@ -45,6 +47,12 @@ export class RegistroComponent implements OnInit {
       this.router.navigate(['/membresia']);
     }
 
+    const membresia = this.sharedService.getParametro();
+    if (membresia) {
+      this.minDate = membresia.min;
+      this.maxDate = membresia.max;
+    }
+
     this.membresiaForm.get('fecha')?.valueChanges.subscribe((value: Date) => {
       this.selectedFecha = value;
       this.consultarHorarios(value, this.selectedJornada as string);
@@ -62,6 +70,7 @@ export class RegistroComponent implements OnInit {
         .obtenerHorariosPorFechaYJornada(fecha, usuario.id, usuario.rol ,jornada)
         .subscribe((data: Horario[]) => {
           this.agendamientosService.obtenerAgendamientosPorFecha(fecha).subscribe((agendamientos: Reserva[]) => {
+            console.log('Agendamientos:', agendamientos, usuario.id);
             const newFormat = agendamientos
               .filter((ag) => ag.usuario_id === usuario.id)
               .map((ag) => ({ ...ag }));
@@ -114,13 +123,11 @@ export class RegistroComponent implements OnInit {
 
   agendar({ hora_fin, hora_inicio }: any) {
     let membresia = this.sharedService.getParametro();
-    console.log('membresia', membresia, hora_fin, hora_inicio);
   
     if (membresia && this.selectedFecha) {
-      console.log('membresia', membresia, hora_fin, hora_inicio);
       this.agendamientosService.agregarAgendamientoMembresia({
         fecha: this.selectedFecha,
-        membresia, hora_fin,
+        membresia: membresia.valor, hora_fin,
         hora_inicio,
         usuario_id: this.authService.getUserData().id,
         distribucion: this.authService.getUserData().rol,

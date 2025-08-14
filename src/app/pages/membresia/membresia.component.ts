@@ -16,6 +16,8 @@ export class MembresiaComponent implements OnInit {
   mensajeEstadoMembresia!: string;
   isMembresia!: boolean;
   date: Date[] | undefined;
+  maxDate: Date = new Date();
+  minDate: Date = new Date();
   agendamientosPendientes!: any[];
   agendamientosInasistidos!: any[];
 
@@ -84,7 +86,11 @@ export class MembresiaComponent implements OnInit {
               this.mensajeEstadoMembresia =
                 'El pago de su membresia ha sido rechazado';
             } else {
-              this.sharedService.setParametro(data.id);
+              this.maxDate = new Date(data.fecha_fin);
+              this.minDate = new Date(data.fecha_inicio);
+              console.log('Membresia data:', data);
+              const parameters = { valor: data.id as string, min: this.minDate, max: this.maxDate }
+              this.sharedService.setParametro(parameters);
               this.isMembresia = data.id ? true : false;
             }
           } else {

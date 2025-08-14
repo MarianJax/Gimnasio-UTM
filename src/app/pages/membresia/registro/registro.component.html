@@ -7,7 +7,7 @@
 <form [formGroup]="membresiaForm" class="flex sm:flex-row flex-column gap-3" >
   <div >
     <label for="fecha" class="block text-900 text-xl font-medium mb-2">Fecha de Inicio</label>
-    <p-calendar appendTo="body" formControlName="fecha" [showButtonBar]="true" name="fecha" />
+    <p-calendar appendTo="body" formControlName="fecha" [minDate]="minDate" [maxDate]="maxDate" [showButtonBar]="true" name="fecha" />
   </div>
   <div>
     <label for="jornada" class="block text-900 text-xl font-medium mb-2">Tipo</label>

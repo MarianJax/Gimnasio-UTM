@@ -8,7 +8,7 @@
 
   <section class="flex md:flex-row flex-column gap-4">
     <form [formGroup]="form">
-      <p-calendar formControlName="fecha" [yearNavigator]="false" class="max-w-full"
+      <p-calendar formControlName="fecha" [yearNavigator]="false" [minDate]="minDate" [maxDate]="maxDate" class="max-w-full"
         [inline]="true" />
     </form>
     <div class="cont__sections">
