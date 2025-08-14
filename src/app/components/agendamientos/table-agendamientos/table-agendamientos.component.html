@@ -44,7 +44,8 @@
           />
         </span>
       </div>
-      <form [formGroup]="formGroup">
+      <form class="flex align-items-end" [formGroup]="formGroup">
+        <label for="" class="mr-2 mb-2">Fecha de Agendamientos</label>
         <p-calendar appendTo="body" dateFormat="dd-mm-yy" formControlName="date" />
       </form>
     </div>

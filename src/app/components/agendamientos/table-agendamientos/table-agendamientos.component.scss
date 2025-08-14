@@ -1,4 +1,22 @@
 :host ::ng-deep {
+
+    .p-calendar {
+        width: 100%;
+
+        .p-inputtext {
+            margin-top: 4px;
+            font-family: 'Montserrat', sans-serif;
+            padding: 10px 14px;
+        }
+    }
+}
+
+:host ::ng-deep .p-datepicker {
+    width: fit-content !important;
+    min-width: fit-content !important;
+}
+
+:host ::ng-deep {
     .p-datatable {
         border-radius: 8px;
         overflow: hidden;

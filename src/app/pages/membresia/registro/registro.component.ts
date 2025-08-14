@@ -43,7 +43,7 @@ export class RegistroComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (!this.sharedService.getParametro()) {
+    if (!this.sharedService.getParametro().valor) {
       this.router.navigate(['/membresia']);
     }
 
