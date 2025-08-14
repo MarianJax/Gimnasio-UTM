@@ -120,7 +120,14 @@ export class AgendamientoInfoComponent implements OnInit {
         console.log(agendamientos, 'agendamientos') 
         if (horarios.length < 1) return;
         horarios.forEach((horario: HorarioType) => {
-          console.log(horario);
+          console.log(
+              formatTime(horario.hora_inicio as string),"-",
+              formatTime(horario.hora_fin as string),"-",
+              Number(horario.distribucion.tiempo),"-",
+              agendamientos,"-",
+              horario.distribucion.cupo,"-",
+              fecha, "-"
+            );
           const label = horario.jornada === 'Matutina' ? 'Mañana' : 'Tarde';
           this.horas.push({
             label,
