@@ -17,68 +17,6 @@ export class MenuComponent implements OnInit {
     private router: Router
   ) { }
 
-  // ngOnInit() {
-  // let session = sessionStorage.getItem(this.eventos._DATOS_GENERALES_LOGIN);
-  // let session_rn: any = sessionStorage.getItem(this.eventos._DATOS_REGISTRO_NACIONAL);
-  // let usuario = session ? JSON.parse(session) : null;
-
-  // if (!usuario) {
-  //   this.eventos.cerrar_sesion();
-  // } else {
-  //   this.eventos.usuario = usuario;
-  //   this.eventos.datos_personales = JSON.parse(session_rn);
-  // }
-
-  // if (typeof this.eventos.usuario.p_usuario !== "undefined" && this.eventos.usuario.p_usuario.includes("@utm.edu.ec")) {
-  //   let menu = this.eventos.usuario.p_menu_defecto;
-  //   localStorage.setItem(this.eventos._MENU_DEFECTO, JSON.stringify(menu));
-
-  //   for (let i = 0; i < menu.length; i++) {
-  //     let item = menu[i];
-  //     this.menu_final.push({
-  //       label: item.menu_rol_menu.descripcion,
-  //       icon: item.menu_rol_menu.icono,
-  //       routerLink: [item.menu_rol_menu.ruta],
-  //       visible: true
-  //     });
-  //   }
-  //   console.log(this.menu_final)
-  //   this.model = [{
-  //     label: 'Administración',
-  //     items: this.menu_final
-  //   }];
-  // } else {
-  //   this.api.mostrar_menu({
-  //     idrol: 55,
-  //     idapp: 26,
-  //     idmod: 22
-  //   }).subscribe((resp) => {
-  //     let menu = resp[0].p_menu;
-  //     localStorage.setItem(this.eventos._MENU_DEFECTO, JSON.stringify(menu));
-  //     for (let i = 0; i < menu.length; i++) {
-  //       let item = menu[i];
-  //       this.menu_final.push({
-  //         label: item.menu_rol_menu.descripcion,
-  //         icon: item.menu_rol_menu.icono,
-  //         routerLink: [item.menu_rol_menu.ruta],
-  //         visible: true
-  //       });
-  //     }        
-  //     this.model = [{
-  //       label: 'Nivelación',
-  //       items: this.menu_final
-  //     }];
-  //   }, (err) => {
-  //     alert("Error en el servidor, actualice e intente nuevamente...");
-  //   });
-  // }
-  // this.api.estadoDeclaracion$.subscribe(estado => {
-  //   this.declaracionAceptada = estado === 'aceptada';
-  //   this.actualizarVisibilidadElementos();
-  // });
-  // this.actualizarVisibilidadElementos();
-
-  // }
 
   ngOnInit() {
     let session = sessionStorage.getItem('session-usuario');
@@ -98,6 +36,7 @@ export class MenuComponent implements OnInit {
     const currentPath = this.router.url;
 
     if (currentPath.startsWith('/admin')) {
+      console.log('Ruta de administración detectada', usuario.rol);
       // Rutas para la sección de administración
       this.model = [
         {
@@ -118,19 +57,19 @@ export class MenuComponent implements OnInit {
               label: 'Pagos',
               icon: 'dollar',
               routerLink: ['/admin/pagos'],
-              visible: true
+              visible: !['ENTRENADOR'].includes(usuario.rol)
             },
             {
               label: 'Horarios',
               icon: 'calendar-plus',
               routerLink: ['/admin/horarios'],
-              visible: !['Entrenador'].includes(usuario.roles)
+              visible: true
             },
             {
               label: 'Tarifas y Cupos',
               icon: 'money',
               routerLink: ['/admin/tarifas'],
-              visible: true
+              visible: !['ENTRENADOR'].includes(usuario.rol)
             }
           ]
         }

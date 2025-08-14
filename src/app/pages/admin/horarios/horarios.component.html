@@ -1,62 +1,80 @@
 <header>
-    <i id="icon">
-        <mage-icon color="#000" name="calendar-plus" size="24px"></mage-icon>
-    </i>
-    <h2>Horarios</h2>
+  <i id="icon">
+    <mage-icon color="#000" name="calendar-plus" size="24px"></mage-icon>
+  </i>
+  <h2>Horarios</h2>
 </header>
 <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
-    <ng-template pTemplate="item" let-item>
-        <ng-container *ngIf="item.route; else elseBlock">
-            <a [routerLink]="item.route" class="p-menuitem-link">
-                <ng-container *ngIf="item.icon">
-                    <mage-icon size="20px" [name]="item.icon"></mage-icon>
-                </ng-container>
-                <span class="text-primary font-semibold">{{ item.label }}</span>
-            </a>
+  <ng-template pTemplate="item" let-item>
+    <ng-container *ngIf="item.route; else elseBlock">
+      <a [routerLink]="item.route" class="p-menuitem-link">
+        <ng-container *ngIf="item.icon">
+          <mage-icon size="20px" [name]="item.icon"></mage-icon>
         </ng-container>
-        <ng-template #elseBlock>
-            <a [href]="item.url">
-                <span class="text-color">{{ item.label }}</span>
-            </a>
-        </ng-template>
+        <span class="text-primary font-semibold">{{ item.label }}</span>
+      </a>
+    </ng-container>
+    <ng-template #elseBlock>
+      <a [href]="item.url">
+        <span class="text-color">{{ item.label }}</span>
+      </a>
     </ng-template>
-    <ng-template pTemplate="separator"> &nbsp;/&nbsp; </ng-template>
+  </ng-template>
+  <ng-template pTemplate="separator"> &nbsp;/&nbsp; </ng-template>
 </p-breadcrumb>
 
 <p-toast position="bottom-right" />
 <p-confirmDialog #cd>
-    <ng-template pTemplate="headless" let-message>
-        <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
-            <div style="background-color: red; color: white"
-                class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem">
-                <mage-icon name="delete" stroke="#D32F2F" size="16px"></mage-icon>
-            </div>
-            <span class="font-bold text-2xl block mb-2 mt-4">
-                {{ message.header }}
-            </span>
-            <p class="mb-0">{{ message.message }}</p>
-            <div class="flex align-items-center gap-2 mt-4">
-                <button pButton label="Save" (click)="cd.accept()" class="w-8rem">
-                </button>
-                <button pButton label="Cancel" (click)="cd.reject()" class="p-button-outlined w-8rem ">
-                </button>
-            </div>
-        </div>
-    </ng-template>
+  <ng-template pTemplate="headless" let-message>
+    <div
+      class="flex flex-column align-items-center p-5 surface-overlay border-round"
+    >
+      <div
+        style="background-color: red; color: white"
+        class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem"
+      >
+        <mage-icon name="delete" stroke="#D32F2F" size="16px"></mage-icon>
+      </div>
+      <span class="font-bold text-2xl block mb-2 mt-4">
+        {{ message.header }}
+      </span>
+      <p class="mb-0">{{ message.message }}</p>
+      <div class="flex align-items-center gap-2 mt-4">
+        <button
+          pButton
+          label="Save"
+          (click)="cd.accept()"
+          class="w-8rem"
+        ></button>
+        <button
+          pButton
+          label="Cancel"
+          (click)="cd.reject()"
+          class="p-button-outlined w-8rem"
+        ></button>
+      </div>
+    </div>
+  </ng-template>
 </p-confirmDialog>
 
 <p-tabView (onChange)="resetearFormularios($event)">
-    <p-tabPanel header="Horarios para usuarios">
-        <div class="flex gap-7 flex-column">
-            <app-create-form-horario (addedHorario)="obtenerHorario()"></app-create-form-horario>
-            <app-table-horarios></app-table-horarios>
-        </div>
-    </p-tabPanel>
-    <p-tabPanel header="Horarios para entrenadores">
-        <div class="flex gap-7 flex-column">
-            <app-create-horario-entrenador
-                (addedHorarioEntrenador)="obtenerHorarioEntrenador()"></app-create-horario-entrenador>
-            <app-table-horario-entrenador></app-table-horario-entrenador>
-        </div>
-    </p-tabPanel>
+  <p-tabPanel header="Horarios para usuarios">
+    <div class="flex gap-7 flex-column">
+      <app-create-form-horario
+        (addedHorario)="obtenerHorario()"
+      ></app-create-form-horario>
+      <app-table-horarios></app-table-horarios>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel
+    header="Horarios para entrenadores"
+    *ngIf="userRol !== 'ENTRENADOR'"
+  >
+    <div class="flex gap-7 flex-column">
+      <app-create-horario-entrenador
+        (addedHorarioEntrenador)="obtenerHorarioEntrenador()"
+      ></app-create-horario-entrenador>
+      <app-table-horario-entrenador></app-table-horario-entrenador>
+    </div>
+  </p-tabPanel>
 </p-tabView>

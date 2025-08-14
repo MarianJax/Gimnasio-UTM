@@ -1,29 +1,38 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { TableHorariosComponent } from '../../../components/horario/table-horarios/table-horarios.component';
 import { CreateFormHorarioComponent } from '../../../components/horario/create-form-horario/create-form-horario.component';
+import { TableHorariosComponent } from '../../../components/horario/table-horarios/table-horarios.component';
 import { CreateHorarioEntrenadorComponent } from '../../../components/horario_entrenador/create-horario-entrenador/create-horario-entrenador.component';
 import { TableHorarioEntrenadorComponent } from '../../../components/horario_entrenador/table-horario-entrenador/table-horario-entrenador.component';
+import { AuthService } from '../../login/auth.service';
 
 @Component({
   selector: 'app-horarios',
   templateUrl: './horarios.component.html',
-  styleUrls: ['./horarios.component.scss']
+  styleUrls: ['./horarios.component.scss'],
 })
 export class HorariosComponent implements OnInit {
+  userRol: string = '';
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
 
-  constructor() { }
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.items = [{ icon: 'dashboard', route: '/admin', label: 'Inicio' }, { label: 'Horarios' }];
+    this.userRol = this.authService.getUserData().rol;
+    this.items = [
+      { icon: 'dashboard', route: '/admin', label: 'Inicio' },
+      { label: 'Horarios' },
+    ];
   }
 
   @ViewChild(TableHorariosComponent) tableHorario!: TableHorariosComponent;
-  @ViewChild(TableHorarioEntrenadorComponent) tableHorarioEntr!: TableHorarioEntrenadorComponent;
-  @ViewChild(CreateFormHorarioComponent) formUsuarios!: CreateFormHorarioComponent;
-  @ViewChild(CreateHorarioEntrenadorComponent) formEntrenadores!: CreateHorarioEntrenadorComponent;
+  @ViewChild(TableHorarioEntrenadorComponent)
+  tableHorarioEntr!: TableHorarioEntrenadorComponent;
+  @ViewChild(CreateFormHorarioComponent)
+  formUsuarios!: CreateFormHorarioComponent;
+  @ViewChild(CreateHorarioEntrenadorComponent)
+  formEntrenadores!: CreateHorarioEntrenadorComponent;
 
   obtenerHorario() {
     if (this.tableHorario) {
@@ -44,5 +53,4 @@ export class HorariosComponent implements OnInit {
       this.formEntrenadores.horarioForm.reset({}); // Llamar a la función de reseteo del formulario
     }
   }
-
 }
