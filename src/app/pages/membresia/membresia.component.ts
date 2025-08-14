@@ -49,7 +49,7 @@ export class MembresiaComponent implements OnInit {
   obtenerAgendamientos(fecha: Date = new Date()) {
     const user = this.authService.getUserData();
     this.serviceAgendamiento
-      .obtenerAgendamientosPorUsuario(user.id, fecha)
+      .obtenerAgendamientosPorUsuario(user.id, fecha, user.rol)
       .subscribe((data) => {
         this.agendamientosInasistidos = [];
         this.agendamientosPendientes = [];

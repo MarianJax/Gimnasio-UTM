@@ -21,8 +21,8 @@ export class AgendamientosService {
     return this.http.patch(`${this.apiUrl}/${id}`, agendamiento);
   }
 
-  obtenerAgendamientosPorUsuario(id: string, fecha: Date): Observable<any> {
-    return this.http.get(`${this.apiUrl}/usuario/${id}?_fecha=${fecha.toISOString()}`);
+  obtenerAgendamientosPorUsuario(id: string, fecha: Date, rol:string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/usuario/${id}?_fecha=${fecha.toISOString()}&_rol=${rol}`);
   }
 
   crearAgendamiento(agendamiento: any): Observable<any> {
