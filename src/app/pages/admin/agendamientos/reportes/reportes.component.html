@@ -1,112 +1,194 @@
 <header>
-    <span>
-        <mage-icon color="#000" name="analytics" size="24px"></mage-icon>
-    </span>
-    <h2>Reporte de Agendamientos</h2>
+  <span>
+    <mage-icon color="#000" name="analytics" size="24px"></mage-icon>
+  </span>
+  <h2>Reporte de Agendamientos</h2>
 </header>
 
 <section class="section-breadcrumb">
-    <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
-        <ng-template pTemplate="item" let-item>
-            <ng-container *ngIf="item.route; else elseBlock">
-                <a [routerLink]="item.route" class="p-menuitem-link">
-                    <ng-container *ngIf="item.icon">
-                        <mage-icon size="20px" [name]="item.icon"></mage-icon>
-                    </ng-container>
-                    <span class="text-primary font-semibold">{{ item.label }}</span>
-                </a>
-            </ng-container>
-            <ng-template #elseBlock>
-                <a [href]="item.url">
-                    <span class="text-color">{{ item.label }}</span>
-                </a>
-            </ng-template>
-        </ng-template>
-        <ng-template pTemplate="separator"> &nbsp;/&nbsp; </ng-template>
-    </p-breadcrumb>
+  <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
+    <ng-template pTemplate="item" let-item>
+      <ng-container *ngIf="item.route; else elseBlock">
+        <a [routerLink]="item.route" class="p-menuitem-link">
+          <ng-container *ngIf="item.icon">
+            <mage-icon size="20px" [name]="item.icon"></mage-icon>
+          </ng-container>
+          <span class="text-primary font-semibold">{{ item.label }}</span>
+        </a>
+      </ng-container>
+      <ng-template #elseBlock>
+        <a [href]="item.url">
+          <span class="text-color">{{ item.label }}</span>
+        </a>
+      </ng-template>
+    </ng-template>
+    <ng-template pTemplate="separator"> &nbsp;/&nbsp; </ng-template>
+  </p-breadcrumb>
 </section>
 
 <div class="flex gap-5 flex-wrap justify-content-between px-3">
-    <div class="w-full flex gap-3 flex-wrap">
-        <p-dropdown [options]="departamentos" [disabled]="disabledDepartamento" (onChange)="onDepartamentoChange($event)" selectedOption="name"
-            optionLabel="name" [filter]="true" filterBy="name" [(ngModel)]="departamentoSelected" [showClear]="true" placeholder="Seleccione un Departamento"
-            appendTo="body">
-            <ng-template pTemplate="selectedItem" let-selectedOption>
-                <div class="flex align-items-center gap-2">
-                    <div>{{ selectedOption?.name }}</div>
-                </div>
-            </ng-template>
-            <ng-template let-departamento pTemplate="item">
-                <div class="flex align-items-center gap-2">
-                    <div>{{ departamento.name }}</div>
-                </div>
-            </ng-template>
-        </p-dropdown>
+  <div class="w-full flex gap-3 flex-wrap">
+    <p-dropdown
+      [options]="departamentos"
+      [disabled]="disabledDepartamento"
+      (onChange)="onDepartamentoChange($event)"
+      selectedOption="name"
+      optionLabel="name"
+      [filter]="true"
+      filterBy="name"
+      [(ngModel)]="departamentoSelected"
+      [showClear]="true"
+      placeholder="Seleccione un Departamento"
+      appendTo="body"
+    >
+      <ng-template pTemplate="selectedItem" let-selectedOption>
+        <div class="flex align-items-center gap-2">
+          <div>{{ selectedOption?.name }}</div>
+        </div>
+      </ng-template>
+      <ng-template let-departamento pTemplate="item">
+        <div class="flex align-items-center gap-2">
+          <div>{{ departamento.name }}</div>
+        </div>
+      </ng-template>
+    </p-dropdown>
 
-        <p-dropdown [options]="facultades" [disabled]="disabledFacultad" (onChange)="onFacultadChange($event)" selectedOption="name"
-            optionLabel="name" [filter]="true" filterBy="name" [(ngModel)]="facultadsSelected" [showClear]="true" placeholder="Seleccione una Facultad"
-            appendTo="body">
-            <ng-template pTemplate="selectedItem" let-selectedOption>
-                <div class="flex align-items-center gap-2">
-                    <div>{{ selectedOption?.name }}</div>
-                </div>
-            </ng-template>
-            <ng-template let-facultad pTemplate="item">
-                <div class="flex align-items-center gap-2">
-                    <div>{{ facultad.name }}</div>
-                </div>
-            </ng-template>
-        </p-dropdown>
-    
-        <p-dropdown [(ngModel)]="carreraSelected" [options]="carreras" (onChange)="onCarreraChange($event)"
-            selectedOption="name" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
-            placeholder="Seleccione una Carrera" appendTo="body" [disabled]="disabled">
-            <ng-template pTemplate="selectedItem" let-selectedOption>
-                <div class="flex align-items-center gap-2">
-                    <div>{{ selectedOption?.name }}</div>
-                </div>
-            </ng-template>
-            <ng-template let-country pTemplate="item">
-                <div class="flex align-items-center gap-2">
-                    <div>{{ country.name }}</div>
-                </div>
-            </ng-template>
-        </p-dropdown>
+    <p-dropdown
+      [options]="facultades"
+      [disabled]="disabledFacultad"
+      (onChange)="onFacultadChange($event)"
+      selectedOption="name"
+      optionLabel="name"
+      [filter]="true"
+      filterBy="name"
+      [(ngModel)]="facultadsSelected"
+      [showClear]="true"
+      placeholder="Seleccione una Facultad"
+      appendTo="body"
+    >
+      <ng-template pTemplate="selectedItem" let-selectedOption>
+        <div class="flex align-items-center gap-2">
+          <div>{{ selectedOption?.name }}</div>
+        </div>
+      </ng-template>
+      <ng-template let-facultad pTemplate="item">
+        <div class="flex align-items-center gap-2">
+          <div>{{ facultad.name }}</div>
+        </div>
+      </ng-template>
+    </p-dropdown>
 
-        <p-dropdown appendTo="body" [(ngModel)]="selected" (onChange)="onTipoChange($event)" [options]="TipoPago"
-            optionLabel="name" placeholder="Seleccione un tipo de pago" />
-        <p-button size="small" (onClick)="clearFilter()" class="my-auto" [outlined]="true"><mage-icon  name="filter-remove" size="18px" fill="currentColor"></mage-icon></p-button>
+    <p-dropdown
+      [(ngModel)]="carreraSelected"
+      [options]="carreras"
+      (onChange)="onCarreraChange($event)"
+      selectedOption="name"
+      optionLabel="name"
+      [filter]="true"
+      filterBy="name"
+      [showClear]="true"
+      placeholder="Seleccione una Carrera"
+      appendTo="body"
+      [disabled]="disabled"
+    >
+      <ng-template pTemplate="selectedItem" let-selectedOption>
+        <div class="flex align-items-center gap-2">
+          <div>{{ selectedOption?.name }}</div>
+        </div>
+      </ng-template>
+      <ng-template let-country pTemplate="item">
+        <div class="flex align-items-center gap-2">
+          <div>{{ country.name }}</div>
+        </div>
+      </ng-template>
+    </p-dropdown>
+
+    <p-dropdown
+      appendTo="body"
+      [(ngModel)]="selected"
+      (onChange)="onTipoChange($event)"
+      [options]="TipoPago"
+      optionLabel="name"
+      placeholder="Seleccione un tipo de pago"
+    />
+    <p-button
+      size="small"
+      (onClick)="clearFilter()"
+      class="my-auto"
+      [outlined]="true"
+      ><mage-icon
+        name="filter-remove"
+        size="18px"
+        fill="currentColor"
+      ></mage-icon
+    ></p-button>
+  </div>
+  <article>
+    <div
+      *ngIf="data?.labels?.length === 0; else chartDoughnut"
+      class="flex flex-column align-items-center justify-content-center gap-2 text-900"
+    >
+      No hay datos para mostrar
     </div>
-    <article>
-        <div *ngIf="data?.labels?.length === 0; else chartDoughnut" class="flex flex-column align-items-center justify-content-center gap-2 text-900">
-            No hay datos para mostrar
-        </div>
-        <ng-template #chartDoughnut>
-            <p-chart aria-label="doughnut" type="doughnut" [data]="data" [options]="options" />
-        </ng-template>
-    </article>
-    <article>
-        <div *ngIf="dataBar?.labels?.length === 0; else chartBar" class="flex flex-column align-items-center justify-content-center gap-2 text-900">
-            No hay datos para mostrar
-        </div>
-        <ng-template #chartBar>
-        <p-chart aria-label="bar" type="bar" [data]="dataBar" [options]="optionsBar" />
+    <ng-template #chartDoughnut>
+      <p-chart
+        aria-label="doughnut"
+        type="doughnut"
+        [data]="data"
+        [options]="options"
+      />
     </ng-template>
-    </article>
-    <article>
-        <div *ngIf="dataLine?.labels?.length === 0; else chartLine" class="flex flex-column align-items-center justify-content-center gap-2 text-900">
-            No hay datos para mostrar
-        </div>
-        <ng-template #chartLine>
-            <p-chart aria-label="line" type="line" [data]="dataLine" [options]="optionsLine" />
+    <label for="">Total de agendamientos por rol</label>
+  </article>
+  <article>
+    <div
+      *ngIf="dataBar?.labels?.length === 0; else chartBar"
+      class="flex flex-column align-items-center justify-content-center gap-2 text-900"
+    >
+      No hay datos para mostrar
+    </div>
+    <ng-template #chartBar>
+      <p-chart
+        aria-label="bar"
+        type="bar"
+        [data]="dataBar"
+        [options]="optionsBar"
+      />
+      <label for="">Agendamientos diarios por rol</label>
     </ng-template>
-    </article>
-    <article>
-        <div *ngIf="dataPie?.labels?.length === 0; else charPie" class="flex flex-column align-items-center justify-content-center gap-2 text-900">
-            No hay datos para mostrar
-        </div>
-        <ng-template #charPie>
-            <p-chart aria-label="pie" type="pie" [data]="dataPie" [options]="optionsPie" />
+  </article>
+  <article>
+    <div
+      *ngIf="dataLine?.labels?.length === 0; else chartLine"
+      class="flex flex-column align-items-center justify-content-center gap-2 text-900"
+    >
+      No hay datos para mostrar
+    </div>
+    <ng-template #chartLine>
+      <p-chart
+        aria-label="line"
+        type="line"
+        [data]="dataLine"
+        [options]="optionsLine"
+      />
     </ng-template>
-    </article>
+    <label for="">Total de agendamientos por día</label>
+  </article>
+  <article>
+    <div
+      *ngIf="dataPie?.labels?.length === 0; else charPie"
+      class="flex flex-column align-items-center justify-content-center gap-2 text-900"
+    >
+      No hay datos para mostrar
+    </div>
+    <ng-template #charPie>
+      <p-chart
+        aria-label="pie"
+        type="pie"
+        [data]="dataPie"
+        [options]="optionsPie"
+      />
+    </ng-template>
+    <label for="">Estados de Agendamientos</label>
+  </article>
 </div>

@@ -34,7 +34,7 @@
     </ng-template>
     <div>
         <label for="fecha" class="">Fecha Registro {{ agendarForm.getError('fecha') }}</label>
-        <p-calendar appendTo="body" id="fecha" dateFormat="dd-mm-yy" [minDate]="minDate" [maxDate]="maxDate" formControlName="fecha"
+        <p-calendar appendTo="body" id="fecha" dateFormat="dd-mm-yy" [minDate]="minDate" formControlName="fecha"
 
             [ngClass]="{'ng-dirty ng-invalid': agendarForm.getError('fecha')}" />
         <small *ngIf="agendarForm.getError('fecha')" class="ng-invalid text-red-600 block">

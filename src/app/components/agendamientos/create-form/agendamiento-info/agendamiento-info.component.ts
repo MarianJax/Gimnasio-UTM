@@ -47,7 +47,7 @@ const FECHA_ACTUAL = new Date();
 
 export class AgendamientoInfoComponent implements OnInit {
   minDate: Date = new Date();
-  maxDate: Date = FECHA_ACTUAL;
+  // maxDate: Date = FECHA_ACTUAL;
   agendarForm: FormGroup;
   INIT_DATA: any[] = [];
   facultades: Estados[] = [];
@@ -151,7 +151,7 @@ export class AgendamientoInfoComponent implements OnInit {
   ngOnInit() {
 
     const user = this.authService.getUserData();
-    this.serviceMembresia
+    /*this.serviceMembresia
       .obtenerMembresiaPorUsuario(user.id, new Date())
       .subscribe({
         next: (data) => {
@@ -165,7 +165,7 @@ export class AgendamientoInfoComponent implements OnInit {
         error: (error) => {
           console.error('Error al obtener membresías:', error);
         },
-      });
+      });*/
 
     this.agendarForm.get('fecha')?.valueChanges.subscribe((val) => {
       this.obtenerHorarios(this.authService.getUserData().rol, val as Date);

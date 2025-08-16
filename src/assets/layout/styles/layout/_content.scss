@@ -1,8 +1,8 @@
 .layout-main-container {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 4rem);
-    max-height: calc(100vh - 4rem);
+    min-height: calc(100dvh - 4rem);
+    max-height: calc(100dvh - 4rem);
     justify-content: space-between;
     padding: 7rem 2rem 0rem 4rem;
     transition: margin-left $transitionDuration;

@@ -100,4 +100,13 @@ article {
   padding: 15px;
   border-radius: 10px;
   background: white;
+
+  label {
+    font-size: 12px;
+    font-weight: 100;
+    color: var(--text-color);
+    width: -webkit-fill-available;
+    padding: 0 10px ;
+    font-style: italic;
+  }
 }

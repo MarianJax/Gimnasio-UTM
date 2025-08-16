@@ -239,12 +239,12 @@ export class ReportesComponent implements OnInit {
                   data: reservasPorEstadosFormatter.data,
                   backgroundColor: [
                     documentStyle.getPropertyValue('--blue-500'),
-                    documentStyle.getPropertyValue('--orange-500'),
+                    documentStyle.getPropertyValue('--pink-500'),
                     documentStyle.getPropertyValue('--green-500'),
                   ],
                   hoverBackgroundColor: [
                     documentStyle.getPropertyValue('--blue-400'),
-                    documentStyle.getPropertyValue('--orange-400'),
+                    documentStyle.getPropertyValue('--pink-400'),
                     documentStyle.getPropertyValue('--green-400'),
                   ],
                 },
