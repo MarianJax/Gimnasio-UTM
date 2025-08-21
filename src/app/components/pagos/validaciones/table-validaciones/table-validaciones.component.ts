@@ -11,7 +11,7 @@ import { AgendamientoType, EstadoPago } from '../type';
 @Component({
   selector: 'app-table-validaciones',
   templateUrl: './table-validaciones.component.html',
-  styleUrls: ['./table-validaciones.component.scss']
+  styleUrls: ['./table-validaciones.component.scss'],
 })
 export class TableValidacionesComponent implements OnInit {
   @Input() verReporte!: boolean;
@@ -30,7 +30,14 @@ export class TableValidacionesComponent implements OnInit {
 
   statuses!: any[];
 
-  constructor(private messageService: MessageService, private confirmationService: ConfirmationService, private fb: FormBuilder, private router: Router, private agendamientoService: AgendamientosService, private validatePagoService: ValidacionesPagosService) {
+  constructor(
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
+    private fb: FormBuilder,
+    private router: Router,
+    private agendamientoService: AgendamientosService,
+    private validatePagoService: ValidacionesPagosService
+  ) {
     this.form = this.fb.group({
       img: new FormControl(null),
     });
@@ -41,29 +48,44 @@ export class TableValidacionesComponent implements OnInit {
   }
 
   loadAgendamientos() {
-
-    this.agendamientoService.obtenerAgendamientosWithPendingValidation(!this.verReporte ? 5 : undefined, !this.verReporte).subscribe((data: AgendamientoType[]) => {
-
-console.log(data);     this.agendamientos = data.map(item => ({
-        ...item,
-        rol: item.distribucion.rol_id,  // Solo el nombre del primer rol
-
-      }));
-    });
+    this.agendamientoService
+      .obtenerAgendamientosWithPendingValidation(
+        !this.verReporte ? 5 : undefined,
+        !this.verReporte
+      )
+      .subscribe((data: AgendamientoType[]) => {
+        console.log(data);
+        this.agendamientos = data.map((item) => ({
+          ...item,
+          rol: item.distribucion.rol_id, // Solo el nombre del primer rol
+        }));
+      });
   }
 
   onSelectionChange(id: string, estado: string) {
-    this.validatePagoService.actualizarValidacion(id, { estado: estado as EstadoPago }).subscribe({
-      next: (data: any) => {
-        console.log(data);
-        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Pago Validado con éxito', life: 3000 });
-        this.loadAgendamientos();
-      },
-      error: (error) => {
-        console.error('Error updating product:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo validar el Pago', life: 3000 });
-      }
-    });
+    this.validatePagoService
+      .actualizarValidacion(id, { estado: estado as EstadoPago })
+      .subscribe({
+        next: (data: any) => {
+          console.log(data);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Éxito',
+            detail: 'Pago Validado con éxito',
+            life: 3000,
+          });
+          this.loadAgendamientos();
+        },
+        error: (error) => {
+          console.error('Error updating product:', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'No se pudo validar el Pago',
+            life: 3000,
+          });
+        },
+      });
     console.log(`Producto ID: ${id}, Asistencia: ${estado} `);
   }
 
@@ -122,9 +144,9 @@ console.log(data);     this.agendamientos = data.map(item => ({
   }
 
   clearFilter(inputElement: HTMLInputElement) {
-    inputElement.value = '';  // Limpia el input
+    inputElement.value = ''; // Limpia el input
     if (this.dt) {
-      this.dt.clear();  // Limpia los filtros de la tabla
+      this.dt.clear(); // Limpia los filtros de la tabla
     }
   }
 }
