@@ -1,6 +1,6 @@
 <p-toast />
 <p-table #dt [value]="agendamientos" [paginator]="verReporte"
-    [globalFilterFields]="['user.nombre', 'user.apellido', 'rol', 'pagos.metodo_pago', 'membresias.pagos.metodo_pago', 'agendamiento.pagos.validacion_pago[0].estado']"
+    [globalFilterFields]="['usuario_id', 'rol', 'pagos.metodo_pago', 'membresias.pagos.metodo_pago', 'agendamiento.pagos.validacion_pago[0].estado']"
     [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" currentPageReportTemplate="{first} - {last} de {totalRecords}"
     [filterDelay]="0" [showCurrentPageReport]="true" [showFirstLastIcon]="false" [showCurrentPageReport]="true"
     dataKey="products-registradas" [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true" scrollHeight="365px">
@@ -32,7 +32,7 @@
     <ng-template pTemplate="header">
         <tr>
             <th>#</th>
-            <th>Nombres</th>
+            <th>Cédula</th>
             <th>Rol</th>
             <th>Tipo de Pago</th>
             <th *ngIf="verReporte">Estado de Pago</th>
