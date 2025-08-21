@@ -3,7 +3,7 @@
   #dt
   [value]="agendamientos"
   [paginator]="true"
-  [globalFilterFields]="['agendamiento.asistio']"
+  [globalFilterFields]="['agendamiento.asistio', 'usuario_id']"
   [rowsPerPageOptions]="[5, 10, 25, 50]"
   [rows]="5"
   currentPageReportTemplate="{first} - {last} de {totalRecords}"
@@ -53,7 +53,7 @@
   <ng-template pTemplate="header">
     <tr>
       <th>#</th>
-      <th>Nombres</th>
+      <th>cédula</th>
       <th>Rol</th>
       <th>Fecha</th>
       <th>Estado</th>
