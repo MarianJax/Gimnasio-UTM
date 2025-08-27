@@ -52,7 +52,12 @@ button {
   border-radius: 5px;
   padding: 5px 30px;
 }
-
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+    text-align: left;
+    border: 1px solid #dee2e6;
+    border-width: 0 0 1px 0;
+    padding: 1rem 1rem;
+}
 @media screen and (min-width: 576px) {
   form {
     display: flex;
