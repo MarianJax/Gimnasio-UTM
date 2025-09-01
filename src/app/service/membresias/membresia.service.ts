@@ -23,7 +23,7 @@ export class MembresiaService {
   }
 
   obtenerMembresiaPorUsuario(id: string, fecha: Date): Observable<any> {
-    return this.http.get(`${this.apiUrl}/usuario/${id}?fecha=${fecha.toISOString()}`);
+    return this.http.get(`${this.apiUrl}/usuario/${id}?fecha=${fecha.toDateString()}`);
   }
   actualizarMembresia(membresia: any): Observable<any> {
     return this.http.patch(`${this.apiUrl}/${membresia.id}`, membresia);
