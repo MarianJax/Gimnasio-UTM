@@ -110,7 +110,7 @@ export class RegistroComponent implements OnInit {
           jornada,
           hora_inicio: horaInicioStr,
           hora_fin: horaFinStr,
-          estado: ocupado ? 'Ocupado' : 'Disponible',
+          estado: ocupado ? 'Reservado' : 'Disponible',
         });
 
         inicioHora = nextHour;

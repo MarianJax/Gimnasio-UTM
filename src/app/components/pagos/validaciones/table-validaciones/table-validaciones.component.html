@@ -1,103 +1,224 @@
 <p-toast />
-<p-table #dt [value]="agendamientos" [paginator]="verReporte"
-    [globalFilterFields]="['usuario_id', 'rol', 'pagos.metodo_pago', 'membresias.pagos.metodo_pago', 'agendamiento.pagos.validacion_pago[0].estado']"
-    [rowsPerPageOptions]="[5,10, 25, 50]" [rows]="5" currentPageReportTemplate="{first} - {last} de {totalRecords}"
-    [filterDelay]="0" [showCurrentPageReport]="true" [showFirstLastIcon]="false" [showCurrentPageReport]="true"
-    dataKey="products-registradas" [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true" scrollHeight="365px">
-    <ng-template pTemplate="caption">
-        <div class="flex justify-content-between gap-3">
-            <div>
-                <p-button [outlined]="true" (onClick)="clearFilter(globalFilter)">
-                    <mage-icon name="filter-remove" fill="currentColor" size="18px" />
-                </p-button>
-                <span class="p-input-icon-left ml-3" style="min-width: 320px;">
-                    <mage-icon name="search" class="pi"
-                        style="left: 0.6rem; position: absolute;top: 50%;margin-top: -0.5rem;" fill="#868FA0"
-                        size="14px"></mage-icon>
-                    <input #globalFilter pInputText type="text" (input)="applyFilter($event)" placeholder="Buscar..." />
-                </span>
-            </div>
-            <div *ngIf="!verReporte ; else report">
-                <p-button [outlined]="true" (onClick)="goToAssistance()" severity="success"
-                    class="mr-3 ml-auto">Asistencia</p-button>
-                <p-button [outlined]="true" (onClick)="goToList()" severity="success"
-                    class="mr-2 ml-auto">Listado</p-button>
-            </div>
-            <ng-template #report>
-                <p-button [outlined]="true" (onClick)="goToReport()" severity="success" class="mr-3 ml-auto"
-                    label="Ver reporte" />
-            </ng-template>
-        </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-        <tr>
-            <th>#</th>
-            <th>Cédula</th>
-            <th>Rol</th>
-            <th>Tipo de Pago</th>
-            <th *ngIf="verReporte">Estado de Pago</th>
-            <th class="text-center"> Confirmación </th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-agendamiento let-i="rowIndex">
-        <tr>
-            <td>
-                {{ i + 1 }}
-            </td>
-            <td>
-                <div class="flex flex-column">
-                    <!-- <span class="subtitle">{{ agendamiento.user.nombre | lowercase | titlecase }} {{
+<p-table
+  #dt
+  [value]="agendamientos"
+  [paginator]="verReporte"
+  [globalFilterFields]="[
+    'usuario_id',
+    'rol',
+    'pagos.metodo_pago',
+    'membresias.pagos.metodo_pago',
+    'agendamiento.pagos.validacion_pago[0].estado'
+  ]"
+  [rowsPerPageOptions]="[5, 10, 25, 50]"
+  [rows]="5"
+  currentPageReportTemplate="{first} - {last} de {totalRecords}"
+  [filterDelay]="0"
+  [showCurrentPageReport]="true"
+  [showFirstLastIcon]="false"
+  [showCurrentPageReport]="true"
+  dataKey="products-registradas"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  [scrollable]="true"
+  scrollHeight="365px"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex justify-content-between gap-3">
+      <div>
+        <p-button [outlined]="true" (onClick)="clearFilter(globalFilter)">
+          <mage-icon name="filter-remove" fill="currentColor" size="18px" />
+        </p-button>
+        <span class="p-input-icon-left ml-3" style="min-width: 320px">
+          <mage-icon
+            name="search"
+            class="pi"
+            style="
+              left: 0.6rem;
+              position: absolute;
+              top: 50%;
+              margin-top: -0.5rem;
+            "
+            fill="#868FA0"
+            size="14px"
+          ></mage-icon>
+          <input
+            #globalFilter
+            pInputText
+            type="text"
+            (input)="applyFilter($event)"
+            placeholder="Buscar..."
+          />
+        </span>
+      </div>
+      <div *ngIf="!verReporte; else report">
+        <p-button
+          [outlined]="true"
+          (onClick)="goToAssistance()"
+          severity="success"
+          class="mr-3 ml-auto"
+          >Asistencia</p-button
+        >
+        <p-button
+          [outlined]="true"
+          (onClick)="goToList()"
+          severity="success"
+          class="mr-2 ml-auto"
+          >Listado</p-button
+        >
+      </div>
+      <ng-template #report>
+        <p-button
+          [outlined]="true"
+          (onClick)="goToReport()"
+          severity="success"
+          class="mr-3 ml-auto"
+          label="Ver reporte"
+        />
+      </ng-template>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>#</th>
+      <th>Cédula</th>
+      <th>Rol</th>
+      <th>Tipo de Pago</th>
+      <th *ngIf="verReporte">Estado de Pago</th>
+      <th class="text-center">Confirmación</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-agendamiento let-i="rowIndex">
+    <tr>
+      <td>
+        {{ i + 1 }}
+      </td>
+      <td>
+        <div class="flex flex-column">
+          <!-- <span class="subtitle">{{ agendamiento.user.nombre | lowercase | titlecase }} {{
                         agendamiento.user.apellido | lowercase | titlecase }}</span> -->
-                    <span class="caption">{{ agendamiento.usuario_id }}</span>
-                </div>
-            </td>
-            <td>
-                {{ agendamiento.rol | lowercase | titlecase }}
-            </td>
-            <td>
-                {{ agendamiento.pagos ? agendamiento.pagos.metodo_pago : agendamiento.membresias.pagos.metodo_pago }}
-            </td>
-            <td *ngIf="verReporte">
-                <p-tag
-                    [value]="agendamiento.pagos ? agendamiento.pagos.validacion_pago[0].estado : agendamiento.membresias.pagos.validacion_pago[0].estado"
-                    [severity]="getSeverity(agendamiento.pagos ? agendamiento.pagos.validacion_pago[0].estado : agendamiento.membresias.pagos.validacion_pago[0].estado)" />
-            </td>
-            <td>
-                <div class="flex gap-3 w-full justify-content-center">
-                    <p-button
-                        (onClick)="openImage(agendamiento.pagos ? agendamiento.pagos.validacion_pago[0].id : agendamiento.membresias.pagos.validacion_pago[0].id)"
-                        [outlined]="true" [text]="true" size="small" severity="primary" class="w-min"><mage-icon
-                            name="image" size="18px"></mage-icon></p-button>
+          <span class="caption">{{ agendamiento.usuario_id }}</span>
+        </div>
+      </td>
+      <td>
+        {{ agendamiento.rol | lowercase | titlecase }}
+      </td>
+      <td>
+        {{
+          agendamiento.pagos
+            ? agendamiento.pagos.metodo_pago
+            : agendamiento.membresias.pagos.metodo_pago
+        }}
+      </td>
+      <td *ngIf="verReporte">
+        <p-tag
+          [value]="
+            agendamiento.pagos
+              ? agendamiento.pagos.validacion_pago[0].estado
+              : agendamiento.membresias.pagos.validacion_pago[0].estado
+          "
+          [severity]="
+            getSeverity(
+              agendamiento.pagos
+                ? agendamiento.pagos.validacion_pago[0].estado
+                : agendamiento.membresias.pagos.validacion_pago[0].estado
+            )
+          "
+        />
+      </td>
+      <td>
+        <div class="flex gap-3 w-full justify-content-center">
+          <p-button
+            (onClick)="
+              openImage(
+                agendamiento.pagos
+                  ? agendamiento.pagos.validacion_pago[0].id
+                  : agendamiento.membresias.pagos.validacion_pago[0].id
+              )
+            "
+            [outlined]="true"
+            [text]="true"
+            size="small"
+            severity="primary"
+            class="w-min"
+            ><mage-icon name="image" size="18px"></mage-icon
+          ></p-button>
 
-                    <p-button *ngIf="(agendamiento.pagos && agendamiento.pagos.validacion_pago[0].estado === 'Pendiente') || 
-         (agendamiento.membresias?.pagos?.validacion_pago[0]?.estado === 'Pendiente')" [outlined]="true" [text]="true"
-                        size="small" severity="primary" class="w-min"
-                        (click)="onSelectionChange(agendamiento.pagos ? agendamiento.pagos.validacion_pago[0].id : agendamiento.membresias.pagos.validacion_pago[0].id, 'Aprobado')"><mage-icon
-                            name="check" size="18px"></mage-icon></p-button>
-                    <p-button *ngIf="(agendamiento.pagos && agendamiento.pagos.validacion_pago[0].estado === 'Pendiente') || 
-         (agendamiento.membresias?.pagos?.validacion_pago[0]?.estado === 'Pendiente')" [outlined]="true" [text]="true"
-                        size="small" severity="danger" class="w-min"
-                        (click)="onSelectionChange(agendamiento.pagos ? agendamiento.pagos.validacion_pago[0].id : agendamiento.membresias.pagos.validacion_pago[0].id,'Rechazado')"><mage-icon
-                            name="cancel" size="18px"></mage-icon></p-button>
-                </div>
-            </td>
-        </tr>
-    </ng-template>
-    
-    <ng-template pTemplate="emptymessage">
-        <tr>
-            <td colspan="4">No hay pagos por validar disponibles.</td>
-        </tr>
-    </ng-template>
+          <p-button
+            *ngIf="
+              (agendamiento.pagos &&
+                agendamiento.pagos.validacion_pago[0].estado === 'Pendiente') ||
+              agendamiento.membresias?.pagos?.validacion_pago[0]?.estado ===
+                'Pendiente'
+            "
+            [outlined]="true"
+            [text]="true"
+            size="small"
+            severity="primary"
+            class="w-min"
+            (click)="
+              onSelectionChange(
+                agendamiento.pagos
+                  ? agendamiento.pagos.validacion_pago[0].id
+                  : agendamiento.membresias.pagos.validacion_pago[0].id,
+                'Aprobado'
+              )
+            "
+            ><mage-icon name="check" size="18px"></mage-icon
+          ></p-button>
+          <p-button
+            *ngIf="
+              (agendamiento.pagos &&
+                agendamiento.pagos.validacion_pago[0].estado === 'Pendiente') ||
+              agendamiento.membresias?.pagos?.validacion_pago[0]?.estado ===
+                'Pendiente'
+            "
+            [outlined]="true"
+            [text]="true"
+            size="small"
+            severity="danger"
+            class="w-min"
+            (click)="
+              onSelectionChange(
+                agendamiento.pagos
+                  ? agendamiento.pagos.validacion_pago[0].id
+                  : agendamiento.membresias.pagos.validacion_pago[0].id,
+                'Rechazado'
+              )
+            "
+            ><mage-icon name="cancel" size="18px"></mage-icon
+          ></p-button>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="4">No hay pagos por validar disponibles.</td>
+    </tr>
+  </ng-template>
 </p-table>
 
-<p-dialog header="Imagen" [(visible)]="visible" [modal]="true"
-    [style]="{ width: '100vw', 'height':'100vh', 'max-height': '100vh', 'position': 'relative'}" [draggable]="false"
-    [resizable]="false">
-    <ng-template pTemplate="header">
-
-    </ng-template>
-    <form [formGroup]="form">
-        <img [src]="form.get('img')?.value" alt="agendamiento.name" height="450" class="w-auto" />
-    </form>
+<p-dialog
+  header="Imagen"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{
+    width: '100vw',
+    height: '100vh',
+    'max-height': '100vh',
+    position: 'relative'
+  }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <ng-template pTemplate="header"> </ng-template>
+  <form [formGroup]="form">
+    <img
+      [src]="form.get('img')?.value"
+      alt="agendamiento.name"
+      height="450"
+      class="w-auto"
+    />
+  </form>
 </p-dialog>

@@ -47,7 +47,7 @@
           {{ horario.estado }}
         </td>
         <td>
-          <p-button *ngIf=" horario.estado !== 'Ocupado'" (onClick)="agendar(horario)" [outlined]="true" size="small" severity="primary"
+          <p-button *ngIf=" horario.estado !== 'Reservado'" (onClick)="agendar(horario)" [outlined]="true" size="small" severity="primary"
             class="w-min">
             <mage-icon name="bookmark-plus" color="var(--primary-color)" size="16px"></mage-icon>&nbsp;Agendar
           </p-button>
