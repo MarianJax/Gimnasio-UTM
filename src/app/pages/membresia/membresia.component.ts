@@ -5,6 +5,8 @@ import { AgendamientosService } from '../../service/agendamiento/agendamientos.s
 import { MembresiaService } from '../../service/membresias/membresia.service';
 import { SharedService } from '../../service/shared.service';
 import { AuthService } from '../login/auth.service';
+import { RutinasService } from 'src/app/service/rutinas/rutinas.service';
+import { GrupoMuscularService } from 'src/app/service/grupoMuscular/grupo-muscular.service';
 
 @Component({
   selector: 'app-membresia',
@@ -20,6 +22,7 @@ export class MembresiaComponent implements OnInit {
   minDate: Date = new Date();
   agendamientosPendientes!: any[];
   agendamientosInasistidos!: any[];
+  rutinaUrl: string = '';
 
   constructor(
     private router: Router,
@@ -27,7 +30,8 @@ export class MembresiaComponent implements OnInit {
     private authService: AuthService,
     private serviceAgendamiento: AgendamientosService,
     private fb: FormBuilder,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private rutinaService: RutinasService
   ) {
     this.form = this.fb.group({
       fecha: [null],
@@ -44,6 +48,11 @@ export class MembresiaComponent implements OnInit {
     this.form.get('fecha')?.valueChanges.subscribe((value) => {
       this.obtenerAgendamientos(value as Date);
     });
+
+    this.rutinaService.obtenerRutinaActiva().subscribe((data) => {
+      console.log('Rutina activa data:', data);
+      this.rutinaUrl = data[0].url;
+    });
   }
 
   obtenerAgendamientos(fecha: Date = new Date()) {
@@ -53,22 +62,32 @@ export class MembresiaComponent implements OnInit {
       .subscribe((data) => {
         this.agendamientosInasistidos = [];
         this.agendamientosPendientes = [];
-        data.map(({ asistio, hora_inicio, hora_fin, fecha }: any) => {
-          if (asistio === null) {
-            this.agendamientosPendientes.push({
-              hora_inicio: hora_inicio.slice(0, 5),
-              hora_fin: hora_fin.slice(0, 5),
-              fecha: fecha as Date,
-            });
+        data.map(
+          ({
+            asistio,
+            hora_inicio,
+            hora_fin,
+            fecha,
+            grupos_musculares,
+          }: any) => {
+            if (asistio === null) {
+              this.agendamientosPendientes.push({
+                hora_inicio: hora_inicio.slice(0, 5),
+                hora_fin: hora_fin.slice(0, 5),
+                fecha: fecha as Date,
+                grupo: grupos_musculares.nombre,
+              });
+            }
+            if (asistio === false) {
+              this.agendamientosInasistidos.push({
+                hora_inicio: hora_inicio.slice(0, 5),
+                hora_fin: hora_fin.slice(0, 5),
+                fecha: fecha as Date,
+                grupo: grupos_musculares.nombre,
+              });
+            }
           }
-          if (asistio === false) {
-            this.agendamientosInasistidos.push({
-              hora_inicio: hora_inicio.slice(0, 5),
-              hora_fin: hora_fin.slice(0, 5),
-              fecha: fecha as Date,
-            });
-          }
-        });
+        );
       });
   }
 
@@ -89,7 +108,11 @@ export class MembresiaComponent implements OnInit {
               this.maxDate = new Date(data.fecha_fin);
               this.minDate = new Date(data.fecha_inicio);
               console.log('Membresia data:', data);
-              const parameters = { valor: data.id as string, min: this.minDate, max: this.maxDate }
+              const parameters = {
+                valor: data.id as string,
+                min: this.minDate,
+                max: this.maxDate,
+              };
               this.sharedService.setParametro(parameters);
               this.isMembresia = data.id ? true : false;
             }

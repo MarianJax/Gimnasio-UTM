@@ -10,9 +10,9 @@
     <p-calendar appendTo="body" formControlName="fecha" [minDate]="minDate" [maxDate]="maxDate" [showButtonBar]="true" name="fecha" />
   </div>
   <div>
-    <label for="jornada" class="block text-900 text-xl font-medium mb-2">Tipo</label>
-    <p-dropdown formControlName="jornada" name="jornada" [options]="tipos" appendTo="body" optionLabel="name"
-      placeholder="Seleccionar una jornada" />
+    <label for="grupo" class="block text-900 text-xl font-medium mb-2">Grupo Muscular</label>
+    <p-dropdown formControlName="grupo" name="grupo" [options]="grupos" [(ngModel)]="grupoSeleccionado" appendTo="body" optionLabel="name"
+      placeholder="Seleccionar un grupo muscular"  />
   </div>
 </form>
 

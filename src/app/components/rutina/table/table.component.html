@@ -1,0 +1,49 @@
+<p-table
+  #dt
+  [rowsPerPageOptions]="[5, 10, 25, 50]"
+  [rows]="5"
+  [paginator]="true"
+  currentPageReportTemplate="{first} - {last} de {totalRecords}"
+  [filterDelay]="0"
+  [showCurrentPageReport]="true"
+  [showFirstLastIcon]="false"
+  [showCurrentPageReport]="true"
+  [value]="rutinas"
+  dataKey="rutinas-registradas"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  scrollHeight="250px"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="url">
+        url
+        <app-sort-icon
+          [field]="'url'"
+          [sortField]="dt.sortField"
+          [sortOrder]="dt.sortOrder"
+        />
+      </th>
+      <th>Opciones</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rutina>
+    <tr>
+      <td>
+        {{ rutina.url }}
+      </td>
+      <td>
+        <div class="flex gap-3 w-full justify-content-center">
+          <p-button
+            [outlined]="true"
+            size="small"
+            severity="danger"
+            (onClick)="eliminar(rutina.id)"
+            class="w-min"
+            ><mage-icon name="delete" stroke="#D32F2F" size="16px"></mage-icon
+            >&nbsp;Eliminar</p-button
+          >
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

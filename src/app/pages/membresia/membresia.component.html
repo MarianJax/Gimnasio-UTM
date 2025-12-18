@@ -1,5 +1,6 @@
 <div *ngIf="isMembresia; else noMembresia">
   <div class="contain-header">
+    <a [href]="rutinaUrl" target="_blank"> <strong>Rutina Gym UTM</strong> </a>
     <button (click)="agregarmembresia()" pButton pRipple>
       <mage-icon name="bookmark-plus" size="20px"></mage-icon>
       Registrar Agendamiento
@@ -8,23 +9,40 @@
 
   <section class="flex md:flex-row flex-column gap-4">
     <form [formGroup]="form">
-      <p-calendar formControlName="fecha" [yearNavigator]="false" [minDate]="minDate" [maxDate]="maxDate" class="max-w-full"
-        [inline]="true" />
+      <p-calendar
+        formControlName="fecha"
+        [yearNavigator]="false"
+        [minDate]="minDate"
+        [maxDate]="maxDate"
+        class="max-w-full"
+        [inline]="true"
+      />
     </form>
     <div class="cont__sections">
       <div class="content">
         <header>
-          <mage-icon  name="arrow-list" size="20px"></mage-icon>
+          <mage-icon name="arrow-list" size="20px"></mage-icon>
           Lista de agendamientos pendientes
         </header>
         <div class="flex gap-1 flex-column">
-          <article class="flex" *ngFor="let agendamiento of agendamientosPendientes">
-            <mage-icon color="black" name="arrow-right-01" class="upload-icon" size="18px" />
+          <article
+            class="flex"
+            *ngFor="let agendamiento of agendamientosPendientes"
+          >
+            <mage-icon
+              color="black"
+              name="arrow-right-01"
+              class="upload-icon"
+              size="18px"
+            />
             <span>{{ agendamiento.fecha | date : "dd/MM/yyyy" }}</span>
-            <span style="margin: 0 auto">{{ agendamiento.hora_inicio }}</span>
-            <span>{{ agendamiento.hora_fin }}</span>
+            <span style="margin: 0 auto">{{ agendamiento.grupo }}</span>
+            <span>{{ agendamiento.hora_inicio }} - {{ agendamiento.hora_fin }}</span>
           </article>
-          <p *ngIf="agendamientosPendientes.length === 0" class="text-gray-500 text-base text-center">
+          <p
+            *ngIf="agendamientosPendientes.length === 0"
+            class="text-gray-500 text-base text-center"
+          >
             No hay agendamientos pendientes
           </p>
         </div>
@@ -35,14 +53,27 @@
           Agendamientos inasistidos
         </header>
         <div class="flex gap-1 flex-column">
-          <article class="flex" *ngFor="let agendamiento of agendamientosInasistidos">
-            <mage-icon color="black" name="arrow-right-01" class="upload-icon" size="18px" />
+          <article
+            class="flex"
+            *ngFor="let agendamiento of agendamientosInasistidos"
+          >
+            <mage-icon
+              color="black"
+              name="arrow-right-01"
+              class="upload-icon"
+              size="18px"
+            />
             <span>{{ agendamiento.fecha | date : "dd/MM/yyyy" }}</span>
-            <span style="margin: 0 auto">{{ agendamiento.hora_inicio }}</span>
-            <span style="margin: 0 auto">{{ agendamiento.hora_fin }}</span>
-            <span>{{ agendamiento.asistio === false ? 'No asistió' : '' }}</span>
+             <span style="margin: 0 auto">{{ agendamiento.grupo }}</span>
+            <span>{{ agendamiento.hora_inicio }} - {{ agendamiento.hora_fin }}</span>
+            <span>{{
+              agendamiento.asistio === false ? "No asistió" : ""
+            }}</span>
           </article>
-          <p *ngIf="agendamientosInasistidos.length === 0" class="text-gray-500 text-base text-center">
+          <p
+            *ngIf="agendamientosInasistidos.length === 0"
+            class="text-gray-500 text-base text-center"
+          >
             No hay agendamientos inasistidos
           </p>
         </div>
@@ -52,7 +83,9 @@
 </div>
 
 <ng-template #noMembresia>
-  <div class="flex justify-content-center align-items-center text-black-alpha-90">
+  <div
+    class="flex justify-content-center align-items-center text-black-alpha-90"
+  >
     <span>{{ mensajeEstadoMembresia }}</span>
   </div>
 </ng-template>

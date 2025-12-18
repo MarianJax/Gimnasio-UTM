@@ -1,0 +1,25 @@
+<header>
+    <i id="icon">
+        <mage-icon color="#000" name="ejercicio" size="24px"></mage-icon>
+    </i>
+    <h2>Rutina</h2>
+</header>
+
+<section>
+    <p-toast />
+    <app-form-rutina (addedRutinaForm)="loadRutinas()"></app-form-rutina>
+    <app-table-rutina></app-table-rutina>
+</section>
+
+<header style="margin-top:30px;">
+    <i id="icon">
+        <mage-icon color="#000" name="ejercicio" size="24px"></mage-icon>
+    </i>
+    <h2>Grupos musculares</h2>
+</header>
+
+<section>
+    <p-toast />
+    <app-form-grupo-muscular (addedGrupoForm)="loadGrupos()"></app-form-grupo-muscular>
+    <app-table-grupo-muscular></app-table-grupo-muscular>
+</section>

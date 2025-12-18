@@ -1,0 +1,414 @@
+// Variables
+$color-orange: #f9a602;
+$color-orange-dark: #e89500;
+$color-green: #20b486;
+$color-green-light: #e8f8f4;
+$color-green-border: #7dddc3;
+$color-white: #ffffff;
+$color-gray-light: #f5f5f5;
+$color-gray-medium: #9ca3af;
+$color-gray-dark: #374151;
+$color-text-dark: #2c3e50;
+
+$border-radius: 12px;
+$border-radius-large: 20px;
+$spacing-xs: 8px;
+$spacing-sm: 12px;
+$spacing-md: 20px;
+$spacing-lg: 30px;
+$spacing-xl: 40px;
+
+// Reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Helvetica", "Arial", sans-serif;
+  background-color: $color-gray-light;
+  padding: 20px;
+  line-height: 1.5;
+}
+
+// Receipt Container
+.receipt {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: $color-white;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+  // Header
+  &__header {
+    background: linear-gradient(
+      135deg,
+      $color-orange 0%,
+      $color-orange-dark 100%
+    );
+    padding: $spacing-lg $spacing-xl;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $color-white;
+
+    &-left {
+      display: flex;
+      align-items: center;
+      gap: $spacing-md;
+    }
+
+    &-text {
+      h1 {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      p {
+        font-size: 16px;
+        opacity: 0.95;
+        font-weight: 400;
+      }
+    }
+
+    &-right {
+      text-align: right;
+    }
+  }
+
+  &__voucher-label {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 2px;
+  }
+
+  &__voucher-number {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  &__icon {
+    width: 64px;
+    height: 64px;
+    background-color: $color-white;
+    border-radius: $border-radius;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    svg {
+      width: 36px;
+      height: 36px;
+      color: $color-orange;
+    }
+
+    &--small {
+      width: 48px;
+      height: 48px;
+
+      svg {
+        width: 28px;
+        height: 28px;
+      }
+    }
+  }
+
+  // Success Banner
+  &__success {
+    background-color: $color-green-light;
+    padding: $spacing-lg $spacing-xl;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-md;
+
+    &-icon {
+      svg {
+        width: 48px;
+        height: 48px;
+        color: $color-green;
+      }
+    }
+
+    &-text {
+      text-align: center;
+
+      h2 {
+        color: $color-green;
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      p {
+        color: $color-green;
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  // Content
+  &__content {
+    padding: $spacing-xl;
+  }
+
+  // Section
+  &__section {
+    margin-bottom: $spacing-xl;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &-title {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      font-size: 14px;
+      font-weight: 700;
+      color: $color-gray-medium;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: $spacing-md;
+    }
+  }
+
+  &__bullet {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+
+    &--orange {
+      background-color: $color-orange;
+    }
+
+    &--green {
+      background-color: $color-green;
+    }
+  }
+
+  // Grid
+  &__grid {
+    display: grid;
+    gap: $spacing-md $spacing-lg;
+
+    &--2col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    &--3col {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  // Field
+  &__field {
+    label {
+      display: block;
+      font-size: 13px;
+      color: $color-gray-medium;
+      margin-bottom: 4px;
+      font-weight: 400;
+    }
+
+    p {
+      font-size: 16px;
+      color: $color-text-dark;
+      font-weight: 600;
+    }
+  }
+
+  // Payment Box
+  &__payment-box {
+    border: 2px solid $color-green-border;
+    border-radius: $border-radius;
+    padding: $spacing-lg;
+    background-color: rgba($color-green-light, 0.3);
+  }
+
+  &__total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: $spacing-lg;
+    padding-top: $spacing-lg;
+    border-top: 2px solid $color-green-border;
+    font-size: 18px;
+    font-weight: 600;
+    color: $color-gray-dark;
+
+    &-amount {
+      font-size: 36px;
+      font-weight: 700;
+      color: $color-green;
+    }
+  }
+
+  // Note Section
+  &__note {
+    display: flex;
+    gap: $spacing-lg;
+    background-color: $color-gray-light;
+    padding: $spacing-lg;
+    border-radius: $border-radius;
+  }
+
+  &__qr {
+    text-align: center;
+    flex-shrink: 0;
+
+    &-code {
+      width: 120px;
+      height: 120px;
+      background-color: $color-white;
+      border: 2px dashed $color-gray-medium;
+      border-radius: $spacing-xs;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: $spacing-xs;
+    }
+
+    &-label {
+      font-size: 12px;
+      color: $color-gray-medium;
+    }
+  }
+
+  .qr-pattern {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .qr-square {
+    width: 20px;
+    height: 20px;
+    background-color: $color-text-dark;
+    border-radius: 2px;
+
+    &:nth-child(1),
+    &:nth-child(3),
+    &:nth-child(5),
+    &:nth-child(7),
+    &:nth-child(9) {
+      background-color: $color-text-dark;
+    }
+
+    &:nth-child(2),
+    &:nth-child(4),
+    &:nth-child(6),
+    &:nth-child(8) {
+      background-color: transparent;
+    }
+  }
+
+  &__note-content {
+    flex: 1;
+
+    h4 {
+      font-size: 16px;
+      color: $color-text-dark;
+      margin-bottom: $spacing-xs;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 14px;
+      color: $color-gray-dark;
+      line-height: 1.6;
+    }
+  }
+
+  // Footer
+  &__footer {
+    background: linear-gradient(
+      135deg,
+      $color-orange 0%,
+      $color-orange-dark 100%
+    );
+    padding: $spacing-md $spacing-xl;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $color-white;
+
+    &-left {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+    }
+
+    &-text {
+      h5 {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+
+      p {
+        font-size: 13px;
+        opacity: 0.9;
+      }
+    }
+
+    &-right {
+      text-align: right;
+      font-size: 13px;
+    }
+  }
+
+  &__timestamp-label {
+    opacity: 0.9;
+    margin-bottom: 2px;
+  }
+
+  &__timestamp {
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .receipt {
+    &__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacing-md;
+
+      &-right {
+        text-align: left;
+      }
+    }
+
+    &__grid {
+      &--2col,
+      &--3col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    &__note {
+      flex-direction: column;
+    }
+
+    &__footer {
+      flex-direction: column;
+      gap: $spacing-md;
+      align-items: flex-start;
+
+      &-right {
+        text-align: left;
+      }
+    }
+  }
+}

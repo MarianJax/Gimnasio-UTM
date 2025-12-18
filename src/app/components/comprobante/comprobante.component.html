@@ -1,0 +1,197 @@
+<div style="display: none;">
+
+    <div class="receipt" #pdfContent>
+  <!-- Header -->
+  <header class="receipt__header">
+    <div class="receipt__header-left">
+      <div class="receipt__icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect
+            x="3"
+            y="4"
+            width="18"
+            height="18"
+            rx="2"
+            stroke="currentColor"
+            stroke-width="2"
+          />
+          <path
+            d="M3 10h18M8 2v4M16 2v4M8 14h2M8 18h2M14 14h2M14 18h2"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      <div class="receipt__header-text">
+        <h1>Sistema de Agendamiento</h1>
+        <p>Universidad Técnica de Manab&iacute;</p>
+      </div>
+    </div>
+    <div class="receipt__header-right">
+      <div class="receipt__voucher-label">Comprobante N°</div>
+      <div class="receipt__voucher-number">TRX-{{ data?.anio }}-{{ data?.numero }}</div>
+    </div>
+  </header>
+
+  <!-- Success Banner -->
+  <div class="receipt__success">
+    <div class="receipt__success-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+        <path
+          d="M8 12l3 3 5-6"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+    <div class="receipt__success-text">
+      <h2>PAGO REALIZADO CON ÉXITO</h2>
+      <p>{{ data?.fechaPago }} a las {{ data?.hora }}</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="receipt__content">
+    <!-- Student Information -->
+    <section class="receipt__section">
+      <h3 class="receipt__section-title">
+        <span class="receipt__bullet receipt__bullet--orange"></span>
+        INFORMACIÓN DEL ESTUDIANTE
+      </h3>
+      <div class="receipt__grid receipt__grid--2col">
+        <div class="receipt__field" style="width: -webkit-fill-available;">
+          <label>Nombre completo</label>
+          <p>{{ data?.usuario }}</p>
+        </div>
+        
+        <div class="receipt__field">
+          <label>Facultad</label>
+          <p>{{ data?.facultad }}</p>
+        </div>
+        <div class="receipt__field">
+          <label>Carrera</label>
+          <p>{{ data?.carrera }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Appointment Details -->
+    <section class="receipt__section">
+      <h3 class="receipt__section-title">
+        <span class="receipt__bullet receipt__bullet--orange"></span>
+        DETALLES DEL AGENDAMIENTO
+      </h3>
+      <div class="receipt__grid receipt__grid--3col">
+        <div class="receipt__field">
+          <label>Grupo muscular</label>
+          <p>{{ data?.grupoMuscular }}</p>
+        </div>
+        <div class="receipt__field">
+          <label>Hora de inicio</label>
+          <p>{{ data?.horaInicio }}</p>
+        </div>
+        <div class="receipt__field">
+          <label>Hora de fin</label>
+          <p>{{ data?.horaFin }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Payment Information -->
+    <section class="receipt__section">
+      <h3 class="receipt__section-title">
+        <span class="receipt__bullet receipt__bullet--green"></span>
+        INFORMACIÓN DEL PAGO
+      </h3>
+      <div class="receipt__payment-box">
+        <div class="receipt__grid receipt__grid--2col">
+          <div class="receipt__field">
+            <label>Cuenta de destino</label>
+            <p>UTM</p>
+          </div>
+          <div class="receipt__field">
+            <label>Número de cuenta</label>
+            <p>2100090912</p>
+          </div>
+          <div class="receipt__field">
+            <label>Método de pago</label>
+            <p>{{ data?.metodoPago }}</p>
+          </div>
+          <div class="receipt__field">
+            <label>Fecha de pago</label>
+            <p>{{ data?.fechaPago }}</p>
+          </div>
+        </div>
+        <div class="receipt__total">
+          <span>Monto Total</span>
+          <span class="receipt__total-amount">${{ data?.monto }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Important Note -->
+    <section class="receipt__note">
+      <div class="receipt__qr">
+        <div class="receipt__qr-code">
+          <div class="qr-pattern">
+            <div class="qr-square"></div>
+            <div class="qr-square"></div>
+            <div class="qr-square"></div>
+            <div class="qr-square"></div>
+            <div class="qr-square"></div>
+            <div class="qr-square"></div>
+            <div class="qr-square"></div>
+            <div class="qr-square"></div>
+            <div class="qr-square"></div>
+          </div>
+        </div>
+      </div>
+      <div class="receipt__note-content">
+        <h4>Nota importante:</h4>
+        <p>
+          Este comprobante es válido como constancia de pago. Preséntelo al
+          momento de acceder a las instalaciones del gimnasio. Para cualquier
+          reclamo, comuníquese dentro de las 48 horas siguientes.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="receipt__footer">
+    <div class="receipt__footer-left">
+      <div class="receipt__icon receipt__icon--small">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect
+            x="3"
+            y="4"
+            width="18"
+            height="18"
+            rx="2"
+            stroke="currentColor"
+            stroke-width="2"
+          />
+          <path
+            d="M3 10h18M8 2v4M16 2v4"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      <div class="receipt__footer-text">
+        <h5>Sistema de Agendamiento UTM</h5>
+        <p>Servicio Universitario</p>
+      </div>
+    </div>
+    <div class="receipt__footer-right">
+      <div class="receipt__timestamp-label">Generado automáticamente</div>
+      <div class="receipt__timestamp">{{ data?.fechaGeneracion }}</div>
+    </div>
+  </footer>
+</div>
+</div>

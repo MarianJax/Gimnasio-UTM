@@ -1,0 +1,33 @@
+<form [formGroup]="rutinaForm" (ngSubmit)="addRutina()">
+  <div style="width: 100%">
+    <label for="url" class="">Enlace del Drive</label>
+    <input
+      id="url"
+      type="text"
+      placeholder=""
+      [ngClass]="{ 'ng-dirty ng-invalid': rutinaForm.getError('url') }"
+      formControlName="url"
+      pInputText
+    />
+    <small
+      *ngIf="rutinaForm.getError('nombre')"
+      class="ng-invalid text-red-600 block"
+    >
+      {{ rutinaForm.getError("nombre") }}
+    </small>
+  </div>
+  <div
+    style="
+      display: flex;
+      gap: 20px;
+      width: 100%;
+      justify-content: end;
+      margin: 10px 0;
+    "
+  >
+    <p-button [outlined]="true" severity="secondary">Cancelar</p-button>
+    <p-button type="submit" [outlined]="true" severity="contrast"
+      >Registrar</p-button
+    >
+  </div>
+</form>

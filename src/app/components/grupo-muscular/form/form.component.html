@@ -1,0 +1,33 @@
+<form [formGroup]="grupoForm" (ngSubmit)="addGrupo()">
+  <div style="width: 100%">
+    <label for="nombre" class="">Nombre</label>
+    <input
+      id="nombre"
+      type="text"
+      placeholder=""
+      [ngClass]="{ 'ng-dirty ng-invalid': grupoForm.getError('nombre') }"
+      formControlName="nombre"
+      pInputText
+    />
+    <small
+      *ngIf="grupoForm.getError('nombre')"
+      class="ng-invalid text-red-600 block"
+    >
+      {{ grupoForm.getError("nombre") }}
+    </small>
+  </div>
+  <div
+    style="
+      display: flex;
+      gap: 20px;
+      width: 100%;
+      justify-content: end;
+      margin: 10px 0;
+    "
+  >
+    <p-button [outlined]="true" severity="secondary">Cancelar</p-button>
+    <p-button type="submit" [outlined]="true" severity="contrast"
+      >Registrar</p-button
+    >
+  </div>
+</form>

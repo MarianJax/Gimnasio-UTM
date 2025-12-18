@@ -1,5 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  NgModule,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -21,36 +25,36 @@ import { CreateFormComponent } from '../../components/agendamientos/create-form/
 import { PagoFormComponent } from '../../components/agendamientos/create-form/pago-form/pago-form.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-
+import { ComprobanteComponent } from 'src/app/components/comprobante/comprobante.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     CreateFormComponent,
-        AgendamientoInfoComponent,
-        PagoFormComponent,
-        ConfirmComponent
+    AgendamientoInfoComponent,
+    PagoFormComponent,
+    ConfirmComponent,
+    ComprobanteComponent,
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     ReactiveFormsModule,
-        IconModule,
-        FormsModule,
-        InputTextModule,
-        ButtonModule,
-        RippleModule,
-        StepsModule,
-        TabViewModule,
-        CalendarModule,
-        DropdownModule,
-        InputNumberModule,
-        ToastModule,
-        TimelineModule,
-        DialogModule
-    
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-      providers: [ConfirmationService, MessageService]
-    })
-export class HomeModule { }
+    IconModule,
+    FormsModule,
+    InputTextModule,
+    ButtonModule,
+    RippleModule,
+    StepsModule,
+    TabViewModule,
+    CalendarModule,
+    DropdownModule,
+    InputNumberModule,
+    ToastModule,
+    TimelineModule,
+    DialogModule,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+  providers: [ConfirmationService, MessageService],
+})
+export class HomeModule {}

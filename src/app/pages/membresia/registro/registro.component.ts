@@ -7,6 +7,8 @@ import { SharedService } from '../../../service/shared.service';
 import { AuthService } from '../../login/auth.service';
 import { Horario, Intervalo, Reserva } from './type';
 import { MessageService } from 'primeng/api';
+import { GrupoMuscularService } from 'src/app/service/grupoMuscular/grupo-muscular.service';
+import { capitalizeFirstLetter } from 'src/app/core/utiils/formatters';
 
 @Component({
   selector: 'app-registro',
@@ -20,6 +22,8 @@ export class RegistroComponent implements OnInit {
   selectedJornada: string | null = null;
   maxDate: Date = new Date();
   minDate: Date = new Date();
+  grupos: { name: string; code: number }[] = [];
+  grupoSeleccionado: any = null;
 
   constructor(
     private router: Router,
@@ -28,11 +32,13 @@ export class RegistroComponent implements OnInit {
     private agendamientosService: AgendamientosService,
     private sharedService: SharedService,
     private authService: AuthService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private grupoMuscularService: GrupoMuscularService
   ) {
     this.membresiaForm = this.fb.group({
       fecha: new FormControl(''),
       jornada: new FormControl(''),
+      grupo: new FormControl(''),
     });
   }
 
@@ -42,7 +48,6 @@ export class RegistroComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-
     if (!this.sharedService.getParametro().valor) {
       this.router.navigate(['/membresia']);
     }
@@ -61,21 +66,39 @@ export class RegistroComponent implements OnInit {
       this.selectedJornada = value.code;
       this.consultarHorarios(this.selectedFecha as Date, value.code);
     });
+
+    this.grupoMuscularService
+      .obtenerGruposMusculares()
+      .subscribe((data: any) => {
+        data.forEach((grupo: any) => {
+          this.grupos.push({
+            name: capitalizeFirstLetter(grupo.nombre.trim()),
+            code: grupo.id,
+          });
+        });
+      });
   }
 
-  consultarHorarios(fecha: Date, jornada?: string,) {
+  consultarHorarios(fecha: Date, jornada?: string) {
     const usuario = this.authService.getUserData();
     if (fecha) {
       this.horarioService
-        .obtenerHorariosPorFechaYJornada(fecha, usuario.id, usuario.rol ,jornada)
+        .obtenerHorariosPorFechaYJornada(
+          fecha,
+          usuario.id,
+          usuario.rol,
+          jornada
+        )
         .subscribe((data: Horario[]) => {
-          this.agendamientosService.obtenerAgendamientosPorFecha(fecha).subscribe((agendamientos: Reserva[]) => {
-            console.log('Agendamientos:', agendamientos, usuario.id);
-            const newFormat = agendamientos
-              .filter((ag) => ag.usuario_id === usuario.id)
-              .map((ag) => ({ ...ag }));
-            this.horarios = this.transformarHorarios(data, newFormat);
-          });
+          this.agendamientosService
+            .obtenerAgendamientosPorFecha(fecha)
+            .subscribe((agendamientos: Reserva[]) => {
+              console.log('Agendamientos:', agendamientos, usuario.id);
+              const newFormat = agendamientos
+                .filter((ag) => ag.usuario_id === usuario.id)
+                .map((ag) => ({ ...ag }));
+              this.horarios = this.transformarHorarios(data, newFormat);
+            });
         });
     }
   }
@@ -84,26 +107,35 @@ export class RegistroComponent implements OnInit {
     const horariosTransformados: Intervalo[] = [];
 
     // Normalizamos las reservas a formato HH:mm (quitamos segundos)
-    const reservasNormalizadas = reservas.map(reserva => ({
+    const reservasNormalizadas = reservas.map((reserva) => ({
       hora_inicio: reserva.hora_inicio.slice(0, 5), // "09:00:00" -> "09:00"
-      hora_fin: reserva.hora_fin.slice(0, 5),       // "11:00:00" -> "11:00"
+      hora_fin: reserva.hora_fin.slice(0, 5), // "11:00:00" -> "11:00"
     }));
 
-    horarios.forEach(horario => {
+    horarios.forEach((horario) => {
       const jornada = horario.jornada;
-      let [inicioHora, inicioMinuto] = horario.hora_inicio.split(':').map(Number);
+      let [inicioHora, inicioMinuto] = horario.hora_inicio
+        .split(':')
+        .map(Number);
       const [finHora, finMinuto] = horario.hora_fin.split(':').map(Number);
 
-      while (inicioHora < finHora || (inicioHora === finHora && inicioMinuto < finMinuto)) {
+      while (
+        inicioHora < finHora ||
+        (inicioHora === finHora && inicioMinuto < finMinuto)
+      ) {
         const nextHour = inicioMinuto + 60 >= 60 ? inicioHora + 1 : inicioHora;
         const nextMinute = (inicioMinuto + 60) % 60;
 
-        const horaInicioStr = `${String(inicioHora).padStart(2, '0')}:${String(inicioMinuto).padStart(2, '0')}`;
-        const horaFinStr = `${String(nextHour).padStart(2, '0')}:${String(nextMinute).padStart(2, '0')}`;
+        const horaInicioStr = `${String(inicioHora).padStart(2, '0')}:${String(
+          inicioMinuto
+        ).padStart(2, '0')}`;
+        const horaFinStr = `${String(nextHour).padStart(2, '0')}:${String(
+          nextMinute
+        ).padStart(2, '0')}`;
 
         // Verificamos si el intervalo está ocupado
         const ocupado = reservasNormalizadas.some(
-          r => r.hora_inicio === horaInicioStr && r.hora_fin === horaFinStr
+          (r) => r.hora_inicio === horaInicioStr && r.hora_fin === horaFinStr
         );
 
         horariosTransformados.push({
@@ -123,24 +155,33 @@ export class RegistroComponent implements OnInit {
 
   agendar({ hora_fin, hora_inicio }: any) {
     let membresia = this.sharedService.getParametro();
-  
+
     if (membresia && this.selectedFecha) {
-      this.agendamientosService.agregarAgendamientoMembresia({
-        fecha: this.selectedFecha,
-        membresia: membresia.valor, hora_fin,
-        hora_inicio,
-        usuario_id: this.authService.getUserData().id,
-        distribucion: this.authService.getUserData().rol,
-      }).subscribe({
-        next: (data) => {
-          console.log(data);
-          this.router.navigate(['/membresia']);
-        },
-        error: (err) => {
-          this.messageService.add({ severity: 'warn', summary: 'Aviso', detail: err.error.message, life: 3000 });
-          console.error(err);
-        },
-      })
+      this.agendamientosService
+        .agregarAgendamientoMembresia({
+          fecha: this.selectedFecha,
+          membresia: membresia.valor,
+          hora_fin,
+          hora_inicio,
+          grupo_muscular: this.grupoSeleccionado.code,
+          usuario_id: this.authService.getUserData().id,
+          distribucion: this.authService.getUserData().rol,
+        })
+        .subscribe({
+          next: (data) => {
+            console.log(data);
+            this.router.navigate(['/membresia']);
+          },
+          error: (err) => {
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Aviso',
+              detail: err.error.message,
+              life: 3000,
+            });
+            console.error(err);
+          },
+        });
     }
   }
 

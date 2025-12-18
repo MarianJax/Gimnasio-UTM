@@ -1,0 +1,61 @@
+h3 {
+  font-size: 21px;
+  margin: 0;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  div {
+    label {
+      display: block;
+      color: black;
+      // font-size: 1.15rem;
+    }
+
+    input {
+      margin-top: 4px;
+      width: 100%;
+      padding: 1rem;
+    }
+
+    textarea {
+      margin-top: 4px;
+      width: 100%;
+      padding: 1rem;
+    }
+  }
+}
+
+:host ::ng-deep .p-dropdown {
+  margin-top: 4px;
+  width: 100%;
+
+  .p-inputtext {
+    font-family: "Montserrat", sans-serif;
+    padding: 1rem;
+    font-family: "Montserrat", sans-serif;
+    outline: none;
+  }
+}
+
+:host ::ng-deep .p-button {
+  padding: 5px 60px;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 8px 0px 8px 8px;
+
+  &.p-button-contrast {
+    border: 1px solid;
+
+    &:active,
+    &:focus,
+    &:hover,
+    &:not(.disabled):hover,
+    &:not(.disabled):active {
+      border: 2px solid;
+    }
+  }
+}

@@ -3,33 +3,33 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RutinasService {
-private apiUrl = 'http://localhost:3000/rutina';
-  constructor(private http: HttpClient) { }
+  private apiUrl = 'http://localhost:3000/rutina';
+  constructor(private http: HttpClient) {}
 
-  obtenerRutinas():Observable<any>{
+  obtenerRutinas(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
 
-  agregarRutina(rutina:any):Observable<any>{
+  agregarRutina(rutina: any): Observable<any> {
     return this.http.post(this.apiUrl, rutina);
   }
 
-  obtenerRutina(id:any):Observable<any>{
+  obtenerRutinaActiva(): Observable<any> {
+    return this.http.get(`${this.apiUrl}?status=true`);
+  }
+
+  obtenerRutina(id: any): Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  actualizarRutina(rutina:any):Observable<any>{
+  actualizarRutina(rutina: any): Observable<any> {
     return this.http.patch(`${this.apiUrl}/${rutina.id}`, rutina);
   }
 
-  eliminarRutina(id:any):Observable<any>{
+  eliminarRutina(id: any): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
-  }
-
-  eliminarEjercicio(id: string, ejercicio: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}/ejercicio/${ejercicio}`);
   }
 }
