@@ -41,17 +41,34 @@
     >
       <div class="flex flex-column" *ngIf="dataAction">
         <mage-icon
-          [name]="dataAction.status === 'success' ? 'checkmark-fill' : 'cancel-circle-fill'"
+          [name]="
+            dataAction.status === 'success'
+              ? 'checkmark-fill'
+              : 'cancel-circle-fill'
+          "
           size="60px"
-          [color]="dataAction.status === 'success' ? 'white': '#FF0C10'"
-          [fill]="dataAction.status === 'success' ? '#299607': 'none'"
-          
+          [color]="dataAction.status === 'success' ? 'white' : '#FF0C10'"
+          [fill]="dataAction.status === 'success' ? '#299607' : 'none'"
         ></mage-icon>
-        <span [style]="{ color: dataAction.status === 'success'? '#299607' : '#FF0C10', textAlign:'center' }">{{ dataAction.message }}</span>
+        <span
+          [style]="{
+            color: dataAction.status === 'success' ? '#299607' : '#FF0C10',
+            textAlign: 'center'
+          }"
+          >{{ dataAction.message }}</span
+        >
+        <button
+          pButton
+          (click)="download()"
+          type="button"
+          label="Descargar comprobante"
+          *ngIf="dataAction && dataAction.status === 'success'"
+        ></button>
       </div>
     </div>
+
     <div class="button">
-    
+      <app-comprobante [data]="pdfData"></app-comprobante>
     </div>
   </div>
 </div>

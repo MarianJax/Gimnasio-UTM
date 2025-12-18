@@ -104,7 +104,8 @@
         }
     }
 
-    button[label="Regresar"] {
+    button[label="Regresar"],
+    button[label="Descargar comprobante"] {
         max-width: min-content;
         background: transparent;
         border: 2px solid #F8D13C;
@@ -118,6 +119,13 @@
             border: 2px solid #F8D13C;
             color: black;
         }
+    }
+     button[label="Descargar comprobante"] {
+        margin-left: 16px;
+        min-width:fit-content !important;
+        margin: 0 auto;
+
+        margin-top: 10px !important;
     }
 
     @media screen and (max-width: 576px) {

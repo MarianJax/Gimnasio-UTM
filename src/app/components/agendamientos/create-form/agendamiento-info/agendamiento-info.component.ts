@@ -10,9 +10,10 @@ import {
   capitalizeFirstLetter,
   formatDate,
   formatTime,
-  generarRangoHoras
+  generarRangoHoras,
 } from '../../../../core/utiils/formatters';
 import { AuthService } from '../../../../pages/login/auth.service';
+import { GrupoMuscularService } from '../../../../service/grupoMuscular/grupo-muscular.service';
 import { HorarioService } from '../../../../service/horarios/horario.service';
 import { InstitucionService } from '../../../../service/institucion/institucion.service';
 import { MembresiaService } from '../../../../service/membresias/membresia.service';
@@ -23,18 +24,18 @@ export interface Estados {
 }
 
 interface HorarioType {
-  distribucion: DistribucionType
-  hora_fin: string
-  hora_inicio: string
-  jornada: string
+  distribucion: DistribucionType;
+  hora_fin: string;
+  hora_inicio: string;
+  jornada: string;
 }
 
 interface DistribucionType {
-  cupo: number
-  pago_diario: string
-  pago_mensual: string
-  pago_semanal: string
-  tiempo: number
+  cupo: number;
+  pago_diario: string;
+  pago_mensual: string;
+  pago_semanal: string;
+  tiempo: number;
 }
 
 const FECHA_ACTUAL = new Date();
@@ -44,7 +45,6 @@ const FECHA_ACTUAL = new Date();
   templateUrl: './agendamiento-info.component.html',
   styleUrls: ['./agendamiento-info.component.scss'],
 })
-
 export class AgendamientoInfoComponent implements OnInit {
   minDate: Date = new Date();
   // maxDate: Date = FECHA_ACTUAL;
@@ -53,11 +53,19 @@ export class AgendamientoInfoComponent implements OnInit {
   facultades: Estados[] = [];
   departamentos: Estados[] = [];
   carreras: Estados[] = [];
+  grupos: Estados[] = [];
   EsP_Administrativo: boolean = false;
 
   horas!: SelectItemGroup[];
 
-  constructor(private fb: FormBuilder, private serviceMembresia: MembresiaService, private horarioService: HorarioService, private authService: AuthService, private institucionService: InstitucionService) {
+  constructor(
+    private fb: FormBuilder,
+    private serviceMembresia: MembresiaService,
+    private horarioService: HorarioService,
+    private authService: AuthService,
+    private institucionService: InstitucionService,
+    private grupoMuscularService: GrupoMuscularService
+  ) {
     const date = new Date();
 
     this.obtenerHorarios(this.authService.getUserData().rol, date);
@@ -70,6 +78,7 @@ export class AgendamientoInfoComponent implements OnInit {
       facultad: new FormControl<Estados | null>(null),
       departamento: new FormControl<Estados | null>(null),
       carrera: new FormControl<Estados | null>(null),
+      grupo_muscular: new FormControl<Estados | null>(null, [Validators.required]),
     });
   }
 
@@ -78,9 +87,15 @@ export class AgendamientoInfoComponent implements OnInit {
       this.INIT_DATA = data.value;
       data.value.forEach((facultad: any) => {
         if (facultad.tipo === 'ACADEMICO') {
-          this.facultades.push({ name: capitalizeFirstLetter(facultad.nombre.trim()), code: facultad.idfacultad });
+          this.facultades.push({
+            name: capitalizeFirstLetter(facultad.nombre.trim()),
+            code: facultad.idfacultad,
+          });
         } else {
-          this.departamentos.push({ name: capitalizeFirstLetter(facultad.nombre.trim()), code: facultad.idfacultad });
+          this.departamentos.push({
+            name: capitalizeFirstLetter(facultad.nombre.trim()),
+            code: facultad.idfacultad,
+          });
         }
       });
 
@@ -95,77 +110,76 @@ export class AgendamientoInfoComponent implements OnInit {
             });
           });
           this.agendarForm.patchValue({
-            facultad: this.facultades.find((f) => f.code == localStorage.getItem('facultad')),
-            carrera: this.carreras.find((f) => f.code == localStorage.getItem('carrera')),
+            facultad: this.facultades.find(
+              (f) => f.code == localStorage.getItem('facultad')
+            ),
+            carrera: this.carreras.find(
+              (f) => f.code == localStorage.getItem('carrera')
+            ),
           });
-
         }
       });
 
       this.agendarForm.patchValue({
-        departamento: this.facultades.find((f) => f.code === localStorage.getItem('departamento')),
-      })
-
+        departamento: this.facultades.find(
+          (f) => f.code === localStorage.getItem('departamento')
+        ),
+      });
     });
   }
 
   obtenerHorarios(rol: string, fecha: Date) {
     const getDay = capitalizeFirstLetter(formatDate(fecha));
-    this.horarioService.obtenerHorarioPorRolYDia(rol, getDay, fecha.toISOString()).subscribe({
-      next: ({ horarios, agendamientos }: {
-        horarios: HorarioType[];
-        agendamientos: { hora_inicio: string, total: string }[];
-      }) => {
-        this.horas = [];
-        console.log("Agendamientos ->",agendamientos, horarios) 
-        if (horarios.length < 1) return;
-        horarios.forEach((horario: HorarioType) => {
-          console.log(
-              formatTime(horario.hora_inicio as string),"-",
-              formatTime(horario.hora_fin as string),"-",
-              Number(horario.distribucion.tiempo),"-",
-              agendamientos,"-",
-              horario.distribucion.cupo,"-",
-              fecha, "-"
-            );
-          const label = horario.jornada === 'Matutina' ? 'Mañana' : 'Tarde';
-          this.horas.push({
-            label,
-            items: generarRangoHoras(
+    this.horarioService
+      .obtenerHorarioPorRolYDia(rol, getDay, fecha.toISOString())
+      .subscribe({
+        next: ({
+          horarios,
+          agendamientos,
+        }: {
+          horarios: HorarioType[];
+          agendamientos: { hora_inicio: string; total: string }[];
+        }) => {
+          this.horas = [];
+          console.log('Agendamientos ->', agendamientos, horarios);
+          if (horarios.length < 1) return;
+          horarios.forEach((horario: HorarioType) => {
+            console.log(
               formatTime(horario.hora_inicio as string),
+              '-',
               formatTime(horario.hora_fin as string),
+              '-',
               Number(horario.distribucion.tiempo),
+              '-',
               agendamientos,
+              '-',
               horario.distribucion.cupo,
-              fecha
-            ),
+              '-',
+              fecha,
+              '-'
+            );
+            const label = horario.jornada === 'Matutina' ? 'Mañana' : 'Tarde';
+            this.horas.push({
+              label,
+              items: generarRangoHoras(
+                formatTime(horario.hora_inicio as string),
+                formatTime(horario.hora_fin as string),
+                Number(horario.distribucion.tiempo),
+                agendamientos,
+                horario.distribucion.cupo,
+                fecha
+              ),
+            });
           });
-        })
-      },
-      error: (err) => {
-        console.error(err);
-      },
-    });
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      });
   }
 
   ngOnInit() {
-
     const user = this.authService.getUserData();
-    /*this.serviceMembresia
-      .obtenerMembresiaPorUsuario(user.id, new Date())
-      .subscribe({
-        next: (data) => {
-          this.minDate = new Date(FECHA_ACTUAL);
-          if (data && data.pagos && data.pagos.validacion_pago && data.pagos.validacion_pago[0].estado==='Aprobado') {
-            this.maxDate = new Date(data.fecha_fin);            
-          } else {
-            this.maxDate = new Date();
-          }
-        },
-        error: (error) => {
-          console.error('Error al obtener membresías:', error);
-        },
-      });*/
 
     this.agendarForm.get('fecha')?.valueChanges.subscribe((val) => {
       this.obtenerHorarios(this.authService.getUserData().rol, val as Date);
@@ -188,10 +202,24 @@ export class AgendamientoInfoComponent implements OnInit {
 
     this.agendarForm.get('carrera')?.valueChanges.subscribe((val) => {
       localStorage.setItem('carrera', val.code);
-      localStorage.setItem('facultad', this.agendarForm.get('facultad')?.value.code);
+      localStorage.setItem(
+        'facultad',
+        this.agendarForm.get('facultad')?.value.code
+      );
     });
 
     this.ObtenerDatosInstitucion();
+    this.grupoMuscularService
+      .obtenerGruposMusculares()
+      .subscribe((data: any) => {
+        data.forEach((grupo: any) => {
+          console.log('Grupo muscular ->', grupo);
+          this.grupos.push({
+            name: capitalizeFirstLetter(grupo.nombre.trim()),
+            code: grupo.id,
+          });
+        });
+      });
   }
 
   // Método para validar el formulario (puede ser llamado desde el componente padre)
@@ -203,12 +231,19 @@ export class AgendamientoInfoComponent implements OnInit {
         if (key === 'fecha' && control?.errors && control?.errors['required']) {
           errors[key] = 'La fecha es requerida';
         } else if (
+          key === 'grupo_muscular' &&
+          control?.errors &&
+          control?.errors['required']
+        ) {
+          errors[key] = 'El grupo muscular es requerido';
+        } else if (
           key === 'hora' &&
           control?.errors &&
           control?.errors['required']
         ) {
           errors[key] = 'La hora es requerida';
         }
+        console.log(`Control: ${key}, Errors:`, control?.errors);
         this.agendarForm.setErrors(errors);
       });
       return false;

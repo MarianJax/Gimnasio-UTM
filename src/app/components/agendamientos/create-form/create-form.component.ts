@@ -7,6 +7,7 @@ import { FormService } from '../../../service/agendamiento/form-service.service'
 import { AgendamientoInfoComponent } from './agendamiento-info/agendamiento-info.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { PagoFormComponent } from './pago-form/pago-form.component';
+import { ComprobanteComponent } from '../../comprobante/comprobante.component';
 
 @Component({
   selector: 'app-create-form',
@@ -23,6 +24,21 @@ export class CreateFormComponent implements AfterViewInit {
   items: MenuItem[] = [];
   activeIndex: number = 0;
   dataAction!: { status: string; message: string };
+  pdfData: {
+    anio: string;
+    numero: string;
+    facultad: string;
+    usuario: string;
+    carrera: string;
+    grupoMuscular: string;
+    horaInicio: string;
+    horaFin: string;
+    fechaPago: string;
+    metodoPago: string;
+    monto: string;
+    fechaGeneracion: string;
+    hora: string;
+  } | null = null;
 
   // Almacenar el estado de validación de cada paso
   stepValidation: { [key: number]: boolean } = {
@@ -72,8 +88,6 @@ export class CreateFormComponent implements AfterViewInit {
     }
   }
 
-  
-
   prev() {
     if (this.activeIndex > 0) {
       this.activeIndex--;
@@ -116,7 +130,6 @@ export class CreateFormComponent implements AfterViewInit {
               fecha: this.agendamientoComponent.agendarForm
                 .get('fecha')
                 ?.getRawValue(),
-
             },
           },
           {
@@ -134,9 +147,11 @@ export class CreateFormComponent implements AfterViewInit {
       case 3: // Finalizar
         const user = this.authService.getUserData();
         let ret: boolean = false;
-        const uint8Array = new Uint8Array(this.pagoComponent.pagoForm
-          .get('evidencia_pago_buffer')
-          ?.getRawValue());
+        const uint8Array = new Uint8Array(
+          this.pagoComponent.pagoForm
+            .get('evidencia_pago_buffer')
+            ?.getRawValue()
+        );
         const array = Array.from(uint8Array);
         this.agendamientoService
           .crearAgendamiento({
@@ -153,16 +168,33 @@ export class CreateFormComponent implements AfterViewInit {
               ?.getRawValue()).name,
             monto: this.pagoComponent.pagoForm.get('monto')?.getRawValue(),
             evidencia_pago: array,
-            facu_id: this.agendamientoComponent.agendarForm
-              .get('facultad')
-              ?.getRawValue() && (this.agendamientoComponent.agendarForm
+            facu_id:
+              this.agendamientoComponent.agendarForm
+                .get('facultad')
+                ?.getRawValue() &&
+              (this.agendamientoComponent.agendarForm
                 .get('facultad')
                 ?.getRawValue()).code,
-            carr_id: this.agendamientoComponent.agendarForm.get('carrera')?.getRawValue() && (this.agendamientoComponent.agendarForm.get('carrera')?.getRawValue()).code,
-            dep_id: this.agendamientoComponent.agendarForm
-              .get('departamento')
-              ?.getRawValue() && (this.agendamientoComponent.agendarForm
+            carr_id:
+              this.agendamientoComponent.agendarForm
+                .get('carrera')
+                ?.getRawValue() &&
+              (this.agendamientoComponent.agendarForm
+                .get('carrera')
+                ?.getRawValue()).code,
+            dep_id:
+              this.agendamientoComponent.agendarForm
                 .get('departamento')
+                ?.getRawValue() &&
+              (this.agendamientoComponent.agendarForm
+                .get('departamento')
+                ?.getRawValue()).code,
+            grupo_muscular:
+              this.agendamientoComponent.agendarForm
+                .get('grupo_muscular')
+                ?.getRawValue() &&
+              (this.agendamientoComponent.agendarForm
+                .get('grupo_muscular')
                 ?.getRawValue()).code,
           })
           .subscribe({
@@ -172,10 +204,8 @@ export class CreateFormComponent implements AfterViewInit {
                   status: data.status,
                   message: data.message.message,
                 };
-
               } else {
                 this.dataAction = data;
-
               }
               ret = true;
               return ret;
@@ -238,5 +268,43 @@ export class CreateFormComponent implements AfterViewInit {
       );
       return;
     }
+  }
+
+  @ViewChild(ComprobanteComponent) pdfGenerator!: ComprobanteComponent;
+
+  download() {
+    const user = this.authService.getUserData();
+    const horas = this.agendamientoComponent.agendarForm
+      .get('hora')
+      ?.getRawValue();
+    const [hora_inicio, hora_fin] = horas ? horas.split(' - ') : ['', ''];
+
+    this.pdfData = {
+      hora: new Date().toLocaleTimeString(),
+      anio: new Date().getFullYear().toString(),
+      numero: Math.floor(Math.random() * 1000000).toString(),
+      facultad: this.agendamientoComponent.agendarForm
+        .get('facultad')
+        ?.getRawValue()?.name,
+      usuario: user?.nombres,
+      carrera: this.agendamientoComponent.agendarForm
+        .get('carrera')
+        ?.getRawValue()?.name,
+      grupoMuscular: this.agendamientoComponent.agendarForm
+        .get('grupo_muscular')
+        ?.getRawValue()?.name,
+      horaInicio: hora_inicio,
+      horaFin: hora_fin,
+      fechaPago: new Date().toLocaleDateString(),
+      metodoPago: (this.pagoComponent.pagoForm
+        .get('metodo_pago')
+        ?.getRawValue()).name,
+      monto: this.pagoComponent.pagoForm.get('monto')?.getRawValue(),
+      fechaGeneracion: new Date().toLocaleDateString(),
+    };
+
+    setTimeout(() => {
+      this.pdfGenerator.generatePDF();
+    }, 0);
   }
 }
